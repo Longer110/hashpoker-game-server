@@ -1,0 +1,65 @@
+syntax = "proto2";
+
+package DiShu_pb;
+
+message DiShu_Proto {
+    required int32 Main_CMD = 1 [default = 333];
+    required int32 DiShuLogonReq_CMD = 2 [default = 2];
+    required int32 DiShuLogonRsp_CMD = 3 [default = 3];
+    required int32 DiShuLevelGateReq_CMD = 4 [default = 4];
+    required int32 DiShuLevelGateRsp_CMD = 5 [default = 5];
+    required int32 DiShuWorldTopReq_CMD = 6 [default = 6];
+    required int32 DiShuWorldTopRsp_CMD = 7 [default = 7];
+    required int32 DiShuBackToLobbyReq_CMD = 10 [default = 8];
+    required int32 DiShuBackToLobbyRsp_CMD = 11 [default = 9];
+}
+
+message DiShuLogonReq {
+    required int32 nUserId = 1;
+}
+
+message DiShuLogonRsp {
+    required int32 nResult = 1;
+    optional double nGold = 2;
+    optional int32 nItemId = 4;
+}
+
+message DiShuBackToLobbyReq {
+    optional int32 nNoUse = 1;
+}
+
+message DiShuBackToLobbyRsp {
+    required int32 nRlt = 1;
+    optional string strErr = 2;
+}
+
+message DiShuLevelGateReq {
+    required int32 nUserId = 1;
+    required string sName = 2;
+    required int32 nScore = 3;
+    optional int32 nLevelGate = 4;
+    optional int32 nGateTime = 5;
+    optional int32 nCount = 6;
+    optional string sStar = 7;
+}
+
+message DiShuLevelGateRsp {
+    required int32 nRlt = 1;
+    optional string strErr = 2;
+}
+
+message DiShuWorldList {
+    required string sName = 1;
+    required string sFaceId = 2;
+    required int32 nScore = 3;
+    required int32 nUserId = 4;
+}
+
+message DiShuWorldTopReq {
+    required int32 nRingking = 1;
+}
+
+message DiShuWorldTopRsp {
+    required int32 nRingking = 1;
+    repeated DiShuWorldList arrWorldList = 2;
+}

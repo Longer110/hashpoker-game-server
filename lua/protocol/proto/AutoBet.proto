@@ -1,0 +1,198 @@
+syntax = "proto2";
+
+package AutoBet_pb;
+
+// ==================== 主控制消息 ====================
+message AutoBet_Proto {
+    required int32 Main_CMD              = 1  [default = 301];
+    required int32 BetAutoConfigReq_CMD  = 2  [default = 2];
+    required int32 BetAutoConfigRsp_CMD  = 3  [default = 3];
+    required int32 SaveAndRunReq_CMD     = 4  [default = 4];
+    required int32 SaveAndRunRsp_CMD     = 5  [default = 5];
+    required int32 RunMsgNotify_CMD      = 6  [default = 6];
+    required int32 CloseListenReq_CMD    = 7  [default = 7];
+    required int32 MissRecordReq_CMD     = 8  [default = 8];
+    required int32 MissRecordRsp_CMD     = 9  [default = 9];
+    required int32 MissTableReq_CMD      = 10 [default = 10];
+    required int32 MissTableRsp_CMD      = 11 [default = 11];
+    required int32 BetRecordReq_CMD      = 12 [default = 12];
+    required int32 BetRecordRsp_CMD      = 13 [default = 13];
+    required int32 StopRunReq_CMD        = 14 [default = 14];
+    required int32 StopRunRsp_CMD        = 15 [default = 15];
+    required int32 BetRecordGrpReq_CMD   = 16 [default = 16];
+    required int32 BetRecordGrpRsp_CMD   = 17 [default = 17];
+    required int32 ReserveA_CMD          = 100 [default = 100];
+}
+
+// ==================== 自动投注配置请求 ====================
+message BetAutoConfigReq {
+    required int32 nUserId   = 1;
+    optional int32 nNoUse    = 2;
+    optional int32 nSkinType = 3;
+}
+
+// ==================== 自动投注配置响应 ====================
+message BetAutoConfigRsp {
+    message TableItem {
+        required string sTableId   = 1;
+        required string sTableName = 2;
+    }
+    message BetRange {
+        required int32 nMin = 1;
+        required int32 nMax = 2;
+    }
+
+    repeated TableItem vTableList = 1;
+    repeated BetRange  vBetRange  = 2;
+    required int32     nSkinType  = 3;
+    required int32     nUserId    = 4;
+    required int32     nResult    = 5;
+}
+
+// ==================== 投注运行请求 ====================
+message SaveAndRunReq {
+    required int32  nUserId     = 1;
+    required string sConfigJson = 2;
+}
+
+// ==================== 投注运行响应 ====================
+message SaveAndRunRsp {
+    required int32 nResult = 1;
+}
+
+// ==================== 运行过程消息 ====================
+message RunMsg {
+    message Bet {
+        required string sTableId   = 1;
+        required string sPaiJuId   = 2;
+        required int32  nChip      = 3;
+        required int32  nBetArea   = 4;
+        required int32  nBalance   = 5;
+        optional string sTableName = 6;
+    }
+    message Result {
+        required string sTableId   = 1;
+        required string sPaiJuId   = 2;
+        required int32  nRlt       = 3;
+        required int32  nProfit    = 4;
+        required int32  nBalance   = 5;
+        required int32  nProfitSum = 6;
+        optional string sTableName = 7;
+    }
+    message LossPause {
+        required string sTableId   = 1;
+        required int32  nPauseTime = 2;
+        optional string sTableName = 3;
+    }
+    message WinStop {
+        required int32  nTrendType = 1;
+        optional string sTableName = 2;
+    }
+    message Stop {
+        required int32 nReason = 1;
+    }
+
+    required int32     nMsgId     = 1;
+    optional Bet       tBet       = 2;
+    optional Result    tResult    = 3;
+    optional LossPause tLossPause = 4;
+    optional WinStop   tWinStop   = 5;
+    optional Stop      tStop      = 6;
+    optional int32     nTimestamp = 7;
+}
+
+// ==================== 运行消息通知 ====================
+message RunMsgNotify {
+    required RunMsg tRunMsg = 1;
+}
+
+// ==================== 停止运行请求 ====================
+message StopRunReq {
+    required int32 nUserId = 1;
+}
+
+// ==================== 停止运行响应 ====================
+message StopRunRsp {
+    required int32 nResult = 1;
+}
+
+// ==================== 补单请求 ====================
+message MissRecordReq {
+    required int32 nUserId  = 1;
+    required int32 nPageIdx = 2;
+    required int32 nPageSize= 3;
+}
+
+// ==================== 补单响应 ====================
+message MissRecordRsp {
+    message MissItem {
+        required string sTableId   = 1;
+        required string sPaiJuId   = 2;
+        required int32  nBetArea   = 3;
+        required int32  nChip      = 4;
+        required int32  nRlt       = 5;
+        required int32  nProfit    = 6;
+        optional string sTableName = 7;
+    }
+
+    repeated MissItem vMissList = 1;
+    required int32    nResult   = 2;
+}
+
+// ==================== 缺失桌子请求 ====================
+message MissTableReq {
+    required int32 nUserId = 1;
+}
+
+// ==================== 缺失桌子响应 ====================
+message MissTableRsp {
+    message TableItem {
+        required string sTableId   = 1;
+        required string sTableName = 2;
+    }
+
+    repeated TableItem vTableList = 1;
+    required int32     nResult    = 2;
+}
+
+// ==================== 投注记录请求 ====================
+message BetRecordReq {
+    required int32 nUserId  = 1;
+    required int32 nPageIdx = 2;
+    required int32 nPageSize= 3;
+}
+
+// ==================== 投注记录响应 ====================
+message BetRecordRsp {
+    message RecordItem {
+        required string sTableId   = 1;
+        required string sPaiJuId   = 2;
+        required int32  nBetArea   = 3;
+        required int32  nChip      = 4;
+        required int32  nRlt       = 5;
+        required int32  nProfit    = 6;
+        required int32  nBalance   = 7;
+        optional string sTableName = 8;
+    }
+
+    repeated RecordItem vRecordList = 1;
+    required int32      nResult     = 2;
+}
+
+// ==================== 投注记录分组请求 ====================
+message BetRecordGrpReq {
+    required int32 nUserId = 1;
+}
+
+// ==================== 投注记录分组响应 ====================
+message BetRecordGrpRsp {
+    message GroupItem {
+        required string sTableId   = 1;
+        required string sTableName = 2;
+        required int32  nBetCnt    = 3;
+        required int32  nProfitSum = 4;
+    }
+
+    repeated GroupItem vGroupList = 1;
+    required int32     nResult    = 2;
+}

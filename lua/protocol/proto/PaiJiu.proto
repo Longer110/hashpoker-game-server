@@ -1,0 +1,171 @@
+syntax = "proto2";
+
+package PaiJiu_pb;
+
+message PaiJiu_Proto {
+    required int32 Main_CMD = 1 [default = 216];
+    required int32 PaiJiuLogOnReq_CMD = 2 [default = 2];
+    required int32 PaiJiuLogOnResp_CMD = 3 [default = 3];
+    required int32 PaiJiuMatchingReq_CMD = 4 [default = 4];
+    required int32 PaiJiuMatchingRsp_CMD = 5 [default = 5];
+    required int32 PaiJiuMatchingSucceeNotify_CMD = 6 [default = 6];
+    required int32 PaiJiuCancelMatchingReq_CMD = 7 [default = 7];
+    required int32 GoInQiangZhuangStageNotify_CMD = 8 [default = 8];
+    required int32 QiangZhuangReq_CMD = 9 [default = 9];
+    required int32 QiangZhuangNotify_CMD = 10 [default = 10];
+    required int32 DingZhuangNotify_CMD = 11 [default = 11];
+    required int32 GoInBetStageNotify_CMD = 12 [default = 12];
+    required int32 BetReq_CMD = 13 [default = 13];
+    required int32 BetNotify_CMD = 14 [default = 14];
+    required int32 GoInCmpStageNotify_CMD = 15 [default = 15];
+    required int32 ToNextNotify_CMD = 16 [default = 16];
+    required int32 PaiJiuEndNotify_CMD = 17 [default = 17];
+    required int32 PaiJiuBackToLobbyReq_CMD = 18 [default = 18];
+    required int32 PaiJiuBackToLobbyRsp_CMD = 19 [default = 19];
+    required int32 PaiJiuGmReq_CMD = 20 [default = 20];
+    required int32 PaiJiuGmRsp_CMD = 21 [default = 21];
+}
+
+message PaiJiuLogOnReq {
+    required int32 nUserId = 1;
+    optional int32 nRoomId = 2 [default = 0];
+}
+
+message PaiJiuLogOnResp {
+    required int32 nRlt = 1;
+    optional string strErr = 2 [default = ""];
+    optional PaiJiuScence tScence = 3;
+    optional int32 nOtherGameId = 4 [default = 0];
+    optional int32 nOtherGameRoomId = 5 [default = 0];
+}
+
+message PaiJiuUser {
+    required int32 nUserId = 1;
+    required int32 nSitId = 2;
+    required string sFaceId = 3;
+    required string sName = 4;
+    required double nGold = 5;
+    required int32 nSex = 6;
+    optional int32 nStatus = 7 [default = 0];
+}
+
+message PaiJiuScence {
+    repeated PaiJiuUser arrUsers = 1;
+    required string sPaijuId = 2;
+    required int32 nRoomId = 3;
+    required int32 nAnte = 4;
+    required int32 nCurRound = 5;
+    required int32 nMaxRound = 6;
+    required int32 nStage = 7;
+    required int32 nSeconds = 8;
+    repeated int32 arrChoices = 9;
+    optional int32 nZhuangJiaPos = 10 [default = 0];
+    optional GoInCmpStageNotify tRlt = 11;
+    repeated int32 arrPileCard = 12;
+}
+
+message PaiJiuMatchingReq {
+    optional int32 nNoUse = 1 [default = 0];
+}
+
+message PaiJiuMatchingRsp {
+    required int32 nRlt = 1;
+    optional string strErr = 2 [default = ""];
+}
+
+message PaiJiuMatchingSucceeNotify {
+    required PaiJiuScence tScence = 1;
+}
+
+message PaiJiuCancelMatchingReq {
+    optional int32 nNoUse = 1 [default = 0];
+}
+
+message GoInQiangZhuangStageNotify {
+    required int32 nSeconds = 1;
+    repeated int32 arrChoices = 2;
+    required int32 nCurRound = 3;
+}
+
+message QiangZhuangReq {
+    required int32 nChoice = 1;
+}
+
+message QiangZhuangNotify {
+    required int32 nSitId = 1;
+    required int32 nChoice = 2;
+}
+
+message DingZhuangNotify {
+    repeated int32 arrSitId = 1;
+    required int32 nZhuangSitId = 2;
+}
+
+message GoInBetStageNotify {
+    required int32 nSeconds = 1;
+    repeated int32 arrChoices = 2;
+}
+
+message BetReq {
+    required int32 nChoice = 1;
+}
+
+message BetNotify {
+    required int32 nSitId = 1;
+    required int32 nChoice = 2;
+}
+
+message GoInCmpStageNotify {
+    message Item {
+        required int32 nSitId = 1;
+        repeated int32 arrCard = 2;
+        required int32 nType = 3;
+        required int32 nIsWin = 4;
+        required double nProfit = 5;
+    }
+    
+    required int32 nDiceA = 1;
+    required int32 nDiceB = 2;
+    repeated Item arrItem = 3;
+    required int32 nFirstOpenPos = 4;
+    repeated int32 arrPileCard = 5;
+}
+
+message ToNextNotify {
+    required int32 nSeconds = 1;
+}
+
+message PaiJiuEndNotify {
+    message Item {
+        required string sNickName = 1;
+        required double nInitGold = 2;
+        required int32 nType = 3;
+        required int32 nAnte = 4;
+        required int32 nQiangZhuangChoice = 5;
+        required int32 nBetChoice = 6;
+        required double nProfit = 7;
+        required int32 nRound = 8;
+        required int32 nIsZhuang = 9;
+        optional int32 nUserId = 10 [default = 0];
+    }
+    
+    repeated Item arrItem = 1;
+}
+
+message PaiJiuBackToLobbyReq {
+    optional int32 nNoUse = 1 [default = 0];
+}
+
+message PaiJiuBackToLobbyRsp {
+    required int32 nRlt = 1;
+    optional string strErr = 2 [default = ""];
+}
+
+message PaiJiuGmReq {
+    required string strCmd = 1;
+}
+
+message PaiJiuGmRsp {
+    required int32 nRlt = 1;
+    optional string strErr = 2 [default = ""];
+}

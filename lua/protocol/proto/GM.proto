@@ -1,0 +1,13 @@
+syntax = "proto2";
+
+package GM_pb;
+
+message GM_Q {
+  required int32 CMD = 1;
+  required int32 Time = 2;
+  optional int32 Effectime = 3;
+}
+
+message GM_P {
+  required int32 Result = 1;
+}

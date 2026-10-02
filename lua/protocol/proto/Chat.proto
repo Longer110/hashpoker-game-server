@@ -1,0 +1,132 @@
+syntax = "proto2";
+
+package Chat_pb;
+
+
+//分三类: 请求(Req) 回复(Rsp) 通知(Notify)
+//注意命名规则为协议名称加后缀 '_CMD' (服务器代码中利用这一规则来寻找协议命令,)
+message Chat_Proto 
+{			    
+	required int32 Main_CMD = 1 		      				[default = 110];//聊天主命令(110不可变)
+	required int32 ChatLogonReq_CMD= 2    					[default = 2];//登陆请求
+	required int32 ChatLogonRsp_CMD= 3    					[default = 3];//登陆返回
+	required int32 ChatBackToLobbyReq_CMD= 4         		[default = 4];//返回大厅 
+	required int32 ChatNotify_CMD=5       					[default = 5];//聊天广播 
+	required int32 ChatChangeReq_CMD=6    					[default = 6];//聊天请求
+	required int32 ChatChangeRsp_CMD=7    					[default = 7];//聊天记录返回
+	required int32 LogonZhiBoReq_CMD= 8    					[default = 8];//直播登陆请求
+	required int32 LogonZhiBoRsp_CMD= 9    					[default = 9];//直播登陆返回
+	required int32 ZhiBoChatReq_CMD=10    					[default = 10];//直播聊天请求
+	required int32 ZhiBoChatRsp_CMD=11    					[default = 11];//直播聊天返回
+	required int32 ClubChatAppKeyReq_CMD=12					[default = 12];//俱乐部聊天 APPkey 请求
+	required int32 ClubChatAppKeyRsp_CMD=13					[default = 13];//俱乐部聊天 APPkey 返回
+	required int32 ChatVedioLogonReq_CMD= 14    			[default = 14];//获取语聊房间token
+	required int32 ChatVedioLogonRsp_CMD= 15    			[default = 15];//获取语聊房间token返回
+}
+
+//登陆请求 
+message ChatLogonReq{
+	optional int32 nChatType = 1;  //聊天类型: 0:获取token, 1牌桌聊天,2: 俱乐部聊天，3: 直播聊天
+	optional string sTableId = 2;  //牌桌id (牌桌聊天)
+	optional int32 nUserId = 3;    //
+}
+ 
+//登陆返回
+message ChatLogonRsp{
+    optional int32 nChatType= 1;  //聊天类型: 0:获取token, 1牌桌聊天,2: 俱乐部聊天，3: 直播聊天
+	required int32 nRlt =2;   	  //结果: 0成功,其他失败,1注册失败,2
+	required string accid = 3;    //M accid 
+	required string token = 4;    //M token  
+	optional string tid =5;       //群组id
+	optional string sCfg=6;       // 价格表配置 json  {{nChatId=1,nCost=10} } 表情价格表:  1-49 , 弹幕价格表:50-100
+}
+ 
+//返回大厅 
+message ChatBackToLobbyReq{ 
+	optional int32 nUserId = 1;    // 
+}
+
+//聊天请求 
+message ChatChangeReq{
+	optional int32 nType = 1;  		//聊天内容： 1、弹幕,2、短语，3 其他
+	optional int32 nChatId=2;  	    //nType:1 弹幕id， 
+	optional string sStr = 3;  		//拓展字段 
+} 
+
+//聊天请求返回
+message  ChatChangeRsp{
+    optional int32 nType= 1;  	  //聊天类型: 1、弹幕, 2、聊天内容、 其他
+	required int32 nRlt =2;   	  //结果: 0成功,1、金币不足，其他失败,1注册失败,2
+	optional string sStr = 3; 	  // 
+}
+ 
+//俱乐部聊天 APPkey 请求
+message ClubChatAppKeyReq{    
+	optional int32 nUserId = 1;    
+}
+ 
+//俱乐部聊天 APPkey 返回
+message ClubChatAppKeyRsp{   
+	required string sAppKey =1;    	  //IM APPkey 
+}
+ 
+
+//直播登陆请求 
+message LogonZhiBoReq{ 
+	optional string sTableId =1;  //牌桌id (牌桌聊天)
+	optional int32 nUserId = 2;    
+}
+ 
+//直播登陆返回
+message LogonZhiBoRsp{ 
+	required int32 nRlt =1;   	  			 //结果: 0成功 -1:后台没有配置聊天 
+	repeated ChatMatter arrChatRecord= 2; 	 //历史记录
+}
+ 
+//直播聊天请求   
+message  ZhiBoChatReq{
+	optional string sTableId = 1;  //牌桌id 
+    optional int32 nType= 2;  	   //聊天类型: 1、弹幕, 2、短语，3 其他
+	optional string sStr = 3; 	   //聊天内容 
+} 
+
+//直播聊天返回
+message ZhiBoChatRsp{   
+	required int32 nRlt =1;   	  			 //结果: 0成功，其他失败
+}
+
+//聊天内容
+message ChatMatter{
+	optional int32 nUserId = 1;
+	optional string sName = 2;
+	optional string sFaceId = 3;
+    optional int32 nType= 4;  	  //类型: 1、短语，2、文字
+	optional string sStr =5;	  //内容 
+}
+
+//聊天广播
+message  ChatNotify{  
+	required ChatMatter tChatMatter=1;  	 //聊天内容
+}
+  
+message ChatVedioLogonReq {
+	optional int32 nChatType = 1;  //聊天类型: 0:获取token, 1牌桌聊天,2: 俱乐部聊天，3: 直播聊天
+	optional string sTableId = 2;  //牌桌id (牌桌聊天)
+	optional int32 nUserId = 3;    //
+}
+  
+message ChatVedioLogonRsp {
+	optional int32 nChatType= 1;  //聊天类型: 0:获取token, 1牌桌聊天,2: 俱乐部聊天，3: 直播聊天
+	required int32 nRlt =2;   	  //结果: 0成功,其他失败,1注册失败,2未开启
+	required string token = 3;    //M token  
+	optional string vTid =4;       //语聊房tid
+}
+
+
+
+
+
+
+
+
+

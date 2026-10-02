@@ -1,0 +1,284 @@
+syntax = "proto2";
+
+package PubProto1_pb;
+
+message Protocol1 {
+  message Sys {
+    required int32 CONTROL = 1 [default = 2100];
+    required int32 BurMain = 2 [default = 2101];
+    required int32 WebMain = 3 [default = 2102];
+  }
+  
+  message Sub_Control {
+    required int32 CONTROL_INFO = 1 [default = 1];
+    required int32 CONTROL_ROOMINFO = 2 [default = 2];
+    required int32 CONTROL_USERINFO = 3 [default = 3];
+    required int32 CONTROL_WEB_SETPOOL = 4 [default = 6];
+  }
+  
+  message Sub_BurData {
+    required int32 Bur_UserInfoREQ_CMD = 1 [default = 1];
+    required int32 BUR_USERINFORSP_CMD = 2 [default = 2];
+  }
+  
+  message Sub_Web {
+    required int32 WebMessReq_CMD = 1 [default = 1];
+    required int32 WebPublicMessReq_CMD = 2 [default = 2];
+  }
+  
+  message Sub_DB {
+    required int32 SUB_REQ_QUICKDBJSON = 133 [default = 133];
+    required int32 SUB_REP_QUICKDBJSON = 134 [default = 134];
+    required int32 SUB_REQ_QUICKDBSAVE = 135 [default = 135];
+    required int32 SUB_REQ_QUICKDBLOAD = 136 [default = 136];
+    required int32 SUB_REP_QUICKDBLOAD = 137 [default = 137];
+    required int32 SUB_REQ_JUSTEXCUTE = 138 [default = 138];
+  }
+}
+
+message WebMessReq {
+  optional string strHMsg = 1;
+  optional string sSendType = 2;
+  optional string sBody = 3;
+}
+
+message Bur_UserInfoREQ {
+  optional string tBuildUserData = 1 [default = ""];
+}
+
+message Bur_UserInfoRSP {
+  optional int32 nResult = 1 [default = -99];
+  optional string sFReport = 2 [default = ""];
+}
+
+message RUQ_UpdateUserInfo {
+  optional string nClientID = 1 [default = ""];
+  optional int32 nUserID = 2 [default = -99];
+  optional string sSql = 3 [default = ""];
+  optional int32 nType = 4 [default = -99];
+  optional string sContent = 5 [default = ""];
+  optional int32 nResult = 6 [default = -99];
+}
+
+message REQ_Kick_User {
+  optional int32 nUserId = 1 [default = -99];
+  optional int32 nType = 2 [default = -99];
+}
+
+message REQ_Control_UserInfo {
+  message REQ_C_UserInfo_Item {
+    optional int32 nUserId = 1 [default = -99];
+    optional bool isControl = 2 [default = false];
+  }
+  
+  optional int32 nShopId = 1 [default = -99];
+  optional int32 nGameId = 2 [default = -99];
+  optional int32 nLevelId = 3 [default = -99];
+  repeated REQ_C_UserInfo_Item tCItems = 4;
+}
+
+message REQ_Control_TableInfo {
+  optional int32 nShopId = 1 [default = -99];
+  optional int32 nGameId = 2 [default = -99];
+  optional int32 nLevelId = 3 [default = -99];
+  optional string sTableId = 4 [default = ""];
+  optional double dWinLose = 5 [default = -99];
+  optional double dDrawWater = 6 [default = -99];
+  optional string sPaiJuId = 7 [default = ""];
+}
+
+message REQ_Control_Record {
+  optional string sSql = 1 [default = ""];
+}
+
+message REQ_Control_Data {
+  message JZ_StartID {
+    optional int32 nGameID = 1 [default = -99];
+    optional int32 nRoomID = 2 [default = -99];
+    optional string sLastTime = 3 [default = ""];
+    optional bool bEndControl = 4 [default = false];
+  }
+  
+  optional int32 nGroupID = 1 [default = -99];
+  optional string sBRGameIDs = 2 [default = ""];
+  optional string sTimestamp = 3 [default = ""];
+  repeated JZ_StartID tJZID = 4;
+}
+
+message REP_Control_Data {
+  message Control_Data_Res {
+    optional int32 nType = 1 [default = -99];
+    optional int32 nGroupID = 2 [default = -99];
+    optional int32 nGameID = 3 [default = -99];
+    optional int32 nRoomID = 4 [default = -99];
+    optional string sRTime = 5 [default = ""];
+    optional int32 nUserID = 6 [default = -99];
+    optional double dWinLose = 7 [default = -99];
+    optional double dDrawWater = 8 [default = -99];
+    optional double dStatVal = 9 [default = -99];
+  }
+  
+  repeated Control_Data_Res tResData = 1;
+  optional int32 nGroupID = 2 [default = -99];
+  optional string sTimestamp = 3 [default = ""];
+  optional bool bEnd = 4 [default = false];
+}
+
+message REQ_Check_User {
+  message REQ_Check_TVal {
+    optional int32 nGroupID = 1 [default = -99];
+    optional int32 nTriggerVal = 2 [default = -99];
+  }
+  
+  optional int32 nStartID = 1 [default = -99];
+  optional int32 nEndID = 2 [default = -99];
+  repeated REQ_Check_TVal tTVal = 3;
+}
+
+message REQ_Control_User_Data {
+  message JZ_UserSInfo {
+    optional int32 nUserID = 1 [default = -99];
+    optional string sLastTime = 2 [default = ""];
+  }
+  
+  optional int32 nScopeID = 1 [default = -99];
+  optional string sTimestamp = 2 [default = ""];
+  repeated JZ_UserSInfo tJZ = 3;
+}
+
+message REP_Control_User_Data {
+  message Control_Data_User_Res {
+    optional int32 nType = 1 [default = -99];
+    optional string sRTime = 2 [default = ""];
+    optional int32 nUserID = 3 [default = -99];
+    optional double dWinLose = 4 [default = -99];
+    optional double dDrawWater = 5 [default = -99];
+    optional double dStatVal = 6 [default = -99];
+    optional bool bEnd = 7 [default = false];
+  }
+  
+  repeated Control_Data_User_Res tResData = 1;
+  optional int32 nScopeID = 2 [default = -99];
+  optional string sTimestamp = 3 [default = ""];
+  optional bool bEnd = 4 [default = false];
+}
+
+message REQ_Control_User_Stat_Data {
+  message JZ_UserSInfo {
+    optional int32 nUserID = 1 [default = -99];
+    optional string sLastTime = 2 [default = ""];
+    optional bool bEndControl = 3 [default = false];
+  }
+  
+  repeated JZ_UserSInfo tJZ = 3;
+}
+
+message REQ_Control_GetNew_User {
+  optional int32 nScopeID = 1 [default = -99];
+  optional int32 nStartID = 2 [default = -99];
+  optional int32 nEndID = 3 [default = -99];
+  optional string sTimestamp = 4 [default = ""];
+}
+
+message REP_Control_GetNew_User {
+  message NewUserInfo {
+    optional int32 nUserID = 1 [default = -99];
+    optional int32 nLuck = 2 [default = -99];
+    optional int32 nLock = 3 [default = 0];
+  }
+  
+  optional int32 nScopeID = 1 [default = -99];
+  optional string sTimestamp = 2 [default = ""];
+  repeated NewUserInfo tInfo = 3;
+  optional bool bEnd = 4 [default = false];
+}
+
+message REP_UserID_Scope_Data {
+  message REP_UserID_Scope_Item {
+    optional int32 nID = 1 [default = -99];
+    optional int32 nStartID = 2 [default = -99];
+    optional int32 nEndID = 3 [default = -99];
+  }
+  
+  repeated REP_UserID_Scope_Item tItems = 1;
+}
+
+message REQ_Control_Room_Data {
+  optional int32 nShopId = 1 [default = -99];
+  optional int32 nGameId = 2 [default = -99];
+  optional int32 nLevelId = 3 [default = -99];
+  optional int32 nUserId = 4 [default = -99];
+  optional double dWinLose = 5 [default = -99];
+  optional double dDrawWater = 6 [default = -99];
+  optional double dRoomUserStat = 7 [default = -99];
+  optional double dUserStat = 8 [default = -99];
+  optional bool isControl = 10 [default = false];
+  optional int32 nLock = 11 [default = 0];
+  optional int32 nLuck = 12 [default = 0];
+  optional int32 nRoomLock = 13 [default = 0];
+  optional int32 nRoomLuck = 14 [default = 0];
+  optional bool isFirst = 15 [default = false];
+  optional double dUnlockGames = 16 [default = 0];
+  optional double dUnlockVal = 17 [default = 0];
+}
+
+message RUP_BRWriteTreasure {
+  message tUserTreasure {
+    required int32 nUserId = 1 [default = -99];
+    required int32 nChannel = 2 [default = -99];
+    required double nDel = 3 [default = -99];
+  }
+  
+  repeated tUserTreasure arrUserTreasure = 1;
+  required int32 nSourceType = 2 [default = -99];
+  required int32 nRoomId = 3 [default = -99];
+}
+
+message MasterSlave_Proto {
+  required int32 Main = 1 [default = 400];
+  required int32 SUB_REQ_ADDSLAVE = 2 [default = 2];
+  required int32 SUB_REP_ADDSLAVE = 3 [default = 3];
+  required int32 SUB_MasterBroadcastSlave = 4 [default = 4];
+  required int32 SUB_MasterTransmitSlave = 5 [default = 5];
+  required int32 SUB_SlaveTransmitMaster = 6 [default = 6];
+  required int32 SUB_GuessInformGameSrv = 7 [default = 7];
+}
+
+message Req_AddSlave {
+  required int32 nSrvId = 1 [default = 1];
+  required string sKey = 2 [default = ""];
+  optional int32 nGameId = 3 [default = 0];
+}
+
+message Rep_AddSlave {
+  required int32 nSrvId = 1 [default = 1];
+  required string sKey = 2 [default = ""];
+  required int32 nResult = 3 [default = 0];
+}
+
+message MasterBroadcastSlave {
+  required string sTableId = 1 [default = ""];
+  required string strProto = 2 [default = ""];
+  optional string sSendData = 3 [default = ""];
+}
+
+message MasterTransmitSlave {
+  required string sClientID = 1 [default = ""];
+  required string strProto = 2 [default = ""];
+  optional string sSendData = 3 [default = ""];
+}
+
+message GuessInformGameSrv {
+  required string sTableId = 1 [default = ""];
+  required string strProto = 2 [default = ""];
+  optional string sSendData = 4 [default = ""];
+}
+
+message WebPublicMessReq {
+  optional string sBody = 1;
+}
+
+message REQ_Club_Recharge {
+  required int32 nUserId = 1 [default = -1];
+  required double nAmount = 2 [default = 0];
+}

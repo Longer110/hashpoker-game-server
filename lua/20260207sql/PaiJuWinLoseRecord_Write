@@ -1,0 +1,95 @@
+DROP PROCEDURE IF EXISTS PaiJuWinLoseRecord_Write;
+DELIMITER $$
+
+CREATE PROCEDURE `PaiJuWinLoseRecord_Write`(
+    IN nUserID int,
+    IN nGameType int,
+    IN nSession int,
+    IN nWinLose double,
+    IN nDrawWater double,
+    IN nXiaZhu double,
+    IN nValid double,
+    IN sPaiJuId varchar(100),
+    IN nType int,
+    IN sElseInfo varchar(4096),
+    IN sTableId varchar(100),
+    IN nInPoolCount int,
+    IN nRaiseCountBFlop int,
+    IN nAllInAndWinCount int,
+    IN nWinCount int,
+    IN nQiPaiCount int,
+    IN nGoldType int,
+    IN nClubId int,
+    IN sTableName varchar(200),
+    IN nAllInCount int,
+    IN nHandProfit double,
+    IN nSeeFlop int,
+    IN nReachShowdown int,
+    IN nOpCount int,
+    IN nInsurWin double,
+    IN nInsurCost double,
+    IN nChouShuiType int
+)
+BEGIN
+    DECLARE Result int DEFAULT 0;
+    DECLARE nLastInsertId INT DEFAULT 0;
+
+    DECLARE EXIT HANDLER FOR SQLEXCEPTION
+    BEGIN
+        ROLLBACK;
+        SELECT -1 AS ErrorCode, 'SQL Exception' AS ErrorInfo;
+    END;
+
+    START TRANSACTION;
+
+    INSERT INTO DJH_RecordDB.PaiJuWinLoseRecord(
+        UserID, GameType, `Session`, WinLose, DrawWater, XiaZhu, Valid, PaiJuId, CreatetTime,
+        nType, ElseInfo, TableId, InPoolCount, RaiseCountBFlop, AllInAndWinCount, WinCount,
+        QiPaiCount, GoldType, ClubId, TableName, AllInCount, HandProfit, OpCount, SeeFlop,
+        ReachShowdown, InsureBuy, InsureWin, ChouShuiType
+    )
+    VALUES(
+        nUserID, nGameType, nSession, nWinLose, nDrawWater, nXiaZhu, nValid, LEFT(sPaiJuId,30), NOW(),
+        nType, sElseInfo, sTableId, nInPoolCount, nRaiseCountBFlop, nAllInAndWinCount, nWinCount,
+        nQiPaiCount, nGoldType, nClubId, sTableName, nAllInCount, nHandProfit, nOpCount, nSeeFlop,
+        nReachShowdown, nInsurCost, nInsurWin, nChouShuiType
+    ) AS new
+    ON DUPLICATE KEY UPDATE
+        id               = LAST_INSERT_ID(id),
+        GameType          = new.GameType,
+        `Session`         = new.`Session`,
+        WinLose           = new.WinLose,
+        DrawWater         = new.DrawWater,
+        XiaZhu            = new.XiaZhu,
+        Valid             = new.Valid,
+        nType             = new.nType,
+        ElseInfo          = new.ElseInfo,
+        TableId           = new.TableId,
+        InPoolCount       = new.InPoolCount,
+        RaiseCountBFlop   = new.RaiseCountBFlop,
+        AllInAndWinCount  = new.AllInAndWinCount,
+        WinCount          = new.WinCount,
+        QiPaiCount        = new.QiPaiCount,
+        GoldType          = new.GoldType,
+        ClubId            = new.ClubId,
+        TableName         = new.TableName,
+        AllInCount        = new.AllInCount,
+        HandProfit        = new.HandProfit,
+        OpCount           = new.OpCount,
+        SeeFlop           = new.SeeFlop,
+        ReachShowdown     = new.ReachShowdown,
+        InsureBuy         = new.InsureBuy,
+        InsureWin         = new.InsureWin,
+        ChouShuiType      = new.ChouShuiType;
+
+    SET nLastInsertId = LAST_INSERT_ID();
+
+    INSERT IGNORE INTO DJH_RecordDB.PaiJuNewUser(id, UserID, GameType, PaiJuId, CreatetTime)
+    VALUES(nLastInsertId, nUserID, nGameType, LEFT(sPaiJuId,30), CURRENT_TIMESTAMP());
+
+    COMMIT;
+
+    SELECT Result;
+END$$
+
+DELIMITER ;

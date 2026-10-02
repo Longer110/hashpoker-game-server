@@ -1,0 +1,310 @@
+syntax = "proto2";
+
+package YuXiaXie2_pb;
+
+message YuXiaXie_Proto2 {
+  required int32 Main_CMD = 1 [default = 222];
+  required int32 MainJH_CMD = 59 [default = 224];
+  required int32 YXXSOnlineCountNotify_CMD = 50 [default = 50];
+  required int32 YXXSGetTopUsersReq_CMD = 51 [default = 51];
+  required int32 YXXSGetTopUsersResp_CMD = 52 [default = 52];
+  required int32 YXXSRepeatBetReq_CMD = 53 [default = 53];
+  required int32 YXXSRepeatBetRsp_CMD = 54 [default = 54];
+  required int32 YXXSJHBetNotify_CMD = 55 [default = 55];
+  required int32 YXXSGmRsp_CMD = 56 [default = 56];
+  required int32 YXXSUserLeaveResp_CMD = 60 [default = 60];
+  required int32 YXXSLogOnReq2_CMD = 2 [default = 2];
+  required int32 YXXSLogOnResp2_CMD = 3 [default = 3];
+  required int32 YXXSGoInBetStageNotify2_CMD = 4 [default = 4];
+  required int32 YXXSBetReq2_CMD = 5 [default = 5];
+  required int32 YXXSBetResp2_CMD = 6 [default = 6];
+  required int32 YXXSGoInResultStageNotify2_CMD = 8 [default = 8];
+  required int32 YXXSGoInFreeStageNotify2_CMD = 9 [default = 9];
+  required int32 YXXSGetApplicantsReq2_CMD = 10 [default = 10];
+  required int32 YXXSGetApplicantsResp2_CMD = 11 [default = 11];
+  required int32 YXXSApplyForBankerReq2_CMD = 12 [default = 12];
+  required int32 YXXSApplyForBankerResp2_CMD = 13 [default = 13];
+  required int32 YXXSApplyCancelReq2_CMD = 14 [default = 14];
+  required int32 YXXSApplyCancelResp2_CMD = 15 [default = 15];
+  required int32 YXXSApplyResignReq2_CMD = 16 [default = 16];
+  required int32 YXXSApplyResignResp2_CMD = 17 [default = 17];
+  required int32 YXXSBackToLobbyReq2_CMD = 18 [default = 18];
+  required int32 YXXSBackToLobbyRsp2_CMD = 19 [default = 19];
+  required int32 YXXSGmReq2_CMD = 20 [default = 20];
+  required int32 YXXSKickOutNotify2_CMD = 22 [default = 22];
+  required int32 YXXSBetDetail2_CMD = 23 [default = 23];
+  required int32 YXXSCloseTableNotify2_CMD = 24 [default = 24];
+  required int32 YXXSGoldChangeNotify2_CMD = 25 [default = 25];
+  required int32 YXXSModRank2_CMD = 30 [default = 30];
+  required int32 YXXSTrendMapReq2_CMD = 31 [default = 31];
+  required int32 YXXSTrendMapRsp2_CMD = 32 [default = 32];
+}
+
+message YXXSLogOnReq2 {
+  required int32 nUserId = 1 [default = -99];
+  required int32 nRoomId = 2 [default = -99];
+  optional string sTableId = 3;
+}
+
+message YXXSLogOnResp2 {
+  required int32 nRlt = 1 [default = -99];
+  optional YXXSScence2 tScence = 2;
+  optional string strErr = 3 [default = ""];
+}
+
+message YXXSUser2 {
+  optional int32 nUserId = 1;
+  optional string sFaceId = 2;
+  optional string sName = 3;
+  optional double nGold = 4;
+  optional int32 nSex = 5;
+  optional int32 nBankerConsecutive = 6 [default = -99];
+  optional int32 nBankerWinLose = 7 [default = -99];
+  optional int32 nBanKerDrawWater = 8 [default = -99];
+  optional int32 nBetSum = 9;
+}
+
+message TrendMap2 {
+  message tDice {
+    repeated int32 nDice = 1;
+  }
+  
+  message DiceRecordStatis {
+    required int32 nDice = 1;
+    required int32 nCount = 2;
+  }
+  
+  repeated tDice arrRecordTrend = 1;
+  repeated tDice arrRecommendTrend = 2;
+  repeated DiceRecordStatis arrDiceRecordStatis = 3;
+  optional int32 nInning = 4;
+  repeated bool arrRecommendCentre = 5;
+}
+
+message YXXSTrendMapReq2 {
+  optional int32 nNoUse = 1;
+}
+
+message YXXSTrendMapRsp2 {
+  optional TrendMap2 arrTrendMap = 1;
+}
+
+message RankTreasure2 {
+  required double nSelfProfit = 1;
+  required double nSelfGold = 2;
+  required int32 nSitId = 3;
+}
+
+message YXXSSelfGold2 {
+  repeated RankTreasure2 tAllBetSelf = 1;
+}
+
+message SwitchConfig2 {
+  optional bool bShangZhuangOpen = 1;
+  optional bool bWithCastOpen = 2;
+  optional bool bRecommendOpen = 3;
+}
+
+message YXXBetLimit {
+  optional int32 VipRate = 1;
+  optional int32 odds = 2;
+  optional int32 min = 3;
+  optional int32 max = 4;
+}
+
+message YXXSScence2 {
+  required int32 nRoomId = 1;
+  repeated int32 arrChipsForBet = 2;
+  required int32 nBankerRequirement = 3;
+  required int32 nConsecutiveMax = 4;
+  required YXXSUser2 tBanker = 5;
+  required YXXSUser2 tMyself = 6;
+  required int32 nStage = 7;
+  required int32 nSeconds = 8;
+  required int32 nButtonStatus = 9;
+  optional TrendMap2 arrTrendMap = 10;
+  optional YXXSBetDetail2 tBetDetail = 11;
+  repeated int32 arrDice = 12;
+  optional double nSelfProfit = 13;
+  optional double nSelfGold = 25;
+  optional double nBankerProfit = 14;
+  optional double nBankerGold = 26;
+  optional int32 nWithCastSum = 15;
+  optional int32 nCount = 16;
+  optional int32 nMoney = 17;
+  optional int32 nLiveUserID = 18;
+  optional YXXSUser2 tRankUser1 = 19;
+  optional YXXSUser2 tRankUser2 = 20;
+  optional YXXSUser2 tRankUser3 = 21;
+  optional YXXSUser2 tRankUser4 = 22;
+  optional int32 nOnLineCount = 23;
+  repeated int32 arrRecommend = 24;
+  optional YXXSSelfGold2 arrRankGold = 27;
+  optional int32 nIsRepeatBet = 28;
+  repeated YXXSAreaWinLose2 tWinResult = 29;
+  optional SwitchConfig2 tSwitchConfig = 30;
+  optional YXXSBetDetail2 tScenceWinResult = 31;
+  repeated YXXBetLimit arrBetLimit = 32;
+}
+
+message YXXSGoInBetStageNotify2 {
+  required int32 nSeconds = 1;
+  repeated int32 arrRecommend = 2;
+}
+
+message YXXSBetReq2 {
+  required int32 nBetChip = 1;
+  required int32 nBetArea = 2;
+}
+
+message YXXSBetResp2 {
+  required int32 nRlt = 1;
+  optional string strErr = 2;
+  optional YXXSBetDetail2 tBetDetail = 3;
+}
+
+message YXXSAreaChipBetItem2 {
+  required int32 nAreaId = 1;
+  required int32 nSumBet = 2;
+  optional int32 nBetPeople = 3;
+  optional int32 nAnchorBet = 4;
+  optional int32 nSitId = 5;
+}
+
+message YXXSBetDetail2 {
+  repeated YXXSAreaChipBetItem2 arrAllBetDetail = 1;
+  repeated YXXSAreaChipBetItem2 arrSelfBetDetail = 2;
+}
+
+message YXXSAreaWinLose2 {
+  required int32 nAreaId = 1;
+  required int32 nWinLose = 2;
+  required int32 nDrawWater = 3;
+}
+
+message YXXSGoInResultStageNotify2 {
+  required int32 nSeconds = 1;
+  repeated int32 arrDice = 2;
+  required double nSelfProfit = 3;
+  required double nBankerProfit = 4;
+  required double nSelfGold = 5;
+  required double nBankerGold = 6;
+  optional YXXSSelfGold2 arrRankGold = 7;
+  repeated YXXSAreaWinLose2 tWinResult = 8;
+  optional YXXSBetDetail2 tSettleResult = 9;
+}
+
+message YXXSGoInFreeStageNotify2 {
+  required int32 nSeconds = 1;
+  required YXXSUser2 tBanker = 2;
+  required int32 nTipId = 3;
+  optional int32 nButtonStatus = 4;
+  optional double nSelfGold = 5;
+  optional int32 nWithCastSum = 6;
+  optional SwitchConfig2 tSwitchConfig = 7;
+  optional int32 nLiveUserID = 8;
+  optional int32 nBankerRequirement = 9;
+  repeated int32 arrChipsForBet = 10;
+  repeated YXXBetLimit arrBetLimit = 11;
+}
+
+message YXXSGetApplicantsReq2 {
+}
+
+message YXXSGetApplicantsResp2 {
+  repeated YXXSUser2 arrApplicants = 1;
+}
+
+message YXXSApplyForBankerReq2 {
+}
+
+message YXXSApplyForBankerResp2 {
+  required int32 nRlt = 1;
+  optional string strErr = 2;
+}
+
+message YXXSApplyCancelReq2 {
+}
+
+message YXXSApplyCancelResp2 {
+  required int32 nRlt = 1;
+  optional string strErr = 2;
+}
+
+message YXXSApplyResignReq2 {
+  optional int32 nNoUse = 1;
+}
+
+message YXXSApplyResignResp2 {
+  required int32 nRlt = 1;
+  optional string strErr = 2;
+}
+
+message YXXSBackToLobbyReq2 {
+  optional int32 nNoUse = 1;
+}
+
+message YXXSBackToLobbyRsp2 {
+  required int32 nRlt = 1;
+  optional string strErr = 2;
+}
+
+message YXXSGmReq2 {
+  required string strCmd = 1;
+}
+
+message YXXSKickOutNotify2 {
+  optional int32 nNoUse = 1;
+  optional int32 nReason = 2;
+}
+
+message YXXSCloseTableNotify2 {
+  optional int32 nNoUse = 1;
+}
+
+message YXXSGoldChangeNotify2 {
+  required double nChangeGold = 1;
+}
+
+message YXXSModRank2 {
+  repeated YXXSUser2 tRankUser4 = 1;
+}
+
+message RoomCfg {
+  optional string sTableId = 1;
+  optional int32 nRoomId = 2;
+}
+
+message YXXSGmRsp {
+  required int32 nRlt = 1;
+}
+
+message YXXSOnlineCountNotify {
+  required int32 nOnlineCount = 1;
+}
+
+message YXXSRepeatBetReq {
+  required int32 nIsRepeatBet = 1;
+}
+
+message YXXSRepeatBetRsp {
+  required int32 nIsRepeatBet = 1;
+}
+
+message YXXSGetTopUsersReq {
+  optional int32 nNoUse = 1;
+}
+
+message YXXSGetTopUsersResp {
+  repeated YXXSUser2 arrUsers = 1;
+}
+
+message YXXSJHBetNotify {
+  required int32 nBetChip = 1;
+  required int32 nBetArea = 2;
+  required int32 nIsMe = 3;
+}
+
+message YXXSUserLeaveResp {
+  optional int32 nStatus = 1;
+}

@@ -1,0 +1,65 @@
+syntax = "proto2";
+
+package TanXian_pb;
+
+message TanXian_Proto {
+  required int32 Main_CMD = 1 [default = 334];
+  required int32 TanXianLogonReq_CMD = 2 [default = 2];
+  required int32 TanXianLogonRsp_CMD = 3 [default = 3];
+  required int32 TanXianLevelGateReq_CMD = 4 [default = 4];
+  required int32 TanXianLevelGateRsp_CMD = 5 [default = 5];
+  required int32 TanXianWorldTopReq_CMD = 6 [default = 6];
+  required int32 TanXianWorldTopRsp_CMD = 7 [default = 7];
+  required int32 TanXianBackToLobbyReq_CMD = 10 [default = 8];
+  required int32 TanXianBackToLobbyRsp_CMD = 11 [default = 9];
+}
+
+message TanXianLogonReq {
+  required int32 nUserId = 1;
+}
+
+message TanXianLogonRsp {
+  required int32 nResult = 1;
+  required int32 nLevelGate = 2;
+  optional double nGold = 3;
+  optional int32 nItemId = 4;
+}
+
+message TanXianBackToLobbyReq {
+  optional int32 nNoUse = 1;
+}
+
+message TanXianBackToLobbyRsp {
+  required int32 nRlt = 1;
+  optional string strErr = 2;
+}
+
+message TanXianLevelGateReq {
+  required int32 nUserId = 1;
+  required string sName = 2;
+  required int32 nLevelGate = 3;
+  optional int32 nGateTime = 4;
+  optional int32 nCount = 5;
+  optional string sStar = 6;
+}
+
+message TanXianLevelGateRsp {
+  required int32 nRlt = 1;
+  optional string strErr = 2;
+}
+
+message TanXianWorldList {
+  required string sName = 1;
+  required string sFaceId = 2;
+  required int32 nLevelGate = 3;
+  required int32 nUserId = 4;
+}
+
+message TanXianWorldTopReq {
+  required int32 nRingking = 1;
+}
+
+message TanXianWorldTopRsp {
+  required int32 nRingking = 1;
+  repeated TanXianWorldList arrWorldList = 2;
+}

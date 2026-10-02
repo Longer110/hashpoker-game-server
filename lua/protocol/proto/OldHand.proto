@@ -1,0 +1,104 @@
+syntax = "proto2";
+
+package OldHand_pb;
+
+message OldHand_Proto {
+    required int32 Main_CMD = 1 [default = 331];
+    required int32 OldHandLogonReq_CMD = 2 [default = 2];
+    required int32 OldHandLogonRsp_CMD = 3 [default = 3];
+    required int32 OldHandLevelGateReq_CMD = 4 [default = 4];
+    required int32 OldHandLevelGateRsp_CMD = 5 [default = 5];
+    required int32 OldHandRingKingListReq_CMD = 6 [default = 6];
+    required int32 OldHandRingKingListRsp_CMD = 7 [default = 7];
+    required int32 OldHandLevelRecordReq_CMD = 8 [default = 8];
+    required int32 OldHandLevelRecordRsp_CMD = 9 [default = 9];
+    required int32 OldHandBackToLobbyReq_CMD = 10 [default = 10];
+    required int32 OldHandBackToLobbyRsp_CMD = 11 [default = 11];
+}
+
+message OldHandLogonReq {
+    required int32 nUserId = 1;
+}
+
+message OldHandLogonRsp {
+    required int32 nResult = 1;
+    optional double nGold = 2 [default = 0];
+    optional int32 nLevelGate = 3 [default = 0];
+    optional int32 nItemId = 4 [default = 0];
+}
+
+message OldHandBackToLobbyReq {
+    optional int32 nNoUse = 1 [default = 0];
+}
+
+message OldHandBackToLobbyRsp {
+    required int32 nRlt = 1;
+    optional string strErr = 2 [default = ""];
+}
+
+message OldHandLevelGateReq {
+    required int32 nUserId = 1;
+    required string sName = 2;
+    required int32 nLevelGate = 3;
+    required int32 nGateTime = 4;
+    required int32 nCount = 5;
+    required string sStar = 6;
+}
+
+message OldHandLevelGateRsp {
+    optional int32 nBreakRecord = 1 [default = 0];
+    optional int32 nTimeShort = 2 [default = 0];
+    optional string sTimeName = 3 [default = ""];
+    optional string sTimeFaceId = 4 [default = ""];
+    optional int32 nNumCount = 5 [default = 0];
+    optional string sNumName = 6 [default = ""];
+    optional string sNumFaceId = 7 [default = ""];
+    optional double nAward = 8 [default = 0];
+}
+
+message WorldList {
+    required string sName = 1;
+    required string sFaceId = 2;
+    required int32 nLevelGate = 3;
+    required int32 nUserId = 4;
+}
+
+message TimeLevelGateList {
+    required int32 nLevelGate = 1;
+    required string sName = 2;
+    required string sFaceId = 3;
+    required double nGateTime = 4;
+    required int32 nUserId = 5;
+}
+
+message CountLevelGateList {
+    required int32 nLevelGate = 1;
+    required string sName = 2;
+    required string sFaceId = 3;
+    required int32 nCount = 4;
+    required int32 nUserId = 5;
+}
+
+message OldHandRingKingListReq {
+    required int32 nRingking = 1;
+}
+
+message OldHandRingKingListRsp {
+    required int32 nRingking = 1;
+    repeated WorldList arrWorldList = 2;
+    repeated TimeLevelGateList arrTimeist = 3;
+    repeated CountLevelGateList arrCountList = 4;
+}
+
+message OldHandLevelRecordReq {
+    required int32 nLevel = 1;
+}
+
+message LevelInfo {
+    required int32 nLevelGate = 1;
+    required string sStar = 2;
+}
+
+message OldHandLevelRecordRsp {
+    repeated LevelInfo arrLevelInfo = 1;
+}

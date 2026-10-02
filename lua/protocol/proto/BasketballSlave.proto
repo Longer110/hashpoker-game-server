@@ -1,0 +1,345 @@
+syntax = "proto2";
+
+package BasketballSlave_pb;
+
+message BasketballSlave_Proto {
+  required int32 Main_CMD = 1 [default = 313];
+  required int32 BASLoginReq_CMD = 2 [default = 2];
+  required int32 BASLoginRsp_CMD = 3 [default = 3];
+  required int32 BASGoInFreeNotify_CMD = 4 [default = 4];
+  required int32 BASGoInReadyNotify_CMD = 5 [default = 5];
+  required int32 BASGameStartNotify_CMD = 6 [default = 6];
+  required int32 BASGoInSettleNotify_CMD = 7 [default = 7];
+  required int32 BASGoInResetNotify_CMD = 8 [default = 8];
+  required int32 BASSitDownReq_CMD = 9 [default = 9];
+  required int32 BASSitDownRsp_CMD = 10 [default = 10];
+  required int32 BASUserSitDownNotify_CMD = 11 [default = 11];
+  required int32 BASStandUpReq_CMD = 12 [default = 12];
+  required int32 BASStandUpRsp_CMD = 13 [default = 13];
+  required int32 BASUserStandUpNotify_CMD = 14 [default = 14];
+  required int32 BASReadyReq_CMD = 15 [default = 15];
+  required int32 BASReadyRsp_CMD = 16 [default = 16];
+  required int32 BASStartGameReq_CMD = 17 [default = 17];
+  required int32 BASStartGameRsp_CMD = 18 [default = 18];
+  required int32 BASPlayerOprateReq_CMD = 19 [default = 19];
+  required int32 BASPlayerOprateRsp_CMD = 20 [default = 20];
+  required int32 BASUserStatusNotify_CMD = 21 [default = 21];
+  required int32 BASUserBallNotify_CMD = 22 [default = 22];
+  required int32 BASPlayerDataNotify_CMD = 23 [default = 23];
+  required int32 BASErrCodeNotify_CMD = 24 [default = 24];
+  required int32 BASTableCloseNotify_CMD = 25 [default = 25];
+  required int32 BASRemainChargeNotify_CMD = 26 [default = 26];
+  required int32 BASLeaveTableReq_CMD = 27 [default = 27];
+  required int32 BASLeaveTableRsp_CMD = 28 [default = 28];
+  required int32 BASKickUserReq_CMD = 29 [default = 29];
+  required int32 BASKickUserRsp_CMD = 30 [default = 30];
+  required int32 BASRecordReq_CMD = 31 [default = 31];
+  required int32 BASRecordRsp_CMD = 32 [default = 32];
+  required int32 BASRecordDetailReq_CMD = 33 [default = 33];
+  required int32 BASRecordDetailRsp_CMD = 34 [default = 34];
+  required int32 BASUserOprationNotify_CMD = 35 [default = 35];
+  required int32 BASLeaderChangeNotify_CMD = 36 [default = 36];
+  required int32 BASUserRankNotify_CMD = 37 [default = 37];
+  required int32 BASUserknockingNotify_CMD = 38 [default = 38];
+  required int32 BASUserknockingProcessNotify_CMD = 39 [default = 39];
+}
+
+message BASLoginReq {
+  required int32 nUserId = 1 [default = 1];
+  required string sTableId = 2 [default = ""];
+}
+
+message BASLoginRsp {
+  required int32 nErrorCode = 1;
+  required string sTableId = 2;
+  optional BASScene tScene = 3;
+}
+
+message BASScene {
+  required string sTableId = 1;
+  required string sTableName = 2;
+  required int32 nLiveUserID = 3;
+  required string sPlatformID = 4;
+  required int32 nStage = 5;
+  required int32 nTableType = 6;
+  repeated BASUser arrUser = 7;
+  required string sRuleDetail = 8;
+  required double nGold = 9;
+  optional int32 nResTime = 10;
+  required BASBallboardData tRimCoord = 11;
+  required int32 nRimRadii = 12;
+}
+
+message BASUser {
+  required int32 nUserId = 1;
+  required string sNickName = 2;
+  required int32 nSex = 3;
+  required string sFaceID = 4;
+  required int32 nUserType = 5;
+  required double nGold = 6;
+  required string sShopAcc = 7;
+  required int32 nSitId = 8;
+  required int32 nState = 9;
+  required bool isLeader = 10;
+  required bool isknocking = 11;
+  optional int32 nScore = 12;
+  optional double nTime = 13;
+  optional double nknockingTime = 14;
+  optional int32 nRank = 15;
+  repeated BASBallData arrBall = 16;
+  optional double nWinLose = 17;
+  optional int32 nHitCnt = 18;
+  optional int32 nAllCnt = 19;
+}
+
+message BASGoInFreeNotify {
+  required int32 nStage = 1;
+  required string sRuleDetail = 2;
+  required string sTableId = 3;
+}
+
+message BASGoInReadyNotify {
+  required int32 nStage = 1;
+  required string sTableId = 2;
+  required int32 nSecend = 3;
+}
+
+message BASGameStartNotify {
+  required int32 nStage = 1;
+  repeated BASUser arrUser = 2;
+  required string sTableId = 3;
+  required int32 nSecend = 4;
+}
+
+message BASUserBall {
+  required int32 nUserId = 1;
+  repeated BASBallData arrBall = 2;
+}
+
+message BASBallboardData {
+  required int32 nXPosition = 1 [default = 0];
+  required int32 nYPosition = 2 [default = 100];
+}
+
+message BASBallData {
+  required int32 nBallIndex = 1;
+  required int32 nXPosition = 2;
+  required int32 nYPosition = 3;
+}
+
+message BASGoInSettleNotify {
+  required int32 nStage = 1;
+  repeated BASUserSettle arrWinLose = 2;
+  required string sTableId = 3;
+}
+
+message BASUserSettle {
+  required int32 nUserId = 1;
+  required int32 nScore = 2;
+  required string sNickName = 3;
+  required int32 nRank = 4;
+  required double nWinLose = 5;
+  required string sFaceID = 6;
+  required int32 nSitId = 7;
+}
+
+message BASGoInResetNotify {
+  required int32 nStage = 1;
+  required string sTableId = 2;
+  repeated BASUser arrUser = 3;
+}
+
+message BASSitDownReq {
+  required int32 nSitId = 1 [default = 1];
+}
+
+message BASSitDownRsp {
+  required int32 nErrCode = 1;
+  required string sTableId = 2;
+}
+
+message BASUserSitDownNotify {
+  required BASUser tUser = 1;
+  required string sTableId = 2;
+}
+
+message BASStandUpReq {
+}
+
+message BASStandUpRsp {
+  required int32 nErrCode = 1;
+  required string sTableId = 2;
+}
+
+message BASUserStandUpNotify {
+  required int32 nUserId = 1;
+  required string sTableId = 2;
+}
+
+message BASReadyReq {
+  required bool isReady = 1 [default = false];
+}
+
+message BASReadyRsp {
+  required int32 nErrCode = 1;
+  required bool isReady = 2;
+  required string sTableId = 3;
+}
+
+message BASStartGameReq {
+}
+
+message BASStartGameRsp {
+  required int32 nErrCode = 1;
+  required string sTableId = 2;
+}
+
+message BASPlayerOprateReq {
+  required BASBallInfo tBallInfo = 1;
+}
+
+message BASBallInfo {
+  required int32 nIndex = 1;
+  required double nCastAngle = 2;
+  required int32 nDirection = 3;
+  required string sMoveType = 4;
+  optional bool bCastCenter = 5;
+}
+
+message BASPlayerOprateRsp {
+  required string sTableId = 1;
+  required int32 nErrCode = 2;
+  optional BASBallInfo tBallInfo = 3;
+}
+
+message BASCastBallNotify {
+  required string sTableId = 1;
+  required BASBallInfo tBallInfo = 3;
+}
+
+message BASUserStatusNotify {
+  required string sTableId = 1;
+  repeated BASUserState arrUserState = 2;
+}
+
+message BASUserState {
+  required int32 nUserId = 1;
+  required int32 nState = 2;
+}
+
+message BASUserknockingNotify {
+  required int32 nUserId = 1;
+  required string sTableId = 2;
+  required int32 nknockingState = 3;
+  optional int32 nknockingTime = 4;
+}
+
+message BASUserknockingProcessNotify {
+  required int32 nUserId = 1;
+  required string sTableId = 2;
+  required int32 IsnknockingState = 3;
+  required int32 nProcess = 4;
+  required int32 nAllCnt = 5;
+}
+
+message BASUserBallNotify {
+  repeated BASUserBall arrUserBall = 1;
+  required string sTableId = 2;
+}
+
+message BASPlayerDataNotify {
+  repeated BASUser arrUser = 1;
+  required string sTableId = 2;
+}
+
+message BASErrCodeNotify {
+  required int32 nUserId = 1;
+  required int32 nErrCode = 2;
+  required string sInfo = 3;
+  required string sTableId = 4;
+}
+
+message BASTableCloseNotify {
+  required string sTableId = 1;
+}
+
+message BASRemainChargeNotify {
+  required string sTableId = 1;
+  required int32 nUserId = 2;
+  required double nGold = 3;
+}
+
+message BASLeaveTableReq {
+}
+
+message BASLeaveTableRsp {
+  required int32 nErrCode = 1;
+  required string sTableId = 2;
+}
+
+message BASKickUserReq {
+  required int32 nUserId = 1 [default = 0];
+}
+
+message BASKickUserRsp {
+  required int32 nErrCode = 1;
+  required int32 nUserId = 2;
+  required string sTableId = 3;
+}
+
+message BASRecordReq {
+  required int32 nIdOfStart = 1 [default = 0];
+  required int32 nCnt = 2 [default = 10];
+  required int32 nPage = 3 [default = 1];
+}
+
+message BASRecordRsp {
+  message Item {
+    required string sPaiJuID = 1;
+    required double nBet = 2;
+    required double nProfit = 3;
+    required string sTime = 4;
+    required int32 nId = 5;
+  }
+  repeated Item arrRecords = 1;
+  required int32 nPage = 2;
+  optional int32 nAllPage = 3;
+}
+
+message BASRecordDetailReq {
+  required string sPaiJuID = 1;
+}
+
+message BASRecordDetailRsp {
+  message Item {
+    required int32 nUserId = 1;
+    required string sNickName = 2;
+  }
+  required string sPaiJuID = 1;
+  repeated Item arrUserInfo = 2;
+}
+
+message BASUserOprationNotify {
+  required string sTableId = 1;
+  required int32 nUserId = 2;
+  required BASBallInfo tBallInfo = 3;
+}
+
+message BASLeaderChangeNotify {
+  required string sTableId = 1;
+  required int32 nUserId = 2;
+  required bool isLeader = 3;
+  required int32 nState = 4;
+}
+
+message BASUserRankNotify {
+  required string sTableId = 1;
+  repeated BASUserRank arrUserRank = 2;
+}
+
+message BASUserRank {
+  required int32 nUserId = 1;
+  required int32 nScore = 2;
+  required double nTime = 3;
+  required int32 nRank = 4;
+}

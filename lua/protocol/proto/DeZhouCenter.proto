@@ -1,0 +1,86 @@
+syntax = "proto2";
+
+package DeZhouCenter_pb;
+
+message DZC_Proto {
+  required int32 Main_CMD = 1 [default = 322];
+  required int32 DZCLogOnReq_CMD = 2 [default = 2];
+  required int32 DZCLogOnResp_CMD = 3 [default = 3];
+  required int32 DZCReq_CMD = 4 [default = 4];
+  required int32 DZCRsp_CMD = 5 [default = 5];
+  required int32 DZCScenceReq_CMD = 6 [default = 6];
+  required int32 DZCScenceRsp_CMD = 7 [default = 7];
+  required int32 DZCTableCreateReq_CMD = 8 [default = 8];
+  required int32 DZCTestTableCreateReq_CMD = 9 [default = 9];
+  required int32 DZCTestTableCreateRsp_CMD = 10 [default = 10];
+  required int32 DZCMtReq_CMD = 11 [default = 11];
+  required int32 DZCMtRsp_CMD = 12 [default = 12];
+}
+
+message DZCLogOnReq {
+  required int32 nServerId = 1;
+}
+
+message DZCLogOnResp {
+  required int32 nRlt = 1;
+}
+
+message DZCReq {
+  required string sTableId = 1;
+  required string sCmd = 2;
+  required string sJsonData = 3;
+  optional int32 nEcho = 4;
+}
+
+message DZCRsp {
+  required string sTableId = 1;
+  required string sCmd = 2;
+  required string sJsonData = 3;
+  optional int32 nEcho = 4;
+}
+
+message DZCScenceReq {
+  required string sTableId = 1;
+  optional int32 nEcho = 2;
+}
+
+message DZCScenceRsp {
+  required string sTableId = 1;
+  required string sJsonScenc = 2;
+  optional int32 nEcho = 3;
+}
+
+message DZCTableCreateReq {
+  required string sTableId = 1;
+  required string sParameter = 2;
+}
+
+message DZCTestTableCreateReq {
+  required int32 nUserId = 1;
+  required string sClientID = 2;
+  required int32 nGroupId = 3;
+  required int32 nServerId = 4;
+}
+
+message DZCTestTableCreateRsp {
+  required int32 nUserId = 1;
+  required string sClientID = 2;
+  required int32 nGroupId = 3;
+  required int32 nServerId = 4;
+  required string sTableId = 5;
+  required string sJsonScenc = 6;
+}
+
+message DZCMtReq {
+  required string sCmd = 1;
+  required string sJsonData = 2;
+  required int32 nEventId = 3;
+  optional int32 nEcho = 4;
+}
+
+message DZCMtRsp {
+  required string sCmd = 1;
+  required string sJsonData = 2;
+  required int32 nEventId = 3;
+  optional int32 nEcho = 4;
+}

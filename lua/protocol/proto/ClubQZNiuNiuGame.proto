@@ -1,0 +1,367 @@
+syntax = "proto2";
+
+package ClubQZNiuNiuGame_pb;
+
+message ClubQZNiuNiuGame_Proto {
+  required int32 Main = 1 [default = 234];
+  required int32 SUB_REQ_LOGIN = 2 [default = 2];
+  required int32 SUB_REP_LOGIN = 3 [default = 3];
+  required int32 SUB_REP_TABLE_INFO = 4 [default = 4];
+  required int32 SUB_REP_ENTER = 5 [default = 5];
+  required int32 SUB_REP_DIZHUANG = 6 [default = 6];
+  required int32 SUB_REQ_XIAZHU = 7 [default = 7];
+  required int32 SUB_REP_XIAZHU = 8 [default = 8];
+  required int32 SUB_REP_FAPAI = 9 [default = 9];
+  required int32 SUB_REQ_TANPAI_READY = 10 [default = 10];
+  required int32 SUB_REP_TANPAI_READY = 11 [default = 11];
+  required int32 SUB_REP_TANPAI = 12 [default = 12];
+  required int32 SUB_REP_JIESUAN = 13 [default = 13];
+  required int32 SUB_REP_RESETGAME = 14 [default = 14];
+  required int32 SUB_REQ_ACTION = 15 [default = 15];
+  required int32 SUB_REP_ACTION = 16 [default = 16];
+  required int32 SUB_REP_WaitGame = 17 [default = 17];
+  required int32 SUB_REQ_LOGOUT_GAME = 18 [default = 18];
+  required int32 SUB_REP_LOGOUT_GAME = 19 [default = 19];
+  required int32 SUB_REP_LEAVE_TABLE = 20 [default = 20];
+  required int32 SUB_REP_NOT_MONEY = 21 [default = 21];
+  required int32 SUB_REP_SHOUPAI = 22 [default = 22];
+  required int32 SUB_REQ_QIANGZHUAGN = 23 [default = 23];
+  required int32 SUB_REP_QIANGZHUAGN = 24 [default = 24];
+  required int32 SUB_REQ_Retain = 25 [default = 25];
+  required int32 SUB_REP_Retain = 26 [default = 26];
+  required int32 SUB_RetainNotify = 27 [default = 27];
+  required int32 SUB_REQ_Chat = 28 [default = 28];
+  required int32 SUB_REP_Chat = 29 [default = 29];
+  required int32 SUB_ChatNotify = 30 [default = 30];
+  required int32 SUP_STATUS_CHANGE = 31 [default = 31];
+  required int32 SUP_GOLD_ChANGE = 32 [default = 32];
+  required int32 SUP_NOT_ACTION = 33 [default = 33];
+  required int32 SUB_REQ_OverView = 34 [default = 34];
+  required int32 SUB_REP_OverView = 35 [default = 35];
+  required int32 SUB_REQ_HeadInfo = 36 [default = 36];
+  required int32 SUB_REP_HeadInfo = 37 [default = 37];
+  required int32 SUB_REQ_PaijuDetail = 38 [default = 38];
+  required int32 SUB_REP_PaijuDetail = 39 [default = 39];
+  required int32 SUP_QiangZhuangNotify = 40 [default = 40];
+  required int32 NNElapWarnNotify_CMD = 41 [default = 41];
+  required int32 NNElapsedStatusNotify_CMD = 42 [default = 42];
+}
+
+message ClubQZLoginGame_Q {
+  required int32 UserID = 1 [default = -99];
+  required string sTableId = 2 [default = ""];
+}
+
+message ClubQZLoginGame_P {
+  required int32 nResult = 1 [default = -99];
+  optional int32 GameType = 2;
+  optional int32 GameLevel = 3;
+}
+
+message ClubQZTableConfig {
+  required string sTableName = 1;
+  required string sPaiJuId = 2;
+  required string sClubName = 3;
+  required int32 nBaseScore = 4;
+  required bool isOnlyPlayByIOS = 5;
+  required bool isGPSLimit = 6;
+  required bool isIPLimit = 7;
+  optional int32 nPlayerAtLeast = 8;
+}
+
+message ClubQZGameTable_P {
+  message ChatItem {
+    required int32 nChatId = 1;
+    required double nCost = 2;
+  }
+
+  required string TableNumber = 1 [default = ""];
+  required int32 TabelStep = 2 [default = -99];
+  required int32 TabelZhuangJiaSit = 3 [default = -99];
+  required int32 GameType = 4 [default = -99];
+  required int32 GameLevel = 5 [default = -99];
+  required int32 TabelDiFen = 6 [default = -99];
+  repeated ClubQZUserData UserArr = 7;
+  repeated int32 TableSit = 8;
+  repeated int32 QiangZhuang = 9;
+  repeated ClubQZQiangZhuang_Q QiangZhuangArr = 10;
+  repeated int32 XiaZhu = 11;
+  repeated ClubQZXiaZhu_Q XiaZhuArr = 12;
+  repeated int32 TanPaiReady = 13;
+  repeated ClubQZTanPai_P TanPai = 14;
+  optional ClubQZJieSuan_P JieSuan = 15;
+  repeated ClubQZShouPai_P UserShouPai = 16;
+  optional int32 Round = 17;
+  required ClubQZUserData tMyself = 18;
+  repeated ChatItem arrChat = 19;
+  optional ClubQZTableConfig tTableConfig = 20;
+  optional int32 nElapsedStatus = 21;
+}
+
+message ClubQZUserData {
+  required int32 UserID = 1 [default = -99];
+  required string Name = 2 [default = ""];
+  required int32 Sex = 3 [default = -99];
+  required string FaceID = 4 [default = ""];
+  required int32 SitID = 5 [default = -99];
+  required int32 Status = 6 [default = -99];
+  required double Gold = 7 [default = -99];
+  required bool Online = 8 [default = false];
+  optional int32 nRetain = 9;
+}
+
+message ClubQZEnter_P {
+  required ClubQZUserData tUserData = 1;
+}
+
+message ClubQZWaitGame_p {
+  required int32 nResult = 1 [default = -1];
+  optional int32 WaitTime = 2 [default = 5];
+  optional string sPaiJuID = 3;
+}
+
+message ClubQZQiangZhuang_Q {
+  required int32 UserID = 1 [default = -99];
+  required int32 Times = 2 [default = -99];
+}
+
+message ClubQZQiangZhuang_P {
+  required int32 UserID = 1 [default = -99];
+  required int32 Times = 2 [default = -99];
+}
+
+message ClubQZDingZhuang_P {
+  required int32 UserID = 3 [default = -99];
+  required int32 SitID = 1 [default = -99];
+  required int32 ByWay = 2 [default = -99];
+  required int32 IsChange = 4 [default = 0];
+  optional int32 Round = 5;
+}
+
+message ClubQZXiaZhu_Q {
+  required int32 Times = 1 [default = -99];
+  required int32 UserID = 2 [default = -99];
+  optional int32 Index = 3 [default = 0];
+}
+
+message ClubQZXiaZhuTable {
+  repeated int32 key = 1;
+}
+
+message ClubQZXiaZhu_P {
+  required int32 UserID = 1 [default = -99];
+  required int32 Times = 2 [default = -99];
+  optional int32 Index = 3 [default = 0];
+  optional int32 IndexGold = 4;
+  optional int32 TotalGold = 5;
+  optional int32 Result = 6;
+  optional int32 IndexLimitGold = 9;
+  optional int32 IndexLimitGoldMin = 10;
+  optional int32 IndexLimitGoldMax = 11;
+  repeated ClubQZXiaZhuTable OtherXiaZhuArr = 7;
+  repeated ClubQZXiaZhuTable MyXiaZhuArr = 8;
+}
+
+message ClubQZShouPai_P {
+  required int32 UserID = 1 [default = -99];
+  repeated int32 ShouPai = 2;
+}
+
+message ClubQZFaiPai_P {
+  required int32 UserID = 1 [default = -99];
+  required int32 Pai = 2;
+}
+
+message ClubQZTanPaiReady_Q {
+  required int32 Ready = 1 [default = -99];
+  required int32 UserID = 2 [default = -99];
+}
+
+message ClubQZTanPaiReady_P {
+  required int32 UserID = 1 [default = -99];
+  required int32 Ready = 2 [default = -99];
+}
+
+message ClubQZTanPai_P {
+  required int32 UserID = 1 [default = -99];
+  required int32 NiuWhat = 2 [default = -99];
+  repeated int32 ShouPai = 3;
+  required int32 Times = 4 [default = 0];
+}
+
+message ClubQZJieSuan_P {
+  message UserWinData {
+    message WinObject {
+      required int32 UserID = 1 [default = -99];
+      required double Gold = 2 [default = -99];
+      optional int32 Index = 3;
+    }
+
+    required int32 UserID = 1 [default = -99];
+    required double TotalWin = 2 [default = -99];
+    repeated WinObject WinArr = 4;
+  }
+
+  repeated UserWinData UserWinArr = 5;
+}
+
+message ClubQZResetGame_P {
+  required string TableNumber = 1 [default = ""];
+  required int32 time = 2 [default = -99];
+}
+
+message ClubQZUserAction_Q {
+  required int32 Action = 1 [default = -99];
+  required int32 UserID = 2 [default = -99];
+  optional int32 SitID = 3;
+}
+
+message ClubQZUserAction_P {
+  required int32 UserID = 1 [default = -99];
+  required int32 Action = 2 [default = -99];
+  optional int32 SitID = 3;
+  optional int32 nRlt = 4;
+  optional ClubQZUserData tUserData = 5;
+}
+
+message ClubQZUserLogOut_Q {
+  required int32 UserID = 1 [default = -99];
+}
+
+message ClubQZUserLogOut_P {
+  required int32 UserID = 1 [default = -99];
+  required int32 Result = 2 [default = -99];
+}
+
+message ClubQZUserLeaveTable_P {
+  required int32 UserID = 1 [default = -99];
+  required int32 Status = 2 [default = 0];
+}
+
+message ClubQZUserNotNoney_P {
+  required int32 UserID = 1;
+  required int32 Result = 2;
+}
+
+message ClubQZRetainGame_Q {
+  required int32 UserID = 1;
+  required int32 nOp = 2;
+}
+
+message ClubQZRetainGame_P {
+  required int32 UserID = 1;
+  required int32 nRlt = 2;
+  required int32 nOp = 3;
+}
+
+message ClubQZRetainNotify {
+  required int32 nPos = 1;
+  required int32 nOp = 2;
+  optional int32 nSeconds = 3;
+}
+
+message ClubQZChatGame_Q {
+  required int32 UserID = 1;
+  required int32 nChatId = 2;
+  optional int32 nTarget = 3;
+}
+
+message ClubQZChatGame_P {
+  required int32 UserID = 1;
+  required int32 nRlt = 2;
+}
+
+message ClubQZChatNotify {
+  required int32 nSpeaker = 1;
+  required int32 nChatId = 2;
+  optional int32 nTarget = 3;
+}
+
+message ClubQZUserStatusChange {
+  required int32 UserID = 1;
+  required int32 Status = 2;
+}
+
+message ClubQZUserGold_p {
+  required int32 UserID = 1;
+  required double Gold = 2;
+}
+
+message ClubQZUserGold_p_Arr {
+  repeated ClubQZUserGold_p tGoldArr = 1;
+}
+
+message ClubQZREP_Not_Action {
+  optional int32 UserID = 1;
+}
+
+message ClubQZOverView_Q {
+  required int32 UserID = 1;
+  optional int32 nNoUse = 2;
+}
+
+message ClubQZOverView_P {
+  message Item {
+    required int32 nUserId = 1;
+    required string sName = 2;
+    required int32 nStatus = 3;
+    optional int32 nPlayCnt = 4;
+    optional double nProfitSum = 5;
+    optional string sFaceId = 6;
+  }
+
+  required string sPaiJuId = 1;
+  required string sTableName = 2;
+  repeated Item arrPartInUser = 3;
+  repeated Item arrLooker = 4;
+  required double nBaseScore = 5;
+  optional int32 nRound = 6;
+  optional int32 nRemainTime = 7;
+  optional int32 nEndFlag = 8;
+}
+
+message ClubQZHeadInfo_Q {
+  required int32 nUserId = 1;
+  required int32 nPos = 2;
+}
+
+message ClubQZHeadInfo_P {
+  required int32 nUserId = 1;
+  required string sFaceId = 2;
+  required string sName = 3;
+  required int32 nSex = 4;
+  required double nBalance = 5;
+  required string sSigna = 6;
+  required int32 nVipLev = 7;
+  required int32 nPlayCount = 8;
+  required double nProfit = 9;
+  required int32 nJushu = 10;
+}
+
+message ClubQZPaijuDetail_Q {
+  required int32 nUserId = 1;
+  required string sPaiJuId = 2;
+}
+
+message ClubQZPaijuDetail_P {
+  required int32 GameID = 1;
+  required int32 nAnte = 2;
+  required string tUsersInfo = 3;
+  required int32 nZhuang = 4;
+  required string tDealCardInfo = 5;
+  required string tBetInfo = 6;
+  required string sTime = 7;
+  required string sPaiJuId = 8;
+}
+
+message ClubQZQiangZhuangNotify {
+  required int32 nTimes = 1;
+}
+
+message NNElapWarnNotify {
+  required int32 nRemainTime = 1;
+}
+
+message NNElapsedStatusNotify {
+  required int32 nElapsedStatus = 1;
+}

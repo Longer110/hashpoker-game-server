@@ -1,0 +1,309 @@
+syntax = "proto2";
+
+package SeDie_pb;
+
+message SeDie_Proto {
+    required int32 Main_CMD = 1 [default = 230];
+    required int32 SDSLogOnReq_CMD = 2 [default = 2];
+    required int32 SDSLogOnResp_CMD = 3 [default = 3];
+    required int32 SDSGoInBetStageNotify_CMD = 4 [default = 4];
+    required int32 SDSBetReq_CMD = 5 [default = 5];
+    required int32 SDSBetResp_CMD = 6 [default = 6];
+    required int32 SDSGoInResultStageNotify_CMD = 8 [default = 8];
+    required int32 SDSGoInFreeStageNotify_CMD = 9 [default = 9];
+    required int32 SDSGetApplicantsReq_CMD = 10 [default = 10];
+    required int32 SDSGetApplicantsResp_CMD = 11 [default = 11];
+    required int32 SDSApplyForBankerReq_CMD = 12 [default = 12];
+    required int32 SDSApplyForBankerResp_CMD = 13 [default = 13];
+    required int32 SDSApplyCancelReq_CMD = 14 [default = 14];
+    required int32 SDSApplyCancelResp_CMD = 15 [default = 15];
+    required int32 SDSApplyResignReq_CMD = 16 [default = 16];
+    required int32 SDSApplyResignResp_CMD = 17 [default = 17];
+    required int32 SDSBackToLobbyReq_CMD = 18 [default = 18];
+    required int32 SDSBackToLobbyRsp_CMD = 19 [default = 19];
+    required int32 SDSGmReq_CMD = 20 [default = 20];
+    required int32 SDSKickOutNotify_CMD = 22 [default = 22];
+    required int32 SDSBetDetail_CMD = 23 [default = 23];
+    required int32 SDSCloseTableNotify_CMD = 24 [default = 24];
+    required int32 SDSGoldChangeNotify_CMD = 25 [default = 25];
+    required int32 SDSModRank_CMD = 30 [default = 30];
+    required int32 SDSTrendMapReq_CMD = 31 [default = 31];
+    required int32 SDSTrendMapRsp_CMD = 32 [default = 32];
+    required int32 SDSGoInInitStageNotify_CMD = 33 [default = 33];
+    required int32 SDSGoInNewGameStageNotify_CMD = 34 [default = 34];
+    required int32 SDSOnlineCountNotify_CMD = 50 [default = 50];
+    required int32 SDSGetTopUsersReq_CMD = 51 [default = 51];
+    required int32 SDSGetTopUsersResp_CMD = 52 [default = 52];
+    required int32 SDSRepeatBetReq_CMD = 53 [default = 53];
+    required int32 SDSRepeatBetRsp_CMD = 54 [default = 54];
+    required int32 SDSBetNotify_CMD = 55 [default = 55];
+    required int32 SDSGmRsp_CMD = 56 [default = 56];
+    required int32 SDSUserLeaveResp_CMD = 60 [default = 60];
+}
+
+message SDSLogOnReq {
+    required int32 nUserId = 1 [default = -99];
+    required int32 nRoomId = 2 [default = -99];
+    optional string sTableId = 3;
+}
+
+message SDSLogOnResp {
+    required int32 nRlt = 1 [default = -99];
+    optional SDSScence tScence = 2;
+    optional string strErr = 3 [default = ""];
+}
+
+message SDSUser {
+    optional int32 nUserId = 1;
+    optional string sFaceId = 2;
+    optional string sName = 3;
+    optional double nGold = 4;
+    optional int32 nSex = 5;
+    optional int32 nBankerConsecutive = 6 [default = -99];
+    optional int32 nBankerWinLose = 7 [default = -99];
+    optional int32 nBanKerDrawWater = 8 [default = -99];
+    optional int32 nBetSum = 9;
+}
+
+message SDTrendMap2 {
+    message SDButtonRecordStatis {
+        required int32 nRedButtonCount = 1;
+        required int32 nWhiteButtonCount = 2;
+        repeated int32 arrButton = 3;
+        optional int32 nOrder = 4;
+    }
+    repeated SDButtonRecordStatis arrButtonRecordStatis = 3;
+    optional int32 nInning = 4;
+}
+
+message SDSTrendMapReq {
+    optional int32 nNoUse = 1;
+}
+
+message SDSTrendMapRsp {
+    optional SDTrendMap2 arrTrendMap = 1;
+}
+
+message SDRankTreasure2 {
+    required double nSelfProfit = 1;
+    required double nSelfGold = 2;
+    required int32 nSitId = 3;
+}
+
+message SDSSelfGold {
+    repeated SDRankTreasure2 tAllBetSelf = 1;
+}
+
+message SDSwitchConfig2 {
+    optional bool bShangZhuangOpen = 1;
+}
+
+message SDBetLimit2 {
+    required int32 nType = 1;
+    optional int32 nMin = 2;
+    optional int32 nMax = 3;
+}
+
+message SDAreaOdds {
+    required int32 nArea = 1;
+    required double odds = 2;
+}
+
+message SDSScence {
+    required int32 nRoomId = 1;
+    repeated int32 arrChipsForBet = 2;
+    required int32 nBankerRequirement = 3;
+    required int32 nConsecutiveMax = 4;
+    required SDSUser tBanker = 5;
+    required SDSUser tMyself = 6;
+    required int32 nStage = 7;
+    required int32 nSeconds = 8;
+    required int32 nButtonStatus = 9;
+    optional SDTrendMap2 arrTrendMap = 10;
+    optional SDSBetDetail tBetDetail = 11;
+    repeated int32 arrButton = 12;
+    optional double nSelfProfit = 13;
+    optional double nSelfGold = 25;
+    optional double nBankerProfit = 14;
+    optional double nBankerGold = 26;
+    optional SDSUser tRankUser1 = 19;
+    optional SDSUser tRankUser2 = 20;
+    optional SDSUser tRankUser3 = 21;
+    optional SDSUser tRankUser4 = 22;
+    optional int32 nOnLineCount = 23;
+    optional SDSSelfGold arrRankGold = 27;
+    optional int32 nIsRepeatBet = 28;
+    optional SDSwitchConfig2 tSwitchConfig = 30;
+    optional SDSBetDetail tScenceWinResult = 31;
+    repeated SDBetLimit2 arrBetLimit = 32;
+    repeated SDAreaOdds arrAreaOdds = 33;
+}
+
+message SDSGoInBetStageNotify {
+    required int32 nSeconds = 1;
+}
+
+message SDSBetReq {
+    required int32 nBetChip = 1;
+    required int32 nBetArea = 2;
+}
+
+message SDSBetResp {
+    message SDSInterval {
+        required int32 nLower = 1;
+        required int32 nUpper = 2;
+    }
+    required int32 nRlt = 1;
+    optional string strErr = 2;
+    optional SDSBetDetail tBetDetail = 3;
+    optional SDSInterval tInterval = 4;
+}
+
+message SDSAreaChipBetItem {
+    required int32 nAreaId = 1;
+    required int32 nSumBet = 2;
+    optional int32 nBetPeople = 3;
+    optional int32 nSitId = 5;
+    optional double nBetResult = 6;
+    optional double nTax = 7;
+}
+
+message SDSBetDetail {
+    repeated SDSAreaChipBetItem arrAllBetDetail = 1;
+    repeated SDSAreaChipBetItem arrSelfBetDetail = 2;
+}
+
+message SDSGoInResultStageNotify {
+    required int32 nSeconds = 1;
+    repeated int32 arrButton = 2;
+    required double nSelfProfit = 3;
+    required double nBankerProfit = 4;
+    required double nSelfGold = 5;
+    required double nBankerGold = 6;
+    optional SDSSelfGold arrRankGold = 7;
+    optional SDSBetDetail tSettleResult = 9;
+}
+
+message SDSGoInFreeStageNotify {
+    required int32 nSeconds = 1;
+    required SDSUser tBanker = 2;
+    required int32 nTipId = 3;
+    optional int32 nButtonStatus = 4;
+    optional double nSelfGold = 5;
+    optional SDSSwitchConfig2 tSwitchConfig = 7;
+    repeated SDBetLimit2 arrBetLimit = 8;
+    optional int32 nBankerRequirement = 11;
+    repeated int32 arrChipsForBet = 12;
+    repeated SDSUser tTopUsers = 13;
+    repeated SDAreaOdds arrAreaOdds = 33;
+}
+
+message SDSGetApplicantsReq {
+}
+
+message SDSGetApplicantsResp {
+    repeated SDSUser arrApplicants = 1;
+}
+
+message SDSApplyForBankerReq {
+}
+
+message SDSApplyForBankerResp {
+    required int32 nRlt = 1;
+    optional string strErr = 2;
+}
+
+message SDSApplyCancelReq {
+}
+
+message SDSApplyCancelResp {
+    required int32 nRlt = 1;
+    optional string strErr = 2;
+}
+
+message SDSApplyResignReq {
+    optional int32 nNoUse = 1;
+}
+
+message SDSApplyResignResp {
+    required int32 nRlt = 1;
+    optional string strErr = 2;
+}
+
+message SDSBackToLobbyReq {
+    optional int32 nNoUse = 1;
+}
+
+message SDSBackToLobbyRsp {
+    required int32 nRlt = 1;
+    optional string strErr = 2;
+}
+
+message SDSGmReq {
+    required string strCmd = 1;
+}
+
+message SDSKickOutNotify {
+    optional int32 nNoUse = 1;
+    optional int32 nReason = 2;
+}
+
+message SDSCloseTableNotify {
+    optional int32 nNoUse = 1;
+}
+
+message SDSGoldChangeNotify {
+    required double nChangeGold = 1;
+}
+
+message SDSModRank {
+    repeated SDSUser tRankUser4 = 1;
+}
+
+message SDRoomCfg {
+    optional string sTableId = 1;
+    optional int32 nRoomId = 2;
+}
+
+message SDSGmRsp {
+    required int32 nRlt = 1;
+}
+
+message SDSOnlineCountNotify {
+    required int32 nOnlineCount = 1;
+}
+
+message SDSRepeatBetReq {
+    required int32 nIsRepeatBet = 1;
+}
+
+message SDSRepeatBetRsp {
+    required int32 nIsRepeatBet = 1;
+}
+
+message SDSGetTopUsersReq {
+    optional int32 nNoUse = 1;
+}
+
+message SDSGetTopUsersResp {
+    repeated SDSUser arrUsers = 1;
+}
+
+message SDSBetNotify {
+    required int32 nBetChip = 1;
+    required int32 nBetArea = 2;
+    required int32 nIsMe = 3;
+    optional bool nIsRepeatBet = 4;
+}
+
+message SDSUserLeaveResp {
+    optional int32 nStatus = 1;
+}
+
+message SDSGoInInitStageNotify {
+    required int32 nSeconds = 1;
+}
+
+message SDSGoInNewGameStageNotify {
+    required int32 nSeconds = 1;
+}

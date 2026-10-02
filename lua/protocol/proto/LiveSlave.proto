@@ -1,0 +1,49 @@
+syntax = "proto2";
+
+package LiveSlave_pb;
+
+message LiveSlave_Proto {
+    required int32 Main_CMD = 1 [default = 302];
+    required int32 LiveSlaveLogOnReq_CMD = 2 [default = 2];
+    required int32 LiveSlaveLogOnRsp_CMD = 3 [default = 3];
+    required int32 LiveSlaveBackToLobbyReq_CMD = 4 [default = 4];
+    required int32 LiveSlaveBackToLobbyRsp_CMD = 5 [default = 5];
+    required int32 LiveSlaveGuessCardNotify_CMD = 6 [default = 6];
+    required int32 LiveSlaveGuessCardReq_CMD = 7 [default = 7];
+    required int32 LiveSlaveGuessCardRsp_CMD = 8 [default = 8];
+}
+
+message LiveSlaveLogOnReq {
+    required int32 nUserId = 1;
+    required string sTableId = 2 [default = ""];
+    optional int32 nRoomId = 3 [default = -1];
+}
+
+message LiveSlaveLogOnRsp {
+    required int32 nRlt = 1;
+    optional string strErr = 2;
+}
+
+message LiveSlaveBackToLobbyReq {
+    optional int32 nNoUse = 1;
+}
+
+message LiveSlaveBackToLobbyRsp {
+    required int32 nRlt = 1;
+}
+
+message LiveSlaveGuessCardNotify {
+    required int32 nUserId = 1;
+    required string sName = 2;
+    required string sFaceId = 3;
+    required int32 nCardType = 4;
+    required int32 nTime = 5;
+}
+
+message LiveSlaveGuessCardReq {
+    required bool isWhether = 1;
+}
+
+message LiveSlaveGuessCardRsp {
+    required int32 nAwardGold = 1;
+}

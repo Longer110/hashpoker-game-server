@@ -1,0 +1,494 @@
+syntax = "proto2";
+
+package SeDieMCenter_pb;
+
+message SeDieMC_Proto {
+  required int32 Main_CMD = 1 [default = 254];
+  required int32 SDMCLogOnReq_CMD = 2 [default = 2];
+  required int32 SDMCLogOnResp_CMD = 3 [default = 3];
+  required int32 SDMCGoInBetStageNotify_CMD = 4 [default = 4];
+  required int32 SDMCStopBetNotify_CMD = 5 [default = 5];
+  required int32 SDMCGoInSettleNotify_CMD = 6 [default = 6];
+  required int32 SDMCGoInFreeNotify_CMD = 7 [default = 7];
+  required int32 SDMCBetReq_CMD = 8 [default = 8];
+  required int32 SDMCBetResp_CMD = 9 [default = 9];
+  required int32 SDMCBetNotify_CMD = 10 [default = 10];
+  required int32 SDMCApplyForBankerReq_CMD = 12 [default = 12];
+  required int32 SDMCApplyForBankerResp_CMD = 13 [default = 13];
+  required int32 SDMCApplyCancelReq_CMD = 14 [default = 14];
+  required int32 SDMCApplyCancelResp_CMD = 15 [default = 15];
+  required int32 SDMCApplyResignReq_CMD = 16 [default = 16];
+  required int32 SDMCApplyResignResp_CMD = 17 [default = 17];
+  required int32 SDMCApplyForBankerNotify_CMD = 18 [default = 18];
+  required int32 SDMCApplyCancelNotify_CMD = 19 [default = 19];
+  required int32 SDMCBetAreaLimitNotify_CMD = 20 [default = 20];
+  required int32 SDMCCloseTableNotify_CMD = 21 [default = 21];
+  required int32 SDMCGMReq_CMD = 22 [default = 22];
+  required int32 SDMCReportedPeople_CMD = 23 [default = 23];
+  required int32 SDMCLiveBet_CMD = 24 [default = 24];
+  required int32 SDMCRecommend_CMD = 25 [default = 25];
+  required int32 SDMCOpenTableReq_CMD = 26 [default = 26];
+  required int32 SDMCOpenTableResp_CMD = 27 [default = 27];
+  required int32 SDMCBatchBetReq_CMD = 28 [default = 28];
+  required int32 SDMCBatchBetRep_CMD = 29 [default = 29];
+  required int32 SDMCLiveBatchBet_CMD = 30 [default = 30];
+  required int32 SDMCGoldChangeSynReq_CMD = 31 [default = 31];
+  required int32 SDMCGoldChangeSynNotify_CMD = 32 [default = 32];
+  required int32 SDMCLiveEnterGame_CMD = 33 [default = 33];
+  required int32 SDMCUpdateLiveGold_CMD = 34 [default = 34];
+  required int32 SDMCPlayerCntReportReq_CMD = 35 [default = 35];
+  required int32 SDMCPlayerCntSummaryNotify_CMD = 36 [default = 36];
+  required int32 SDMCLiveOnLineStatusReq_CMD = 37 [default = 37];
+  required int32 SDMCCardsBatchNotify_CMD = 38 [default = 38];
+  required int32 SDMCBankerFreezeNotify_CMD = 39 [default = 39];
+  required int32 SDMCRefundNotify_CMD = 40 [default = 40];
+  required int32 SDMCLiveDemoPetternNotify_CMD = 41 [default = 41];
+  required int32 SDMCUserSettleNotify_CMD = 42 [default = 42];
+  required int32 SDMCUserEnterLeaveNotify_CMD = 43 [default = 43];
+  required int32 SDMCFollowLockNotify_CMD = 44 [default = 44];
+  required int32 SDMCUserBetNotify_CMD = 45 [default = 45];
+  required int32 SDMCSysRecommendNotify_CMD = 46 [default = 46];
+}
+
+message SDMCOpenTableReq {
+  optional int32 nGroupId = 1;
+  optional int32 nGameId = 2;
+  optional int32 nRoomId = 3;
+  optional string sClientID = 4;
+  optional int32 nUserId = 5;
+  optional int32 nShopId = 6;
+}
+
+message SDMCOpenTableResp {
+  optional string sTableId = 1;
+  optional string sClientID = 2;
+  optional int32 nUserId = 3;
+  optional string sTableKey = 4;
+}
+
+message SDMCUser {
+  required int32 nUserId = 1;
+  required string sFaceId = 2;
+  required string sName = 3;
+  required double nGold = 4;
+  required int32 nSex = 5;
+  optional int32 nBankerConsecutive = 6;
+  optional bool isResign = 7;
+  optional string sGameKey = 8;
+  optional bool isAndroid = 9;
+}
+
+message SDMCScence {
+  message SDMCAreaChipBetItem {
+    required double nSumBet = 1 [default = 0];
+    required int32 nBetArea = 2 [default = 0];
+  }
+  
+  message TrendItem {
+    repeated int32 nDice = 1;
+  }
+  
+  required int32 nCurrentStage = 1;
+  required int32 nRemainSeconds = 2;
+  required SDMCUser tBanker = 3;
+  repeated SDMCAreaChipBetItem arrBetDetail = 4;
+  repeated TrendItem arrTrend = 5;
+  repeated int32 arrDice = 6;
+  optional SDMCUser arrApplicants = 7;
+  required int32 nApplicantsMax = 8;
+  optional string sTableId = 9;
+  required int32 nRoomId = 10;
+  optional int32 nGameId = 11;
+  required int32 nGroupId = 12;
+  optional SDMCGameCfg tSwitchConfig = 13;
+  required double nAnte = 14;
+  optional double nLiveGold = 15;
+  optional string sTableName = 16;
+  optional int32 nTableType = 17;
+  optional SDMCRecommendSet tRecommendSet = 18;
+  optional int32 nStageSeconds = 19;
+  repeated SDMCBetLimit arrBetLimitCfg = 20;
+  required int32 nTableStatus = 21;
+  optional bool isPassWordRoom = 22;
+  required int32 nTax = 23;
+  optional int32 nRound = 24;
+  optional bool isOpenDemoPettern = 25;
+  optional bool isVoiceRoom = 26;
+  optional string sPaiJuId = 27;
+  optional string sFollowConfig = 28;
+}
+
+message SDMCLogOnReq {
+  required int32 nServerId = 1;
+  optional string sTableId = 2;
+}
+
+message SDMCLogOnResp {
+  required int32 nRlt = 1 [default = -99];
+  optional string sTableId = 2;
+  optional int32 nLiveUserID = 3 [default = -99];
+  optional SDMCScence tScence = 4;
+}
+
+message SDMCGameCfg {
+  optional bool bShangZhuangOpen = 1;
+  optional bool bWithCastOpen = 2;
+  optional bool bRecommendOpen = 3;
+  optional bool IsDrawWater = 4;
+  optional double nEnterFloorLimit = 5;
+  repeated double arrChipsForBet = 6;
+  optional bool bVipOn = 7;
+}
+
+message SDMCCenterSrvInfo {
+  optional int32 nServerId = 1;
+  optional int32 nSum = 2;
+  optional int32 nAndroid = 3;
+  optional int32 nAllPeople = 4;
+  optional int32 nAllAndroid = 5;
+}
+
+message SDMCGoInFreeNotify {
+  required int32 nStageSeconds = 1;
+  optional SDMCUser tBanker = 2;
+  optional int32 nTipId = 3;
+  optional int32 nCenterSvrId = 4;
+  optional string sTableId = 5;
+  optional SDMCGameCfg tSwitchConfig = 6;
+  optional int32 nRobotsServerId = 7;
+  optional int32 nInning = 8;
+  optional string sTableName = 9;
+  optional string sPaiJuId = 10;
+  optional int32 nTableType = 11;
+  optional SDMCRecommendSet tRecommendSet = 12;
+  required int32 nLiveUserID = 13;
+  optional double nLiveGold = 14;
+  optional string sLiveID = 15;
+  optional string sPlatformID = 16;
+  required double nAnte = 17;
+  repeated SDMCBetLimit arrBetLimitCfg = 18;
+  repeated int32 arrOpenKey = 19;
+  required int32 nTableStatus = 20;
+  required int32 nTax = 21;
+  optional int32 nRound = 22;
+  optional string sExten = 23;
+}
+
+message SDMCBetLimit {
+  optional int32 nType = 1;
+  optional double nMin = 2;
+  optional double nMax = 3;
+  optional double nVipRate = 4;
+}
+
+message SDMCGoInBetStageNotify {
+  required int32 nStageSeconds = 1;
+  required string sTableId = 2;
+}
+
+message SDMCStopBetNotify {
+  required string sTableId = 1;
+  required int32 nTableStatus = 2;
+}
+
+message SDMCGoInSettleNotify {
+  required int32 nStageSeconds = 1;
+  repeated int32 arrDice = 2;
+  required string sTableId = 3;
+  optional string sPaiJuId = 4;
+  optional double nBankerWinLose = 5;
+  optional double nBanKerDrawWater = 6;
+  optional int32 nControl = 7;
+  optional int32 nControlType = 8;
+  repeated SDMCProfitDetail arrBankerWinLoseDetail = 9;
+  optional double nWinloseToRobot = 10;
+  optional double nDrawWaterToRobot = 11;
+}
+
+message SDMCProfitDetail {
+  required int32 nAreaId = 1;
+  required double nProfit = 2;
+  required double nTax = 3;
+  required double nBetSum = 4;
+}
+
+message SDMCBatchBet {
+  required double nBetChip = 1;
+  required int32 nBetArea = 2;
+}
+
+message SDMCBatchBetReq {
+  message BatchBetItem {
+    required int32 nId = 1;
+    optional bool isAndroid = 2;
+    optional int32 nAccountType = 3;
+    optional double nSumBet = 4;
+    repeated SDMCBatchBet arrBatchBet = 5;
+  }
+  
+  required string sTableId = 1;
+  repeated BatchBetItem arrBetItem = 2;
+}
+
+message SDMCBatchBetRep {
+  required string sTableId = 1;
+  repeated int32 arrSucceeId = 2;
+}
+
+message SDMCBetReq {
+  message BetItem {
+    required double nBetChip = 1;
+    required int32 nBetArea = 2;
+    required int32 nId = 3;
+    optional bool isAndroid = 4;
+    optional int32 nAccountType = 5;
+  }
+  
+  required string sTableId = 1;
+  repeated BetItem arrBetItem = 2;
+}
+
+message SDMCBetResp {
+  required string sTableId = 1;
+  repeated int32 arrSucceeId = 2;
+}
+
+message SDMCBetNotify {
+  required double nBetChip = 1;
+  required int32 nBetArea = 2;
+  required int32 nSerialId = 3;
+  required int32 nServerId = 4;
+}
+
+message SDMCBetAreaLimitNotify {
+  message tBetSumlimit {
+    required double nSumBet = 1 [default = 0];
+    required int32 nBetArea = 2 [default = 0];
+    required int32 nBetPeople = 3 [default = 0];
+    optional double nAnchorBet = 4 [default = 0];
+  }
+  
+  repeated tBetSumlimit arrBetLimit = 1;
+  optional string sTableId = 2;
+  optional int32 nSumPeople = 3 [default = 0];
+}
+
+message SDMCApplyForBankerReq {
+  required string sTableId = 1;
+  required SDMCUser tUser = 2;
+}
+
+message SDMCApplyForBankerResp {
+  required string sTableId = 1;
+  required int32 nRlt = 2;
+  required int32 nUserId = 3;
+}
+
+message SDMCApplyCancelReq {
+  required string sTableId = 1;
+  required int32 nUserId = 2;
+  required int32 nType = 3;
+  required int32 nGold = 4;
+}
+
+message SDMCGoldChangeSynReq {
+  message ChangeItem {
+    required int32 nUserId = 1;
+    required int32 nGold = 2;
+  }
+  
+  required string sTableId = 1;
+  repeated ChangeItem arrGoldChange = 2;
+  required int32 nIsHaveRealUserIn = 3;
+  required int32 nCurrentRealUserCnt = 4;
+}
+
+message SDMCGoldChangeSynNotify {
+  message ChangeItem {
+    required int32 nUserId = 1;
+    required int32 nGold = 2;
+  }
+  
+  required string sTableId = 1;
+  repeated ChangeItem arrGoldChange = 2;
+}
+
+message SDMCApplyCancelResp {
+  required string sTableId = 1;
+  required int32 nRlt = 2;
+  required int32 nUserId = 3;
+}
+
+message SDMCApplyResignReq {
+  required string sTableId = 1;
+  required int32 nUserId = 2;
+}
+
+message SDMCApplyResignResp {
+  required string sTableId = 1;
+  required int32 nRlt = 2;
+  required int32 nUserId = 3;
+}
+
+message SDMCApplyForBankerNotify {
+  required string sTableId = 1;
+  required SDMCUser tUser = 2;
+  required int32 nApplicantCnt = 3;
+  required int32 nType = 4;
+}
+
+message SDMCApplyCancelNotify {
+  required string sTableId = 1;
+  required int32 nUserId = 2;
+  required int32 nApplicantCnt = 3;
+}
+
+message SDMCCloseTableNotify {
+  required string sTableId = 1;
+  required int32 nCloseType = 2;
+}
+
+message SDMCGMReq {
+  required string sTableId = 1;
+  required string tGM = 2;
+}
+
+message SDMCReportedPeople {
+  required string sTableId = 1;
+  required int32 nSum = 2;
+  required int32 nAndroid = 3;
+}
+
+message SDMCLiveBet {
+  required string sTableId = 1;
+  required int32 nBetArea = 2;
+  required int32 nBetChip = 3;
+  required int32 nUserId = 4;
+}
+
+message SDMCLiveBatchBet {
+  required string sTableId = 1;
+  required int32 nSumBet = 2;
+  repeated SDMCBatchBet arrBatchBet = 3;
+  required int32 nUserId = 4;
+}
+
+message SDMCRecommendSet {
+  optional bool bRecommendSwith = 1;
+  optional bool bSysRecommendSwith = 2;
+  optional bool bAutoRecommendSwith = 3;
+}
+
+message SDMCRecommend {
+  required string sTableId = 1;
+  required int32 nType = 2;
+  required SDMCRecommendSet tRecommendSet = 3;
+  repeated int32 arrRecommend = 4;
+}
+
+message SDMCLiveEnterGame {
+  required string sTableId = 1;
+}
+
+message SDMCUpdateLiveGold {
+  required string sTableId = 1;
+  required int32 nLiveGold = 2;
+}
+
+message SDMCPlayerCntReportReq {
+  required string sTableId = 1;
+  required int32 nServerId = 2;
+  required int32 nCurrentRealUserCnt = 3;
+}
+
+message SDMCPlayerCntSummaryNotify {
+  required string sTableId = 1;
+  required int32 nSumCnt = 2;
+}
+
+message SDMCLiveOnLineStatusReq {
+  required string sTableId = 1;
+  required bool bIsLiveOnline = 2;
+}
+
+message SDMCCardsBatchNotify {
+  message CardItem {
+    required int32 nKey = 1;
+    required int32 nVal = 2;
+    required string sHash = 3;
+    required string sPlainText = 4;
+  }
+  
+  required string sTableId = 1;
+  required int32 nMaxDex = 2;
+  repeated CardItem arrCardItem = 3;
+  required int32 nCurSend = 4;
+  required int32 nStartKey = 5;
+  required int32 nEndKey = 6;
+}
+
+message SDMCBankerFreezeNotify {
+  required string sTableId = 1;
+  required int32 nBankerFreezeGold = 2;
+}
+
+message SDMCRefundNotify {
+  required string sTableId = 1;
+}
+
+message SDMCLiveDemoPetternNotify {
+  required string sTableId = 1;
+  required int32 nLiveUserID = 2;
+  required int32 nLiveGoldPettern = 3;
+}
+
+message SDMCUserWinLose {
+  required int32 nUserId = 1;
+  required int32 nTotalBetSum = 2;
+  required int32 nWinLoseSum = 3;
+  required int32 nWL = 4;
+}
+
+message SDMCUserSettleNotify {
+  required string sTableId = 1;
+  repeated SDMCUserWinLose arrUserWinLose = 2;
+}
+
+message SDMCEnterLeave {
+  required int32 nUserId = 1;
+  required int32 nType = 2;
+  required string sShopAcc = 3;
+  required bool isAndroid = 4;
+}
+
+message SDMCUserEnterLeaveNotify {
+  required string sTableId = 1;
+  repeated SDMCEnterLeave arrEnterLeave = 2;
+}
+
+message SDMCFollowLock {
+  required int32 nUserId = 1;
+  required int32 nLock = 2;
+  required int32 nTargetUserId = 3;
+}
+
+message SDMCFollowLockNotify {
+  required string sTableId = 1;
+  repeated SDMCFollowLock arrFollowLock = 2;
+}
+
+message SDMCUserBet {
+  required int32 nUserId = 1;
+  required int32 nBetArea = 2;
+  required int32 nBetChip = 3;
+}
+
+message SDMCUserBetNotify {
+  required string sTableId = 1;
+  repeated SDMCUserBet arrBet = 2;
+}
+
+message SDMCSysRecommendNotify {
+  required string sTableId = 1;
+  required int32 nAreaId = 2;
+}

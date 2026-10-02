@@ -1,0 +1,102 @@
+syntax = "proto2";
+
+package Web_pb;
+
+message Web_Sys {
+  required int32 WEB = 1 [default = 401];
+  required int32 Main_CMD = 2 [default = 300];
+  required int32 WebGameBlockChainReq_CMD = 3 [default = 3];
+  required int32 WebGameBlockChainRep_CMD = 4 [default = 4];
+  required int32 WebUrlReq_CMD = 5 [default = 5];
+  required int32 WebUserOnlineStatus_CMD = 6 [default = 20];
+  required int32 WebUserRealNameReq_CMD = 7 [default = 21];
+  required int32 WebUserRealNameRep_CMD = 8 [default = 22];
+  required int32 WebOtherPlatformWinloseReq_CMD = 9 [default = 23];
+  required int32 WebUrlReqAndReturn_CMD = 10 [default = 24];
+  required int32 WebUrlRsp_CMD = 11 [default = 25];
+}
+
+message Sub_WEB {
+  required int32 SUB_REP_WEB = 1 [default = 1];
+  required int32 SUB_REP_VERSION_WEB = 2 [default = 2];
+  required int32 SUB_REP_MAINTAIN_WEB = 3 [default = 3];
+  required int32 SUB_REP_NOTICE_WEB = 4 [default = 4];
+  required int32 SUB_REQ_DB_IP_UPDATE = 5 [default = 5];
+  required int32 SUB_REQ_DB_PHONE_UPDATE = 6 [default = 6];
+  required int32 SUB_REQ_KICK_USER = 7 [default = 18];
+}
+
+message REQ_Web_StopServer {
+  optional int32 cStat = 1 [default = 2];
+  optional string nSTime = 2 [default = ""];
+  optional string nETime = 3 [default = ""];
+}
+
+message REQ_Web_Version_Updata {
+  optional int32 cStat = 1 [default = 2];
+}
+
+message REQ_Web_Kick_User {
+  optional int32 nUserId = 1 [default = -99];
+  optional int32 nType = 2 [default = -99];
+}
+
+message WebGameBlockChainReq {
+  required int32 nType = 1;
+  required string sTableInfo = 2;
+}
+
+message WebGameBlockChainRep {
+  required int32 nType = 1;
+  required string sTableInfo = 2;
+  required string sResult = 3;
+}
+
+message WebUrlReq {
+  required string sUrl = 1;
+  optional string sSerialNum = 2;
+  optional string sSendType = 3;
+  optional string sBody = 4;
+}
+
+message WebUserOnlineStatus {
+  required int32 nUserId = 1;
+  required int32 nStatus = 2;
+  optional string sElse = 3;
+}
+
+message WebUserRealNameReq {
+  required int32 nUserID = 1;
+  required string sUserName = 2;
+  required string sIdentification = 3;
+}
+
+message WebUserRealNameRep {
+  required int32 nResult = 1;
+  required int32 nUserID = 2;
+  required string sUserName = 3;
+  required string sIdentification = 4;
+}
+
+message WebOtherPlatformWinloseReq {
+  required string sUrl = 1;
+  optional string sSerialNum = 2;
+  optional string sSendType = 3;
+  optional string sBody = 4;
+  required int32 nUserId = 5;
+  required int32 nGroupId = 6;
+}
+
+message WebUrlReqAndReturn {
+  required string sUrl = 1;
+  optional string sSerialNum = 2;
+  optional string sSendType = 3;
+  optional string sBody = 4;
+  required int32 nUserId = 5;
+}
+
+message WebUrlRsp {
+  required string sJsonData = 1;
+  required int32 nCode = 2;
+  required int32 nUserId = 3;
+}

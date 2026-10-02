@@ -1,0 +1,55 @@
+syntax = "proto2";
+
+package JCCrossUnite_pb;
+
+message JCCrossUnite_Proto {
+  required int32 Main = 1 [default = 701];
+  required int32 SUB_REQ_PILOTREGIST = 2 [default = 2];
+  required int32 SUB_REP_PILOTREGIST = 3 [default = 3];
+  required int32 SUB_REP_STARTGAME = 4 [default = 6];
+  required int32 SUB_REP_STARTBET = 5 [default = 4];
+  required int32 SUB_REP_STOPBET = 6 [default = 5];
+  required int32 SUB_REP_GAMEEND = 7 [default = 6];
+  required int32 SUB_REP_STARTTABLE = 8 [default = 7];
+  required int32 SUB_REP_CLOSETABLE = 9 [default = 8];
+}
+
+message Req_JCCRU_Regist {
+  required string sServerKey = 1 [default = ""];
+}
+
+message Rep_JCCRU_Regist {
+  required string sServerKey = 1 [default = ""];
+}
+
+message Req_JCCRU_Common {
+  required int32 nPilotId1 = 1 [default = 0];
+  required int32 nPilotId2 = 2 [default = 0];
+  required int32 nPilotId3 = 3 [default = 0];
+  required int32 nPilotId4 = 4 [default = 0];
+}
+
+message Req_JCCRU_StartGame {
+  required string sTableId = 1;
+  optional Req_JCCRU_Common tCom = 2;
+  optional int32 nStatus = 3;
+}
+
+message Req_JCCRU_NoticeBetOper {
+  required string sTableId = 1;
+  required int32 operType = 2;
+  optional int32 nStatus = 3;
+}
+
+message Req_JCCRU_TableManage {
+  required string sTableId = 1;
+  required int32 operType = 2;
+  optional int32 nStatus = 3;
+}
+
+message Req_JCCRU_GameEnd {
+  required string sTableId = 1;
+  required int32 nRoundId = 2;
+  required int32 nWinUserId = 3;
+  optional int32 nStatus = 4;
+}

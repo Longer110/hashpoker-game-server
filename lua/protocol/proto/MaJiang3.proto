@@ -1,0 +1,286 @@
+syntax = "proto2";
+
+package MaJiang3_pb;
+
+message Ding_Zhuang_P {
+    optional int32 nZhuangSitId = 1 [default = -99];
+}
+
+message Dice_P {
+    optional int32 cDice1 = 1 [default = -99];
+    optional int32 cDice2 = 2 [default = -99];
+}
+
+message FullHand_P {
+    message HuaPaiHandleRlt {
+        optional int32 nSitId = 1 [default = -99];
+        optional int32 nDrawCnt = 2 [default = -99];
+        repeated int32 arrMaPai = 3;
+        repeated int32 arrHuaPai = 4;
+    }
+    repeated int32 arrVal = 1;
+    repeated int32 arrBuZhang = 2;
+    repeated HuaPaiHandleRlt arrHuaPaiHandleRlt = 3;
+}
+
+message Naizi_P {
+    repeated int32 arrNai = 1;
+}
+
+message RepDrawPai_P {
+    optional int32 nOperSitId = 1 [default = -99];
+    optional int32 nCardId = 2 [default = -99];
+}
+
+message ActionCnt_P {
+    message Action_InFo {
+        optional string sAct = 1 [default = ""];
+        optional int32 nCardId = 2 [default = -99];
+    }
+    repeated Action_InFo arrAction_InFo = 2;
+}
+
+message Action_Q {
+    optional int32 nUserId = 1 [default = -99];
+    optional int32 nCardId = 2 [default = -99];
+    optional int32 nCardId2 = 3 [default = -99];
+    optional int32 nCardId3 = 4 [default = -99];
+}
+
+message ThrowPai_P {
+    optional int32 nOperSitId = 1 [default = -99];
+    optional int32 nCardId = 2 [default = -99];
+}
+
+message ThrowTrigger_P {
+    message tAction {
+        optional string sAct = 1 [default = ""];
+        optional int32 nSitId = 2 [default = -99];
+        optional int32 nCardId = 3 [default = -99];
+    }
+    repeated tAction arrAction = 2;
+}
+
+message PengPai_P {
+    optional int32 nOperSitId = 1 [default = -99];
+    optional int32 nBePengSitId = 2 [default = -99];
+    optional int32 nCardId = 3 [default = -99];
+}
+
+message ChiPai_P {
+    optional int32 nOperSitId = 1 [default = -99];
+    optional int32 nBeEatSitId = 2 [default = -99];
+    optional int32 nCardId1 = 3 [default = -99];
+    optional int32 nCardId2 = 4 [default = -99];
+    optional int32 nCardId3 = 5 [default = -99];
+}
+
+message AnGang_P {
+    optional int32 nOperSitId = 1 [default = -99];
+    optional int32 nCardId = 2 [default = -99];
+}
+
+message MingGang_P {
+    optional int32 nOperSitId = 1 [default = -99];
+    optional int32 nBeGangSitId = 2 [default = -99];
+    optional int32 nCardId = 3 [default = -99];
+}
+
+message AddGang_P {
+    optional int32 nOperSitId = 1 [default = -99];
+    optional int32 nCardId = 2 [default = -99];
+}
+
+message ChiHu_P {
+    optional int32 nOperSitId = 1 [default = -99];
+    optional int32 cHuWhat = 2 [default = -99];
+    optional int32 nBeChiHuSitId = 3 [default = -99];
+    optional int32 nCardId = 4 [default = -99];
+    optional int32 nDelBeEat = 5 [default = -99];
+}
+
+message HuPai_P {
+    optional int32 nOperSitId = 1 [default = -99];
+    optional int32 cHuWhat = 2 [default = -99];
+    optional int32 cIsGangKaiHua = 3 [default = -99];
+    optional int32 nCardId = 4 [default = -99];
+}
+
+message OtherAction_P {
+    message OtherAc {
+        optional string sAct = 1 [default = ""];
+        optional int32 nSitId = 2 [default = -99];
+        optional int32 nCardId = 3 [default = -99];
+    }
+    repeated OtherAc arrOtherAc = 2;
+}
+
+message QiangGangHu_Q {
+    optional int32 nUserId = 1 [default = -99];
+}
+
+message QiangGangHu_P {
+    optional int32 nOperSitId = 1 [default = -99];
+    optional int32 cHuWhat = 2 [default = -99];
+    optional int32 nBeQiangGangHu = 3 [default = -99];
+    optional int32 nCardId = 4 [default = -99];
+}
+
+message ShowPai_P {
+    message UserShowPai {
+        optional int32 nSitId = 1 [default = -99];
+        repeated int32 arrShowPaiCardId = 2;
+    }
+    repeated UserShowPai arrUserShowPai = 2;
+}
+
+message MaiMa_P {
+    message tMaiMa {
+        optional int32 nMaDot = 1 [default = -99];
+        optional int32 cMaZhong = 2 [default = -99];
+    }
+    repeated tMaiMa arrttMaiMa = 2;
+}
+
+message CaleScore_P {
+    message TotalPaiUser {
+        message tAddGang {
+            optional int32 nSitId = 1 [default = -99];
+            optional int32 nScore = 2 [default = -99];
+        }
+        message tBeAddGang {
+            optional int32 nSitId = 1 [default = -99];
+            optional int32 nScore = 2 [default = -99];
+        }
+        message tGang {
+            optional int32 nSitId = 1 [default = -99];
+            optional int32 nScore = 2 [default = -99];
+        }
+        message tBeGang {
+            optional int32 nSitId = 1 [default = -99];
+            optional int32 nScore = 2 [default = -99];
+        }
+        message tAnGang {
+            optional int32 nSitId = 1 [default = -99];
+            optional int32 nScore = 2 [default = -99];
+        }
+        message tBeAnGang {
+            optional int32 nSitId = 1 [default = -99];
+            optional int32 nScore = 2 [default = -99];
+        }
+        optional int32 nUserId = 1 [default = -99];
+        optional int32 nSitId = 2 [default = -99];
+        optional double nScoreChange = 3 [default = -99];
+        optional double nScore = 4 [default = -99];
+        optional int32 cDianPao = 5 [default = -99];
+        repeated tAddGang arrtAddGang = 10;
+        repeated tBeAddGang arrtBeAddGang = 11;
+        repeated tGang arrtGang = 12;
+        repeated tBeGang arrBeGang = 13;
+        repeated tAnGang arrAnGang = 14;
+        repeated tBeAnGang arrtBeAnGang = 15;
+        optional int32 nHuScore = 16 [default = -99];
+        optional int32 nMaScore = 17 [default = -99];
+        optional int32 nGenZhuangScore = 18 [default = -99];
+        optional int32 nJiejiegaoScore = 19 [default = -99];
+        optional int32 nMMaScore = 20 [default = -99];
+        optional int32 nHzMaScore = 21 [default = -99];
+        optional int32 nHuaScore = 22 [default = -99];
+        optional int32 nLookMaScore = 23 [default = -99];
+    }
+    optional int32 cJiPinTimes = 1 [default = -99];
+    optional int32 cUserCnt = 2 [default = -99];
+    repeated TotalPaiUser arrTotalPaiUser = 3;
+}
+
+message ResetGame_p {
+    optional int32 nReset = 1 [default = -99];
+}
+
+message WinLimit_p {
+    optional int32 nWinLimit = 1 [default = -99];
+}
+
+message Switchview_Q {
+    optional int32 nUserId = 1 [default = -99];
+    optional int32 nViewSitId = 2 [default = -99];
+}
+
+message Switchview_P {
+    optional int32 cResult = 1 [default = -99];
+}
+
+message LookError_P {
+    optional int32 cCode = 1 [default = -99];
+}
+
+message LookMoma_Q {
+    optional int32 nUserId = 1 [default = -99];
+    optional int32 nMaSitId = 2 [default = -99];
+    optional string cMoMaWay = 3 [default = ""];
+    optional string cTime = 4 [default = ""];
+}
+
+message MoMaheadtag_P {
+    message SitHit {
+        optional int32 nSitId = 1 [default = -99];
+        optional int32 nHit = 2 [default = -99];
+    }
+    message Looker {
+        optional int32 nUserId = 1 [default = -99];
+        optional int32 nMoMaCnt = 2 [default = -99];
+    }
+    repeated SitHit arrSitHit = 4;
+    repeated Looker arrLooker = 5;
+}
+
+message Mo_Draw_P {
+    optional int32 nMaCnt = 1 [default = -99];
+    optional int32 nUserCnt = 2 [default = -99];
+    optional int32 nFirstSitId = 3 [default = -99];
+}
+
+message Mo_Show_P {
+    message tUserItem {
+        optional int32 nSitId = 1 [default = -99];
+        optional int32 nSitMaPai = 2 [default = -99];
+        optional int32 nIsHitArr = 3 [default = -99];
+    }
+    optional int32 nUserId = 4 [default = -99];
+    optional int32 nMoMaCnt = 5 [default = -99];
+    repeated tUserItem arrtUserItem = 6;
+}
+
+message Quan_Update_P {
+    optional int32 nMaxQuan = 1 [default = -99];
+    optional int32 nCurQuan = 2 [default = -99];
+    optional int32 nDirection = 3 [default = -99];
+}
+
+message Time_Warning_P {
+    optional int32 nRemainTime = 1 [default = -99];
+    optional int32 isCanRenew = 2 [default = -99];
+}
+
+message Renew_Q {
+    optional int32 nUserId = 1 [default = -99];
+    optional int32 nHours = 2 [default = -99];
+}
+
+message Renew_P {
+    optional int32 nResult = 1 [default = -99];
+    optional string sErrStr = 2 [default = ""];
+}
+
+message TingPai_Result_P {
+    message AllPai {
+        message Ting_Info {
+            optional int32 nTingPaiId = 1 [default = -99];
+            optional int32 nHuWhat = 2 [default = -99];
+        }
+        optional int32 nCardId = 1 [default = -99];
+        optional int32 isWantonly = 2 [default = -99];
+        repeated Ting_Info arrtTing_Info = 3;
+    }
+    repeated AllPai arrAllPai = 2;
+}

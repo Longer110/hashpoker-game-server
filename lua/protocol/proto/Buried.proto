@@ -1,0 +1,18 @@
+syntax = "proto2";
+
+package Buried_pb;
+
+message BurProto {
+  required int32 Main_CMD = 1 [default = 2101];
+  required int32 Bur_UserInfoReq_CMD = 2 [default = 1];
+  required int32 Bur_UserInfoRsp_CMD = 3 [default = 2];
+}
+
+message Bur_UserInfoREQ {
+  optional string tBuildUserData = 1 [default = ""];
+}
+
+message Bur_UserInfoRSP {
+  optional int32 nResult = 1 [default = -99];
+  optional string sFReport = 2 [default = ""];
+}

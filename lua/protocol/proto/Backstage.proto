@@ -1,0 +1,325 @@
+syntax = "proto2";
+
+package Backstage_pb;
+
+message Backstage_Proto {
+    required int32 Main_CMD = 1 [default = 1250];
+    required int32 DbConfigReloadReq_CMD = 2 [default = 2];
+    required int32 MaintainingStartReq_CMD = 3 [default = 3];
+    required int32 ReqAddAndroid_CMD = 4 [default = 4];
+    required int32 ReqNoticeNoteCfg_CMD = 5 [default = 5];
+    required int32 ReqUndateScript_CMD = 6 [default = 6];
+    required int32 ReqAPI_Table_CMD = 7 [default = 7];
+    required int32 RechargeReq_CMD = 8 [default = 8];
+    required int32 SUB_REQ_ANCLOSEOROPENGRP = 9 [default = 9];
+    required int32 ReqAPI_BindingTable_CMD = 10 [default = 10];
+    required int32 ReqMaintainTable_CMD = 11 [default = 11];
+    required int32 ReqPaiJuRefund_CMD = 12 [default = 12];
+    required int32 SUB_REQ_CHANGEPILOTRULE = 20 [default = 20];
+    required int32 SUB_REQ_MATCHAGAINMATCH = 21 [default = 21];
+    required int32 RewardReq_CMD = 22 [default = 22];
+    required int32 FollowBetLockReq_CMD = 23 [default = 23];
+    required int32 CanFollowBetReq_CMD = 24 [default = 24];
+    required int32 ChangeCardReq_CMD = 25 [default = 25];
+    required int32 DelAndroidsReq_CMD = 26 [default = 26];
+    required int32 WebRedisNotify_CMD = 27 [default = 27];
+    required int32 WebLiveTablePatternChange_CMD = 28 [default = 28];
+    required int32 WebUserVipNotify_CMD = 29 [default = 29];
+    required int32 WebOpenClubTableReq_CMD = 30 [default = 30];
+    required int32 WebCloseClubTableReq_CMD = 31 [default = 31];
+    required int32 ChangeUserInfoNotify_CMD = 32 [default = 32];
+    required int32 StorePayReq_CMD = 40 [default = 40];
+    required int32 StoreConfigNotify_CMD = 41 [default = 41];
+    required int32 WithDrawGoldNotify_CMD = 42 [default = 42];
+    required int32 UserAutoBetReq_CMD = 43 [default = 43];
+    required int32 UserAutoBetRsp_CMD = 44 [default = 44];
+    required int32 CoinCanDrawReq_CMD = 45 [default = 45];
+    required int32 VerifyNotify_CMD = 46 [default = 46];
+    required int32 LotteryCfgChange_CMD = 47 [default = 47];
+    required int32 WebLoadConfigNotify_CMD = 49 [default = 49];
+    required int32 StopCacheCfgNotify_CMD = 48 [default = 48];
+    required int32 WebChangeConfigNotify_CMD = 51 [default = 51];
+    required int32 ChangeGoldReq_CMD = 52 [default = 52];
+
+    required int32 GloBalConfigNotice_CMD = 54 [default = 54];
+    required int32 VideoRoomLeaveNotice_CMD = 55 [default = 55];
+
+    required int32 CloseServerNotice_CMD = 56 [default = 56];
+    required int32 WhiteListNotice_CMD = 57 [default = 57];
+}
+
+message DbConfigReloadReq {
+    optional int32 nWhatChange = 1;
+}
+
+message MaintainingStartReq {
+    required int32 nStatus = 1;
+    required int32 nServerId = 2;
+    required int32 nSType = 3;
+}
+
+message ReqAddAndroid {
+    optional int32 nReserve = 1;
+    optional string sTableId = 2;
+}
+
+message ReqNoticeNoteCfg {
+    optional int32 nType = 1;
+}
+
+message ReqUndateScript {
+    optional int32 nScriptType = 1;
+    required int32 nServerId = 2;
+    required int32 nType = 3;
+    optional string sUpdateData = 4;
+}
+
+message RechargeReq {
+    required int32 nUserId = 1;
+    required string sSerialNumber = 2;
+    required string sResultKey = 3;
+    optional int32 nAssetType = 4;
+}
+
+message RechargeRsp {
+    required int32 nRlt = 1;
+    optional string sErr = 2;
+}
+
+message Req_AnCloseOrOpenGrp {
+    required int32 nGrpId = 1 [default = 1];
+    required int32 nOper = 2 [default = 2];
+}
+
+message ReqChangePilotRule {
+    required string sTableId = 1;
+    required string sRule = 2;
+    required string sRuleDetail = 3;
+}
+
+message ReqAPI_Table {
+    required int32 nType = 1;
+    required int32 nRoomId = 2;
+    required int32 nLiveUserID = 3;
+    required int32 nOpentime = 4;
+    required string sRequestkey = 5;
+    optional string sTableId = 6;
+    optional int32 nGroupId = 7;
+    optional string sTableName = 8;
+    optional string sLiveID = 9;
+    optional int32 nTableType = 10;
+    optional int32 nThirdPartyTableId = 11;
+    optional int32 nDuration = 12;
+    optional string sPlatformID = 13;
+    optional string sConfig = 14;
+}
+
+message RepAPI_Table {
+}
+
+message ReqAPI_BingdingTable {
+    required int32 nType = 1;
+    required int32 nLiveUserID = 2;
+    required string sTableId = 3;
+    required string sRequestkey = 4;
+    optional string sLiveID = 5;
+    optional string sPlatformID = 6;
+    optional bool isPassWordRoom = 7;
+    optional bool isShareLive = 8;
+}
+
+message RepAPI_BingdingTable {
+}
+
+message ReqMaintainTable {
+    required int32 nType = 1;
+    required string sTableId = 2;
+    required string sRequestkey = 3;
+}
+
+message RepMaintainTable {
+}
+
+message ReqPaiJuRefund {
+    required int32 nType = 1;
+    required string sTableId = 2;
+    optional string sPaiJuId = 3;
+    required string sRequestkey = 4;
+}
+
+message RepPaiJuRefund {
+}
+
+message ReqMatchAgainMatch {
+    required string sTableId = 1;
+    required int32 nAgainMatchTime = 2;
+    required string sRequestkey = 3;
+}
+
+message RewardReq {
+    required int32 nUserId = 1;
+    required string nOrderId = 2;
+}
+
+message FollowBetLockReq {
+    required int32 nUserId = 1;
+    required int32 nIsLock = 2;
+    required string sResultKey = 3;
+}
+
+message CanFollowBetReq {
+    required int32 nFromUserId = 1;
+    required int32 nToUserId = 2;
+    required string sTimeTem = 3;
+    required string sResultKey = 4;
+    optional string sLiveID = 5;
+}
+
+message ChangeCardReq {
+    required string sTableId = 1;
+    required string sPaiJuId = 2;
+    required int32 nCardOriginal = 3;
+    required int32 nCardChangeTo = 4;
+    required string sRequestkey = 5;
+}
+
+message ChangeCardRsp {
+}
+
+message DelAndroidsReq {
+    required string strUserId = 1;
+}
+
+message WebRedisNotify {
+    optional int32 nNoUse = 1;
+}
+
+message WebLiveTablePatternChange {
+    required string sRequestkey = 1;
+    required string sTableId = 2;
+    required string sChangeDetail = 3;
+}
+
+message WebLiveTablePatternChangeRep {
+}
+
+message WebUserVipNotify {
+    required int32 nUserId = 1 [default = 0];
+    required int32 nVip = 2 [default = 0];
+}
+
+message WebOpenClubTableReq {
+    required int32 nClubId = 1 [default = 0];
+    required int32 nGroupId = 2 [default = 0];
+    required int32 nGameId = 3 [default = 0];
+    required string sRequestkey = 4 [default = ""];
+    required string sConfig = 5;
+}
+
+message WebCloseClubTableReq {
+    required int32 nClubId = 1 [default = 0];
+    required int32 nGroupId = 2 [default = 0];
+    required int32 nGameId = 3 [default = 0];
+    required string sTableId = 4 [default = ""];
+    required string sRequestkey = 5 [default = ""];
+}
+
+message ChangeUserInfoNotify {
+    required string sChangeInfo = 1;
+}
+
+message StorePayReq {
+    required int32 nId = 1;
+    required int32 nStatus = 2;
+}
+
+message WithDrawGoldNotify {
+    required int32 nUserId = 1;
+}
+
+message UserAutoBetReq {
+    required string sTableId = 1;
+    required string sAutoBetUser = 2;
+}
+
+message UserAutoBetRsp {
+    required string sTableId = 1;
+    required int32 nUserId = 2;
+    required double nBetChip = 3;
+    required int32 nBetArea = 4;
+    optional int32 nMultiple = 5;
+    required int32 nResult = 6;
+}
+
+message CoinCanDrawReq {
+    required int32 nUserId = 1;
+    required string sRequestkey = 2 [default = ""];
+}
+
+message CoinCanDrawRsp {
+}
+
+message VerifyNotify {
+    required int32 nUserId = 1;
+    required int32 nType = 2;
+}
+
+message LotteryCfgChange {
+    required int32 nType = 1;
+    required int32 nGroupId = 2;
+    required int32 nGameId = 3;
+    optional int32 nRoomId = 4;
+    required string sConfig = 5;
+}
+
+message WebLoadConfigNotify {
+    repeated string sCfgKey = 1;
+    optional bool isClearRedis = 2;
+}
+
+message StopCacheCfgNotify {
+    optional int32 nNoUse = 1;
+}
+
+message WebChangeConfigNotify {
+    required int32 nType = 1;
+    required int32 nChannelId = 2;
+    required int32 nGameId = 3;
+    optional string nPanName = 4;
+}
+
+message ChangeGoldReq {
+    required int32 nUserId = 1;
+    required double nGold = 2;
+    required int32 nSourceType = 3;  //变化原因
+    required int32 nAssetType = 4;  //资产类型
+    optional string nOpUserName = 5;
+    optional int32 nOpUserId = 6;
+    required string sResultKey = 7;
+    optional int32 nWater = 8;
+    optional int32 nShopId = 9;
+}
+
+// 全局配置变化
+message GloBalConfigNotice {
+    required string name = 1;
+    required bool isDel =2;
+}
+
+// 语音房离开通知
+message VideoRoomLeaveNotice {
+  required string accId = 1;
+  required int32 nTime =2;
+  required string channelName =3;
+}
+
+// 停服通知
+message CloseServerNotice {
+    required int32 nServerId = 1;  // 为0 停服全部
+    required bool isClose =2;
+    optional string nReason = 3;   // 原因
+}
+
+//白名单通知
+message WhiteListNotice {
+}

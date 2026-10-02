@@ -1,0 +1,18 @@
+syntax = "proto2";
+
+package NotifyToCli_pb;
+
+message NotifyCli_Proto {
+    required int32 Main_CMD = 1 [default = 1100];
+    required int32 RepeatLogonNotify_CMD = 2 [default = 1];
+    required int32 PlayingNotify_CMD = 3 [default = 2];
+}
+
+message RepeatLogonNotify {
+    required int32 nSecondsToClose = 1;
+}
+
+message PlayingNotify {
+    required int32 nGameId = 1;
+    optional int32 nRoomId = 2 [default = 0];
+}

@@ -1,0 +1,41 @@
+syntax = "proto2";
+
+package Maintainer_pb;
+
+message Maintainer_Proto {
+    required int32 Main_CMD = 1 [default = 1200];
+    required int32 VersionInfoReq_CMD = 2 [default = 1];
+    required int32 VersionInfoRsp_CMD = 3 [default = 2];
+    required int32 MaintenanceNotify_CMD = 4 [default = 3];
+    required int32 KickOutNotify_CMD = 5 [default = 5];
+}
+
+message VersionInfoReq {
+    required string sPlatform = 1;
+    required string sChannel = 2;
+}
+
+message VersionInfoRsp {
+    message VersionInfo {
+        required string sVersion = 1;
+        required string sDownloadurl = 2;
+        required string sAppurl = 3;
+        required string sConfigUrl = 4;
+        required string sConfigVersion = 5;
+    }
+    
+    required int32 nResult = 1;
+    optional VersionInfo tVersionInfo = 2;
+}
+
+message MaintenanceNotify {
+    required string sTimeStart = 1;
+    required string sTimeEnd = 2;
+    optional int32 nStartTimestamp = 3;
+    optional int32 nEndTimestamp = 4;
+}
+
+message KickOutNotify {
+    required string sTips = 1;
+    required int32 nToWhere = 2;
+}

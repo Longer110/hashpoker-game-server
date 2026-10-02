@@ -1,0 +1,205 @@
+syntax = "proto2";
+
+package PilotJCGame_pb;
+
+message PilotGuessGameCMD {
+  required int32 Main_CMD = 1 [default = 228];
+  required int32 PilotJCLogOnReq_CMD = 2 [default = 2];
+  required int32 PilotJCLogOnRsp_CMD = 3 [default = 3];
+  required int32 PilotJCBetReq_CMD = 4 [default = 4];
+  required int32 PilotJCBetRsp_CMD = 5 [default = 5];
+  required int32 PilotJCBetDetailReq_CMD = 6 [default = 6];
+  required int32 PilotJCBetDetailRsp_CMD = 7 [default = 7];
+  required int32 PilotJCNoticeStage_CMD = 8 [default = 8];
+  required int32 PilotJCStartBetNotice_CMD = 9 [default = 9];
+  required int32 PilotJCStopBetNotice_CMD = 10 [default = 10];
+  required int32 PilotJCBetBroadNotify_CMD = 11 [default = 11];
+  required int32 PilotJCOpenGuessReq_CMD = 12 [default = 12];
+  required int32 PilotJCOpenGuessRep_CMD = 13 [default = 13];
+  required int32 PilotJCStopGameReq_CMD = 14 [default = 14];
+  required int32 PilotJCStopGameRep_CMD = 15 [default = 15];
+  required int32 PilotJCGuessBroadNotify_CMD = 16 [default = 16];
+  required int32 PilotJCSetLimitGameReq_CMD = 17 [default = 17];
+  required int32 PilotJCSetLimitGameRep_CMD = 18 [default = 18];
+  required int32 PilotJCPilotInfoNotify_CMD = 19 [default = 19];
+  required int32 PilotJCSettlementNotify_CMD = 20 [default = 20];
+}
+
+message PilotJCBetLimit {
+  message Item {
+    required int32 nGameId = 1 [default = 0];
+    required int32 nAreaId = 2 [default = 0];
+    required double nMin = 3 [default = 0];
+    required double nMax = 4 [default = 0];
+  }
+  repeated Item arrItem = 1;
+}
+
+message PilotInfo {
+  required int32 nUserId = 1 [default = 1];
+  required int32 nSitId = 2 [default = 2];
+  required string sNickName = 3 [default = ""];
+  required double nGold = 4 [default = 3];
+  required string sFaceID = 5 [default = ""];
+}
+
+message PilotJCBetScence {
+  message BetItem {
+    required int32 nBetArea = 1 [default = 0];
+    required double nBetAreaAllAmount = 2 [default = 0];
+    required double nAreaBetSum = 3 [default = 0];
+    required double nAreaBetOwn = 4 [default = 0];
+    required int32 nBetPlayerCount = 5 [default = 0];
+    required double nBetLimit = 6 [default = 0];
+  }
+  repeated BetItem arrItem = 1;
+}
+
+message PilotJCScence {
+  required string sTableId = 1 [default = ""];
+  required int32 nStep = 2 [default = 2];
+  optional double nGold = 3 [default = 0];
+  optional PilotJCBetScence tScenceOfJCBet = 4;
+  repeated double tPilotJCBetLimit = 5;
+  repeated double tPilotJCBetChip = 6;
+  repeated PilotInfo arrPilot = 7;
+  repeated PilotGuess arrPilotGuess = 8;
+  repeated int32 tPilotJCAmountChip = 9;
+}
+
+message PilotJCLogOnReq {
+  required int32 nUserId = 1 [default = 0];
+  required string sTableId = 2 [default = ""];
+}
+
+message PilotJCLogOnRsp {
+  required int32 nResult = 1 [default = 0];
+  optional PilotJCScence tPilotJCScence = 2;
+  optional string strErr = 3 [default = ""];
+}
+
+message PilotJCBetReq {
+  message BetAreaItem {
+    required int32 nArean = 1 [default = 0];
+    required double nBetGold = 2 [default = 0];
+  }
+  repeated BetAreaItem arrItem = 1;
+}
+
+message PilotJCBetRsp {
+  required int32 nResult = 1 [default = 0];
+  optional string strErr = 2 [default = ""];
+}
+
+message PilotJCBetBroadNotify {
+  message BetAreaItem {
+    required int32 nBetArea = 1 [default = 0];
+    required double nBetAreaAllAmount = 2 [default = 0];
+    required double nAreaBetSum = 3 [default = 0];
+    required double nAreaBetOwn = 4 [default = 0];
+    required int32 nBetPlayerCount = 5 [default = 0];
+  }
+  repeated BetAreaItem arrItem = 1;
+}
+
+message PilotJCBetDetailReq {
+  required int32 nCurPageId = 1 [default = 0];
+  required int32 nQueryCnt = 2 [default = 10];
+  required int32 nArean = 3 [default = 0];
+  optional string sSeriesNumber = 4 [default = ""];
+}
+
+message PilotJCBetDetailRsp {
+  message Item {
+    required string sNickName = 1 [default = ""];
+    required double nBet = 2 [default = 0];
+    required double nGoldWin = 3 [default = 0];
+    required string sFaceID = 4 [default = ""];
+  }
+  required int32 nCurPageId = 1 [default = 0];
+  repeated Item arrTtem = 2;
+  optional double nBetSum = 3 [default = 0];
+  optional double nWinSum = 4 [default = 0];
+  optional int32 nArean = 5 [default = 0];
+}
+
+message PilotJCStartBetNotice {
+  repeated int32 arrItem = 1;
+  optional bool nIsPilot = 2 [default = false];
+}
+
+message PilotJCStopBetNotice {
+  repeated int32 arrItem = 1;
+  optional bool nIsPilot = 2 [default = false];
+}
+
+message PilotJCNoticeStage {
+  required int32 nState = 1 [default = 0];
+  required string sSeriesNumber = 2 [default = ""];
+  required int32 nTableWinloseFlag = 3;
+  optional double nWinSum = 4 [default = 0];
+  optional double nCurrentCoin = 5 [default = 0];
+  optional int32 nshowDetail = 6 [default = 0];
+  optional double nMax = 7 [default = 0];
+  optional double nMin = 8 [default = 0];
+  optional bool nIsPilot = 9 [default = false];
+  repeated double tPilotJCBetChip = 10;
+}
+
+message PilotGuess {
+  required int32 nPilotUserId = 1;
+  required bool bIsBet = 2;
+  required bool bGuessPlaySwitch = 3;
+  required bool bGuessLimitSwitch = 4;
+  optional double nLimitCnt = 5 [default = 0];
+  optional double nBetLimitOwn = 6 [default = 0];
+}
+
+message PilotJCSetLimitGameReq {
+  required int32 nUserId = 1 [default = 0];
+  required double nGoldLimit = 2 [default = 0];
+  required double nBetLimit = 3 [default = 0];
+}
+
+message PilotJCSetLimitGameRep {
+  required int32 nResult = 1 [default = 0];
+  optional string strErr = 2 [default = ""];
+}
+
+message PilotJCOpenGuessReq {
+  required int32 nUserId = 1 [default = 0];
+}
+
+message PilotJCOpenGuessRep {
+  required int32 nResult = 1 [default = 0];
+  optional string strErr = 2 [default = ""];
+}
+
+message PilotJCSartStopGameReq {
+  required int32 nUserId = 1 [default = 1];
+  required int32 nType = 2 [default = 2];
+  optional double nGoldAmount = 3 [default = 3];
+  optional bool isConsent = 4 [default = false];
+}
+
+message PilotJCSartStopGameRep {
+  required int32 nUserId = 1 [default = 0];
+  required int32 nErrCode = 2 [default = 0];
+}
+
+message PilotJCGuessBroadNotify {
+  repeated PilotGuess arrPilotGuess = 1;
+}
+
+message PilotJCPilotInfoNotify {
+  repeated PilotInfo arrPilotInfo = 1;
+}
+
+message PilotJCSettlementNotify {
+  optional string sSeriesNumber = 1 [default = ""];
+  required int32 nUserId = 2 [default = 0];
+  required int32 nTableWinloseFlag = 3;
+  optional double nWinSum = 4 [default = 0];
+  optional double nCurrentCoin = 5 [default = 0];
+  optional int32 nshowDetail = 6 [default = 0];
+}

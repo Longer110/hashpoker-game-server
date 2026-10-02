@@ -1,0 +1,35 @@
+syntax = "proto2";
+
+package TestService_pb;
+
+message TestService_Proto {
+    required int32 TestService_MAIN = 1 [default = 277];
+    required int32 TSSDataReq_CMD = 2 [default = 2];
+    required int32 TSSDataResp_CMD = 3 [default = 3];
+    required int32 TSSDataSecondReq_CMD = 4 [default = 4];
+    required int32 TSSDataSecondResp_CMD = 5 [default = 5];
+}
+
+message TSSDataReq {
+    required int32 nTestData1 = 1 [default = 0];
+    required int32 nTestData2 = 2 [default = 0];
+}
+
+message TSSDataResp {
+    required int32 nTestData11 = 1 [default = 0];
+    required int32 nTestData22 = 2 [default = 0];
+    required int32 Sum = 3 [default = 0];
+    optional string sExtra = 4 [default = ""];
+}
+
+message TSSDataSecondReq {
+    required int32 nTestData1 = 1 [default = 0];
+    required int32 nTestData2 = 2 [default = 0];
+}
+
+message TSSDataSecondResp {
+    required int32 nTestData11 = 1 [default = 0];
+    required int32 nTestData22 = 2 [default = 0];
+    required int32 Sum = 3 [default = 0];
+    optional string sExtra = 4 [default = ""];
+}

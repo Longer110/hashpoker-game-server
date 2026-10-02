@@ -1,0 +1,159 @@
+syntax = "proto2";
+
+package Gateway_pb;
+
+// 协议
+message Gateway_Proto {			  
+	 // 主协议 
+	required int32	GATEWAY = 1 [default = 1000]; //网关服(1000 - 1099)
+}
+
+//  网关服以下是子协议
+message Sub_GateWay { 
+	required int32 SUB_GATEWAY_CLIENT_CLOSE=2                              [default=1];//玩家断开连接 通知内网服务器
+	required int32 SUB_GATEWAY_STOP_SERVER_MAINTAIN=3                      [default=3];//网关服--关服维护
+	required int32 SUB_REP_WEB_CONFIG_UPDATE=4                             [default=4];//网关通知 其他网关 服有最新配置，请重新读取
+	required int32 SUB_GATEWAY_REBOOT=5                                    [default=5];//有新版本更新  
+	required int32 SUB_GATEWAY_REQUEST_VERSION=6                           [default=6];//网关服请求版本信息 
+	required int32 SUB_REQ_DB_USER_IP=7                                    [default=7];//通知加载用户ip列表 
+	required int32 SUB_REQ_VERSION_INFO=8                                  [default=8];//通知加载版本信息 
+	required int32 SUB_REP_VERSION_INFO=9                                  [default=9];//返回版本的信息，用于版本更新
+	required int32 SUB_REQ_PHONE_UPDATE=10                                 [default=10];//苹果版本更新
+	required int32 SUB_REQ_GAMESRV_SWICTHCONN=11                           [default=11];//玩家切换连接
+	required int32 SUB_GATEWAY_NOTICE=12                                   [default=12];//网关通知跑马灯公告
+	required int32 SUB_GATEWEY_USERGAME=15                                 [default=15];//通知网关 玩家进入或者离开游戏
+	required int32 SUB_GATEWEY_BROAD=16                                    [default=16];//通知网关广播 
+    required int32 SUB_REQ_QUICKSEND=17                                    [default=17];//quick 发送消息
+    required int32 SUB_CORR_CAPITAL=18                                     [default=18];//资产同步
+    required int32 SUB_REP_TableSettleInfo=19                              [default=19];//牌桌总结算信息
+    required int32 SUB_REQ_CHECKOFFICIAL=20                                [default=20];//检查是否是官方房
+    required int32 SUB_REP_CHECKOFFICIAL=21                                [default=21];//返回是否是官方房
+    required int32 SUB_SendLobby_GameReq = 22 [default = 22];
+    required int32 SUB_SwitchGateWayServerkey = 23 [default = 23];
+    required int32 MiniGame_PublicRsq = 24 [default = 24];
+    required int32 MiniGame_PublicRsp = 25 [default = 25];
+  required int32 SUB_NOTICE_MSG=26                                     [default=26];//消息通知
+}
+	
+/*------------------------  网关 数据结构  --------------------------------------*/
+
+//玩家切换连接 SUB_REQ_GAMESRV_SWICTHCONN
+ message RUQ_SwicthConn{
+	 required int32 nUserID = 1 ;
+ }
+ 
+  //  用户断开连接     SUB_GATEWAY_CLIENT_CLOSE   
+  message RUQ_User_Line { 
+     optional int32 nUserID = 1 ;  
+     optional string ClientID = 2 ;          
+  }
+  
+  //通知加载用户ip列表 SUB_REQ_DB_USER_IP
+  message RUQ_FilterIpCfg { 
+     optional string sSql = 1 [default = ""];
+  }
+  
+ //通知加载版本信息 SUB_REQ_VERSION_INFO
+  message RUQ_VersionCfg { 
+     optional string sSql = 1 [default = ""];
+  }
+  
+  //返回版本的信息，用于版本更新 SUB_REP_VERSION_INFO
+  message RUP_VersionCfg { 
+     required string sReturnKey = 1 [default = ""];
+	   required int32	nIndex = 2 [default = 0];
+	   message TableVersionCfg {
+	    optional string uVersionData = 1  [default = ""];// 一条版本数据
+	 }
+	 repeated TableVersionCfg tVersion = 3; // 版本数据數組
+  }
+  
+  // 网关服--关服维护 SUB_GATEWAY_STOP_SERVER_MAINTAIN
+  message RUP_STOP_Server {
+	  required int32 cStat = 1 ; // 状态，1是停服,2是正常,3是维护中
+    optional string nSTime = 2 ;// 关服时间 预计值
+    optional string nETime = 3 ; // 开服时间 预计值
+  }
+  
+  // 苹果版本更新 SUB_REQ_PHONE_UPDATE;
+  message RUQ_AppleCfg { 
+     optional string sSql = 1 [default = ""];
+  }
+  
+  // 苹果版本更新返回 SUB_REQ_PHONE_UPDATE;
+  message RUP_AppleCfg { 
+	optional int32 nIndex = 1 [default = 0];
+	message TableApplePhoneCfg {
+		optional string uApplecfgData = 1  [default = ""];// 一条苹果手机配置数据
+	}
+	repeated TableApplePhoneCfg tApplecfg = 2; // 苹果手机配置数据數組
+  }
+  
+  //网关通知跑马灯公告 SUB_GATEWAY_NOTICE
+  message AdNoticeNoteRep {
+	required int32 nScope = 1 [default = 0]; //公告范围：1 大厅 2、游戏房间, 3、大厅+游戏服, 4、停服公告
+	required string sChannel = 2 [default = ""]; //选择跑马灯播放的渠道
+	required string sStartTime = 3 [default = ""]; //公告开始时间
+	required string sEndTime = 4 [default = ""]; //公告结束时间
+	required string sDetails = 5 [default = ""]; //公告内容
+  }
+
+  // 通知网关 玩家进入或者离开游戏 SUB_GATEWEY_USERGAME
+  message SendGateWeyUserGame{
+	required int32 nUserId = 1 ; 
+	required int32 nType = 2 ;    //1 进入游戏， 0 离开游
+	required int32 nGameId = 3 ;  // 
+	required int32 nRoomId = 4 ;  // 
+	required int32 nID =5;  		//ID: 直播游戏是主播ID, 合集游戏 分组id 
+	required int32 nTableId = 6;    // tableid
+  }
+
+
+  // 通知网关 广播
+  message SendGateWeyBroad{
+	required string AddBuff =1;  		//AddBuff：  数据包,数据包大小
+	required int32 nCount  = 2;    	 // ClientId 数量 
+	required int32 nSendSize = 3;    // ClientId 数组来的
+
+  }
+
+  //资产同步
+  message CorrCapital{
+    optional int32 nUserId =1; 	   //玩家id
+    optional double nGold =2;      //金币 
+    optional bool isAndroid=3;     // 
+    optional string sTableId=4;    //牌桌id字符串，没有可以不填
+    optional int32 nItemId =5; 	   //金币类型
+    optional double nChange =6;    //变化值
+  }
+
+  //牌桌结算通知
+  message TableSettleInfo{
+    required int32 nUserId =1; 	    //玩家id
+    required double nGold =2; 	    //玩家金币
+    required string sTableId=3;     //牌桌id字符串
+    required string sTableName=4;   //牌桌名
+    required double nBetSum =5;     //下注
+    required double nWinLose =6;     //总结算
+  }
+
+//检查是否是官方房 SUB_REQ_CHECKOFFICIAL
+message RUQ_CheckOffical
+{
+  required string sTableId = 1 [default=""]; //牌桌id
+}
+
+//返回是否是官方房 SUB_REP_CHECKOFFICIAL
+message RUP_CheckOffical
+{
+  required string sTableId = 1; //牌桌id
+  required bool IsOffical = 2; //是否是官方房 true:是  false:不是
+  required int32 nTableType = 3; //桌子类型：0:预开桌,1:主播开桌,2区块链牌桌,3:比赛桌,4:自由匹配牌桌
+}
+
+  //通知消息
+  message NoticeMsg{
+    optional int32 nUserId =1; 	   //玩家id
+    optional int32 nType =2;      //类型
+    optional string nMsg=3;     // 
+  }

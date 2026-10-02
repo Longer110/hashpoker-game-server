@@ -1,0 +1,322 @@
+syntax = "proto2";
+
+package FootBallCenter_pb;
+
+message FBC_Proto {
+  required int32 Main_CMD = 1 [default = 321];
+  required int32 FBCLogOnReq_CMD = 2 [default = 2];
+  required int32 FBCLogOnResp_CMD = 3 [default = 3];
+  required int32 FBCGoInBetStageNotify_CMD = 4 [default = 4];
+  required int32 FBCGoInSettleNotify_CMD = 5 [default = 5];
+  required int32 FBCGoInFreeNotify_CMD = 6 [default = 6];
+  required int32 FBCMultiBetReq_CMD = 7 [default = 7];
+  required int32 FBCMultiBetResp_CMD = 8 [default = 8];
+  required int32 FBCAreasBetNotify_CMD = 9 [default = 9];
+  required int32 FBCApplyForBankerReq_CMD = 10 [default = 10];
+  required int32 FBCApplyForBankerResp_CMD = 11 [default = 11];
+  required int32 FBCApplyForBankerNotify_CMD = 12 [default = 12];
+  required int32 FBCApplyCancelReq_CMD = 13 [default = 13];
+  required int32 FBCApplyCancelResp_CMD = 14 [default = 14];
+  required int32 FBCApplyCancelNotify_CMD = 15 [default = 15];
+  required int32 FBCApplyResignReq_CMD = 16 [default = 16];
+  required int32 FBCApplyResignResp_CMD = 17 [default = 17];
+  required int32 FBCGoldChangeSynReq_CMD = 18 [default = 18];
+  required int32 FBCGoldChangeSynNotify_CMD = 19 [default = 19];
+  required int32 FBCTableCreateNotify_CMD = 20 [default = 20];
+  required int32 FBCScenceReq_CMD = 21 [default = 21];
+  required int32 FBCScenceRsp_CMD = 22 [default = 22];
+  required int32 FBCTableCloseNotify_CMD = 23 [default = 23];
+  required int32 FBCResultControlReq_CMD = 24 [default = 24];
+  required int32 FBCAnchorMultiBetNotify_CMD = 25 [default = 25];
+  required int32 FBCLiveUserGoldReq_CMD = 26 [default = 26];
+  required int32 FBCPlayerCntReportReq_CMD = 27 [default = 27];
+  required int32 FBCPlayerCntSummaryNotify_CMD = 28 [default = 28];
+  required int32 FBCLiveUserOnlineReportReq_CMD = 29 [default = 29];
+  required int32 FBLCTickNotify_CMD = 30 [default = 30];
+  required int32 FBCPlayerModeChangeReq_CMD = 31 [default = 31];
+  required int32 FBCPlayerModeChangeRsp_CMD = 32 [default = 32];
+  required int32 FBCPlayerModeChangeNotify_CMD = 33 [default = 33];
+}
+
+message FBCUser {
+  required int32 nUserId = 1;
+  required string sFaceId = 2;
+  required string sName = 3;
+  required double nGold = 4;
+  required int32 nSex = 5;
+  optional int32 nBankerConsecutive = 6;
+  optional int32 nShopId = 7;
+}
+
+message FBCResult {
+  required int32 nResult = 1;
+  optional int32 nRandomNum = 2;
+}
+
+message FBCAreaChipBetItem {
+  required int32 nAreaId = 1;
+  required double nBetSum = 2;
+  optional int32 nUserCnt = 3;
+  optional double nAnchorBet = 4;
+}
+
+message FBCSwitchConfig {
+  required bool isRecommendOn = 1;
+  required bool isFollowBetOn = 2;
+  required bool isUserBankerOn = 3;
+}
+
+message FBCPlayerMode {
+  required int32 status = 1;
+  optional bool isCanExperience = 2;
+}
+
+message FBCPlayerModeChangeReq {
+  required string sTableId = 1;
+  required int32 status = 2;
+}
+
+message FBCPlayerModeChangeRsp {
+  required string sTableId = 1;
+  required int32 status = 2;
+  required int32 nRlt = 3;
+}
+
+message FBCPlayerModeChangeNotify {
+  required string sTableId = 1;
+  required int32 status = 2;
+}
+
+message FBCScence {
+  message TrendItem {
+    required int32 nResult = 1;
+  }
+
+  required int32 nCurrentStage = 1;
+  required int32 nRemainSeconds = 2;
+  required FBCUser tBanker = 3;
+  repeated FBCAreaChipBetItem arrBetDetail = 4;
+  repeated TrendItem arrTrend = 5;
+  repeated FBCUser arrApplicants = 6;
+  required int32 nApplicantsMax = 7;
+  required int32 nBankerConsecutiveMax = 8;
+  required double nBankerRequirement = 9;
+  optional FBCResult tResult = 10;
+  optional int32 nLiveUserID = 11;
+  repeated double arrChipsForBet = 12;
+  optional int32 nGroupId = 13;
+  optional int32 nJuShu = 14;
+  optional FBCSwitchConfig tSwitchConfig = 15;
+  optional string sTableName = 16;
+  optional string sPaiJuId = 17;
+  optional double nLiveUserBalance = 18;
+  optional string sLiveID = 19;
+  optional string sPlatformID = 20;
+  optional int32 nTableType = 21;
+  optional FBCPlayerMode tPlayerMode = 22;
+}
+
+message FBCLogOnReq {
+  required int32 nServerId = 1;
+}
+
+message FBCLogOnResp {
+  required int32 nRlt = 1;
+}
+
+message FBCGoInBetStageNotify {
+  required int32 nSeconds = 1;
+  required string sTableId = 2;
+}
+
+message FBCGoInSettleNotify {
+  message Item {
+    required int32 nBetArea = 1;
+    required double nProfit = 2;
+  }
+
+  required int32 nSeconds = 1;
+  required string sTableId = 2;
+  required FBCResult tResult = 3;
+  required string sPaiJuId = 4;
+  required double nZhuangWin = 5;
+  repeated Item arrBankerProfitDetail = 6;
+  optional int32 nCtrlUserId = 7;
+  optional int32 nCtrlType = 8;
+}
+
+message FBCGoInFreeNotify {
+  required int32 nSeconds = 1;
+  required string sTableId = 2;
+  required FBCUser tBanker = 3;
+  required int32 nTipId = 4;
+  optional int32 nIsClose = 5;
+  optional int32 nLiveUserID = 6;
+  optional int32 nRobotsServerId = 7;
+  optional int32 nJuShu = 8;
+  optional int32 nCurrentRealUserCnt = 9;
+  optional FBCSwitchConfig tSwitchConfig = 10;
+  optional string sPaiJuId = 11;
+  optional double nLiveUserBalance = 12;
+  optional string sPlatformID = 14;
+  optional string sLiveID = 15;
+  optional FBCPlayerMode tPlayerMode = 16;
+  optional bool isCanResetTestGold = 17;
+}
+
+message FBCMultiBetReq {
+  message Bet {
+    required double nBetChip = 1;
+    required int32 nBetArea = 2;
+  }
+
+  message UserBet {
+    required int32 nUserId = 1;
+    repeated Bet arrBet = 2;
+    optional int32 nUserType = 3;
+  }
+
+  required string sTableId = 1;
+  repeated UserBet arrUserBet = 2;
+}
+
+message FBCMultiBetResp {
+  required string sTableId = 1;
+  repeated int32 arrSucceeId = 2;
+}
+
+message FBCAreasBetNotify {
+  required string sTableId = 1;
+  repeated FBCAreaChipBetItem arrAreasBetSum = 2;
+}
+
+message FBCApplyForBankerReq {
+  required string sTableId = 1;
+  required FBCUser tUser = 2;
+}
+
+message FBCApplyForBankerResp {
+  required string sTableId = 1;
+  required int32 nRlt = 2;
+  required int32 nUserId = 3;
+}
+
+message FBCApplyForBankerNotify {
+  required string sTableId = 1;
+  required FBCUser tUser = 2;
+  required int32 nApplicantCnt = 3;
+}
+
+message FBCApplyCancelReq {
+  required string sTableId = 1;
+  required int32 nUserId = 2;
+}
+
+message FBCApplyCancelResp {
+  required string sTableId = 1;
+  required int32 nRlt = 2;
+  required int32 nUserId = 3;
+}
+
+message FBCApplyCancelNotify {
+  required string sTableId = 1;
+  required int32 nUserId = 2;
+  required int32 nApplicantCnt = 3;
+  optional int32 nReason = 4;
+}
+
+message FBCApplyResignReq {
+  required string sTableId = 1;
+  required int32 nUserId = 2;
+}
+
+message FBCApplyResignResp {
+  required string sTableId = 1;
+  required int32 nRlt = 2;
+  required int32 nUserId = 3;
+}
+
+message FBCGoldChangeSynReq {
+  message ChangeItem {
+    required int32 nUserId = 1;
+    required double nChange = 2;
+  }
+
+  required string sTableId = 1;
+  required double nZhuangWin = 2;
+  repeated ChangeItem arrGoldChange = 3;
+  required int32 nIsHaveRealUserIn = 4;
+  optional int32 nCurrentRealUserCnt = 5;
+}
+
+message FBCGoldChangeSynNotify {
+  message ChangeItem {
+    required int32 nUserId = 1;
+    required double nChange = 2;
+  }
+
+  required string sTableId = 1;
+  repeated ChangeItem arrGoldChange = 3;
+}
+
+message FBCTableCreateNotify {
+  required string sTableId = 1;
+  required int32 nRoomId = 2;
+  required FBCScence tScence = 3;
+}
+
+message FBCScenceReq {
+  required string sTableId = 1;
+}
+
+message FBCScenceRsp {
+  required string sTableId = 1;
+  required int32 nRoomId = 2;
+  required FBCScence tScence = 4;
+}
+
+message FBCTableCloseNotify {
+  required string sTableId = 1;
+}
+
+message FBCResultControlReq {
+  required string sTableId = 1;
+  required int32 nResult = 2;
+}
+
+message FBCAnchorMultiBetNotify {
+  message Bet {
+    required double nBetChip = 1;
+    required int32 nBetArea = 2;
+  }
+
+  required string sTableId = 1;
+  repeated Bet arrBet = 2;
+  required int32 nUserId = 3;
+}
+
+message FBCLiveUserGoldReq {
+  required string sTableId = 1;
+  required double nGold = 2;
+  optional bool isTooLess = 3;
+}
+
+message FBCPlayerCntReportReq {
+  required string sTableId = 1;
+  required int32 nServerId = 2;
+  required int32 nCnt = 3;
+}
+
+message FBCPlayerCntSummaryNotify {
+  required string sTableId = 1;
+  required int32 nSumCnt = 2;
+}
+
+message FBCLiveUserOnlineReportReq {
+  required string sTableId = 1;
+}
+
+message FBLCTickNotify {
+  required string sTableId = 1;
+  required int32 nSeconds = 2;
+}

@@ -1,0 +1,800 @@
+syntax = "proto2";
+
+package DbServer_pb;
+
+message Db_Proto {
+    required int32 Main_CMD = 1 [default = 501];
+    required int32 DbRoomListReq_CMD = 2 [default = 1601];
+    required int32 DbRoomListRsp_CMD = 3 [default = 1602];
+    required int32 DbGameListReq_CMD = 4 [default = 1603];
+    required int32 DbGameListRsp_CMD = 5 [default = 1604];
+    required int32 DbUserTreasureReq_CMD = 6 [default = 1605];
+    required int32 DbUserTreasureRsp_CMD = 7 [default = 1606];
+    required int32 DbShopListReq_CMD = 8 [default = 1607];
+    required int32 DbShopListRsp_CMD = 9 [default = 1608];
+    required int32 DbCheckSafePasswordReq_CMD = 10 [default = 1609];
+    required int32 DbCheckSafePasswordRsp_CMD = 11 [default = 1610];
+    required int32 DbBankAccessDetailReq_CMD = 12 [default = 1611];
+    required int32 DbBankAccessDetailRsp_CMD = 13 [default = 1612];
+    required int32 DbBankPasswordChangeReq_CMD = 14 [default = 1613];
+    required int32 DbBankPasswordChangeRsp_CMD = 15 [default = 1614];
+    required int32 VersionReq_CMD = 16 [default = 1615];
+    required int32 VersionRsp_CMD = 17 [default = 1616];
+    required int32 MaintainerIpReq_CMD = 18 [default = 1617];
+    required int32 MaintainerIpRsp_CMD = 19 [default = 1618];
+    required int32 RecentRecordReq_CMD = 20 [default = 1619];
+    required int32 RecentRecordRsp_CMD = 21 [default = 1620];
+    required int32 LoadBalancingReq_CMD = 22 [default = 1621];
+    required int32 LoadBalancingRsp_CMD = 23 [default = 1622];
+    required int32 PlatformChannelShopReq_CMD = 24 [default = 1623];
+    required int32 PlatformChannelShopRsp_CMD = 25 [default = 1624];
+    required int32 RefowardRuleReq_CMD = 26 [default = 1625];
+    required int32 RefowardRuleRsp_CMD = 27 [default = 1626];
+    required int32 WhiteListReq_CMD = 28 [default = 1627];
+    required int32 WhiteListRsp_CMD = 29 [default = 1628];
+    required int32 SqlExcuteReq_CMD = 30 [default = 1629];
+    required int32 DbAdCfgListReq_CMD = 31 [default = 1630];
+    required int32 DbAdCfgListRsp_CMD = 32 [default = 1631];
+    required int32 DbCheckReq_CMD = 33 [default = 1632];
+    required int32 DbCheckRsp_CMD = 34 [default = 1633];
+    required int32 DbLiveCSRelationReq_CMD = 36 [default = 1634];
+    required int32 DbLiveCSRelationRsp_CMD = 37 [default = 1635];
+    required int32 DbLiveTableCreateReq_CMD = 38 [default = 1736];
+    required int32 DbLiveTableCloseReq_CMD = 39 [default = 1737];
+    required int32 DbLiveBingdingReq_CMD = 40 [default = 1738];
+    required int32 DbSqlExcuteReq_CMD = 41 [default = 1739];
+    required int32 RecordBetSettleReq_CMD = 42 [default = 1740];
+    required int32 DbWriteRecordPublicReq_CMD = 43 [default = 1741];
+    required int32 MainVersionReq_CMD = 44 [default = 1742];
+    required int32 MainVersionRsp_CMD = 45 [default = 1743];
+    required int32 GameVersionReq_CMD = 46 [default = 1744];
+    required int32 GameVersionRsp_CMD = 47 [default = 1745];
+    required int32 GetCurrencyReq_CMD = 48 [default = 1746];
+    required int32 GetCurrencyRsp_CMD = 49 [default = 1747];
+    required int32 GetItemsReq_CMD = 50 [default = 1748];
+    required int32 GetItemsRsp_CMD = 51 [default = 1749];
+    required int32 GetShopConfigReq_CMD = 52 [default = 1750];
+    required int32 GetShopConfigRsp_CMD = 53 [default = 1751];
+    required int32 GetItemsConfigReq_CMD = 54 [default = 1752];
+    required int32 GetItemsConfigRsp_CMD = 55 [default = 1753];
+    required int32 SetSkinReq_CMD = 56 [default = 1754];
+    required int32 SetSkinRsp_CMD = 57 [default = 1755];
+    required int32 UpDateItemReq_CMD = 58 [default = 1756];
+    required int32 UpDateItemRsp_CMD = 59 [default = 1757];
+    required int32 GetRankDataReq_CMD = 60 [default = 1758];
+    required int32 GetRankDataRsp_CMD = 61 [default = 1759];
+    required int32 WritePilotWinLoseTimesReq_CMD = 62 [default = 1760];
+    required int32 GetLevelExpConfigReq_CMD = 63 [default = 1761];
+    required int32 GetLevelExpConfigRsp_CMD = 64 [default = 1762];
+    required int32 GetLPUserInfoReq_CMD = 65 [default = 1763];
+    required int32 GetLPUserInfoRsp_CMD = 66 [default = 1764];
+    required int32 UserRealNameReq_CMD = 67 [default = 1765];
+    required int32 UserRealNameRsp_CMD = 68 [default = 1766];
+    required int32 UpdateUserOnlineTimeReq_CMD = 69 [default = 1767];
+    required int32 GetAppCongigReq_CMD = 70 [default = 1768];
+    required int32 GetAppCongigRsp_CMD = 71 [default = 1769];
+    required int32 ServerIdOfMaitainingReq_CMD = 72 [default = 1770];
+    required int32 ServerIdOfMaitainingRsp_CMD = 73 [default = 1771];
+
+
+    required int32 PayInsertClientAddressReq_CMD   = 74 [default = 2700];
+    required int32 PayInsertClientAddressRsp_CMD   = 75 [default = 2701];
+    required int32 PayUpdateAddressReq_CMD         = 76 [default = 2702];
+    required int32 PayUpdateAddressRsp_CMD         = 77 [default = 2703];
+    required int32 PayInsertPayInfoReq_CMD         = 78 [default = 2704];
+    required int32 PayInsertPayInfoRsp_CMD         = 79 [default = 2705];
+    required int32 PayUpdatePayInfoReq_CMD         = 80 [default = 2706];
+    required int32 PayUpdatePayInfoRsp_CMD         = 81 [default = 2707];
+    required int32 PayInsertWithdrawInfoReq_CMD    = 82 [default = 2708];
+    required int32 PayInsertWithdrawInfoRsp_CMD    = 83 [default = 2719];
+    required int32 PayGetPayAddressReq_CMD         = 84 [default = 2710];
+    required int32 PayGetPayAddressRsp_CMD         = 85 [default = 2711];
+
+    required int32 LobbyNotifyRecordReq_CMD        = 86 [default = 2712];
+    required int32 LobbyNotifyRecordRsp_CMD        = 87 [default = 2713];
+
+    required int32 UpdateLobbyNotifyRecordReq_CMD  = 88 [default = 2714];
+    required int32 UpdateLobbyNotifyRecordRsp_CMD  = 89 [default = 2715];
+
+    required int32 ClubUserNoticeReq_CMD  = 90 [default = 2716];
+    required int32 ClubUserNoticeRsp_CMD  = 91 [default = 27175];
+}
+
+message DbRoomListReq {
+    required int32 nGameId = 1;
+    required int32 nGroupId = 2;
+    optional int32 nEcho = 3;
+}
+
+message DbRoomListRsp {
+    message RoomItem {
+        required int32 nGameId = 1;
+        required int32 nRoomId = 2;
+        optional int32 nGroupId = 3 [default = 1];
+        required double nEnterFloorLimit = 4;
+        optional int32 nAnte = 5;
+        required int32 nTax = 6;
+        required string tScoreCfg = 7;
+        optional string sHelpUI = 8;
+    }
+    repeated RoomItem arrRoomItems = 1;
+    required int32 nGroupId = 2;
+    required int32 nGameId = 3;
+    optional int32 nEcho = 4;
+}
+
+message DbGameListReq {
+    optional int32 nNoUse = 1;
+    required int32 nGroupId = 2;
+    optional int32 nEcho = 3;
+}
+
+message DbGameListRsp {
+    message GameItem {
+        required int32 nGameId = 1;
+        optional int32 nGameOrder = 3 [default = 1];
+        optional int32 nGameStatus = 4 [default = 0];
+        optional string sIconUrl = 5 [default = ""];
+        optional string sGamePath = 6 [default = ""];
+        optional string sVersion = 7 [default = ""];
+        optional string sZipFilePath = 8 [default = ""];
+        optional string sMD5FilePath = 9 [default = ""];
+        optional int32 nGroupId = 10 [default = 1];
+        optional string sPlatform = 11 [default = ""];
+        optional string sCUPGroupID = 12 [default = ""];
+    }
+    repeated GameItem arrGameItems = 1;
+    required int32 nGroupId = 2;
+    optional int32 nEcho = 3;
+}
+
+message DbShopListReq {
+    optional int32 nNoUse = 1;
+    optional int32 nEcho = 2;
+}
+
+message DbShopListRsp {
+    message Shop {
+        required int32 nShopId = 1;
+        required int32 nGroupId = 2;
+        required int32 nSubStore = 3;
+        required string sChannel = 4;
+        optional string sTgLink = 5;
+    }
+    repeated Shop arrShops = 1;
+    optional int32 nEcho = 2;
+}
+
+message DbUserTreasureReq {
+    required int32 nUserId = 1;
+}
+
+message DbUserTreasureRsp {
+    required int32 nUserId = 1;
+    required double nGold = 3;
+}
+
+message DbCheckSafePasswordReq {
+    required int32 nUserId = 1;
+    required string sPassword = 2;
+}
+
+message DbCheckSafePasswordRsp {
+    required int32 nUserId = 1;
+    required int32 nResult = 2;
+}
+
+message DbBankAccessDetailReq {
+    required int32 nUserId = 1;
+}
+
+message DbBankAccessDetailRsp {
+    message Item {
+        required string sTime = 1;
+        required int32 nOperation = 2;
+        required int32 nGold = 3;
+    }
+    required int32 nUserId = 1;
+    repeated Item arrDetails = 2;
+}
+
+message DbBankPasswordChangeReq {
+    required int32 nUserId = 1;
+    required string sOldPassword = 2;
+    required string sNewPassword = 3;
+}
+
+message DbBankPasswordChangeRsp {
+    required int32 nUserId = 1;
+    required int32 nResult = 2;
+}
+
+message VersionReq {
+    optional int32 nNoUse = 1;
+}
+
+message VersionRsp {
+    message Item {
+        required string sPlatform = 1;
+        required string sChannel = 2;
+        required string sVersion = 3;
+        required string sDownloadurl = 4;
+        required string sAppurl = 5;
+        required string sConfigUrl = 6;
+        required string sConfigVersion = 7;
+    }
+    repeated Item arrItems = 1;
+}
+
+message MainVersionReq {
+    optional int32 nNoUse = 1;
+}
+
+message MainVersionRsp {
+    message Item {
+        required int32 nGroupId = 1;
+        required string sVersion = 2;
+        required string sPlatform = 3;
+    }
+    repeated Item arrItems = 1;
+}
+
+message GameVersionReq {
+    optional int32 nNoUse = 1;
+}
+
+message GameVersionRsp {
+    message Item {
+        required int32 nGroupId = 1;
+        required string sGameCode = 2;
+        required string sVersion = 3;
+        required string sMD5FilePath = 4;
+        required string sZipFilePath = 5;
+        required string sPlatform = 6;
+    }
+    repeated Item arrItems = 1;
+}
+
+message MaintainerIpReq {
+    optional int32 nNoUse = 1;
+}
+
+message MaintainerIpRsp {
+    message Item {
+        required string sIp = 1;
+        required int32 nPort = 2;
+    }
+    repeated Item arrItems = 1;
+}
+
+message RecentRecordReq {
+    required int32 nUserId = 1;
+    required int32 nGameId = 2;
+    optional int32 nPage = 3;
+}
+
+message RecentRecordRsp {
+    message Item {
+        required string sPaiJuID = 1;
+        required int32 nRoomId = 2;
+        required double nProfit = 3;
+        required string sTime = 4;
+        required int32 nType = 5;
+        optional int32 nAnte = 6;
+    }
+    required int32 nUserId = 1;
+    required int32 nGameId = 2;
+    optional int32 nMaxCount = 3;
+    repeated Item arrRecords = 4;
+}
+
+message LoadBalancingReq {
+    optional int32 nNoUse = 1;
+}
+
+message LoadBalancingRsp {
+    message Item {
+        required string sIp = 1;
+        required int32 nPort = 2;
+        required string sPlatform = 3;
+        required string sChannel = 4;
+        required int32 nSocketType = 5;
+        required int32 nServGroupId = 6;
+    }
+    repeated Item arrList = 3;
+}
+
+message PlatformChannelShopReq {
+    optional int32 nNoUse = 1;
+}
+
+message PlatformChannelShopRsp {
+    message Item {
+        required string sPlatform = 1;
+        required string sChannel = 2;
+        required int32 nShopId = 3;
+    }
+    repeated Item arrItems = 1;
+}
+
+message RefowardRuleReq {
+    optional int32 nNoUse = 1;
+}
+
+message RefowardRuleRsp {
+    message Item {
+        required int32 nServerId = 1;
+        required int32 nGroupId = 2;
+    }
+    repeated Item arrItems = 1;
+}
+
+message ServerIdOfMaitainingReq {
+    optional int32 nNoUse = 1;
+}
+
+message ServerIdOfMaitainingRsp {
+    message Item {
+        required int32 nServerId = 1;
+        required int32 nState = 2;
+    }
+    repeated Item arrItems = 1;
+}
+
+message WhiteListReq {
+    optional int32 nNoUse = 1;
+}
+
+message WhiteListRsp {
+    repeated int32 arrUserId = 1;
+}
+
+message SqlExcuteReq {
+    required string sDbName = 1;
+    required string sSql = 2;
+    required bool bEnd = 3;
+    required string sPaiJuID = 4;
+}
+
+message DbSqlExcuteReq {
+    required string sDbName = 1;
+    required string sSql = 2;
+}
+
+message DbAdCfgListReq {
+    optional int32 nNoUse = 1;
+}
+
+message DbAdCfgListRsp {
+    message AdNoticeCfgItem {
+        required int32 id = 1;
+        required string scope = 2;
+        required string channel = 3;
+        required string startTime = 4;
+        required string endTime = 5;
+        required int32 frequency = 6;
+        required string details = 7;
+    }
+    repeated AdNoticeCfgItem arrAdItem = 1;
+}
+
+message DbCheckReq {
+    required int32 nId = 1;
+}
+
+message DbCheckRsp {
+    required int32 nIsNormal = 1;
+    required string sErrStr = 2;
+    required int32 nId = 3;
+}
+
+message DbLiveCSRelationReq {
+    optional int32 nNoUse = 1;
+}
+
+message DbLiveCSRelationRsp {
+    message Item {
+        required string sSlaveServerId = 1;
+        required string sCenterServerId = 2;
+    }
+    repeated Item arrItems = 1;
+}
+
+message DbLiveTableCreateReq {
+    required string sSql = 1;
+}
+
+message DbLiveTableCloseReq {
+    required string sTableId = 1;
+    required string sExData = 2;
+}
+
+message DbLiveBingdingReq {
+    required string sSql = 1;
+}
+
+message RecordBetSettleReq {
+    message Item {
+        required string sBetId = 1;
+        required int32 nGoldWin = 2;
+    }
+    repeated Item arrItems = 1;
+}
+
+message DbWriteRecordPublicReq {
+    required string sSql = 1;
+}
+
+message GetCurrencyReq {
+    required string sClientId = 1;
+    required int32 nUserId = 2;
+    required string sSql = 3;
+}
+
+message GetCurrencyRsp {
+    required string sClientId = 1;
+    required int32 nUserId = 2;
+    required int32 nDiamonds = 3;
+    required int32 nExp = 4;
+}
+
+message GetItemsReq {
+    required string sClientId = 1;
+    required int32 nUserId = 2;
+    required string sSql = 3;
+}
+
+message GetItemsRsp {
+    message UserItem {
+        required int32 nItemId = 1;
+        required int32 nCount = 2;
+        required int32 nType = 3;
+        required string sInDate = 4;
+        required int32 nIsUse = 5;
+        required int32 nPos = 6;
+    }
+    required string sClientId = 1;
+    required int32 nUserId = 2;
+    repeated UserItem arrItems = 3;
+}
+
+message GetShopConfigReq {
+    required string sSql = 1;
+}
+
+message GetShopConfigRsp {
+    message ShopItem {
+        required int32 nItemId = 1;
+        required int32 nGroupId = 2;
+        required int32 nShopType = 3;
+        required int32 nIndexType = 4;
+        required int32 nItemType = 5;
+        required int32 nBiType = 6;
+        required int32 nPrice = 7;
+        required string sInDate = 8;
+        required string sItemPhotoGuid = 9;
+        required int32 nRewardId = 10;
+        required int32 nCount = 11;
+    }
+    repeated int32 arrItemId = 1;
+}
+
+message GetItemsConfigReq {
+    required string sSql = 1;
+}
+
+message GetItemsConfigRsp {
+    message ItemInfo {
+        required int32 nItemId = 1;
+        required int32 nType = 2;
+        required string sItemPhotoGuid = 3;
+        required int32 nPos = 4;
+        required int32 nLimit = 5;
+    }
+    repeated ItemInfo arrItemsInfo = 1;
+}
+
+message SetSkinReq {
+    required string sClientId = 1;
+    required int32 nUserId = 2;
+    required string sSql = 3;
+}
+
+message SetSkinRsp {
+    required string sClientId = 1;
+    required int32 nUserId = 2;
+    required int32 nResult = 3;
+    required int32 nPos = 4;
+    required int32 nOldItemId = 5;
+    required int32 nNowItemId = 6;
+}
+
+message UpDateItemReq {
+    required int32 nUserId = 1;
+    required string sSql = 2;
+}
+
+message UpDateItemRsp {
+    required int32 nUserId = 1;
+    required int32 nResult = 2;
+    required int32 nItemId = 3;
+    required int32 nCount = 4;
+    required int32 nIsUse = 5;
+    required int32 nType = 6;
+    required int32 nPos = 7;
+    required int32 nOldSkinId = 8;
+    required string sInDate = 9;
+}
+
+message GetRankDataReq {
+    required string sClientId = 1;
+    required int32 nRankId = 2;
+    required string sSql = 3;
+}
+
+message GetRankDataRsp {
+    message RankItem {
+        required int32 nUserId = 1;
+        required string sNickName = 2;
+        required int32 nSex = 3;
+        required string sFaceId = 4;
+        required int32 nExp = 5;
+        required int32 nWin = 6;
+        required int32 nLose = 7;
+        required int32 nTotal = 8;
+    }
+    required string sClientId = 1;
+    required int32 nRankId = 2;
+    repeated RankItem arrRankItem = 3;
+}
+
+message WritePilotWinLoseTimesReq {
+    required int32 nUserId = 1;
+    required string sSql = 2;
+}
+
+message GetLevelExpConfigReq {
+    required string sSql = 1;
+}
+
+message GetLevelExpConfigRsp {
+    message ItemLv {
+        required int32 nLevel = 1;
+        required int32 nExp = 2;
+    }
+    repeated ItemLv arrItemLv = 1;
+}
+
+message GetLPUserInfoReq {
+    required string sClientId = 1;
+    required int32 nUserId = 2;
+    required string sSql = 3;
+}
+
+message GetLPUserInfoRsp {
+    required string sClientId = 1;
+    required int32 nUserId = 2;
+    required int32 nSex = 3;
+    required string sNickName = 4;
+    required string sFaceId = 5;
+    required int32 nExp = 6;
+    required int32 nWin = 7;
+    required int32 nLose = 8;
+    required int32 nRealName = 9;
+}
+
+message UserRealNameReq {
+    required int32 nUserId = 1;
+    required string sSql = 2;
+}
+
+message UserRealNameRsp {
+    required int32 nUserId = 1;
+    required int32 nResult = 2;
+}
+
+message UpdateUserOnlineTimeReq {
+    required string sSql = 1;
+}
+
+message GetAppCongigReq {
+    required string sSql = 1;
+}
+
+message GetAppCongigRsp {
+    message ItemAppConfig {
+        required string sConfigKey = 1;
+        required int32 nCount = 2;
+        required string sExtra = 3;
+    }
+    repeated ItemAppConfig arrItemConfig = 1;
+}
+
+// 插入支付地址
+// required int32 Pay_InsertClientAddressReq_CMD   = 74 [default = 1772];
+// strAddressArr：支付地址
+message PayInsertClientAddressReq{
+    required string strAddressArr = 1;
+    required int32 nUserId = 2;
+}
+
+// ack
+// required int32 Pay_InsertClientAddressRsp_CMD   = 75 [default = 1773];
+message PayInsertClientAddressRsp{
+    required int32 nCode = 1;
+    required int32 nUserId = 2;
+}
+
+// 更新支付地址
+// required int32 Pay_UpdateAddressReq_CMD         = 76 [default = 1774];
+//  nUserID:用户ID 
+//  strNewAddress:支付地址
+message PayUpdateAddressReq{
+    required int32 nUserID = 1;
+    required string strNewPayAddress = 2;
+}
+
+// ack
+// required int32 Pay_UpdateAddressRsp_CMD         = 77 [default = 1775];
+message PayUpdateAddressRsp{
+    required int32 nCode = 1;
+    required int32 nUserID = 2;
+}
+
+// 插入支付订单
+// required int32 Pay_InsertPayInfoReq_CMD         = 78 [default = 1776];
+message PayInsertPayInfoReq{
+    required int32 nUserID = 1;
+    required string sOrderID = 2;
+    required string sAmount  = 3;
+    required string sChannel = 4;
+    required string sCurrency = 5;
+    required string sTopup_url = 6;
+    required string sFee = 7;
+    required int32 nResult = 8;
+}
+
+// ack
+// required int32 Pay_InsertPayInfoRsp_CMD         = 79 [default = 1777];
+message PayInsertPayInfoRsp{
+    required int32 nCode = 1;
+    required int32 nUserID = 2;
+}
+
+// 更新支付订单
+// required int32 Pay_UpdatePayInfoReq_CMD         = 80 [default = 1778];
+message PayUpdatePayInfoReq{
+    required string sFrom = 1;
+    required string sTo = 2;
+    required string sAmount = 3;
+    required string sTxHash = 4;
+    required string sContract = 5;
+}
+
+// ack
+// required int32 Pay_UpdatePayInfoRsp_CMD         = 81 [default = 1779];
+message PayUpdatePayInfoRsp{
+    required int32 nCode = 1;
+    required int32 nUserId = 2;
+    required string sAmount = 3;
+}
+
+
+// 插入提取订单
+// required int32 Pay_InsertWithdrawInfoReq_CMD    = 82 [default = 1780];
+message PayInsertWithdrawInfoReq{
+    required int32 nUserID = 1;
+    required string sOrderID = 2;
+    required string sToAddr  = 3;
+    required string sInputAmount = 4;
+    required string sRealAmount = 5;
+    required string sTxHash = 6;
+    required int32 sResult = 7;
+    required string sRemark = 8;
+}
+
+// ack
+// required int32 Pay_InsertWithdrawInfoRsp_CMD    = 83 [default = 1781];
+message PayInsertWithdrawInfoRsp{
+    required int32 nCode = 1;
+    required int32 nUserID = 2;
+}
+
+// 获取支付地址
+// required int32 Pay_GetPayAddressReq_CMD         = 84 [default = 1782];
+message PayGetPayAddressReq{
+    required int32 nUserID = 1;
+}
+
+// ack
+// required int32 Pay_GetPayAddressRsp_CMD         = 85 [default = 1783];
+message PayGetPayAddressRsp{
+    required int32 nCode = 1;
+	required int32 nUserID = 2;
+    required string  sPayAddres = 3;
+}
+
+
+//required int32 LobbyNotifyRecordReq_CMD           = 86 [default = 2712];
+message LobbyNotifyRecordReq{
+    required int32  nUserId = 1;
+    required int32  nMsgType = 2;
+    required string sMsg = 3;
+    optional int32 nType = 4;
+}
+
+
+//required int32 LobbyNotifyRecordRsp_CMD           = 87 [default = 2713];
+message LobbyNotifyRecordRsp{
+    required int32 nCode    = 1;
+    required int32  nUserId = 2;
+    required int32  nMsgType = 3;
+    required int32    nMsgID   = 4;
+    required string  strMsg = 5;
+}
+
+
+//required int32 UpdateLobbyNotifyRecordReq_CMD     = 88 [default = 2714];
+message UpdateLobbyNotifyRecordReq{
+    required int32 nUserId = 1;
+    required int32 nMsgType = 2;
+}
+
+
+// ack
+//required int32 UpdateLobbyNotifyRecordRsp_CMD  = 89 [default = 2715];
+message UpdateLobbyNotifyRecordRsp{
+    required int32 nCode = 1;
+}
+
+
+//-------------------------------------
+//    required int32 ClubUserNoticeReq_CMD  = 90 [default = 2716];
+message ClubUserNoticeReq
+{
+    required int32 nIdOfStart=1   [default = 0]; //开始查询的id (查询少于该id的记录),第一页查询填0,第二页查询填上一页的最小id
+	required int32 nCnt=2 		  [default = 10];//本页的记录数目
+    required int32 nUserId=3       [default = 0];
+    required int32 nType=4       [default = 0];//通知的类型 1:系统通知 2:俱乐部邀请通知 3:个人加入俱乐部申请
+}
+
+//    required int32 ClubUserNoticeRsp_CMD  = 91 [default = 27175];
+message ClubSPersonApply
+{
+    required int32  nId=1;				    //记录id(自增全游戏记录唯一id)
+    required int32 nClubId=2;				//俱乐部id
+    required string sClubName=3;			//俱乐部名字
+    required string sTime=4;	    		//时间
+    required int32 nType=5;                 //申请类型: 1:增加俱乐部币 2:退还俱乐部币 3:加入俱乐部
+    required int32 nStatus=6;               //申请状态 0:未处理,1:同意 2:拒绝 3:已失效 4:已撤回
+    optional double nChange=7;              //俱乐部币变化值(nType=1和nType=2才有)
+}
+
+message ClubSNoticesItem
+{
+    required int32 nId=1;				//记录id(自增全游戏记录唯一id)
+    required int32 nType=2;             //消息分类 1:系统通知 2:俱乐部邀请通知 4:Mtt比赛领奖通知 5:Mtt比赛取消通知
+    required int32 nStatus=3;           //状态 0:未处理,1:同意 2:拒绝 3:不需要处理 4:已失效  5:已领取
+    required string sTime=4; 		    //时间
+    required string sData=5;            //数据,json格式,nType=2时,结构={sClubName=俱乐部名字,nClubId=俱乐部id,nUserId=邀请者id,sUserName=邀请者名字,sFaceId=邀请者头像} 
+                                        //  nType=1时,结构={sClubName=俱乐部名字,nClubId=俱乐部id,nUserId=管理员id,sUserName=管理员名字,sFaceId=管理员头像
+                                        //        nOpType=操作类型:1:增加俱乐部币 2:回收俱乐部币 3:提升为管理员 4:降成普通成员 5:踢出 6:修改权限 7:处理申请加入 8:处理俱乐部币申请 9:处理俱乐部币退还申请
+                                        //        nChange=变化的俱乐部币,arrChangePower={{nPowerType,isOpen},...},isAgree=1:同意 2:拒绝}
+										
+										//nType=4时,{sName=比赛名称Base64,nGold=获奖金币,nEventId=比赛ID,nRank=比赛名次,nGameId=游戏id}
+										//nType=5时,{sName=比赛名称Base64,nEventId=比赛ID}
+																			
+    optional int32 nHadRead=6;          //是否已读 0:未读 1:已读  nType=1才有
+}
+
+message ClubUserNoticeRsp
+{
+    repeated ClubSNoticesItem arrNotices = 1; ///nType=1或者nType=2才有
+    required int32 nAllCnt = 2; //总数
+    required int32 nType=3; //通知的类型 1:系统通知 2:俱乐部邀请通知 3:个人加入俱乐部申请
+    repeated ClubSPersonApply arrApplyList = 4; //nType=3才有
+    required int32 nUserId = 5;
+    optional int32 nUnReadCnt = 6;  //未读的系统消息数量 nType=1才有
+
+}
+//-------------------------------------

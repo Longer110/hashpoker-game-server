@@ -1,0 +1,58 @@
+CREATE PROCEDURE `Club_GetPersonTableRecordHallv4`(
+	IN `nUserId` INT, 
+	IN `nGameId` INT, 
+	IN `nIdOfStart` INT, 
+	IN `nCnt` INT, 
+	IN `nGoldType` INT, 
+	IN `nClubId` INT, 
+	IN `nDay` INT, 
+	IN `nGroupId` INT, 
+	IN `nStartTime` VARCHAR(50), 
+	IN `nEndTime` VARCHAR(50)
+)
+BEGIN
+	DECLARE vItemMin INT;
+	SET vItemMin = CASE 
+		WHEN nGoldType = 1 THEN 1
+		ELSE 1000000
+	END;
+	SELECT a.id, COALESCE(p.win, 0) AS WinLose, a.Insurance
+		, b.LiveUserId, b.TableInfo, a.UpdateTime, a.TableId
+		, (
+			SELECT FaceID
+			FROM DJH_AccountsDB.Accounts_InFo
+			WHERE UserID = b.LiveUserId
+		) AS FaceId
+		, (
+			SELECT SUBSTRING_INDEX(GROUP_CONCAT(t.FaceId ORDER BY t.ProfitSum DESC), ',', 5)
+			FROM DJH_RecordDB.TexaTableUserStatistic t
+			WHERE t.TableId = a.TableId
+		) AS FaceIdList
+	FROM DJH_RecordDB.ClubTableUserInfo a
+		LEFT JOIN DJH_RecordDB.ClubTableRecord b ON a.TableId = b.TableId
+		LEFT JOIN (
+			SELECT TableId, UserId
+				, SUM(HandProfit) - SUM(InsureBuy) + SUM(InsureWin) - SUM(Penalty) + SUM(Revenue) AS win
+			FROM DJH_RecordDB.PaiJuWinLoseRecord
+			GROUP BY TableId, UserId
+		) p
+		ON p.TableId = a.TableId
+			AND p.UserId = a.UserId
+	WHERE a.UserId = nUserId
+		AND a.GameId = nGameId
+		AND a.ItemId >= vItemMin
+		AND a.ItemId <= IF(nGoldType = 1, 1, 999999999)
+		AND (nIdOfStart = 0
+			OR a.id < nIdOfStart)
+		AND ((nClubId = -1
+				AND (b.CreateTime >= DATE_ADD(NOW(), INTERVAL -14 DAY)
+					OR a.ClubId < 1000000))
+			OR (nClubId <> -1
+				AND a.ClubId = nClubId
+				AND ((nGoldType = 1
+						AND a.UpdateTime BETWEEN STR_TO_DATE(nStartTime, '%Y-%m-%d %H:%i:%s') AND STR_TO_DATE(nEndTime, '%Y-%m-%d %H:%i:%s'))
+					OR (nGoldType <> 1
+						AND b.CreateTime BETWEEN STR_TO_DATE(nStartTime, '%Y-%m-%d %H:%i:%s') AND STR_TO_DATE(nEndTime, '%Y-%m-%d %H:%i:%s')))))
+	ORDER BY a.UpdateTime DESC
+	LIMIT nCnt;
+END

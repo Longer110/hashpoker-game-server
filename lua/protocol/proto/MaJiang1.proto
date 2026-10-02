@@ -1,0 +1,17 @@
+syntax = "proto2";
+
+package MaJiang1_pb;
+
+message Logon_Game_Q {
+    optional int32 nUserId = 1 [default = -99];
+    optional string sName = 2 [default = ""];
+    optional double dScore = 3 [default = -99];
+    optional int32 nTableId = 4 [default = -99];
+    optional int32 nGameId = 5 [default = -99];
+    optional int32 nLvl = 6 [default = -99];
+    optional int32 nUserType = 7 [default = -99];
+}
+
+message Logon_Game_P {
+    optional int32 nErr = 1 [default = -99];
+}

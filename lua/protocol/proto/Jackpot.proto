@@ -1,0 +1,286 @@
+syntax = "proto2";
+
+package Jackpot_pb;
+
+message Jack_Proto {
+  required int32 Main_CMD = 1 [default = 320];
+  required int32 JackLogOnReq_CMD = 2 [default = 2];
+  required int32 JackLogOnResp_CMD = 3 [default = 3];
+  required int32 JackGameSceneReq_CMD = 4 [default = 4];
+  required int32 JackGameSceneResp_CMD = 5 [default = 5];
+  required int32 JackBetReq_CMD = 6 [default = 6];
+  required int32 JackBetResp_CMD = 7 [default = 7];
+  required int32 JackBetNotify_CMD = 8 [default = 8];
+  required int32 JackBetPlayersReq_CMD = 9 [default = 9];
+  required int32 JackBetPlayersResp_CMD = 10 [default = 10];
+  required int32 JackBetStopNotify_CMD = 11 [default = 11];
+  required int32 JackSettleNotify_CMD = 12 [default = 12];
+  required int32 JackBetStartNotify_CMD = 13 [default = 13];
+  required int32 JackGameOutReq_CMD = 14 [default = 14];
+  required int32 JackTodayWinReq_CMD = 15 [default = 15];
+  required int32 JackTodayWinResp_CMD = 16 [default = 16];
+  required int32 JackLBetReq_CMD = 17 [default = 17];
+  required int32 JackLBetResp_CMD = 18 [default = 18];
+  required int32 JackLBetDetailReq_CMD = 19 [default = 19];
+  required int32 JackLBetDetailResp_CMD = 20 [default = 20];
+  required int32 JackRBetReq_CMD = 21 [default = 21];
+  required int32 JackRBetResp_CMD = 22 [default = 22];
+  required int32 JackRBetByDayReq_CMD = 23 [default = 23];
+  required int32 JackRBetByDayResp_CMD = 24 [default = 24];
+  required int32 JackRBetByDayGameReq_CMD = 25 [default = 25];
+  required int32 JackRBetByDayGameResp_CMD = 26 [default = 26];
+  required int32 JackLobbyMarquee_CMD = 27 [default = 27];
+}
+
+message JackBetItem {
+  required int32 nNumber = 1;
+  required int32 nCnt = 2;
+}
+
+message JackGNumber {
+  required int32 nNumber = 1;
+  required int32 nType = 2;
+}
+
+message JackResult {
+  required int64 nIssue = 1;
+  repeated int32 arrNumber = 2;
+  optional int32 nSt = 3;
+  optional int32 nType = 4;
+}
+
+message JackLogOnReq {
+  required int32 nUserId = 1;
+}
+
+message JackLogOnResp {
+  message Entry {
+    required int32 nRoomId = 1;
+    required int32 nUBet = 2;
+    required int32 nHot = 3;
+    required double nPool = 4;
+  }
+  
+  message SceneSimple {
+    required int32 nGameId = 1;
+    required int64 nIssue = 2;
+    required int32 nTimeNext = 3;
+    repeated Entry arrEntry = 4;
+    required string sGameName = 5;
+    optional int32 nGameType = 6;
+  }
+  
+  required int32 nRlt = 1;
+  repeated SceneSimple arrLot = 2;
+}
+
+message JackGameSceneReq {
+  required int32 nGameId = 1;
+}
+
+message JackGameSceneResp {
+  message RoomScene {
+    required int32 nRoomId = 1;
+    required int32 nUBet = 2;
+    required int32 nPlayerCnt = 3;
+    required double nPool = 4;
+    repeated JackBetItem arrBet = 5;
+    required int32 nNumLimit = 6;
+    required int32 nCntLimit = 7;
+    repeated JackBetItem arrBetself = 8;
+  }
+  
+  message Scene {
+    required int64 nIssue = 1;
+    required int32 nBetStopR = 2;
+    required int32 nOpenR = 3;
+    required double nGold = 4;
+    optional JackResult tLastRlt = 5;
+    repeated RoomScene arrRoom = 6;
+    repeated JackGNumber arrGNumber = 7;
+    optional bool isHideGTips = 8;
+    optional int32 nGameType = 9;
+  }
+  
+  required int32 nRlt = 1;
+  optional Scene tScene = 2;
+}
+
+message JackBetReq {
+  required int32 nGameId = 1;
+  required int32 nRoomId = 2;
+  required int64 nIssue = 3;
+  repeated JackBetItem arrBet = 4;
+}
+
+message JackBetResp {
+  required int32 nRlt = 1;
+  optional string strErr = 2;
+  optional double nGold = 3;
+}
+
+message JackBetNotify {
+  required int32 nGameId = 1;
+  required int32 nRoomId = 2;
+  required int64 nIssue = 3;
+  required int32 nPlayerCnt = 4;
+  required double nPool = 5;
+  repeated JackBetItem arrBet = 6;
+}
+
+message JackBetPlayersReq {
+  required int32 nGameId = 1;
+  required int32 nRoomId = 2;
+  required int64 nIssue = 3;
+  required int32 nNumber = 4;
+}
+
+message JackBetPlayersResp {
+  required int32 nRlt = 1;
+  repeated string arrNickName = 2;
+}
+
+message JackBetStopNotify {
+  required int32 nGameId = 1;
+  repeated JackGNumber arrGNumber = 2;
+}
+
+message JackSettleNotify {
+  message Player {
+    required string sNickName = 1;
+    required double nPrize = 2;
+  }
+  
+  message Summary {
+    required int32 nPlayerCnt = 1;
+    required int32 nHitCnt = 2;
+    required int32 nBetSum = 3;
+    required double nPrizeSum = 4;
+    repeated Player arrPlayer = 5;
+  }
+  
+  message Prize {
+    required int32 nReason = 1;
+    required double nPrize = 2;
+  }
+  
+  required int32 nGameId = 1;
+  required int64 nIssue = 2;
+  repeated int32 arrNumber = 3;
+  required double nPrizeSum = 5;
+  repeated Prize arrPrize = 6;
+  required double nGold = 7;
+  optional Summary tSummary = 8;
+  optional JackGNumber tBigPrize = 9;
+  optional int32 nSt = 10;
+  optional bool isBet = 11;
+}
+
+message JackBetStartNotify {
+  required int32 nGameId = 1;
+  required int64 nIssue = 2;
+  required int32 nBetStopR = 3;
+  required int32 nOpenR = 4;
+  required double nGold = 5;
+  required double nEggPool = 6;
+  optional JackResult tLastRlt = 7;
+}
+
+message JackGameOutReq {
+  required int32 nGameId = 1;
+}
+
+message JackTodayWinReq {
+  optional int32 nNoUse = 1;
+}
+
+message JackTodayWinResp {
+  required double nTodayWin = 1;
+  required int32 nBetNotSettle = 2;
+}
+
+message JackLBetReq {
+  optional int32 nNoUse = 1;
+}
+
+message JackLBetResp {
+  message Item {
+    required int32 nGameId = 1;
+    required int32 nCnt = 2;
+    required int32 nBet = 3;
+  }
+  
+  repeated Item arrItem = 1;
+}
+
+message JackLBetDetailReq {
+  required int32 nGameId = 1;
+}
+
+message JackLBetDetailResp {
+  message Item {
+    required int64 nIssue = 1;
+    required int32 nNumber = 2;
+    required int32 nBet = 3;
+  }
+  
+  required int32 nGameId = 1;
+  repeated Item arrItem = 2;
+}
+
+message JackRBetReq {
+  optional int32 nNoUse = 1;
+}
+
+message JackRBetResp {
+  message Item {
+    required int32 nTimeStamp = 1;
+    required int32 nCnt = 2;
+    required int32 nBet = 3;
+    required double nWin = 4;
+  }
+  
+  repeated Item arrItem = 1;
+}
+
+message JackRBetByDayReq {
+  required int32 nTimeStamp = 1;
+}
+
+message JackRBetByDayResp {
+  message Item {
+    required int32 nGameId = 1;
+    required int32 nCnt = 2;
+    required int32 nBet = 3;
+    required double nWin = 4;
+  }
+  
+  required int32 nTimeStamp = 1;
+  repeated Item arrItem = 2;
+}
+
+message JackRBetByDayGameReq {
+  required int32 nTimeStamp = 1;
+  required int32 nGameId = 2;
+}
+
+message JackRBetByDayGameResp {
+  message Item {
+    required int64 nIssue = 1;
+    required int32 nNumber = 2;
+    required int32 nBet = 3;
+    required double nWin = 4;
+    required int32 nBetSt = 5;
+  }
+  
+  repeated Item arrItem = 1;
+}
+
+message JackLobbyMarquee {
+  required int32 nGameId = 1;
+  required string sName = 2;
+  required int64 nIssue = 3;
+  required double nPrizeSum = 4;
+  required int32 nCnt = 5;
+  repeated string arrNickName = 6;
+}

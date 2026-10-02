@@ -1,0 +1,392 @@
+syntax = "proto2";
+
+package SeDieCenterHJ_pb;
+
+message SDHJC_Proto {
+    required int32 Main_CMD = 1 [default = 260];
+    required int32 SDHJCLogOnReq_CMD = 2 [default = 2];
+    required int32 SDHJCLogOnResp_CMD = 3 [default = 3];
+    required int32 SDHJCGoInBetStageNotify_CMD = 4 [default = 4];
+    required int32 SDHJCStopBetNotify_CMD = 5 [default = 5];
+    required int32 SDHJCGoInSettleNotify_CMD = 6 [default = 6];
+    required int32 SDHJCGoInFreeNotify_CMD = 7 [default = 7];
+    required int32 SDHJCBetReq_CMD = 8 [default = 8];
+    required int32 SDHJCBetResp_CMD = 9 [default = 9];
+    required int32 SDHJCBetNotify_CMD = 10 [default = 10];
+    required int32 SDHJCApplyForBankerReq_CMD = 12 [default = 12];
+    required int32 SDHJCApplyForBankerResp_CMD = 13 [default = 13];
+    required int32 SDHJCApplyCancelReq_CMD = 14 [default = 14];
+    required int32 SDHJCApplyCancelResp_CMD = 15 [default = 15];
+    required int32 SDHJCApplyResignReq_CMD = 16 [default = 16];
+    required int32 SDHJCApplyResignResp_CMD = 17 [default = 17];
+    required int32 SDHJCApplyForBankerNotify_CMD = 18 [default = 18];
+    required int32 SDHJCApplyCancelNotify_CMD = 19 [default = 19];
+    required int32 SDHJCBetAreaLimitNotify_CMD = 20 [default = 20];
+    required int32 SDHJCCloseTableNotify_CMD = 21 [default = 21];
+    required int32 SDHJCGMReq_CMD = 22 [default = 22];
+    required int32 SDHJCReportedPeople_CMD = 23 [default = 23];
+    required int32 SDHJCLiveBet_CMD = 24 [default = 24];
+    required int32 SDHJCRecommend_CMD = 25 [default = 25];
+    required int32 SDHJCOpenTableReq_CMD = 26 [default = 26];
+    required int32 SDHJCOpenTableResp_CMD = 27 [default = 27];
+    required int32 SDHJCBatchBetReq_CMD = 28 [default = 28];
+    required int32 SDHJCBatchBetRep_CMD = 29 [default = 29];
+    required int32 SDHJCLiveBatchBet_CMD = 30 [default = 30];
+    required int32 SDHJCGoldChangeSynReq_CMD = 31 [default = 31];
+    required int32 SDHJCGoldChangeSynNotify_CMD = 32 [default = 32];
+    required int32 SDHJCLiveEnterGame_CMD = 33 [default = 33];
+    required int32 SDHJCUpdateLiveGold_CMD = 34 [default = 34];
+    required int32 SDHJCPlayerCntReportReq_CMD = 35 [default = 35];
+    required int32 SDHJCPlayerCntSummaryNotify_CMD = 36 [default = 36];
+    required int32 SDHJCLiveOnLineStatusReq_CMD = 37 [default = 37];
+    required int32 SDHJCCardsBatchNotify_CMD = 38 [default = 38];
+    required int32 SDHJCBankerFreezeNotify_CMD = 39 [default = 39];
+    required int32 SDHJCRefundNotify_CMD = 40 [default = 40];
+}
+
+message SDHJCOpenTableReq {
+    optional int32 nGroupId = 1;
+    optional int32 nGameId = 2;
+    optional int32 nRoomId = 3;
+    optional string sClientID = 4;
+    optional int32 nUserId = 5;
+    optional int32 nShopId = 6;
+}
+
+message SDHJCOpenTableResp {
+    optional string sTableId = 1;
+    optional string sClientID = 2;
+    optional int32 nUserId = 3;
+    optional string sTableKey = 4;
+}
+
+message tUserInfo {
+    required int32 nUserId = 1;
+    required string sFaceId = 2;
+    required string sName = 3;
+    required double nGold = 4;
+    required int32 nSex = 5;
+    optional int32 nBankerConsecutive = 6;
+    optional bool isResign = 7;
+    optional string sGameKey = 8;
+    optional bool isAndroid = 9;
+}
+
+message TrendItem {
+    repeated int32 arrButton = 1;
+}
+
+message SDHJCScence {
+    message tAreaChipBetItem {
+        required int32 nSumBet = 1 [default = 0];
+        required int32 nBetArea = 2 [default = 0];
+    }
+    
+    required int32 nCurrentStage = 1;
+    required int32 nRemainSeconds = 2;
+    required tUserInfo tBanker = 3;
+    repeated tAreaChipBetItem arrBetDetail = 4;
+    repeated TrendItem arrTrend = 5;
+    repeated int32 arrButton = 6;
+    optional tUserInfo arrApplicants = 7;
+    required int32 nApplicantsMax = 8;
+    optional string sTableId = 9;
+    required int32 nRoomId = 10;
+    optional int32 nGameId = 11;
+    required int32 nGroupId = 12;
+    optional tSDGameCfg tSwitchConfig = 13;
+    required int32 nAnte = 14;
+    optional int32 nEnterFloorLimit = 15;
+    optional string sTableName = 16;
+    optional int32 nTableType = 17;
+    optional int32 nStageSeconds = 19;
+    repeated tSDBetLimit arrBetLimitCfg = 20;
+    required int32 nTableStatus = 21;
+}
+
+message SDHJCLogOnReq {
+    required int32 nServerId = 1;
+    optional string sTableId = 2;
+}
+
+message SDHJCLogOnResp {
+    required int32 nRlt = 1 [default = -99];
+    optional string sTableId = 2;
+    optional int32 nLiveUserID = 3 [default = -99];
+    optional SDHJCScence tScence = 4;
+}
+
+message tSDGameCfg {
+    optional bool bShangZhuangOpen = 1;
+    optional bool bWithCastOpen = 2;
+    optional bool bRecommendOpen = 3;
+    optional bool IsDrawWater = 4;
+    optional int32 nEnterFloorLimit = 5;
+    repeated int32 arrChipsForBet = 6;
+}
+
+message tSDBetLimit {
+    optional int32 nType = 1;
+    optional int32 nMin = 2;
+    optional int32 nMax = 3;
+}
+
+message SDHJCGoInFreeNotify {
+    required int32 nStageSeconds = 1;
+    optional tUserInfo tBanker = 2;
+    optional int32 nTipId = 3;
+    optional int32 nCenterSvrId = 4;
+    optional string sTableId = 5;
+    optional tSDGameCfg tSwitchConfig = 6;
+    optional int32 nRobotsServerId = 7;
+    optional int32 nInning = 8;
+    optional string sTableName = 9;
+    optional string sPaiJuId = 10;
+    optional int32 nTableType = 11;
+    required int32 nLiveUserID = 13;
+    optional int32 nLiveGold = 14;
+    optional string sLiveID = 15;
+    optional string sPlatformID = 16;
+    required int32 nAnte = 17;
+    repeated tSDBetLimit arrBetLimitCfg = 18;
+    repeated int32 arrOpenKey = 19;
+    required int32 nTableStatus = 20;
+}
+
+message SDHJCGoInBetStageNotify {
+    required int32 nStageSeconds = 1;
+    required string sTableId = 2;
+}
+
+message SDHJCStopBetNotify {
+    required string sTableId = 1;
+    required int32 nTableStatus = 2;
+}
+
+message SDHJCGoInSettleNotify {
+    message tOpenDice {
+        repeated int32 nDice = 1;
+    }
+    
+    required int32 nStageSeconds = 1;
+    required tOpenDice arrButton = 2;
+    required string sTableId = 3;
+    optional string sPaiJuId = 4;
+    optional double nBankerWinLose = 5;
+    optional double nBanKerDrawWater = 6;
+    optional int32 nControl = 7;
+}
+
+message SDBatchBet {
+    required int32 nBetChip = 1;
+    required int32 nBetArea = 2;
+}
+
+message SDHJCBatchBetReq {
+    message BatchBetItem {
+        required int32 nId = 1;
+        optional bool isAndroid = 2;
+        optional int32 nAccountType = 3;
+        optional int32 nSumBet = 4;
+        repeated SDBatchBet arrBatchBet = 5;
+    }
+    
+    required string sTableId = 1;
+    repeated BatchBetItem arrBetItem = 2;
+}
+
+message SDHJCBatchBetRep {
+    required string sTableId = 1;
+    repeated int32 arrSucceeId = 2;
+}
+
+message SDHJCBetReq {
+    message BetItem {
+        required int32 nBetChip = 1;
+        required int32 nBetArea = 2;
+        required int32 nId = 3;
+        optional bool isAndroid = 4;
+        optional int32 nAccountType = 5;
+    }
+    
+    required string sTableId = 1;
+    repeated BetItem arrBetItem = 2;
+}
+
+message SDHJCBetResp {
+    required string sTableId = 1;
+    repeated int32 arrSucceeId = 2;
+}
+
+message SDHJCBetNotify {
+    required int32 nBetChip = 1;
+    required int32 nBetArea = 2;
+    required int32 nSerialId = 3;
+    required int32 nServerId = 4;
+}
+
+message SDHJCBetAreaLimitNotify {
+    message tBetSumlimit {
+        required int32 nSumBet = 1 [default = 0];
+        required int32 nBetArea = 2 [default = 0];
+        required int32 nBetPeople = 3 [default = 0];
+        optional int32 nAnchorBet = 4 [default = 0];
+    }
+    
+    repeated tBetSumlimit arrBetLimit = 1;
+    optional string sTableId = 2;
+    optional int32 nSumPeople = 3 [default = 0];
+}
+
+message SDHJCApplyForBankerReq {
+    required string sTableId = 1;
+    required tUserInfo tUser = 2;
+}
+
+message SDHJCApplyForBankerResp {
+    required string sTableId = 1;
+    required int32 nRlt = 2;
+    required int32 nUserId = 3;
+}
+
+message SDHJCApplyCancelReq {
+    required string sTableId = 1;
+    required int32 nUserId = 2;
+    optional int32 nType = 3;
+    optional int32 nGold = 4;
+}
+
+message SDHJCGoldChangeSynReq {
+    message ChangeItem {
+        required int32 nUserId = 1;
+        required double nGold = 2;
+    }
+    
+    required string sTableId = 1;
+    repeated ChangeItem arrGoldChange = 3;
+    required int32 nIsHaveRealUserIn = 4;
+    optional int32 nCurrentRealUserCnt = 5;
+}
+
+message SDHJCGoldChangeSynNotify {
+    message ChangeItem {
+        required int32 nUserId = 1;
+        required double nGold = 2;
+    }
+    
+    required string sTableId = 1;
+    repeated ChangeItem arrGoldChange = 3;
+}
+
+message SDHJCApplyCancelResp {
+    required string sTableId = 1;
+    required int32 nRlt = 2;
+    required int32 nUserId = 3;
+}
+
+message SDHJCApplyResignReq {
+    required string sTableId = 1;
+    required int32 nUserId = 2;
+}
+
+message SDHJCApplyResignResp {
+    required string sTableId = 1;
+    required int32 nRlt = 2;
+    required int32 nUserId = 3;
+}
+
+message SDHJCApplyForBankerNotify {
+    required string sTableId = 1;
+    required tUserInfo tUser = 2;
+    required int32 nApplicantCnt = 3;
+    required int32 nType = 4;
+}
+
+message SDHJCApplyCancelNotify {
+    required string sTableId = 1;
+    required int32 nUserId = 2;
+    required int32 nApplicantCnt = 3;
+}
+
+message SDHJCCloseTableNotify {
+    required string sTableId = 1;
+    required int32 nCloseType = 2;
+}
+
+message SDHJCGMReq {
+  required string sTableId = 1;
+  repeated int32 tGM = 2;
+}
+
+message SDHJCReportedPeople {
+  required string sTableId = 1;
+  optional int32 nSum = 2;
+  optional int32 nAndroid = 3;
+}
+
+message SDHJCLiveBet {
+  required string sTableId = 1;
+  required int32 nBetArea = 2;
+  required int32 nBetChip = 3;
+}
+
+message SDBatchBet {
+  required int32 nBetArea = 1;
+  required int32 nBetChip = 2;
+}
+
+message SDHJCLiveBatchBet {
+  required string sTableId = 1;
+  required int32 nSumBet = 2;
+  repeated SDBatchBet arrBatchBet = 3;
+}
+
+message SDHJCLiveEnterGame {
+  required string sTableId = 1;
+}
+
+message SDHJCUpdateLiveGold {
+  required string sTableId = 1;
+  required double nLiveGold = 2;
+}
+
+message SDHJCPlayerCntReportReq {
+  required string sTableId = 1;
+  required int32 nServerId = 2;
+  required int32 nCurrentRealUserCnt = 3;
+}
+
+message SDHJCPlayerCntSummaryNotify {
+  required string sTableId = 1;
+  required int32 nSumCnt = 2;
+}
+
+message SDHJCLiveOnLineStatusReq {
+  required string sTableId = 1;
+  required bool bIsLiveOnline = 2;
+}
+
+message SDHJCCardsBatchNotify {
+  message CardItem {
+    required int32 nKey = 1;
+    optional int32 nVal = 2;
+    required string sHash = 3;
+    required string sPlaintext = 4;
+  }
+  
+  required string sTableId = 1;
+  required int32 nMaxDex = 2;
+  repeated CardItem arrCardItem = 3;
+  required int32 nCurSend = 4;
+  required int32 nStartKey = 5;
+  required int32 nEndKey = 6;
+}
+
+message SDHJCBankerFreezeNotify {
+  required string sTableId = 1;
+  required int32 nBankerFreezeGold = 2;
+}
+
+message SDHJCRefundNotify {
+  required string sTableId = 1;
+}

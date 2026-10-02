@@ -1,0 +1,183 @@
+syntax = "proto2";
+
+package GaoBo_pb;
+
+message GaoBo_Proto {
+    required int32 Main = 1 [default = 253];
+    required int32 SUB_REP_DIZHU = 2 [default = 2];
+    required int32 SUB_REP_FIRSTHAND = 3 [default = 3];
+    required int32 SUB_REP_NEEDXIAZHU = 4 [default = 4];
+    required int32 SUB_REQ_XIAZHU = 5 [default = 5];
+    required int32 SUB_REP_XIAZHU = 6 [default = 6];
+    required int32 SUB_REQ_GIVEUP = 7 [default = 7];
+    required int32 SUB_REP_GIVEUP = 8 [default = 8];
+    required int32 SUB_REP_BUPAI = 9 [default = 9];
+    required int32 SUB_REP_CALSCORE = 10 [default = 10];
+    required int32 SUB_REP_RESET = 11 [default = 11];
+    required int32 SUB_REP_NULL = 12 [default = 12];
+    required int32 SUB_REQ_LOGIN = 13 [default = 13];
+    required int32 SBU_REP_LOGIN = 14 [default = 14];
+    required int32 SUB_REP_USERENTER = 15 [default = 15];
+    required int32 SUB_REP_SCENE = 16 [default = 16];
+    required int32 SUB_REP_REMINDCHAR = 17 [default = 17];
+    required int32 SUB_REQ_DRAGIN = 19 [default = 19];
+    required int32 SUB_REQ_CHAT = 20 [default = 20];
+    required int32 SUB_REP_CHAT = 21 [default = 21];
+    required int32 SUB_REP_GAERRCODE = 23 [default = 23];
+    required int32 SUB_REP_USERLEAVE = 30 [default = 30];
+    required int32 SUB_REQ_NTLEAVE = 32 [default = 32];
+    required int32 SUB_REQ_LOBBYCOIN = 34 [default = 34];
+    required int32 SUB_REP_LOBBYCOIN = 35 [default = 35];
+}
+
+message Req_GB_Login {
+    required uint32 nUserId = 1 [default = 1];
+    required int32 nGameType = 2 [default = 2];
+    required int32 nLevel = 3 [default = 3];
+    required int32 nCoin = 4 [default = 4];
+    optional int32 nNewTable = 5 [default = 1];
+}
+
+message Rep_GB_Login {
+    required int32 nErrorCode = 1 [default = 1];
+}
+
+message DiZhu {
+    required int32 nDiZhu = 1 [default = 1];
+}
+
+message FirstHand {
+    required uint32 nUserId = 1 [default = 1];
+    required int32 nFirCard = 2 [default = 2];
+    required int32 nSecCard = 3 [default = 3];
+}
+
+message NeedXiaZhu {
+    required int32 nStep = 1 [default = 1];
+    required uint32 nUserId = 2 [default = 2];
+    required int32 nBarLow = 3 [default = 3];
+    required int32 nBarHigh = 4 [default = 4];
+}
+
+message Req_GB_XiaZhu {
+    required int32 nCoin = 1 [default = 1];
+}
+
+message Rep_GB_XiaZhu {
+    required uint32 nUserId = 1 [default = 1];
+    required int32 nCoin = 2 [default = 2];
+}
+
+message Req_GB_GiveUp {
+}
+
+message Rep_GB_GiveUp {
+    required uint32 nUserId = 1 [default = 1];
+}
+
+message Rep_GB_BuPai {
+    required int32 nLastCardId = 1 [default = 1];
+    repeated Rep_GB_BorderPool arrBorderWin = 2;
+    optional int32 nCardType = 3 [default = 3];
+}
+
+message Rep_GB_PerScore {
+    required uint32 nUserId = 1 [default = 1];
+    required int32 nType = 2 [default = 2];
+    required int32 nCol = 3 [default = 3];
+    required int32 nBigDot = 4 [default = 4];
+    required double nCoin = 5 [default = 5];
+    required double nCurCoin = 6 [default = 6];
+    required int32 nCard1 = 7 [default = 7];
+    required int32 nCard2 = 8 [default = 8];
+    required int32 nCard3 = 9 [default = 9];
+}
+
+message Rep_GB_BorderPool {
+    required int32 nCoinBorder = 1 [default = 1];
+    required uint32 nUserId = 2 [default = 2];
+    required int32 nWinCoin = 3 [default = 3];
+}
+
+message Rep_GB_CalScore {
+    repeated Rep_GB_BorderPool arrBorderWin = 1;
+    repeated Rep_GB_PerScore arrUserScore = 2;
+}
+
+message Rep_GB_Reset {
+}
+
+message Rep_GB_NULL {
+}
+
+message Rep_GB_PerUserEnter {
+    required uint32 nUserId = 1 [default = 1];
+    required string sNickName = 2 [default = ""];
+    required int32 nSex = 3 [default = 3];
+    required string sFaceID = 4 [default = ""];
+    required int32 nTableId = 5 [default = 5];
+    required int32 nUserType = 7 [default = 7];
+    required double nGold = 8 [default = 8];
+    required int32 nSitId = 9 [default = 9];
+    required bool isPlaying = 10 [default = false];
+}
+
+message Rep_Gb_UserEnter {
+    repeated Rep_GB_PerUserEnter arrUserEnter = 1;
+}
+
+message Rep_GB_UserDeduct {
+    required uint32 nUserId = 1 [default = 1];
+    required int32 nDiZhu = 2 [default = 2];
+    required int32 nXiaZhu1 = 3 [default = 3];
+    required int32 nXiaZhu2 = 4 [default = 4];
+    required int32 nAllIn = 5 [default = 5];
+    required int32 nGiveUp = 6 [default = 6];
+    required int32 nCard1 = 7 [default = 7];
+    required int32 nCard2 = 8 [default = 8];
+    required int32 nCard3 = 9 [default = 9];
+    required int32 nCurRoundActDeatail = 10 [default = 10];
+    optional int32 nCardType = 11 [default = -1];
+}
+
+message Rep_GB_Scene {
+    optional int32 nTotalCoin = 1 [default = 0];
+    repeated Rep_GB_UserDeduct arrUser = 2;
+    required int32 nCurStep = 3 [default = 3];
+    required int32 nOperUserId = 4 [default = 4];
+    required int32 nNextTime = 5 [default = 5];
+    repeated Rep_GB_BorderPool arrBorderWin = 6;
+    optional int32 nBarLow = 7 [default = 7];
+    optional int32 nBarHigh = 8 [default = 8];
+}
+
+message Rep_GB_RemindCharge {
+    required uint32 nUserId = 1 [default = 1];
+}
+
+message Req_GB_DragIn {
+    required int32 nCoin = 1 [default = 1];
+}
+
+message Req_GB_Chat {
+    required string sTopic = 1 [default = ""];
+}
+
+message Rep_GB_GaErrCode {
+    required int32 nErrCode = 1 [default = 1];
+}
+
+message Rep_GB_UserLeave {
+    required uint32 nUserId = 1 [default = 1];
+}
+
+message Req_GB_NtLeave {
+    required int32 nOper = 1 [default = 1];
+}
+
+message Req_GB_LobbyCoin {
+}
+
+message Rep_GB_LobbyCoin {
+    required double nMaxCoin = 1 [default = 1];
+}

@@ -1,0 +1,85 @@
+1. 执行下面命令
+sudo apt-get install -y stunnel4
+或者
+sudo yum install -y stunnel
+
+2. 配置stunnel
+编辑 /etc/stunnel/redis-tls.conf
+将其中：
+--Addr：是 AWS 控制台里显示的 Primary Endpoint 或 Cluster Endpoint，带上端口（通常 6379）
+（1）your-redis-endpoint.cache.amazonaws.com 修改为实际的AWS的redis网址
+（2）accept:     本地监听端口
+（3）connect:    AWS redis tls端点(其中6379表示tls端口)
+（4）CAfile:     系统CA证书路径（正常AWS trust service 会包含该证书）
+（5）checkhost : 确保验证主机名
+
+最终内容如下:
+[redis-tls]
+client = yes
+accept = 127.0.0.1:6380
+connect = master.pro-redis.qswlhr.apse1.cache.amazonaws.com:6379
+CAfile = /etc/ssl/certs/ca-bundle.crt
+verifyChain = yes
+checkHost = master.pro-redis.qswlhr.apse1.cache.amazonaws.com
+
+3. 启动stunnel
+sudo systemctl start stunnel4 
+
+4. 确认监听：
+netstat -tlnp | grep 6380
+
+5. 打开test_redis.lua文件，将其中
+local redis_pwd = "链接aws的实际密码" 的值修改为aws redis的密码
+
+
+6. lua访问aws的redis 测试验证代码
+执行命令：lua test_redis.lua
+期望打印有: get foo value from redis: bar
+
+
+
+
+--------------------------------
+-----------test_redis.lua代码
+
+local redis = require "redis"
+
+local ip = "127.0.0.1"
+local port = 6380
+-- 修改为链接redis的实际密码
+local redis_pwd = "your-redis-password"  
+
+-- 连接本地 stunnel 端口
+local client = redis.connect(ip, port)
+
+-- 如果启用了 AUTH
+local ok, err = pcall(function()
+    client:auth(redis_pwd) end)
+
+if not ok then
+    print("auth failed: ", err)
+    os.exit(1)
+end
+
+-- 测试写入
+print("set foo to bar")
+client:set("foo", "bar")
+
+-- 测试读取
+local val = client:get("foo")
+print("get foo value from redis: ", val)
+
+
+
+
+安装
+sudo apt update
+sudo apt install -y build-essential libssl-dev luarocks
+; sudo luarocks install luaossl --lua-version=5.1 \
+;   LUA_BINDIR=/home/ubuntu/code/game/libs/runtime/bin \
+;   LUA_INCDIR=/home/ubuntu/code/game/libs/runtime/include/luajit-2.1 \
+;   LUA_LIBDIR=/home/ubuntu/code/game/libs/runtime/lib
+luarocks install luaossl --lua-version=5.1 \
+  LUA_BINDIR=/home/ubuntu/cservice/libs/runtime/bin \
+  LUA_INCDIR=/home/ubuntu/cservice/libs/runtime/include/luajit-2.1 \
+  LUA_LIBDIR=/home/ubuntu/cservice/libs/runtime/lib

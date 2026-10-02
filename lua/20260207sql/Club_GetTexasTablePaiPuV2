@@ -1,0 +1,53 @@
+CREATE PROCEDURE `Club_GetTexasTablePaiPuV2`(
+	IN sTableId varchar(100),
+	IN nBegin int,
+	IN nCnt int,
+	IN nUserId int
+) BEGIN DECLARE nAllCnt INT DEFAULT 0;
+
+DECLARE nCollect INT DEFAULT 0;
+
+SELECT
+	COUNT(id) INTO nAllCnt
+FROM
+	DJH_RecordDB.ClubPaiJuRecord
+WHERE
+	TableId = sTableId
+	AND UserId = nUserId;
+
+SELECT
+	a.id,
+	c.BetInfo,
+	a.PaiJuId,
+	b.HandProfit + b.InsureWin - b.InsureBuy AS WinLose,
+	b.Penalty as nPenalty,
+	b.Revenue AS nRevenue,
+	b.DrawWater,
+	b.ElseInfo AS RElseInfo,
+	a.CreateTime,
+	c.DealCardInfo,
+	c.ElseInfo,
+	c.UsersInfo,
+	nAllCnt,
+	(
+		SELECT
+			d.id
+		FROM
+			DJH_RecordDB.ClubCollectPaiJu d
+		WHERE
+			d.PaiJuId = a.PaiJuId
+	) AS nCollect
+FROM
+	DJH_RecordDB.ClubPaiJuRecord a
+	LEFT JOIN DJH_RecordDB.PaiJuWinLoseRecord b ON a.PaiJuId = b.PaiJuId
+	AND a.UserId = b.UserID
+	LEFT JOIN DJH_RecordDB.PaiJuDetail c ON a.PaiJuId = c.PaiJuId
+WHERE
+	a.TableId = sTableId
+	AND a.UserId = nUserId
+ORDER BY
+	a.id ASC
+LIMIT
+	nBegin, nCnt;
+
+END

@@ -1,0 +1,172 @@
+syntax = "proto2";
+
+package ClubCenter_pb;
+
+message ClubC_Proto {
+  required int32 Main_CMD = 1 [default = 262];
+  required int32 ClubCConnectReq_CMD = 2 [default = 2];
+  required int32 ClubCSceneNotify_CMD = 3 [default = 3];
+  required int32 ClubCSwitchNotify_CMD = 4 [default = 4];
+  required int32 ClubCCreateSucessReq_CMD = 5 [default = 5];
+  required int32 ClubCSceneChangeReq_CMD = 6 [default = 6];
+  required int32 ClubCSceneChangeNotify_CMD = 7 [default = 7];
+  required int32 ClubCUserInfoChangeNotify_CMD = 9 [default = 9];
+  required int32 ClubCUserMsgNotify_CMD = 13 [default = 13];
+  required int32 ClubCKickOutNotify_CMD = 15 [default = 15];
+  required int32 ClubCGameOpenTableNotify_CMD = 16 [default = 16];
+  required int32 ClubCTableOpenNotify_CMD = 17 [default = 17];
+  required int32 ClubCGameCloseTableNotify_CMD = 18 [default = 18];
+  required int32 ClubCTableCloseNotify_CMD = 19 [default = 19];
+  required int32 ClubCGameTableInfoNotify_CMD = 20 [default = 20];
+  required int32 ClubCTableInfoNotify_CMD = 21 [default = 21];
+  required int32 ClubCCloseNotify_CMD = 22 [default = 22];
+  required int32 ClubCGameUserSettleNotify_CMD = 23 [default = 23];
+  required int32 ClubCServerMaintenanceNotify_CMD = 24 [default = 24];
+  required int32 ClubCServerGroupNotify_CMD = 25 [default = 25];
+}
+
+message ClubCConnectReq {
+  required int32 nServerId = 1;
+}
+
+message ClubCSceneNotify {
+  required int32 nClubId = 1;
+  required ClubCScence tScence = 2;
+}
+
+message ClubCScence {
+  required int32 nClubId = 1;
+  required string sClubName = 2;
+  required double nClubGold = 3;
+  required double nIncome = 4;
+  required double nTodayIncome = 5;
+  required int32 nMaxUserCnt = 6;
+  required int32 nClubTax = 7;
+  required int32 nInsuranceTax = 8;
+  required int32 nMaster = 9;
+  required int32 nGroupId = 10;
+  required int32 nCanSearch = 11;
+  required int32 nCanApply = 12;
+  required string sPassWord = 13;
+  required int32 nUserCnt = 14;
+  required int32 nApplyJionCnt = 15;
+  required int32 nApplyAddGoldCnt = 16;
+  required int32 nApplyCutGoldCnt = 17;
+  required string sFaceId = 18;
+  required string sName = 19;
+  required int32 nSex = 20;
+  required string sShopAcc = 21;
+  required bool IsNeedAndroid = 22;
+  required bool IsUseGold = 23;
+  required bool IsUserClubGold = 24;
+  required double nGold = 25;
+  required double nGoldIncome = 26;
+  required double nGoldTodayIncome = 27;
+}
+
+message ClubCSwitchNotify {
+  required int32 nUserId = 1 [default = 0];
+  required int32 nNewClubId = 2 [default = 0];
+}
+
+message ClubCCreateSucessReq {
+  required string sClubInfo = 1;
+}
+
+message ClubCSceneChangeReq {
+  required int32 nClubId = 1;
+  required string sChangeInfo = 2;
+}
+
+message ClubCSceneChangeNotify {
+  required int32 nClubId = 1;
+  required string sChangeInfo = 2;
+}
+
+message ClubCUserInfoChangeNotify {
+  required int32 nClubId = 1;
+  required int32 nUserId = 2;
+  required string sChangeInfo = 3;
+}
+
+message ClubCUserMsgNotify {
+  required int32 nUserId = 1;
+  required int32 nType = 2;
+  required string sExData = 3;
+}
+
+message ClubCKickOutNotify {
+  required int32 nClubId = 1;
+  required int32 nUserId = 2;
+  required string sClubName = 3;
+}
+
+message ClubCGameOpenTableNotify {
+  required int32 nClubId = 1;
+  required string sTableId = 2;
+  required string sTableInfo = 3;
+  optional int32 nServId = 4;
+}
+
+message ClubCTableOpenNotify {
+  required int32 nClubId = 1;
+  required string sTableId = 2;
+  required string sTableInfo = 3;
+}
+
+message ClubCGameCloseTableNotify {
+  required int32 nClubId = 1;
+  required string sTableId = 2;
+  optional int32 nServId = 3;
+}
+
+message ClubCTableCloseNotify {
+  required int32 nClubId = 1;
+  required string sTableId = 2;
+}
+
+message ClubCGameTableInfoNotify {
+  required int32 nClubId = 1;
+  required string sTableId = 2;
+  required string sTableInfo = 3;
+  optional int32 nServId = 4;
+}
+
+message ClubCTableInfoNotify {
+  required int32 nClubId = 1;
+  required string sTableId = 2;
+  required string sTableInfo = 3;
+}
+
+message ClubCCloseNotify {
+  required int32 nClubId = 1;
+}
+
+message ClubCGameUserSettleNotify {
+  message ItemWinLose {
+    required int32 nItemId = 1;
+    required double nWinLose = 2;
+  }
+  
+  required int32 nClubId = 1;
+  required string sTableId = 2;
+  required int32 nUserId = 3;
+  required double nWinlose = 4;
+  required double nDrawWater = 5;
+  required int32 nItemId = 6;
+  required int32 nGameId = 7;
+  required string sPaiJuId = 8;
+  optional double nInsurance = 9;
+  repeated ItemWinLose arrItemWinLose = 10;
+  optional int32 nServId = 11;
+  optional int32 nJuShu = 12;
+  optional double nHandProfit = 13;
+}
+
+message ClubCServerMaintenanceNotify {
+  required string sMaintenance = 1;
+}
+
+message ClubCServerGroupNotify {
+  repeated int32 arrGroup = 1;
+}

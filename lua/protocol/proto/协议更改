@@ -1,0 +1,48 @@
+//获取牌桌玩家列表返回 ClubSGetTableUserListRsp_CMD
+//
+message ClubSGetTableUserListRsp
+{
+    message UserDetail 
+    {
+        required int32 nUserId = 1; //玩家id
+        required string sFaceId = 2; //玩家头像
+        required string sName = 3; //玩家名字
+        required double nWinLose = 4;//玩家输赢(不包括保险)
+        required int32 nPlayCnt = 5;//玩了多少局(手数)
+        required int32 nRank = 6; //排名
+        optional double nTakeIn = 7; //带入(德州类游戏才有)
+        optional double nInpoolRate = 8;//入池率(德州类游戏才有)(值50即表示50%) 
+        optional double nPenalty = 9;//罚款金额.  (新增)
+        optional double nRevenue = 10;//罚款收益。(新增)
+    }
+    repeated UserDetail arrUserDetail = 1; //玩家信息列表(按盈利从大到小排列)
+    required int32 nGameId = 2; //游戏id
+    required int32 nPage=3; //第几页
+    required int32 nAllCnt=4; //总条数
+}
+
+
+
+
+//获取牌桌牌谱返回 ClubSGetTablePaiPuRsp_CMD
+message ClubSGetTablePaiPuRsp
+{
+    message PaiJuItem
+    {
+        required int32 nId=1;				//记录id(自增全游戏记录唯一id)
+        required string sPaiJuID= 2; 		//牌局编号
+        required string sTableInfo=3;       //牌桌配置(json) {nSmallBlind=小盲,nBigBlind=大盲,nPool=底池}
+        required string sHandCards=4;       //手牌信息(json)
+        required double nWinLose=5;         //输赢
+        required int32 nJuShu=6; 		    //第几手(第几局)
+        required string sWinInfo=7;         //赢家信息 json {sName=赢家名字,nCardType=牌型,isWinByGiveup=对手弃牌而赢,isPingJu=是否平局}
+        optional int32 nCollect=8;			//是否收藏 0:未收藏 >0:已收藏
+        optional double nUserBet=9;
+        optional double nPenalty=10;   //罚款金额.  (新增)
+        optional double nRevenue=11; //罚款收益。(新增)
+    }
+    repeated PaiJuItem arrPaiJu = 1;
+    required int32 nGameId = 2; //游戏id
+    required int32 nAllCnt=3; //总条数
+    required int32 nPage=4;//第几页
+}

@@ -1,0 +1,287 @@
+syntax = "proto2";
+
+package ZhaJinHuaGame_pb;
+
+message ZhaJinHuaGame_Proto {
+    required int32 Main_CMD = 30 [default = 205];
+    required int32 MatchingReq_CMD = 1 [default = 1];
+    required int32 MatchingRsp_CMD = 2 [default = 2];
+    required int32 MatchingSucceeNotify_CMD = 3 [default = 3];
+    required int32 CancelMatchingReq_CMD = 4 [default = 4];
+    required int32 StartNotify_CMD = 5 [default = 5];
+    required int32 ActionTurnNotify_CMD = 6 [default = 6];
+    required int32 LookCardReq_CMD = 7 [default = 7];
+    required int32 LookCardRsp_CMD = 8 [default = 8];
+    required int32 LookCardNotify_CMD = 9 [default = 9];
+    required int32 FoldCardReq_CMD = 10 [default = 10];
+    required int32 FoldCardNotify_CMD = 11 [default = 11];
+    required int32 CmpReq_CMD = 12 [default = 12];
+    required int32 CmpNotify_CMD = 13 [default = 13];
+    required int32 CallReq_CMD = 14 [default = 14];
+    required int32 CallNotify_CMD = 15 [default = 15];
+    required int32 RaiseReq_CMD = 16 [default = 16];
+    required int32 RaiseNotify_CMD = 17 [default = 17];
+    required int32 FinalBattleNotify_CMD = 18 [default = 18];
+    required int32 EndNotify_CMD = 19 [default = 19];
+    required int32 ScenceReq_CMD = 20 [default = 20];
+    required int32 ScenceRsp_CMD = 21 [default = 21];
+    required int32 LogOnReq_CMD = 22 [default = 22];
+    required int32 LogOnResp_CMD = 23 [default = 23];
+    required int32 AutoReq_CMD = 24 [default = 24];
+    required int32 AutoRsp_CMD = 25 [default = 25];
+    required int32 BackToLobbyReq_CMD = 26 [default = 26];
+    required int32 BackToLobbyRsp_CMD = 27 [default = 27];
+    required int32 GmReq_CMD = 28 [default = 28];
+    required int32 GmRsp_CMD = 29 [default = 29];
+    required int32 ScenceResetNotify_CMD = 31 [default = 30];
+    required int32 ToStartNotify_CMD = 32 [default = 31];
+    required int32 StopToStartNotify_CMD = 33 [default = 32];
+    required int32 TableSitNotify_CMD = 34 [default = 33];
+    required int32 TableLeaveNotify_CMD = 35 [default = 34];
+    required int32 GuZhuYiZhiNotify_CMD = 36 [default = 35];
+    required int32 PreventFoldCardReq_CMD = 37 [default = 37];
+    required int32 PreventFoldCardRsp_CMD = 38 [default = 38];
+    required int32 UseMagicExpressionReq_CMD = 39 [default = 39];
+    required int32 UseMagicExpressionRsp_CMD = 40 [default = 40];
+    required int32 UseMagicExpressionNotify_CMD = 41 [default = 41];
+}
+
+message LogOnReq {
+    required int32 nUserId = 1;
+    optional int32 nRoomId = 2;
+}
+
+message LogOnResp {
+    required int32 nRlt = 1;
+    optional string strErr = 2;
+    optional Scence tScence = 3;
+    optional int32 nOtherGameId = 4;
+    optional int32 nOtherGameRoomId = 5;
+}
+
+message User {
+    required int32 nUserId = 1;
+    required int32 nSitId = 2;
+    required string sFaceId = 3;
+    required string sName = 4;
+    required double nGold = 5;
+    repeated int32 arrCard = 6;
+    required int32 nStatue = 7;
+    required int32 nSumChip = 8;
+    required int32 nSex = 9;
+    optional int32 nCardType = 10;
+    optional int32 isPreventFoldCard = 11;
+    optional int32 nAutoCall = 12;
+}
+
+message Scence {
+    repeated User arrUsers = 1;
+    required int32 nDiZhu = 2;
+    required int32 nRaiseLimit = 3;
+    required int32 nCurrentRound = 4;
+    required int32 nRoundLimit = 5;
+    repeated double arrChips = 6;
+    required double nSumChip = 7;
+    repeated int32 arrBasicChips = 8;
+    optional int32 nRoomId = 9;
+    optional ActionTurnNotify actionTurn = 10;
+    optional int32 nFirstPos = 11;
+}
+
+message MatchingReq {
+    optional int32 nNoUse = 1;
+}
+
+message MatchingRsp {
+    required int32 nRlt = 1;
+    optional string strErr = 2;
+}
+
+message MatchingSucceeNotify {
+    required Scence tScence = 1;
+}
+
+message CancelMatchingReq {
+    optional int32 nNoUse = 1;
+}
+
+message StartNotify {
+    repeated int32 arrGuoDiChip = 1;
+    required int32 nCardCnt = 2;
+    required int32 nFirstPos = 3;
+}
+
+message ActionTurnNotify {
+    required int32 nSitId = 1;
+    required double nCmpChip = 3;
+    repeated int32 arrCmpSitId = 4;
+    repeated int32 arrRaiseChip = 5;
+    required double nCallChip = 6;
+    required int32 nLimitSeconds = 7;
+    required int32 nRound = 8;
+}
+
+message LookCardReq {
+    optional int32 nNoUse = 1;
+}
+
+message LookCardRsp {
+    required int32 nRlt = 1;
+    optional string strErr = 2;
+    repeated int32 arrCard = 3;
+    optional int32 nCardType = 4;
+}
+
+message LookCardNotify {
+    required int32 nSitId = 1;
+}
+
+message FoldCardReq {
+    optional int32 nNoUse = 1;
+}
+
+message FoldCardNotify {
+    required int32 nSitId = 1;
+}
+
+message CmpReq {
+    required int32 nTargetSitId = 1;
+}
+
+message CmpNotify {
+    required int32 nSitId = 1;
+    repeated double arrCmpChip = 2;
+    required int32 nTargetSitId = 3;
+    required int32 nLoseSitId = 4;
+}
+
+message CallReq {
+    optional int32 nNoUse = 1;
+}
+
+message CallNotify {
+    required int32 nSitId = 1;
+    repeated double arrCallChip = 2;
+}
+
+message RaiseReq {
+    required int32 nRaiseChip = 1;
+}
+
+message RaiseNotify {
+    required int32 nSitId = 1;
+    repeated int32 arrRaiseChip = 2;
+}
+
+message FinalBattleNotify {
+    message CmpInfo {
+        required int32 nSitId = 1;
+        required int32 nTargetSitId = 2;
+        required int32 nLoseSitId = 3;
+    }
+    repeated CmpInfo arrCmpInfo = 1;
+}
+
+message GuZhuYiZhiNotify {
+    message CmpInfo {
+        required int32 nSitId = 1;
+        required int32 nTargetSitId = 2;
+        required int32 nLoseSitId = 3;
+    }
+    repeated CmpInfo arrCmpInfo = 1;
+    required int32 nSitId = 2;
+    repeated double arrChip = 3;
+}
+
+message EndNotify {
+    message UserCards {
+        required int32 nSitId = 1;
+        repeated int32 arrCard = 2;
+        optional int32 nCardType = 3;
+    }
+    required int32 nWinSitId = 1;
+    required double nChipGet = 2;
+    repeated UserCards arrUserCards = 3;
+    optional double nWinProfit = 4;
+}
+
+message ScenceReq {
+    optional int32 nNoUse = 1;
+}
+
+message ScenceRsp {
+    required int32 nRlt = 1;
+    optional Scence tScence = 2;
+}
+
+message AutoReq {
+    required int32 nAutoCall = 1;
+}
+
+message AutoRsp {
+    required int32 nAutoCall = 1;
+}
+
+message BackToLobbyReq {
+    optional int32 nNoUse = 1;
+}
+
+message BackToLobbyRsp {
+    required int32 nRlt = 1;
+    optional string strErr = 2;
+}
+
+message GmReq {
+    required string strCmd = 1;
+}
+
+message GmRsp {
+    required int32 nRlt = 1;
+    optional string strErr = 2;
+}
+
+message ScenceResetNotify {
+    required Scence tScence = 1;
+}
+
+message ToStartNotify {
+    required int32 nSeconds = 1;
+}
+
+message StopToStartNotify {
+    optional int32 nNoUse = 1;
+}
+
+message TableSitNotify {
+    required User tUser = 1;
+}
+
+message TableLeaveNotify {
+    required int32 nSitId = 1;
+    optional int32 nReason = 2;
+}
+
+message PreventFoldCardReq {
+    required int32 isPreventFoldCard = 1;
+}
+
+message PreventFoldCardRsp {
+    required int32 isPreventFoldCard = 1;
+}
+
+message UseMagicExpressionReq {
+    required int32 nTargetSitId = 1;
+    required int32 nExpressionId = 2;
+}
+
+message UseMagicExpressionRsp {
+    required int32 nRlt = 1;
+    optional string strErr = 2;
+}
+
+message UseMagicExpressionNotify {
+    required int32 nSitId = 1;
+    required int32 nTargetSitId = 2;
+    required int32 nExpressionId = 3;
+    required double nGold = 4;
+}

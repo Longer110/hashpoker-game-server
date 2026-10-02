@@ -1,0 +1,765 @@
+syntax = "proto2";
+
+package BaiJiaLeCenter_pb;
+
+message BJLC_Proto {
+    required int32 Main_CMD = 1 [default = 250];
+    required int32 BJLCLogOnReq_CMD = 2 [default = 2];
+    required int32 BJLCLogOnResp_CMD = 3 [default = 3];
+    required int32 BJLCGoInBetStageNotify_CMD = 4 [default = 4];
+    required int32 BJLCGoInSettleNotify_CMD = 6 [default = 6];
+    required int32 BJLCGoInFreeNotify_CMD = 7 [default = 7];
+    required int32 BJLCBetReq_CMD = 8 [default = 8];
+    required int32 BJLCBetResp_CMD = 9 [default = 9];
+    required int32 BJLCApplyForBankerReq_CMD = 11 [default = 11];
+    required int32 BJLCApplyForBankerResp_CMD = 12 [default = 12];
+    required int32 BJLCApplyCancelReq_CMD = 13 [default = 13];
+    required int32 BJLCApplyCancelResp_CMD = 14 [default = 14];
+    required int32 BJLCApplyResignReq_CMD = 15 [default = 15];
+    required int32 BJLCApplyResignResp_CMD = 16 [default = 16];
+    required int32 BJLCApplyForBankerNotify_CMD = 17 [default = 17];
+    required int32 BJLCApplyCancelNotify_CMD = 18 [default = 18];
+    required int32 BJLCGoldChangeSynReq_CMD = 19 [default = 19];
+    required int32 BJLCGoldChangeSynNotify_CMD = 20 [default = 20];
+    required int32 BJLCTableCreateNotify_CMD = 21 [default = 21];
+    required int32 BJLCTableCloseNotify_CMD = 22 [default = 22];
+    required int32 BJLCScenceReq_CMD = 23 [default = 23];
+    required int32 BJLCScenceRsp_CMD = 24 [default = 24];
+    required int32 BJLCResultControlReq_CMD = 25 [default = 25];
+    required int32 BJLCAreasBetNotify_CMD = 26 [default = 26];
+    required int32 BJLCAnchorBetNotify_CMD = 27 [default = 27];
+    required int32 BJLCRecommendReq_CMD = 28 [default = 28];
+    required int32 BJLCRecommendSwitchReq_CMD = 29 [default = 29];
+    required int32 BJLCRecommendSwitchNotify_CMD = 30 [default = 30];
+    required int32 BJLCMultiBetReq_CMD = 31 [default = 31];
+    required int32 BJLCMultiBetResp_CMD = 32 [default = 32];
+    required int32 BJLCAnchorMultiBetNotify_CMD = 33 [default = 33];
+    required int32 BJLCRecommendAreaChangeNotify_CMD = 34 [default = 34];
+    required int32 BJLCGoInShuffleNotify_CMD = 35 [default = 35];
+    required int32 BJLCLiveUserGoldReq_CMD = 37 [default = 37];
+    required int32 BJLCGoInBetStopNotify_CMD = 38 [default = 38];
+    required int32 BJLCPlayerCntReportReq_CMD = 39 [default = 39];
+    required int32 BJLCPlayerCntSummaryNotify_CMD = 40 [default = 40];
+    required int32 BJLCGetPileInfoReq_CMD = 41 [default = 41];
+    required int32 BJLCPileInfoNotify_CMD = 42 [default = 42];
+    required int32 BJLCLiveUserOnlineReportReq_CMD = 43 [default = 43];
+    required int32 BJLCGoInFaultNotify_CMD = 44 [default = 44];
+    required int32 BJLCTickNotify_CMD = 45 [default = 45];
+    required int32 BJLCXiPaiReq_CMD = 46 [default = 46];
+    required int32 BJLCXiPaiTimeNotify_CMD = 47 [default = 47];
+    required int32 BJLCUserSettleNotifyReq_CMD = 48 [default = 48];
+    required int32 BJLCUserSettleNotify_CMD = 49 [default = 49];
+    required int32 BJLCUserLeaveNotifyReq_CMD = 50 [default = 50];
+    required int32 BJLCUserLeaveNotify_CMD = 51 [default = 51];
+    required int32 BJLCUserBetNotify_CMD = 52 [default = 52];
+    required int32 BJLCUserEnterNotifyReq_CMD = 53 [default = 53];
+    required int32 BJLCUserEnterNotify_CMD = 54 [default = 54];
+    required int32 BJLCFollowLockChangeNotifyReq_CMD = 55 [default = 55];
+    required int32 BJLCFollowLockChangeNotify_CMD = 56 [default = 56];
+    required int32 BJLCPlayerModeChangeReq_CMD = 57 [default = 57];
+    required int32 BJLCPlayerModeChangeRsp_CMD = 58 [default = 58];
+    required int32 BJLCPlayerModeChangeNotify_CMD = 59 [default = 59];
+    required int32 BJLCCommonReq_CMD = 60 [default = 60];
+    required int32 BJLCLiveTbChangReq_CMD = 61 [default = 61];
+    required int32 BJLCLiveTbChangNotify_CMD = 62 [default = 62];
+    required int32 BJLCGetOterGrpTbReq_CMD = 63 [default = 63];
+    required int32 BJLCGetOterGrpTbRsp_CMD = 64 [default = 64];
+    required int32 BJLCMainTbAnchorBetNotify_CMD = 65 [default = 65];
+}
+
+message BJLCUser {
+    required int32 nUserId = 1;
+    required string sFaceId = 2;
+    required string sName = 3;
+    required double nGold = 4;
+    required int32 nSex = 5;
+    optional int32 nBankerConsecutive = 6;
+    optional int32 nShopId = 7;
+    optional BJLCShowArea tShowArea = 8;
+}
+
+message BJLCShowArea {
+    repeated int32 arrShowAreaId = 1;
+}
+
+message BJLCCardItem {
+    required int32 nDex = 1;
+    optional int32 nCard = 2;
+    optional string sClearText = 3;
+}
+
+message BJLCBlockChainBothCard {
+    repeated BJLCCardItem arrBankerCards = 1;
+    repeated BJLCCardItem arrPlayerCards = 2;
+}
+
+message BJLCResultsOfCardOpen {
+    repeated int32 arrCardsOfXian = 1;
+    repeated int32 arrCardsOfZhuang = 2;
+    required int32 nPointXian = 3;
+    required int32 nPointZhuang = 4;
+    required int32 nResult = 5;
+    optional int32 nIsZhuangDui = 6;
+    optional int32 nIsXianDui = 7;
+    optional int32 nIsZhuangTianWang = 8;
+    optional int32 nIsXianTianWang = 9;
+    optional int32 nPredict = 10;
+    optional BJLCBlockChainBothCard tBlockChainBothCard = 11;
+    optional int32 nWinPoint = 12;
+    optional int32 nWinLoBao = 13;
+    optional int32 nWinLaoHu = 14;
+}
+
+message BJLCAreaChipBetItem {
+    required int32 nAreaId = 1;
+    required double nBetSum = 2;
+    optional int32 nUserCnt = 3;
+    optional double nAnchorBet = 4;
+}
+
+message BJLCSwitchConfig {
+    required bool isRecommendOn = 1;
+    required bool isFollowBetOn = 2;
+    required bool isUserBankerOn = 3;
+    optional bool isVipOn = 4;
+}
+
+message BJLCMaintenanceInfo {
+    required int32 status = 1;
+    required int32 nTimestampStart = 2;
+    required int32 nTimestampEnd = 3;
+    required int32 nCountDown = 4;
+}
+
+message BJLCPlayerMode {
+    required int32 status = 1;
+    optional bool isCanExperience = 2;
+}
+
+message BJLCPlayerModeChangeReq {
+    required string sTableId = 1;
+    required int32 status = 2;
+}
+
+message BJLCPlayerModeChangeRsp {
+    required string sTableId = 1;
+    required int32 status = 2;
+    required int32 nRlt = 3;
+}
+
+message BJLCPlayerModeChangeNotify {
+    required string sTableId = 1;
+    required int32 status = 2;
+}
+
+message BJLCScence {
+    message TrendItem {
+        required int32 nResult = 1;
+        optional int32 nIsZhuangDui = 2;
+        optional int32 nIsXianDui = 3;
+        optional int32 nOrder = 4;
+        optional int32 nPredict = 5;
+        optional int32 nWinPoint = 6;
+        optional int32 nWinLoBao = 7;
+        optional int32 nWinLaoHu = 8;
+    }
+    
+    required int32 nCurrentStage = 1;
+    required int32 nRemainSeconds = 2;
+    required BJLCUser tBanker = 3;
+    repeated BJLCAreaChipBetItem arrBetDetail = 4;
+    repeated TrendItem arrTrend = 5;
+    repeated BJLCUser arrApplicants = 6;
+    required int32 nApplicantsMax = 7;
+    required int32 nBankerConsecutiveMax = 8;
+    required int32 nBankerRequirement = 9;
+    optional BJLCResultsOfCardOpen tResultsOfCardOpen = 10;
+    optional int32 nLiveUserID = 11;
+    repeated double arrChipsForBet = 12;
+    optional int32 nGroupId = 13;
+    optional int32 nJuShu = 14;
+    optional int32 nRecommendState = 15;
+    optional BJLCSwitchConfig tBJLCSwitchConfig = 16;
+    optional int32 nRecommendStateBeUse = 17;
+    optional string sTableName = 18;
+    optional int32 nAnte = 19;
+    optional string sPaiJuId = 20;
+    optional double nLiveUserBalance = 21;
+    optional bool isBlockChainTable = 22;
+    optional bool isBetExclusive = 23;
+    optional string sLiveID = 24;
+    optional string sPlatformID = 25;
+    optional int32 nTableType = 26;
+    optional int32 nLastReqXiPaiTime = 27;
+    optional string sRoundNo = 28;
+    optional string sXueNo = 29;
+    optional BJLCMaintenanceInfo tMaintenanceInfo = 30;
+    optional BJLCPlayerMode tPlayerMode = 31;
+    repeated int32 arrPredict = 32;
+    optional bool isVoiceRoom = 33;
+    optional int32 nTax = 34;
+    optional string sFollowConfig = 35;
+    optional int32 nSrcType = 36;
+    optional int32 nTableIdOfSrc = 37;
+    optional int32 nPaiJuDuration = 38;
+    optional string sSrcTableId = 39;
+    optional bool isPassWordRoom = 40;
+    optional bool isCopyTable = 41;
+    optional string sHeadTableId = 42;
+    optional bool isMirror = 43;
+    optional bool isShareLive = 44;
+    optional bool isExpOnce = 45;
+}
+
+message BJLCLogOnReq {
+    required int32 nServerId = 1;
+}
+
+message BJLCLogOnResp {
+    required int32 nRlt = 1;
+}
+
+message BJLCGoInBetStageNotify {
+    required int32 nSeconds = 1;
+    required string sTableId = 2;
+    optional int32 nRecommendAreaId = 3;
+    optional BJLCBlockChainBothCard tBlockChainBothCard = 4;
+}
+
+message BJLCGoInSettleNotify {
+    message Item {
+        required int32 nBetArea = 1;
+        required double nProfit = 2;
+    }
+    
+    required int32 nSeconds = 1;
+    required string sTableId = 2;
+    required BJLCResultsOfCardOpen tResultsOfCardOpen = 3;
+    required string sPaiJuId = 4;
+    required double nZhuangWin = 5;
+    optional int32 nIsNewAgain = 6;
+    optional int32 nRecommendTimeLimit = 7;
+    repeated Item arrBankerProfitDetail = 8;
+    optional int32 nCtrlUserId = 9;
+    optional int32 nCtrlType = 10;
+}
+
+message BJLCGoInFreeNotify {
+    required int32 nSeconds = 1;
+    required string sTableId = 2;
+    required BJLCUser tBanker = 3;
+    optional int32 nTipId = 4;
+    optional int32 nIsClose = 5;
+    optional int32 nLiveUserId = 6;
+    optional int32 nRobotsServerId = 7;
+    optional int32 nJuShu = 8;
+    optional int32 nCurrentRealUserCnt = 9;
+    optional BJLCSwitchConfig tBJLCSwitchConfig = 10;
+    optional string sPaiJuId = 11;
+    optional double nLiveUserBalance = 12;
+    optional int32 nBootsNo = 13;
+    optional string sPlatformID = 14;
+    optional string sLiveID = 15;
+    optional BJLCScence tScence = 16;
+    optional int32 nIsRecover = 17;
+    optional string sRoundNo = 18;
+    optional string sXueNo = 19;
+    optional BJLCMaintenanceInfo tMaintenanceInfo = 20;
+    optional BJLCPlayerMode tPlayerMode = 21;
+    optional bool isCanResetTestGold = 22;
+    optional int32 nTax = 23;
+    repeated double arrChipsForBet = 24;
+    optional bool isPassWordRoom = 25;
+    optional bool isShareLive = 26;
+}
+
+message BJLCGoInShuffleNotify {
+    required int32 nSeconds = 1;
+    required string sTableId = 2;
+    repeated int32 arrCards = 3;
+    optional int32 nBootsNo = 4;
+}
+
+message BJLCGoInBetStopNotify {
+    required int32 nSeconds = 1;
+    required string sTableId = 2;
+}
+
+message BJLCGoInFaultNotify {
+    required int32 nSeconds = 1;
+    required string sTableId = 2;
+    required BJLCUser tBanker = 3;
+}
+
+message BJLCBetReq {
+    message BetItem {
+        required double nBetChip = 1;
+        required int32 nBetArea = 2;
+        required int32 nId = 3;
+        required int32 nUserType = 4;
+    }
+    
+    required string sTableId = 1;
+    repeated BetItem arrBetItem = 2;
+}
+
+message BJLCBetResp {
+    required string sTableId = 1;
+    repeated int32 arrSucceeId = 2;
+}
+
+message BJLCMultiBetReq {
+    message Bet {
+        required double nBetChip = 1;
+        required int32 nBetArea = 2;
+    }
+    
+    message UserBet {
+        required int32 nUserId = 1;
+        repeated Bet arrBet = 2;
+        required int32 nUserType = 3;
+    }
+    
+    required string sTableId = 1;
+    repeated UserBet arrUserBet = 2;
+}
+
+message BJLCMultiBetResp {
+    required string sTableId = 1;
+    repeated int32 arrSucceeId = 2;
+}
+
+message BJLCAreasBetNotify {
+    required string sTableId = 1;
+    repeated BJLCAreaChipBetItem arrAreasBetSum = 2;
+}
+
+message BJLCApplyForBankerReq {
+    required string sTableId = 1;
+    required BJLCUser tUser = 2;
+}
+
+message BJLCApplyForBankerResp {
+    required string sTableId = 1;
+    required int32 nRlt = 2;
+    required int32 nUserId = 3;
+}
+
+message BJLCApplyForBankerNotify {
+    required string sTableId = 1;
+    required BJLCUser tUser = 2;
+    required int32 nApplicantCnt = 3;
+}
+
+message BJLCApplyCancelReq {
+    required string sTableId = 1;
+    required int32 nUserId = 2;
+}
+
+message BJLCApplyCancelResp {
+    required string sTableId = 1;
+    required int32 nRlt = 2;
+    required int32 nUserId = 3;
+}
+
+message BJLCApplyCancelNotify {
+    required string sTableId = 1;
+    required int32 nUserId = 2;
+    required int32 nApplicantCnt = 3;
+    optional int32 nReason = 4;
+}
+
+message BJLCApplyResignReq {
+    required string sTableId = 1;
+    required int32 nUserId = 2;
+}
+
+message BJLCApplyResignResp {
+    required string sTableId = 1;
+    required int32 nRlt = 2;
+    required int32 nUserId = 3;
+}
+
+message BJLCGoldChangeSynReq {
+    message ChangeItem {
+        required int32 nUserId = 1;
+        required double nChange = 2;
+    }
+    
+    required string sTableId = 1;
+    required double nZhuangWin = 2;
+    repeated ChangeItem arrGoldChange = 3;
+    required int32 nIsHaveRealUserIn = 4;
+    optional int32 nCurrentRealUserCnt = 5;
+}
+
+message BJLCGoldChangeSynNotify {
+    message ChangeItem {
+        required int32 nUserId = 1;
+        required double nChange = 2;
+    }
+    
+    required string sTableId = 1;
+    repeated ChangeItem arrGoldChange = 2;
+}
+
+message BJLCTableCreateNotify {
+    required string sTableId = 1;
+    required int32 nRoomId = 2;
+    required BJLCScence tScence = 3;
+}
+
+message BJLCScenceReq {
+    required string sTableId = 1;
+}
+
+message BJLCScenceRsp {
+    required string sTableId = 1;
+    required int32 nRoomId = 2;
+    required BJLCScence tScence = 3;
+}
+
+message BJLCTableCloseNotify {
+    required string sTableId = 1;
+}
+
+message BJLCResultControlReq {
+    required string sTableId = 1;
+    required int32 nPriority = 2;
+    required int32 nResult = 3;
+    optional bool isZhuangDui = 4;
+    optional bool isZhuangTW = 5;
+    optional bool isXianDui = 6;
+    optional bool isXianTW = 7;
+}
+
+message BJLCAnchorBetNotify {
+    required string sTableId = 1;
+    required int32 nBetArea = 2;
+    required double nBetChip = 3;
+    required int32 nUserId = 4;
+}
+
+message BJLCAnchorMultiBetNotify {
+    message Bet {
+        required double nBetChip = 1;
+        required int32 nBetArea = 2;
+    }
+    
+    required string sTableId = 1;
+    repeated Bet arrBet = 2;
+    required int32 nUserId = 3;
+}
+
+message BJLCRecommendReq {
+    required string sTableId = 1;
+    required int32 nAreaId = 2;
+}
+
+message BJLCRecommendAreaChangeNotify {
+    required string sTableId = 1;
+    required int32 nAreaId = 2;
+}
+
+message BJLCRecommendSwitchReq {
+    required string sTableId = 1;
+    required int32 nRecommendState = 2;
+}
+
+message BJLCRecommendSwitchNotify {
+    required string sTableId = 1;
+    optional int32 nRecommendState = 2;
+    optional int32 nRecommendStateBeUse = 3;
+}
+
+message BJLCLiveUserGoldReq {
+    required string sTableId = 1;
+    required double nGold = 2;
+    optional bool isTooLess = 3;
+}
+
+message BJLCPlayerCntReportReq {
+    required string sTableId = 1;
+    required int32 nServerId = 2;
+    required int32 nCnt = 3;
+}
+
+message BJLCPlayerCntSummaryNotify {
+    required string sTableId = 1;
+    required int32 nSumCnt = 2;
+}
+
+message BJLCGetPileInfoReq {
+    required string sTableId = 1;
+}
+
+message BJLCPileInfoNotify {
+    message CardItem {
+        required int32 nCardDex = 1;
+        required string sEncryptText = 2;
+        required string sClearText = 3;
+        optional int32 nCard = 4;
+    }
+    
+    required string sTableId = 1;
+    required int32 nBootsno = 2;
+    required int32 nStartKey = 3;
+    required int32 nEndKey = 4;
+    required int32 nMaxDex = 5;
+    repeated CardItem arrCardItem = 6;
+    required int32 nCurSend = 7;
+}
+
+message BJLCLiveUserOnlineReportReq {
+    required string sTableId = 1;
+}
+
+message BJLCTickNotify {
+    required string sTableId = 1;
+    required int32 nSeconds = 2;
+}
+
+message BJLCXiPaiReq {
+    required string sTableId = 1;
+    required int32 nUserId = 2;
+}
+
+message BJLCXiPaiTimeNotify {
+    required string sTableId = 1;
+    required int32 nUserId = 2;
+    required int32 nLastReqXiPaiTime = 3;
+}
+
+message BJLCUserWinLoseInfo {
+    required int32 nUserId = 1;
+    required double nBet = 2;
+    required double nWinLose = 3;
+    required string sPaiJuId = 4;
+    required int32 nWL = 5;
+}
+
+message BJLCUserSettleNotifyReq {
+    required string sTableId = 1;
+    repeated BJLCUserWinLoseInfo tUserWinLoseInfo = 2;
+}
+
+message BJLCUserSettleNotify {
+    required string sTableId = 1;
+    repeated BJLCUserWinLoseInfo tUserWinLoseInfo = 2;
+}
+
+message BJLCUserLeaveNotifyReq {
+    required string sTableId = 1;
+    required int32 nUserId = 2;
+}
+
+message BJLCUserLeaveNotify {
+    required string sTableId = 1;
+    required int32 nUserId = 2;
+}
+
+message BJLCUserBetNotify {
+    message Bet {
+        required double nBetChip = 1;
+        required int32 nBetArea = 2;
+    }
+    
+    message ArrBetInfo {
+        required int32 nUserId = 1;
+        repeated Bet arrBet = 2;
+    }
+    
+    required string sTableId = 1;
+    repeated ArrBetInfo arrBetInfo = 2;
+}
+
+message BJLCUserEnterNotifyReq {
+    required string sTableId = 1;
+    required int32 nUserId = 2;
+}
+
+message BJLCUserEnterNotify {
+    required string sTableId = 1;
+    required int32 nUserId = 2;
+}
+
+message BJLCFollowLockChangeNotifyReq {
+    required int32 nUserId = 1;
+    required int32 nLock = 2;
+    required string sTableId = 3;
+}
+
+message BJLCFollowLockChangeNotify {
+    required int32 nUserId = 1;
+    required int32 nLock = 2;
+    required string sTableId = 3;
+}
+
+message BJLCCommonReq {
+    required string sCmd = 1;
+    required string sParameter = 2;
+}
+
+message BJLCLiveTbChangReq {
+    required string sTableId = 1;
+    required string sChangeTo = 2;
+}
+
+message BJLCLiveTbChangNotify {
+    required string sTableId = 1;
+    required string sChangeTo = 2;
+}
+
+message BJLCGetOterGrpTbReq {
+    required int32 nUserId = 1;
+    required int32 nGroupId = 2;
+    required string sTableId = 3;
+    required string sClientID = 4;
+}
+
+message BJLCGetOterGrpTbRsp {
+    required int32 nRlt = 1;
+    required int32 nUserId = 2;
+    required string sClientID = 3;
+    optional string sTableIdMinor = 4;
+}
+
+message BJLCMainTbAnchorBetNotify {
+    message Bet {
+        required double nBetChip = 1;
+        required int32 nBetArea = 2;
+    }
+    
+    required string sTableId = 1;
+    repeated Bet arrBet = 2;
+    required int32 nUserId = 3;
+}
+
+// 以下是之前定义的消息类型，需要包含在同一个文件中
+message BJLCUser {
+    required int32 nUserId = 1;
+    required string sFaceId = 2;
+    required string sName = 3;
+    required double nGold = 4;
+    required int32 nSex = 5;
+    optional int32 nBankerConsecutive = 6;
+    optional int32 nShopId = 7;
+    optional BJLCShowArea tShowArea = 8;
+}
+
+message BJLCShowArea {
+    repeated int32 arrShowAreaId = 1;
+}
+
+message BJLCAreaChipBetItem {
+    required int32 nAreaId = 1;
+    required double nBetSum = 2;
+    optional int32 nUserCnt = 3;
+    optional double nAnchorBet = 4;
+}
+
+message BJLCScence {
+    message TrendItem {
+        required int32 nResult = 1;
+        optional int32 nIsZhuangDui = 2;
+        optional int32 nIsXianDui = 3;
+        optional int32 nOrder = 4;
+        optional int32 nPredict = 5;
+        optional int32 nWinPoint = 6;
+        optional int32 nWinLoBao = 7;
+        optional int32 nWinLaoHu = 8;
+    }
+    
+    required int32 nCurrentStage = 1;
+    required int32 nRemainSeconds = 2;
+    required BJLCUser tBanker = 3;
+    repeated BJLCAreaChipBetItem arrBetDetail = 4;
+    repeated TrendItem arrTrend = 5;
+    repeated BJLCUser arrApplicants = 6;
+    required int32 nApplicantsMax = 7;
+    required int32 nBankerConsecutiveMax = 8;
+    required int32 nBankerRequirement = 9;
+    optional BJLCResultsOfCardOpen tResultsOfCardOpen = 10;
+    optional int32 nLiveUserID = 11;
+    repeated double arrChipsForBet = 12;
+    optional int32 nGroupId = 13;
+    optional int32 nJuShu = 14;
+    optional int32 nRecommendState = 15;
+    optional BJLCSwitchConfig tBJLCSwitchConfig = 16;
+    optional int32 nRecommendStateBeUse = 17;
+    optional string sTableName = 18;
+    optional int32 nAnte = 19;
+    optional string sPaiJuId = 20;
+    optional double nLiveUserBalance = 21;
+    optional bool isBlockChainTable = 22;
+    optional bool isBetExclusive = 23;
+    optional string sLiveID = 24;
+    optional string sPlatformID = 25;
+    optional int32 nTableType = 26;
+    optional int32 nLastReqXiPaiTime = 27;
+    optional string sRoundNo = 28;
+    optional string sXueNo = 29;
+    optional BJLCMaintenanceInfo tMaintenanceInfo = 30;
+    optional BJLCPlayerMode tPlayerMode = 31;
+    repeated int32 arrPredict = 32;
+    optional bool isVoiceRoom = 33;
+    optional int32 nTax = 34;
+    optional string sFollowConfig = 35;
+    optional int32 nSrcType = 36;
+    optional int32 nTableIdOfSrc = 37;
+    optional int32 nPaiJuDuration = 38;
+    optional string sSrcTableId = 39;
+    optional bool isPassWordRoom = 40;
+    optional bool isCopyTable = 41;
+    optional string sHeadTableId = 42;
+    optional bool isMirror = 43;
+    optional bool isShareLive = 44;
+    optional bool isExpOnce = 45;
+}
+
+message BJLCSwitchConfig {
+    required bool isRecommendOn = 1;
+    required bool isFollowBetOn = 2;
+    required bool isUserBankerOn = 3;
+    optional bool isVipOn = 4;
+}
+
+message BJLCMaintenanceInfo {
+    required int32 status = 1;
+    required int32 nTimestampStart = 2;
+    required int32 nTimestampEnd = 3;
+    required int32 nCountDown = 4;
+}
+
+message BJLCPlayerMode {
+    required int32 status = 1;
+    optional bool isCanExperience = 2;
+}
+
+message BJLCResultsOfCardOpen {
+    repeated int32 arrCardsOfXian = 1;
+    repeated int32 arrCardsOfZhuang = 2;
+    required int32 nPointXian = 3;
+    required int32 nPointZhuang = 4;
+    required int32 nResult = 5;
+    optional int32 nIsZhuangDui = 6;
+    optional int32 nIsXianDui = 7;
+    optional int32 nIsZhuangTianWang = 8;
+    optional int32 nIsXianTianWang = 9;
+    optional int32 nPredict = 10;
+    optional BJLCBlockChainBothCard tBlockChainBothCard = 11;
+    optional int32 nWinPoint = 12;
+    optional int32 nWinLoBao = 13;
+    optional int32 nWinLaoHu = 14;
+}
+
+message BJLCBlockChainBothCard {
+    repeated BJLCCardItem arrBankerCards = 1;
+    repeated BJLCCardItem arrPlayerCards = 2;
+}
+
+message BJLCCardItem {
+    required int32 nDex = 1;
+    optional int32 nCard = 2;
+    optional string sClearText = 3;
+}

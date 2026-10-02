@@ -1,0 +1,219 @@
+syntax = "proto2";
+
+package MaJiang2_pb;
+
+message MjLogOnReq {
+    required int32 nUserId = 1;
+    required string sName = 2;
+    required double dScore = 3;
+    required int32 nTableId = 4;
+    required int32 nGameId = 5;
+    required int32 nLvl = 6;
+    required int32 nUserType = 7;
+}
+
+message User_Ready_Q {
+    optional int32 nUserId = 1 [default = -99];
+}
+
+message User_Ready_P {
+    optional int32 nSitId = 1 [default = -99];
+    optional int32 cStatus = 2 [default = -99];
+}
+
+message UserEnter_P {
+    message UserInfo {
+        optional int32 nUserId = 1 [default = -99];
+        optional string sName = 2 [default = ""];
+        optional int32 nSex = 3 [default = -99];
+        optional string sFaceID = 4 [default = ""];
+        optional int32 nSitId = 5 [default = -99];
+        optional int32 cStatus = 6 [default = -99];
+        optional double nGold = 7 [default = -99];
+        optional int32 cUserType = 8 [default = -99];
+    }
+    repeated UserInfo arrUserInfo = 1;
+}
+
+message UserLeave_P {
+    optional int32 nUserId = 1 [default = -99];
+    optional int32 nSitId = 2 [default = -99];
+}
+
+message User_Vote_Q {
+    optional int32 nUserId = 1 [default = -99];
+    optional int32 cChoose = 2 [default = -99];
+}
+
+message User_Vote_P {
+    optional int32 nSitId = 1 [default = -99];
+    optional int32 cChoose = 2 [default = -99];
+}
+
+message User_VoteEND_P {
+    optional int32 cResult = 1 [default = -99];
+}
+
+message TableTime_Q {
+    optional int32 nUserId = 1 [default = -99];
+}
+
+message TableTime_P {
+    optional int32 cReason = 1 [default = -99];
+    optional int32 nLeftTime = 2 [default = -99];
+}
+
+message ToTalcal_P {
+    message tToTalcal {
+        optional int32 nSitId = 1 [default = -99];
+        optional int32 cZiMo = 2 [default = -99];
+        optional int32 nJiePao = 3 [default = -99];
+        optional int32 nDianPao = 4 [default = -99];
+        optional int32 nAnGang = 5 [default = -99];
+        optional int32 nGang = 6 [default = -99];
+        optional int32 nAddGang = 7 [default = -99];
+        optional int32 nLookMaScore = 8 [default = -99];
+        optional double nScore = 9 [default = -99];
+    }
+    message tLookData {
+        optional int32 nLookerId = 1 [default = -99];
+        optional string sName = 2 [default = ""];
+        optional string sFaceID = 3 [default = ""];
+        optional int32 nMaiMaScoreDel = 4 [default = -99];
+    }
+    optional int32 nUserSum = 1 [default = -99];
+    optional int32 nLookerCnt = 3 [default = -99];
+    repeated tToTalcal arrToTalcal = 6;
+    repeated tLookData arrLookData = 7;
+}
+
+message HostLeave_P {
+    optional int32 nUserId = 1 [default = -99];
+}
+
+message TableInfo_P {
+    optional int32 nRoomId = 1 [default = -99];
+    optional int32 nGameType = 2 [default = -99];
+    optional int32 nMatchId = 3 [default = -99];
+    optional int32 nAdv = 4 [default = -99];
+    optional int32 nCanPlayRound = 5 [default = -99];
+    optional int32 nRound = 6 [default = -99];
+    optional string sRule = 7 [default = ""];
+    optional string sHuTime = 8 [default = ""];
+    optional int32 nRoomType = 9 [default = -99];
+    optional int32 nlevel = 10 [default = -99];
+    optional int32 nscore = 11 [default = -99];
+    optional int32 nfee = 12 [default = -99];
+    optional int32 nConsumeType = 13 [default = -99];
+    optional int32 nInitScore = 14 [default = -99];
+    optional int32 nBaseScore = 15 [default = -99];
+    optional string sMaCon = 16 [default = ""];
+    optional int32 nHostId = 17 [default = -99];
+    optional string sExtInfo = 18 [default = ""];
+    optional int32 nHitFailScore = 19 [default = -99];
+    optional int32 nRoomCardCost = 20 [default = -99];
+    optional int32 cAAFlag = 21 [default = -99];
+}
+
+message User_Leave_Q {
+    optional int32 nUserId = 1 [default = -99];
+}
+
+message User_AutoSet_Q {
+    optional int32 nUserId = 1 [default = -99];
+    optional int32 cResutl = 2 [default = -99];
+    optional int32 cAuto1 = 3 [default = -99];
+    optional int32 cAuto2 = 4 [default = -99];
+}
+
+message User_AutoSet_P {
+    optional int32 nSitId = 1 [default = -99];
+    optional int32 cResutl = 2 [default = -99];
+}
+
+message UserStatus_P {
+    message UserStatus {
+        optional int32 nUserId = 1 [default = -99];
+        optional int32 cOnline = 2 [default = -99];
+    }
+    repeated UserStatus arrUserStatus = 2;
+}
+
+message Kickmember_Q {
+    optional int32 nUserId = 1 [default = -99];
+    optional int32 nBeKickUserId = 2 [default = -99];
+}
+
+message Kickmember_P {
+    optional int32 nUserId = 1 [default = -99];
+    optional int32 nBeKickUserId = 2 [default = -99];
+    optional int32 nResult = 3 [default = -99];
+}
+
+message Scene_Q {
+    optional int32 cReason = 1 [default = -99];
+    optional int32 nLeftTime = 2 [default = -99];
+}
+
+message Scene_P {
+    message PaiJuUserInfo {
+        message PengCount {
+            optional int32 nSitId = 1 [default = -99];
+            optional int32 nCardId = 2 [default = -99];
+        }
+        message MingGangCount {
+            optional int32 nSitId = 1 [default = -99];
+            optional int32 nCardId = 2 [default = -99];
+        }
+        message AnGangCount {
+            optional int32 nCardId = 1 [default = -99];
+        }
+        message AddGangCount {
+            optional int32 nCardId = 1 [default = -99];
+        }
+        message EatCount {
+            optional int32 nSitId = 1 [default = -99];
+            optional int32 nCardId = 2 [default = -99];
+        }
+        message HuaCount {
+            optional int32 nCardId = 1 [default = -99];
+        }
+        message HuCount {
+            optional int32 nCardId = 1 [default = -99];
+        }
+        optional int32 nUserId = 1 [default = -99];
+        optional string sName = 2 [default = ""];
+        optional string sFaceID = 3 [default = ""];
+        optional int32 nSex = 4 [default = -99];
+        optional int32 nSitId = 5 [default = -99];
+        optional int32 nStatus = 6 [default = -99];
+        optional double nScore = 7 [default = -99];
+        optional int32 nStep = 8 [default = -99];
+        optional int32 cHuCnt = 10 [default = -99];
+        optional int32 cAuto = 11 [default = -99];
+        repeated int32 arrNainCardId = 12;
+        repeated int32 arrHandBacknCardId = 13;
+        repeated int32 arrHandFrontnCardId = 14;
+        repeated int32 arrDiscardnCardId = 15;
+        optional int32 nLackChoice = 16 [default = -99];
+        repeated PengCount arrPengCount = 19;
+        repeated MingGangCount arrMingGangCount = 20;
+        repeated AnGangCount arrAnGangCount = 21;
+        repeated AddGangCount arrAddGangCount = 22;
+        repeated EatCount arrEatCount = 23;
+        repeated HuaCount arrHuaCount = 24;
+        repeated HuCount arrHuCount = 25;
+    }
+    optional int32 nCanPlayRound = 1 [default = -99];
+    optional int32 nRound = 2 [default = -99];
+    optional int32 nZhuangSitId = 3 [default = -99];
+    optional int32 nCurOperSitId = 4 [default = -99];
+    optional int32 nDice1 = 5 [default = -99];
+    optional int32 nDice2 = 6 [default = -99];
+    optional int32 cIsVote = 7 [default = -99];
+    repeated int32 arrVoteResult = 8;
+    optional int32 nVoteRule = 9 [default = -99];
+    repeated int32 arrVoteRuleResult = 10;
+    optional string sRule = 11 [default = ""];
+    repeated PaiJuUserInfo arrPaiJuUserInfo = 13;
+}

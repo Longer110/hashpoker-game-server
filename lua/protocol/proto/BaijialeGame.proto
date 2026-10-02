@@ -1,0 +1,320 @@
+syntax = "proto2";
+
+package BaijialeGame_pb;
+
+message BaijialeGame_Proto {
+    required int32 Main = 1 [default = 214];
+    required int32 SUB_REQ_LOGIN = 2 [default = 1];
+    required int32 SUB_REP_LOGIN = 3 [default = 2];
+    required int32 SUB_REP_GOODSITEM = 4 [default = 3];
+    required int32 SUB_REP_ROOMCOUNT = 5 [default = 4];
+    required int32 SUB_REP_START = 6 [default = 5];
+    required int32 SUB_REP_SENDCARD = 7 [default = 6];
+    required int32 SUB_REP_READY = 8 [default = 7];
+    required int32 SUB_REP_OPENCARD = 9 [default = 8];
+    required int32 SUB_REP_CALEWIN = 10 [default = 9];
+    required int32 SUB_REP_RESETGAME = 11 [default = 10];
+    required int32 SUB_REQ_XIAZHU = 12 [default = 11];
+    required int32 SUB_REP_XIAZHU = 13 [default = 12];
+    required int32 SUB_REP_ALLXIAZHU = 14 [default = 13];
+    required int32 SUB_REP_SCENE = 15 [default = 14];
+    required int32 SUB_REQ_LOGOUT_GAME = 16 [default = 16];
+    required int32 SUB_REP_LOGOUT_GAME = 17 [default = 17];
+    required int32 SUB_REP_LEAVE_TABLE = 18 [default = 18];
+    required int32 SUB_REP_MESSAGETIP = 19 [default = 19];
+    required int32 SUB_REQ_CONTINUEXZ = 20 [default = 20];
+    required int32 SUB_REP_CONTINUEXZ = 21 [default = 21];
+    required int32 SUB_REP_AUTOINSCORE = 22 [default = 22];
+    required int32 SUB_REP_KICKTABLE = 23 [default = 23];
+    required int32 SUB_REP_RETXIPAI = 24 [default = 24];
+    required int32 SUB_REQ_GMCOMMAND = 25 [default = 25];
+    required int32 SUB_REP_GMCOMMAND = 26 [default = 26];
+    required int32 SUB_REQ_INZHUANG = 27 [default = 27];
+    required int32 SUB_REP_INZHUANG = 28 [default = 28];
+    required int32 SUB_REQ_INZHUANGLIST = 29 [default = 29];
+    required int32 SUB_REP_INZHUANGLIST = 30 [default = 30];
+    required int32 SUB_REQ_ONLINELIST = 31 [default = 31];
+    required int32 SUB_REP_ONLINELIST = 32 [default = 32];
+    required int32 SUP_NOTICE_RANK = 33 [default = 33];
+    required int32 SUP_GoldChangeNotify = 34 [default = 34];
+}
+
+message UserDataMsg {
+    required int32 UserID = 1;
+    required int32 Sex = 2;
+    required string FaceID = 3;
+    required string Name = 4;
+    required double Gold = 5;
+    optional int32 XiaZhuGold = 6;
+}
+
+message RankBJLNotice {
+    repeated UserDataMsg tRankUserInfo = 1;
+}
+
+message RankAreaWinScoreDetail {
+    optional double nScore0 = 1;
+    optional double nScore10 = 2;
+    optional double nScore11 = 3;
+    optional double nScore12 = 4;
+    optional double nScore20 = 5;
+    optional double nScore21 = 6;
+    optional double nScore22 = 7;
+    optional int32 UserID = 8;
+    optional double nWinScore = 9;
+}
+
+message RankBJLScore {
+    repeated RankAreaWinScoreDetail arrRankScore = 1;
+}
+
+message Login_BJLGame_Q {
+    required int32 GameType = 1 [default = -99];
+    required int32 Level = 2 [default = -99];
+    required int32 UserID = 3 [default = -99];
+}
+
+message Login_BJLGame_P {
+    required int32 nResult = 1 [default = -99];
+    required int32 GameID = 2 [default = -99];
+    required int32 Level = 3 [default = -99];
+    required double nGold = 4;
+}
+
+message Game_GoodsItem_P {
+    required int32 nLimit = 1;
+    repeated double sItem = 2;
+}
+
+message Game_RoomCount_P {
+    required int32 Level = 1;
+    required int32 Count = 2;
+}
+
+message Game_Ready_P {
+    required int32 nStatus = 1;
+    required int32 nTime = 2;
+    optional InZhuangInfo zInfo = 3;
+    required double NeedGold = 4;
+}
+
+message GameStartXiazhu_P {
+    required int32 nStatus = 1;
+    required int32 nTime = 2;
+}
+
+message Fapai_P {
+    required int32 nTime = 1;
+    required int32 nStatus = 2;
+}
+
+message OpenCard_P {
+    required int32 nStatus = 1;
+    required int32 nTime = 2;
+    required int32 nCarId1 = 3;
+    required int32 nCarId2 = 4;
+    required int32 nCarId3 = 5;
+    required int32 nCarId4 = 6;
+    required int32 nCarId5 = 7;
+    required int32 nCarId6 = 8;
+    required int32 xNumber = 9;
+    required int32 zNumber = 10;
+    required Game_Result_Data res = 11;
+}
+
+message CaleNumber_P {
+    required int32 ID = 1;
+    required int32 Number = 2;
+}
+
+message Game_Win_P {
+    required int32 nStatus = 1;
+    required int32 nTime = 2;
+    required double nWinScore = 3;
+    required double nScore0 = 4;
+    required double nScore10 = 5;
+    required double nScore11 = 6;
+    required double nScore12 = 7;
+    required double nScore20 = 8;
+    required double nScore21 = 9;
+    required double nScore22 = 10;
+    repeated int32 arrRegion = 11;
+    required double nGold = 12;
+    required double nBankerWinScore = 13;
+    required double nBankerGold = 14;
+    required double nDrawWater = 15;
+    optional RankBJLScore tRankScore = 16;
+}
+
+message Game_Reset_P {
+    required int32 nStatus = 1;
+    required int32 nTime = 2;
+}
+
+message Game_Xiazhu_Q {
+    required int32 nUserID = 1;
+    required int32 region = 2;
+    required double nval = 3;
+}
+
+message Game_Xiazhu_P {
+    required int32 nResult = 1;
+    required int32 nRegion = 2;
+    required double nScore = 3;
+    optional int32 nUserId = 4;
+    required double nLower = 5;
+    required double nUpper = 6;
+    optional double nGold = 7;
+}
+
+message Game_RegionInfo {
+    repeated int32 Score10 = 1;
+    repeated int32 Score11 = 2;
+    repeated int32 Score12 = 3;
+    repeated int32 Score20 = 4;
+    repeated int32 Score21 = 5;
+    repeated int32 Score22 = 6;
+    repeated int32 Score0 = 7;
+    optional int32 nUserId = 8;
+}
+
+message Game_AllXiazhu_P {
+    required Game_RegionInfo region = 1;
+}
+
+message Game_Result_Data {
+    required int32 nRes = 1;
+    required bool bZhuangDui = 2;
+    required bool bXianDui = 3;
+}
+
+message Game_Scene_P {
+    optional int32 nCarId1 = 1;
+    optional int32 nCarId2 = 2;
+    optional int32 nCarId3 = 3;
+    optional int32 nCarId4 = 4;
+    optional int32 nCarId5 = 5;
+    optional int32 nCarId6 = 6;
+    optional int32 xNumber = 7;
+    optional int32 zNumber = 8;
+    optional Game_RegionInfo xiazhu = 9;
+    required int32 nPayCount = 10;
+    repeated Game_Result_Data WinList = 11;
+    required int32 nStatus = 12;
+    required int32 nTime = 13;
+    required int32 nContinue = 14;
+    optional InZhuangInfo zInfo = 15;
+    required double NeedGold = 16;
+    required int32 state = 17;
+    optional RankBJLScore tRankScore = 18;
+    repeated UserDataMsg tRankUserInfo = 19;
+}
+
+message UserLogOutBJL_Q {
+    required int32 UserID = 1 [default = -99];
+}
+
+message UserLogOutBJL_P {
+    required int32 UserID = 1 [default = -99];
+    required int32 Result = 2 [default = -99];
+}
+
+message UserLeaveTableBJL_P {
+    required int32 UserID = 1 [default = -99];
+    required int32 Status = 2 [default = 0];
+}
+
+message MessageTip_P {
+    required int32 nMsgType = 1;
+    required string strMsg = 2;
+}
+
+message UserContinue_Q {
+    required int32 nUserID = 1;
+    required int32 nStatus = 2;
+}
+
+message UserContinue_P {
+    required int32 Result = 1;
+}
+
+message Game_UserInScore_P {
+    optional int32 UserID = 1;
+    required int32 Score10 = 2;
+    required int32 Score11 = 3;
+    required int32 Score12 = 4;
+    required int32 Score20 = 5;
+    required int32 Score21 = 6;
+    required int32 Score22 = 7;
+    required int32 Score0 = 8;
+    required double nGold = 9;
+}
+
+message Game_UserKickTable_P {
+    required int32 UserID = 1;
+    required int32 nStatus = 2;
+}
+
+message Game_RetXipai_P {
+    required int32 nTime = 1;
+}
+
+message Game_GMCommand_Q {
+    required int32 nUserID = 1;
+    required string strCommand = 2;
+}
+
+message Game_GMCommand_P {
+    required int32 nStatus = 1;
+}
+
+message Game_InZhuang_Q {
+    required int32 nUserID = 1;
+    required int32 nStatus = 2;
+}
+
+message InZhuangInfo {
+    required int32 nUserID = 1;
+    required double nGold = 2;
+    required string sName = 3;
+    required int32 nTime = 4;
+    required string sFace = 5;
+    required int32 Sex = 6;
+}
+
+message Game_InZhuang_P {
+    required int32 nStatus = 1;
+}
+
+message Game_InZhuangList_Q {
+    required int32 nUserID = 1;
+}
+
+message Game_InZhuangList_P {
+    required double NeedGold = 1;
+    repeated InZhuangInfo zUserList = 2;
+}
+
+message Game_InZhuangInfo_P {
+    required InZhuangInfo zInfo = 1;
+}
+
+message Game_OnlineList_Q {
+    optional int32 nNoUse = 1;
+}
+
+message Game_OnlineList_P {
+    message UserDataMsg {
+        required int32 UserID = 1;
+        required int32 Sex = 2;
+        required string FaceID = 3;
+        required string Name = 4;
+        required double Gold = 5;
+        required double XiaZhuGold = 6;
+    }
+    repeated UserDataMsg UserDataArr = 1;
+}
+
+message Game_GoldChangeNotify {
+    required double nChangeGold = 1;
+}

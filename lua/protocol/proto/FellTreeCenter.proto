@@ -1,0 +1,21 @@
+syntax = "proto2";
+
+package FellTreeCenter_pb;
+
+message FellTreeCenter_Proto {
+    required int32 Main = 1 [default = 322];
+    required int32 SUB_REQ_ADDSLAVE = 2 [default = 2];
+    required int32 SUB_REP_ADDSLAVE = 3 [default = 3];
+}
+
+message Req_FTC_AddSlave {
+    required int32 nSrvId = 1 [default = 1];
+    required string sKey = 2 [default = ""];
+    optional int32 nGameId = 3;
+}
+
+message Rep_FTC_AddSlave {
+    required int32 nSrvId = 1 [default = 1];
+    required string sKey = 2 [default = ""];
+    required int32 nResult = 3 [default = 0];
+}

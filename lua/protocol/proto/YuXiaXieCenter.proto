@@ -1,0 +1,500 @@
+syntax = "proto2";
+
+package YuXiaXieCenter_pb;
+
+message YXXC_Proto {
+    required int32 Main_CMD = 1 [default = 251];
+    required int32 YXXCLogOnReq_CMD = 2 [default = 2];
+    required int32 YXXCLogOnResp_CMD = 3 [default = 3];
+    required int32 YXXCGoInBetStageNotify_CMD = 4 [default = 4];
+    required int32 YXXCStopBetNotify_CMD = 5 [default = 5];
+    required int32 YXXCGoInSettleNotify_CMD = 6 [default = 6];
+    required int32 YXXCGoInFreeNotify_CMD = 7 [default = 7];
+    required int32 YXXCBetReq_CMD = 8 [default = 8];
+    required int32 YXXCBetResp_CMD = 9 [default = 9];
+    required int32 YXXCBetNotify_CMD = 10 [default = 10];
+    required int32 YuXiaXie_LogOnReq_CMD = 11 [default = 11];
+    required int32 YXXCApplyForBankerReq_CMD = 12 [default = 12];
+    required int32 YXXCApplyForBankerResp_CMD = 13 [default = 13];
+    required int32 YXXCApplyCancelReq_CMD = 14 [default = 14];
+    required int32 YXXCApplyCancelResp_CMD = 15 [default = 15];
+    required int32 YXXCApplyResignReq_CMD = 16 [default = 16];
+    required int32 YXXCApplyResignResp_CMD = 17 [default = 17];
+    required int32 YXXCApplyForBankerNotify_CMD = 18 [default = 18];
+    required int32 YXXCApplyCancelNotify_CMD = 19 [default = 19];
+    required int32 YXXCBetAreaLimitNotify_CMD = 20 [default = 20];
+    required int32 YXXCCloseTableNotify_CMD = 21 [default = 21];
+    required int32 YXXCGMReq_CMD = 22 [default = 22];
+    required int32 YXXCReportedPeople_CMD = 23 [default = 23];
+    required int32 YXXCLiveBet_CMD = 24 [default = 24];
+    required int32 YXXCRecommend_CMD = 25 [default = 25];
+    required int32 YXXCOpenTableReq_CMD = 26 [default = 26];
+    required int32 YXXCOpenTableResp_CMD = 27 [default = 27];
+    required int32 YXXCBatchBetReq_CMD = 28 [default = 28];
+    required int32 YXXCBatchBetRep_CMD = 29 [default = 29];
+    required int32 YXXCLiveBatchBet_CMD = 30 [default = 30];
+    required int32 YXXCGoldChangeSynReq_CMD = 31 [default = 31];
+    required int32 YXXCGoldChangeSynNotify_CMD = 32 [default = 32];
+    required int32 YXXCLiveEnterGame_CMD = 33 [default = 33];
+    required int32 YXXCUpdateLiveGold_CMD = 34 [default = 34];
+    required int32 YXXCPlayerCntReportReq_CMD = 35 [default = 35];
+    required int32 YXXCPlayerCntSummaryNotify_CMD = 36 [default = 36];
+    required int32 YXXCLiveOnLineStatusReq_CMD = 37 [default = 37];
+    required int32 YXXCCardsBatchNotify_CMD = 38 [default = 38];
+    required int32 YXXBankerFreezeNotify_CMD = 39 [default = 39];
+    required int32 YXXCRefundNotify_CMD = 40 [default = 40];
+    required int32 YXXCUserSettleNotify_CMD = 42 [default = 42];
+    required int32 YXXCUserEnterLeaveNotify_CMD = 43 [default = 43];
+    required int32 YXXCFollowLockNotify_CMD = 44 [default = 44];
+    required int32 YXXCUserBetNotify_CMD = 45 [default = 45];
+    required int32 YXXCBroadcastGameNotify_CMD = 46 [default = 46];
+    required int32 YXXCCommonReq_CMD = 47 [default = 47];
+}
+
+message YXXCOpenTableReq {
+    optional int32 nGroupId = 1;
+    optional int32 nGameId = 2;
+    optional int32 nRoomId = 3;
+    optional string sClientID = 4;
+    optional int32 nUserId = 5;
+    optional int32 nShopId = 6;
+}
+
+message YXXCOpenTableResp {
+    optional string sTableId = 1;
+    optional string sClientID = 2;
+    optional int32 nUserId = 3;
+    optional string sTableKey = 4;
+}
+
+message YXXCUser {
+    required int32 nUserId = 1;
+    required string sFaceId = 2;
+    required string sName = 3;
+    required double nGold = 4;
+    required int32 nSex = 5;
+    optional int32 nBankerConsecutive = 6;
+    optional bool isResign = 7;
+    optional string sGameKey = 8;
+    optional bool isAndroid = 9;
+}
+
+message YXXCScence {
+    message YXXCAreaChipBetItem {
+        required double nSumBet = 1 [default = 0];
+        required int32 nBetArea = 2 [default = 0];
+    }
+
+    message TrendItem {
+        repeated int32 nDice = 1;
+    }
+
+    required int32 nCurrentStage = 1;
+    required int32 nRemainSeconds = 2;
+    required YXXCUser tBanker = 3;
+    repeated YXXCAreaChipBetItem arrBetDetail = 4;
+    repeated TrendItem arrTrend = 5;
+    repeated int32 arrDice = 6;
+    optional YXXCUser arrApplicants = 7;
+    required int32 nApplicantsMax = 8;
+    optional string sTableId = 9;
+    required int32 nRoomId = 10;
+    optional int32 nGameId = 11;
+    required int32 nGroupId = 12;
+    optional tGameCfg tSwitchConfig = 13;
+    required int32 nAnte = 14;
+    optional double nLiveGold = 15;
+    optional string sTableName = 16;
+    optional int32 nTableType = 17;
+    optional RecommendSet tRecommendSet = 18;
+    optional int32 nStageSeconds = 19;
+    repeated tBetLimit arrBetLimitCfg = 20;
+    required int32 nTableStatus = 21;
+    optional bool isPassWordRoom = 22;
+    optional bool isOpenDemoPettern = 23;
+    optional string sExtend = 24;
+    optional bool isVoiceRoom = 25;
+    optional string sFollowConfig = 26;
+}
+
+message YXXCLogOnReq {
+    required int32 nServerId = 1;
+    optional string sTableId = 2;
+}
+
+message YXXCLogOnResp {
+    required int32 nRlt = 1 [default = -99];
+    optional string sTableId = 2;
+    optional int32 nLiveUserID = 3 [default = -99];
+    optional YXXCScence tScence = 4;
+}
+
+message tGameCfg {
+    optional bool bShangZhuangOpen = 1;
+    optional bool bWithCastOpen = 2;
+    optional bool bRecommendOpen = 3;
+    optional bool IsDrawWater = 4;
+    optional double nEnterFloorLimit = 5;
+    repeated double arrChipsForBet = 6;
+}
+
+message CenterSrvInfo {
+    optional int32 nServerId = 1;
+    optional int32 nSum = 2;
+    optional int32 nAndroid = 3;
+    optional int32 nAllPeople = 4;
+    optional int32 nAllAndroid = 5;
+}
+
+message YXXCGoInFreeNotify {
+    required int32 nStageSeconds = 1;
+    optional YXXCUser tBanker = 2;
+    optional int32 nTipId = 3;
+    optional int32 nCenterSvrId = 4;
+    optional string sTableId = 5;
+    optional tGameCfg tSwitchConfig = 6;
+    optional int32 nRobotsServerId = 7;
+    optional int32 nInning = 8;
+    optional string sTableName = 9;
+    optional string sPaiJuId = 10;
+    optional int32 nTableType = 11;
+    optional RecommendSet tRecommendSet = 12;
+    required int32 nLiveUserID = 13;
+    optional double nLiveGold = 14;
+    optional string sLiveID = 15;
+    optional string sPlatformID = 16;
+    required int32 nAnte = 17;
+    repeated tBetLimit arrBetLimitCfg = 18;
+    repeated int32 arrOpenKey = 19;
+    required int32 nTableStatus = 20;
+    optional int32 nRound = 21;
+    optional string sExten = 22;
+}
+
+message tBetLimit {
+    optional int32 nType = 1;
+    optional double nMin = 2;
+    optional double nMax = 3;
+    optional int32 nVipRate = 4;
+}
+
+message YXXCGoInBetStageNotify {
+    required int32 nStageSeconds = 1;
+    required string sTableId = 2;
+}
+
+message YXXCStopBetNotify {
+    required string sTableId = 1;
+    required int32 nTableStatus = 2;
+}
+
+message YXXCGoInSettleNotify {
+    required int32 nStageSeconds = 1;
+    repeated int32 arrDice = 2;
+    required string sTableId = 3;
+    optional string sPaiJuId = 4;
+    optional double nBankerWinLose = 5;
+    optional double nBanKerDrawWater = 6;
+    optional int32 nControl = 7;
+    optional int32 nControlType = 8;
+}
+
+message BatchBet {
+    required double nBetChip = 1;
+    required int32 nBetArea = 2;
+}
+
+message YXXCBatchBetReq {
+    message BatchBetItem {
+        required int32 nId = 1;
+        optional bool isAndroid = 2;
+        optional int32 nAccountType = 3;
+        optional double nSumBet = 4;
+        repeated BatchBet arrBatchBet = 5;
+    }
+
+    required string sTableId = 1;
+    repeated BatchBetItem arrBetItem = 2;
+    optional int32 nBetPushCnt = 3;
+}
+
+message YXXCBatchBetRep {
+    required string sTableId = 1;
+    repeated int32 arrSucceeId = 2;
+    optional int32 nBetPushCnt = 3;
+}
+
+message YXXCBetReq {
+    message BetItem {
+        required double nBetChip = 1;
+        required int32 nBetArea = 2;
+        required int32 nId = 3;
+        optional bool isAndroid = 4;
+        optional int32 nAccountType = 5;
+    }
+
+    required string sTableId = 1;
+    repeated BetItem arrBetItem = 2;
+    optional double nBetPushCnt = 3;
+}
+
+message YXXCBetResp {
+    required string sTableId = 1;
+    repeated int32 arrSucceeId = 2;
+    optional double nBetPushCnt = 3;
+}
+
+message YXXCBetNotify {
+    required double nBetChip = 1;
+    required int32 nBetArea = 2;
+    required int32 nSerialId = 3;
+    required int32 nServerId = 4;
+}
+
+message YXXCBetAreaLimitNotify {
+    message tBetSumlimit {
+        required double nSumBet = 1 [default = 0];
+        required int32 nBetArea = 2 [default = 0];
+        required int32 nBetPeople = 3 [default = 0];
+        optional double nAnchorBet = 4 [default = 0];
+    }
+
+    repeated tBetSumlimit arrBetLimit = 1;
+    optional string sTableId = 2;
+    optional int32 nSumPeople = 3 [default = 0];
+}
+
+message YuXiaXieLogOnReq {
+    message XZItem {
+        optional double nZM = 1 [default = -99];
+        optional double nSum = 2 [default = -99];
+        optional int32 nBetArea = 3 [default = -99];
+    }
+
+    repeated XZItem tXZ = 1;
+    optional int32 nUsedVal = 2 [default = -99];
+    optional int32 nAllVal = 3 [default = 99];
+    optional string sTableId = 4;
+}
+
+message YXXCApplyForBankerReq {
+    required string sTableId = 1;
+    required YXXCUser tUser = 2;
+}
+
+message YXXCApplyForBankerResp {
+    required string sTableId = 1;
+    required int32 nRlt = 2;
+    required int32 nUserId = 3;
+}
+
+message YXXCApplyCancelReq {
+    required string sTableId = 1;
+    required int32 nUserId = 2;
+    required int32 nType = 3;
+    required int32 nGold = 4;
+}
+
+message YXXCGoldChangeSynReq {
+    message ChangeItem {
+        required int32 nUserId = 1;
+        required double nGold = 2;
+    }
+
+    required string sTableId = 1;
+    repeated ChangeItem arrGoldChange = 2;
+    required int32 nIsHaveRealUserIn = 3;
+    required int32 nCurrentRealUserCnt = 4;
+}
+
+message YXXCGoldChangeSynNotify {
+    message ChangeItem {
+        required int32 nUserId = 1;
+        required double nGold = 2;
+    }
+
+    required string sTableId = 1;
+    repeated ChangeItem arrGoldChange = 2;
+}
+
+message YXXCApplyCancelResp {
+    required string sTableId = 1;
+    required int32 nRlt = 2;
+    required int32 nUserId = 3;
+}
+
+message YXXCApplyResignReq {
+    required string sTableId = 1;
+    required int32 nUserId = 2;
+}
+
+message YXXCApplyResignResp {
+    required string sTableId = 1;
+    required int32 nRlt = 2;
+    required int32 nUserId = 3;
+}
+
+message YXXCApplyForBankerNotify {
+    required string sTableId = 1;
+    required YXXCUser tUser = 2;
+    required int32 nApplicantCnt = 3;
+    required int32 nType = 4;
+}
+
+message YXXCApplyCancelNotify {
+    required string sTableId = 1;
+    required int32 nUserId = 2;
+    required int32 nApplicantCnt = 3;
+}
+
+message YXXCCloseTableNotify {
+    required string sTableId = 1;
+    required int32 nCloseType = 2;
+}
+
+message YXXCGMReq {
+    required string sTableId = 1;
+    required string tGM = 2;
+}
+
+message YXXCReportedPeople {
+    required string sTableId = 1;
+    required int32 nSum = 2;
+    required int32 nAndroid = 3;
+}
+
+message YXXCLiveBet {
+    required string sTableId = 1;
+    required int32 nBetArea = 2;
+    required double nBetChip = 3;
+    required int32 nUserId = 4;
+}
+
+message YXXCLiveBatchBet {
+    required string sTableId = 1;
+    required double nSumBet = 2;
+    repeated BatchBet arrBatchBet = 3;
+    required int32 nUserId = 4;
+}
+
+message RecommendSet {
+    optional bool bRecommendSwith = 1;
+    optional bool bSysRecommendSwith = 2;
+    optional bool bAutoRecommendSwith = 3;
+}
+
+message YXXCRecommend {
+    required string sTableId = 1;
+    required int32 nType = 2;
+    required RecommendSet tRecommendSet = 3;
+    repeated int32 arrRecommend = 4;
+}
+
+message YXXCLiveEnterGame {
+    required string sTableId = 1;
+}
+
+message YXXCUpdateLiveGold {
+    required string sTableId = 1;
+    required double nLiveGold = 2;
+}
+
+message YXXCPlayerCntReportReq {
+    required string sTableId = 1;
+    required int32 nServerId = 2;
+    required int32 nCurrentRealUserCnt = 3;
+}
+
+message YXXCPlayerCntSummaryNotify {
+    required string sTableId = 1;
+    required int32 nSumCnt = 2;
+}
+
+message YXXCLiveOnLineStatusReq {
+    required string sTableId = 1;
+    required int32 nType = 2;
+    required bool bIsLiveOnline = 3;
+    required int32 nLiveGoldPettern = 4;
+}
+
+message YXXCCardsBatchNotify {
+    message CardItem {
+        required int32 nKey = 1;
+        required int32 nVal = 2;
+        required string sHash = 3;
+        required string sPlainText = 4;
+    }
+
+    required string sTableId = 1;
+    required int32 nMaxDex = 2;
+    repeated CardItem arrCardItem = 3;
+    required int32 nCurSend = 4;
+    required int32 nStartKey = 5;
+    required int32 nEndKey = 6;
+}
+
+message YXXBankerFreezeNotify {
+    required string sTableId = 1;
+    required double nBankerFreezeGold = 2;
+}
+
+message YXXCRefundNotify {
+    required string sTableId = 1;
+}
+
+message YXXCUserWinLose {
+    required int32 nUserId = 1;
+    required double nTotalBetSum = 2;
+    required double nWinLoseSum = 3;
+    required int32 nWL = 4;
+}
+
+message YXXCUserSettleNotify {
+    required string sTableId = 1;
+    repeated YXXCUserWinLose arrUserWinLose = 2;
+}
+
+message YXXCenterLeave {
+    required int32 nUserId = 1;
+    required int32 nType = 2;
+    required string sShopAcc = 3;
+    required bool isAndroid = 4;
+}
+
+message YXXCUserEnterLeaveNotify {
+    required string sTableId = 1;
+    repeated YXXCenterLeave arrEnterLeave = 2;
+}
+
+message YXXCFollowLock {
+    required int32 nUserId = 1;
+    required int32 nLock = 2;
+    required int32 nTargetUserId = 3;
+}
+
+message YXXCFollowLockNotify {
+    required string sTableId = 1;
+    repeated YXXCFollowLock arrFollowLock = 2;
+}
+
+message YXXCUserBet {
+    required int32 nUserId = 1;
+    required int32 nBetArea = 2;
+    required double nBetChip = 3;
+}
+
+message YXXCUserBetNotify {
+    required string sTableId = 1;
+    repeated YXXCUserBet arrBet = 2;
+}
+
+message YXXCBroadcastGameNotify {
+    required string sTableId = 1;
+    required string sMsgs = 2;
+    required string sInfo = 3;
+}
+
+message YXXCCommonReq {
+    required string sCmd = 1;
+    required string sParameter = 2;
+}

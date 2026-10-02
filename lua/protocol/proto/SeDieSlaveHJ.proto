@@ -1,0 +1,349 @@
+syntax = "proto2";
+
+package SeDieSlaveHJ_pb;
+
+message SDHJS_Proto {
+    required int32 Main_CMD = 1 [default = 261];
+    required int32 SDHJSLogOnReq_CMD = 2 [default = 2];
+    required int32 SDHJSLogOnResp_CMD = 3 [default = 3];
+    required int32 SDHJSGoInBetStageNotify_CMD = 4 [default = 4];
+    required int32 SDHJSBetReq_CMD = 5 [default = 5];
+    required int32 SDHJSBetResp_CMD = 6 [default = 6];
+    required int32 SDHJSBetNotify_CMD = 7 [default = 7];
+    required int32 SDHJSGoInResultStageNotify_CMD = 8 [default = 8];
+    required int32 SDHJSGoInFreeStageNotify_CMD = 9 [default = 9];
+    required int32 SDHJSGetApplicantsReq_CMD = 10 [default = 10];
+    required int32 SDHJSGetApplicantsResp_CMD = 11 [default = 11];
+    required int32 SDHJSApplyForBankerReq_CMD = 12 [default = 12];
+    required int32 SDHJSApplyForBankerResp_CMD = 13 [default = 13];
+    required int32 SDHJSApplyCancelReq_CMD = 14 [default = 14];
+    required int32 SDHJSApplyCancelResp_CMD = 15 [default = 15];
+    required int32 SDHJSApplyResignReq_CMD = 16 [default = 16];
+    required int32 SDHJSApplyResignResp_CMD = 17 [default = 17];
+    required int32 SDHJSBackToLobbyReq_CMD = 18 [default = 18];
+    required int32 SDHJSBackToLobbyRsp_CMD = 19 [default = 19];
+    required int32 SDHJSGmReq_CMD = 20 [default = 20];
+    required int32 SDHJSKickOutNotify_CMD = 22 [default = 22];
+    required int32 SDHJSBetDetail_CMD = 23 [default = 23];
+    required int32 SDHJSCloseTableNotify_CMD = 24 [default = 24];
+    required int32 SDHJSGoldChangeNotify_CMD = 25 [default = 25];
+    required int32 SDHJSModRank_CMD = 30 [default = 30];
+    required int32 SDHJSTrendMapReq_CMD = 31 [default = 31];
+    required int32 SDHJSTrendMapRsp_CMD = 32 [default = 32];
+    required int32 SDHJSRecordReq_CMD = 34 [default = 34];
+    required int32 SDHJSRecordRsp_CMD = 35 [default = 35];
+    required int32 SDHJSBatchBetReq_CMD = 36 [default = 36];
+    required int32 SDHJSBatchBetRsp_CMD = 37 [default = 37];
+    required int32 SDHJSSwitchGameReq_CMD = 41 [default = 41];
+    required int32 SDHJSSwitchGameRep_CMD = 42 [default = 42];
+    required int32 SDHJSStreetNameplateNotify_CMD = 43 [default = 43];
+    required int32 SDHJSUserWinLoseRep_CMD = 44 [default = 44];
+    required int32 SDHJSUserCntChangeNotify_CMD = 47 [default = 47];
+    required int32 SDHJSTableStatusNotify_CMD = 48 [default = 48];
+    required int32 SDHJSLiveInfoNotify_CMD = 49 [default = 49];
+}
+
+message SDHJSLogOnReq {
+    required int32 nUserId = 1;
+    required int32 nRoomId = 2;
+    optional int32 nGameId = 3;
+}
+
+message SDHJSLogOnResp {
+    required int32 nRlt = 1;
+    optional SDHJSScence tScence = 2;
+    optional string strErr = 3;
+    optional int32 nRoomId = 4 [default = -99];
+    optional int32 nGameId = 5;
+}
+
+message SDHJSSwitchGameReq {
+    required int32 nUserId = 1;
+    required int32 nSwitchType = 2;
+    required string sTableId = 3;
+}
+
+message SDHJSSwitchGameRep {
+    required int32 nRlt = 1;
+    required int32 nSwitchType = 2;
+    required string sTableId = 3;
+}
+
+message tUserInfo {
+    required int32 nUserId = 1;
+    required string sFaceId = 2;
+    required string sName = 3;
+    required double nGold = 4;
+    required int32 nSex = 5;
+    optional int32 nBankerConsecutive = 6 [default = -99];
+    optional int32 nBankerWinLose = 7 [default = -99];
+    optional int32 nBanKerDrawWater = 8 [default = -99];
+    optional int32 nBetSum = 9;
+}
+
+message SeDieRecordStatis {
+    required int32 nDice = 1;
+    required int32 nCount = 2;
+}
+
+message SDTrendMap {
+    message tDice {
+        repeated int32 nDice = 1;
+    }
+    
+    repeated tDice arrRecordTrend = 1;
+    repeated tDice arrRecommendTrend = 2;
+    repeated SeDieRecordStatis arrButtonRecordStatis = 3;
+    optional int32 nInning = 4;
+    repeated bool arrRecommendCentre = 5;
+}
+
+message SDHJSTrendMapReq {
+    optional int32 nNoUse = 1;
+}
+
+message SDHJSTrendMapRsp {
+    optional SDTrendMap arrTrendMap = 1;
+}
+
+message SDRankTreasure {
+    required double nSelfProfit = 1;
+    required double nSelfGold = 2;
+    required int32 nSitId = 3;
+}
+
+message SDHJSSelfGold {
+    repeated SDRankTreasure tAllBetSelf = 1;
+}
+
+message SDSwitchConfig {
+    optional bool bShangZhuangOpen = 1;
+    optional bool bWithCastOpen = 2;
+    optional bool bRecommendOpen = 3;
+}
+
+message SDBetLimit {
+    required int32 nType = 1;
+    optional int32 nMin = 2;
+    optional int32 nMax = 3;
+}
+
+message SDHJSScence {
+    required int32 nRoomId = 1;
+    repeated int32 arrChipsForBet = 2;
+    required int32 nBankerRequirement = 3;
+    required int32 nConsecutiveMax = 4;
+    required tUserInfo tBanker = 5;
+    required tUserInfo tMyself = 6;
+    required int32 nStage = 7;
+    required int32 nSeconds = 8;
+    required int32 nButtonStatus = 9;
+    optional SDTrendMap arrTrendMap = 10;
+    optional SDHJSBetDetail tBetDetail = 11;
+    repeated int32 arrButton = 12;
+    optional double nSelfProfit = 13;
+    optional double nSelfGold = 25;
+    optional double nBankerProfit = 14;
+    optional double nBankerGold = 26;
+    optional int32 nWithCastSum = 15;
+    optional int32 nCount = 16;
+    optional int32 nMoney = 17;
+    optional int32 nLiveUserID = 18;
+    optional int32 nCurrentRealUserCnt = 23;
+    repeated int32 arrRecommend = 24;
+    optional SDHJSSelfGold arrRankGold = 27;
+    optional int32 nIsRepeatBet = 28;
+    repeated SDHJSAreaWinLose tWinResult = 29;
+    optional SDSwitchConfig tSwitchConfig = 30;
+    optional SDHJSBetDetail tScenceWinResult = 31;
+    repeated SDBetLimit arrBetLimit = 32;
+    optional int32 nLiveGold = 33;
+    optional string sTableName = 34;
+    optional string sPaiJuId = 35;
+    required string sTableId = 36;
+    repeated int32 arrSysRecommend = 38;
+    optional bool isRecommendStatus = 39;
+    optional int32 nTableType = 40;
+    repeated int32 arrOpenKey = 41;
+    required int32 nTableStatus = 42;
+}
+
+message SDHJSGoInBetStageNotify {
+    required int32 nSeconds = 1;
+    repeated int32 arrRecommend = 2;
+    optional bool isRecommendStatus = 3;
+}
+
+message SDHJSBatchBetReq {
+    repeated SDHJSBetReq arrBatchBet = 1;
+}
+
+message SDHJSBetReq {
+    required int32 nBetChip = 1;
+    required int32 nBetArea = 2;
+}
+
+message SDHJSBetResp {
+    required int32 nRlt = 1;
+    optional string strErr = 2;
+    optional SDHJSBetDetail tBetDetail = 3;
+    optional int32 nBetLimitType = 4;
+    optional double nUserGold = 5;
+}
+
+message SDHJSAreaChipBetItem {
+    required int32 nAreaId = 1;
+    required int32 nSumBet = 2;
+    optional int32 nBetPeople = 3;
+    optional int32 nAnchorBet = 4;
+    optional int32 nSitId = 5;
+}
+
+message SDHJSBetDetail {
+    repeated SDHJSAreaChipBetItem arrAllBetDetail = 1;
+    repeated SDHJSAreaChipBetItem arrSelfBetDetail = 2;
+}
+
+message SDHJSBetNotify {
+    repeated SDHJSAreaChipBetItem arrSelfBet = 1;
+    repeated SDHJSAreaChipBetItem arrOtherBet = 2;
+}
+
+message SDHJSAreaWinLose {
+    required int32 nAreaId = 1;
+    required int32 nWinLose = 2;
+    required int32 nDrawWater = 3;
+}
+
+message SDHJSGoInResultStageNotify {
+    required int32 nSeconds = 1;
+    repeated int32 arrButton = 2;
+    required double nSelfProfit = 3;
+    required double nBankerProfit = 4;
+    required double nSelfGold = 5;
+    required double nBankerGold = 6;
+    optional SDHJSSelfGold arrRankGold = 7;
+    repeated SDHJSAreaWinLose tWinResult = 8;
+    optional SDHJSBetDetail tSettleResult = 9;
+}
+
+message SDHJSGoInFreeStageNotify {
+    required int32 nSeconds = 1;
+    required tUserInfo tBanker = 2;
+    required int32 nTipId = 3;
+    optional int32 nButtonStatus = 4;
+    optional double nSelfGold = 5;
+    optional int32 nWithCastSum = 6;
+    optional SDSwitchConfig tSwitchConfig = 7;
+    optional int32 nLiveUserID = 9;
+    optional int32 nLiveGold = 10;
+    optional string sTableName = 11;
+    optional string sPaiJuId = 12;
+    required int32 nTableStatus = 15;
+}
+
+message SDHJSUserWinLoseRep {
+    required string sTableId = 1;
+    required double nSelfProfit = 2;
+    required double nSelfGold = 3;
+}
+
+message SDHJSGetApplicantsReq {
+}
+
+message SDHJSGetApplicantsResp {
+    repeated tUserInfo arrApplicants = 1;
+}
+
+message SDHJSApplyForBankerReq {
+}
+
+message SDHJSApplyForBankerResp {
+    required int32 nRlt = 1;
+    optional string strErr = 2;
+}
+
+message SDHJSApplyCancelReq {
+}
+
+message SDHJSApplyCancelResp {
+    required int32 nRlt = 1;
+    optional string strErr = 2;
+}
+
+message SDHJSApplyResignReq {
+    optional int32 nNoUse = 1;
+}
+
+message SDHJSApplyResignResp {
+    required int32 nRlt = 1;
+    optional string strErr = 2;
+}
+
+message SDHJSBackToLobbyReq {
+    optional int32 nNoUse = 1;
+}
+
+message SDHJSBackToLobbyRsp {
+    required int32 nRlt = 1;
+    optional string strErr = 2;
+}
+
+message SDHJSGmReq {
+    required string strCmd = 1;
+}
+
+message SDHJSKickOutNotify {
+    optional int32 nNoUse = 1;
+    optional int32 nReason = 2;
+}
+
+message SDHJSCloseTableNotify {
+    optional int32 nNoUse = 1;
+}
+
+message SDHJSGoldChangeNotify {
+    required double nChangeGold = 1;
+}
+
+message SDHJSModRank {
+    repeated tUserInfo tRankUser4 = 1;
+}
+
+message SDHJSRecordReq {
+    optional int32 nIdOfStart = 1 [default = 0];
+    optional int32 nCnt = 2 [default = 10];
+}
+
+message SDHJSRecordRsp {
+    message Item {
+        required string sPaiJuID = 1;
+        required int32 nBet = 2;
+        required double nProfit = 3;
+        required string sTime = 4;
+        required int32 nId = 5;
+    }
+    
+    repeated Item arrRecords = 1;
+}
+
+message SDHJUserCntChangeNotify {
+    message Item {
+        required string sTableId = 1;
+        required int32 nCurrentRealUserCnt = 2;
+    }
+    
+    repeated Item arrItem = 1;
+}
+
+message SDHJSTableStatusNotify {
+    required string sTableId = 1;
+    required int32 nTableType = 2;
+    required int32 nTableStatus = 3;
+}
+
+message SDHJSLiveInfoNotify {
+    required string sTableId = 1;
+    required int32 nLiveUserID = 2;
+    required int32 nLiveGold = 3;
+}

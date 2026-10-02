@@ -1,0 +1,319 @@
+syntax = "proto2";
+
+package FellTreeSlave_pb;
+
+message FellTreeSlave_Proto {
+    required int32 Main_CMD = 1 [default = 312];
+    required int32 FTSLoginReq_CMD = 2 [default = 2];
+    required int32 FTSLoginRsp_CMD = 3 [default = 3];
+    required int32 FTSGoInFreeNotify_CMD = 4 [default = 4];
+    required int32 FTSGoInReadyNotify_CMD = 5 [default = 5];
+    required int32 FTSGameStartNotify_CMD = 6 [default = 6];
+    required int32 FTSGoInSettleNotify_CMD = 7 [default = 7];
+    required int32 FTSGoInResetNotify_CMD = 8 [default = 8];
+    required int32 FTSSitDownReq_CMD = 9 [default = 9];
+    required int32 FTSSitDownRsp_CMD = 10 [default = 10];
+    required int32 FTSUserSitDownNotify_CMD = 11 [default = 11];
+    required int32 FTSStandUpReq_CMD = 12 [default = 12];
+    required int32 FTSStandUpRsp_CMD = 13 [default = 13];
+    required int32 FTSUserStandUpNotify_CMD = 14 [default = 14];
+    required int32 FTSReadyReq_CMD = 15 [default = 15];
+    required int32 FTSReadyRsp_CMD = 16 [default = 16];
+    required int32 FTSStartGameReq_CMD = 17 [default = 17];
+    required int32 FTSStartGameRsp_CMD = 18 [default = 18];
+    required int32 FTSPlayerOprateReq_CMD = 19 [default = 19];
+    required int32 FTSPlayerOprateRsp_CMD = 20 [default = 20];
+    required int32 FTSUserStatusNotify_CMD = 21 [default = 21];
+    required int32 FTSUserTreeNotify_CMD = 22 [default = 22];
+    required int32 FTSPlayerDataNotify_CMD = 23 [default = 23];
+    required int32 FTSErrCodeNotify_CMD = 24 [default = 24];
+    required int32 FTSTableCloseNotify_CMD = 25 [default = 25];
+    required int32 FTSRemainChargeNotify_CMD = 26 [default = 26];
+    required int32 FTSLeaveTableReq_CMD = 27 [default = 27];
+    required int32 FTSLeaveTableRsp_CMD = 28 [default = 28];
+    required int32 FTSKickUserReq_CMD = 29 [default = 29];
+    required int32 FTSKickUserRsp_CMD = 30 [default = 30];
+    required int32 FTSRecordReq_CMD = 31 [default = 31];
+    required int32 FTSRecordRsp_CMD = 32 [default = 32];
+    required int32 FTSRecordDetailReq_CMD = 33 [default = 33];
+    required int32 FTSRecordDetailRsp_CMD = 34 [default = 34];
+    required int32 FTSUserOprationNotify_CMD = 35 [default = 35];
+    required int32 FTSLeaderChangeNotify_CMD = 36 [default = 36];
+    required int32 FTSUserRankNotify_CMD = 37 [default = 37];
+}
+
+message FTSLoginReq {
+    required int32 nUserId = 1 [default = 1];
+    required string sTableId = 2 [default = ""];
+}
+
+message FTSLoginRsp {
+    required int32 nErrorCode = 1;
+    required string sTableId = 2;
+    optional FTSScene tScene = 3;
+}
+
+message FTSScene {
+    required string sTableId = 1;
+    required string sTableName = 2;
+    required int32 nLiveUserID = 3;
+    required string sPlatformID = 4;
+    required int32 nStage = 5;
+    required int32 nTableType = 6;
+    repeated FTSUser arrUser = 7;
+    required string sRuleDetail = 8;
+    required double nGold = 9;
+    optional int32 nResTime = 10;
+}
+
+message FTSUser {
+    required int32 nUserId = 1;
+    required string sNickName = 2;
+    required int32 nSex = 3;
+    required string sFaceID = 4;
+    required int32 nUserType = 5;
+    required double nGold = 6;
+    required string sShopAcc = 7;
+    required int32 nSitId = 8;
+    required int32 nState = 9;
+    required bool isLeader = 10;
+    optional int32 nScore = 11;
+    optional double nTime = 12;
+    optional int32 nRank = 13;
+    optional int32 nMoveType = 14;
+    repeated FTSTreeData arrTree = 15;
+    optional double nWinLose = 16;
+}
+
+message FTSGoInFreeNotify {
+    required int32 nStage = 1;
+    required string sRuleDetail = 2;
+    required string sTableId = 3;
+}
+
+message FTSGoInReadyNotify {
+    required int32 nStage = 1;
+    required string sTableId = 2;
+    required int32 nSecend = 3;
+}
+
+message FTSGameStartNotify {
+    required int32 nStage = 1;
+    repeated FTSUser arrUser = 2;
+    required string sTableId = 3;
+}
+
+message FTSUserTree {
+    required int32 nUserId = 1;
+    repeated FTSTreeData arrTree = 3;
+}
+
+message FTSTreeData {
+    required int32 nIndex = 1;
+    required int32 nVal = 2;
+}
+
+message FTSGoInSettleNotify {
+    required int32 nStage = 1;
+    repeated FTSUserSettle arrWinLose = 2;
+    required string sTableId = 3;
+}
+
+message FTSUserSettle {
+    required int32 nUserId = 1;
+    required int32 nScore = 2;
+    required string sNickName = 3;
+    required int32 nRank = 4;
+    required double nWinLose = 5;
+    required string sFaceID = 6;
+    required int32 nSitId = 7;
+}
+
+message FTSGoInResetNotify {
+    required int32 nStage = 1;
+    required string sTableId = 2;
+    repeated FTSUser arrUser = 3;
+}
+
+message FTSSitDownReq {
+    required int32 nSitId = 1 [default = 1];
+}
+
+message FTSSitDownRsp {
+    required int32 nErrCode = 1;
+    required string sTableId = 2;
+    optional string strErr = 3;
+}
+
+message FTSUserSitDownNotify {
+    required FTSUser tUser = 1;
+    required string sTableId = 2;
+}
+
+message FTSStandUpReq {
+}
+
+message FTSStandUpRsp {
+    required int32 nErrCode = 1;
+    required string sTableId = 2;
+}
+
+message FTSUserStandUpNotify {
+    required int32 nUserId = 1;
+    required string sTableId = 2;
+}
+
+message FTSReadyReq {
+    required bool isReady = 1 [default = false];
+}
+
+message FTSReadyRsp {
+    required int32 nErrCode = 1;
+    required bool isReady = 2;
+    required string sTableId = 3;
+}
+
+message FTSStartGameReq {
+}
+
+message FTSStartGameRsp {
+    required int32 nErrCode = 1;
+    required string sTableId = 2;
+}
+
+message FTSPlayerOprateReq {
+    repeated FTSTreeInfo tTreeInfo = 1;
+}
+
+message FTSTreeInfo {
+    required int32 nIndex = 1 [default = 1];
+    required int32 nMoveType = 2 [default = 2];
+}
+
+message FTSPlayerOprateRsp {
+    message Item {
+        required int32 nIndex = 1;
+        required int32 nMoveType = 2;
+    }
+    
+    required string sTableId = 1;
+    required int32 nErrCode = 2;
+    repeated Item arrSuccess = 3;
+    repeated FTSTreeData arrTree = 4;
+    optional int32 nMoveType = 5;
+}
+
+message FTSUserStatusNotify {
+    required string sTableId = 1;
+    repeated FTSUserState arrUserState = 2;
+}
+
+message FTSUserState {
+    required int32 nUserId = 1;
+    required int32 nState = 2;
+    optional int32 nMoveType = 3;
+}
+
+message FTSUserTreeNotify {
+    repeated FTSUserTree arrUserTree = 1;
+    required string sTableId = 2;
+}
+
+message FTSPlayerDataNotify {
+    repeated FTSUser arrUser = 1;
+    required string sTableId = 2;
+}
+
+message FTSErrCodeNotify {
+    required int32 nUserId = 1;
+    required int32 nErrCode = 2;
+    required string sInfo = 3;
+    required string sTableId = 4;
+}
+
+message FTSTableCloseNotify {
+    required string sTableId = 1;
+}
+
+message FTSRemainChargeNotify {
+    required string sTableId = 1;
+    required int32 nUserId = 2;
+    required double nGold = 3;
+}
+
+message FTSLeaveTableReq {
+}
+
+message FTSLeaveTableRsp {
+    required int32 nErrCode = 1;
+    required string sTableId = 2;
+}
+
+message FTSKickUserReq {
+    required int32 nUserId = 1 [default = 0];
+}
+
+message FTSKickUserRsp {
+    required int32 nErrCode = 1;
+    required int32 nUserId = 2;
+    required string sTableId = 3;
+}
+
+message FTSRecordReq {
+    required int32 nIdOfStart = 1 [default = 0];
+    required int32 nCnt = 2 [default = 10];
+    required int32 nPage = 3 [default = 1];
+}
+
+message FTSRecordRsp {
+    message Item {
+        required string sPaiJuID = 1;
+        required double nBet = 2;
+        required double nProfit = 3;
+        required string sTime = 4;
+        required int32 nId = 5;
+    }
+    
+    repeated Item arrRecords = 1;
+    required int32 nPage = 2;
+    optional int32 nAllPage = 3;
+}
+
+message FTSRecordDetailReq {
+    required string sPaiJuID = 1;
+}
+
+message FTSRecordDetailRsp {
+    message Item {
+        required int32 nUserId = 1;
+        required string sNickName = 2;
+    }
+    
+    required string sPaiJuID = 1;
+    repeated Item arrUserInfo = 2;
+}
+
+message FTSUserOprationNotify {
+    required string sTableId = 1;
+    required int32 nUserId = 2;
+    repeated FTSTreeInfo tTreeInfo = 3;
+}
+
+message FTSLeaderChangeNotify {
+    required string sTableId = 1;
+    required int32 nUserId = 2;
+    required bool isLeader = 3;
+    required int32 nState = 4;
+}
+
+message FTSUserRankNotify {
+    required string sTableId = 1;
+    repeated FTSUserRank arrUserRank = 2;
+}
+
+message FTSUserRank {
+    required int32 nUserId = 1;
+    required int32 nScore = 2;
+    required double nTime = 3;
+    required int32 nRank = 4;
+}

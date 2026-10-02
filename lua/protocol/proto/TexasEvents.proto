@@ -1,0 +1,245 @@
+syntax = "proto2";
+
+package TexasEvents_pb;
+
+message TEvt_Proto {
+    required int32 Main_CMD = 1 [default = 337];
+    required int32 TEvtLogonReq_CMD = 2 [default = 1];
+    required int32 TEvtLogonRsp_CMD = 3 [default = 2];
+    required int32 TEvtEventsOpenReq_CMD = 4 [default = 3];
+    required int32 TEvtEventsOpenRsp_CMD = 5 [default = 4];
+    required int32 TEvtEventsCloseReq_CMD = 6 [default = 5];
+    required int32 TEvtUserCntNotify_CMD = 7 [default = 6];
+    required int32 TEvtRuleDNotify_CMD = 8 [default = 7];
+    required int32 TEvtUsersReq_CMD = 9 [default = 8];
+    required int32 TEvtUsersRsp_CMD = 10 [default = 9];
+    required int32 TEvtAwardsReq_CMD = 11 [default = 10];
+    required int32 TEvtAwardsRsp_CMD = 12 [default = 11];
+    required int32 TEvtSignUpReq_CMD = 13 [default = 12];
+    required int32 TEvtSignUpRsp_CMD = 14 [default = 13];
+    required int32 TEvtSignUpCancelReq_CMD = 15 [default = 14];
+    required int32 TEvtSignUpCancelRsp_CMD = 16 [default = 15];
+    required int32 TEvtSignUpDReq_CMD = 17 [default = 16];
+    required int32 TEvtSignUpDRsp_CMD = 18 [default = 17];
+    required int32 TEvtWatchReq_CMD = 19 [default = 18];
+    required int32 TEvtWatchRsp_CMD = 20 [default = 19];
+    required int32 TEvtEnterReq_CMD = 21 [default = 20];
+    required int32 TEvtEnterRsp_CMD = 22 [default = 21];
+    required int32 TEvtCancelNotify_CMD = 23 [default = 22];
+    required int32 TEvtToStartNotify_CMD = 24 [default = 23];
+    required int32 TEvtCheckReq_CMD = 25 [default = 24];
+    required int32 TEvtCheckRsp_CMD = 26 [default = 25];
+    required int32 TEvtQuitReq_CMD = 27 [default = 26];
+    required int32 TEvtStatusNotify_CMD = 28 [default = 27];
+}
+
+message TEvtRuleD {
+    required int32 nUserCnt = 1;
+    required int32 nBlindUpR = 2;
+    required int32 nBlindLevel = 3;
+    required int32 nChipAvg = 4;
+    required int32 nLevelUpTo = 5;
+}
+
+message TEvtLogonReq {
+    required int32 nUserID = 1;
+}
+
+message TEvtLogonRsp {
+    required int32 nRlt = 1;
+}
+
+message TEvtEventsOpenReq {
+    optional int32 nNoUse = 1;
+}
+
+message TEvtEventsOpenRsp {
+    message LvItem {
+        required int32 nLv = 1;
+        required int32 nSmallB = 2;
+        required int32 nBigB = 3;
+        required int32 nRA = 4;
+        optional int32 nPreAnte = 5;
+    }
+    
+    message TakInCfg {
+        required int32 nLevel = 1;
+        required int32 nCnt = 2;
+        required int32 nChip = 3;
+    }
+    
+    message Fee {
+        required int32 nFeeType = 1;
+        optional int32 nTicketNeed = 2;
+        optional int32 nFeeA = 3;
+        optional int32 nFeeB = 4;
+    }
+    
+    message Item {
+        required int32 nEventId = 1;
+        required string sName = 2;
+        required string sBackground = 3;
+        required int32 nStatus = 4;
+        required int32 nTimeStampBegin = 5;
+        required int32 nTimeBefore = 6;
+        required int32 nTimeAfter = 7;
+        required int32 nUserCnt = 8;
+        required int32 nUserCntMax = 9;
+        required int32 nOp = 10;
+        required int32 nSignUp = 11;
+        required Fee tFeeSignUp = 12;
+        required Fee tFeeR = 13;
+        required Fee tFeeA = 14;
+        required int32 nTakeIn = 15;
+        required int32 nCntBegin = 16;
+        required int32 nBlindUpGap = 17;
+        required int32 nUserCntOfTable = 18;
+        required TakInCfg tEvtTakInR = 19;
+        required TakInCfg tEvtTakInA = 20;
+        optional TEvtRuleD tSt = 21;
+        repeated LvItem arrLvItem = 22;
+        required int32 nTicketOwn = 23;
+        optional int32 nStage = 24;
+        optional int32 nGameId = 25;
+    }
+    
+    required int32 nTimeStampNow = 1;
+    repeated Item arrEvents = 2;
+}
+
+message TEvtEventsCloseReq {
+    optional int32 nNoUse = 1;
+}
+
+message TEvtUserCntNotify {
+    required int32 nEventId = 1;
+    required int32 nUserCnt = 2;
+}
+
+message TEvtRuleDNotify {
+    required int32 nEventId = 1;
+    required int32 nRlt = 2;
+    optional TEvtRuleD tSt = 3;
+}
+
+message TEvtStatusNotify {
+    required int32 nEventId = 1;
+    required int32 nStage = 2;
+    required int32 nOp = 3;
+    optional int32 nTimeStampBegin = 4;
+    optional int32 nTimeStampNow = 5;
+}
+
+message TEvtUsersReq {
+    required int32 nEventId = 1;
+}
+
+message TEvtUsersRsp {
+    message Item {
+        required int32 nUserId = 1;
+        required string sFaceId = 2;
+        required string sName = 3;
+        required int32 nSex = 4;
+        required int32 nChip = 5;
+    }
+    
+    repeated Item arrItems = 1;
+    required int32 nCntOfAll = 2;
+    required int32 nCntOfRsp = 3;
+}
+
+message TEvtAwardsReq {
+    required int32 nEventId = 1;
+}
+
+message TEvtAwardsRsp {
+    message Item {
+        required int32 nRank = 1;
+        required int32 nCoin = 2;
+        required int32 nTicket = 3;
+    }
+    
+    repeated Item arrItems = 1;
+}
+
+message TEvtSignUpReq {
+    required int32 nEventId = 1;
+}
+
+message TEvtSignUpRsp {
+    required int32 nEventId = 1;
+    required int32 nRlt = 2;
+    optional int32 nOp = 3;
+}
+
+message TEvtSignUpCancelReq {
+    required int32 nEventId = 1;
+}
+
+message TEvtSignUpCancelRsp {
+    required int32 nEventId = 1;
+    required int32 nRlt = 2;
+    optional int32 nOp = 3;
+}
+
+message TEvtSignUpDReq {
+    required int32 nEventId = 1;
+}
+
+message TEvtSignUpDRsp {
+    required int32 nEventId = 1;
+    required int32 nRlt = 2;
+    optional string sTableId = 3;
+    optional int32 nOp = 4;
+    optional int32 nGameId = 5;
+}
+
+message TEvtWatchReq {
+    required int32 nEventId = 1;
+}
+
+message TEvtWatchRsp {
+    required int32 nEventId = 1;
+    required int32 nRlt = 2;
+    optional string sTableId = 3;
+    optional int32 nOp = 4;
+    optional int32 nGameId = 5;
+}
+
+message TEvtEnterReq {
+    required int32 nEventId = 1;
+}
+
+message TEvtEnterRsp {
+    required int32 nEventId = 1;
+    required int32 nRlt = 2;
+    optional int32 nRemainT = 3;
+    optional string sTableId = 4;
+    optional int32 nOp = 5;
+    optional int32 nGameId = 6;
+}
+
+message TEvtCancelNotify {
+    required int32 nEventId = 1;
+    required string sName = 2;
+}
+
+message TEvtToStartNotify {
+    required int32 nEventId = 1;
+    required string sName = 2;
+    required int32 nRemainT = 3;
+}
+
+message TEvtCheckReq {
+    optional int32 nNoUse = 1;
+}
+
+message TEvtCheckRsp {
+    required int32 nRlt = 1;
+    optional int32 nEventId = 2;
+    optional string sName = 3;
+}
+
+message TEvtQuitReq {
+    required int32 nEventId = 1;
+}

@@ -1,0 +1,251 @@
+syntax = "proto2";
+
+package YuXiaXieJHCenter_pb;
+
+message YXXJHC_Proto {
+  required int32 Main_CMD = 1 [default = 251];
+  required int32 YXXJHCLogOnReq_CMD = 2 [default = 2];
+  required int32 YXXJHCLogOnResp_CMD = 3 [default = 3];
+  required int32 YXXJHCGoInBetStageNotify_CMD = 4 [default = 4];
+  required int32 YXXJHCGoInDealStageNotify_CMD = 5 [default = 5];
+  required int32 YXXJHCGoInSettleNotify_CMD = 6 [default = 6];
+  required int32 YXXJHCGoInFreeNotify_CMD = 7 [default = 7];
+  required int32 YXXJHCBetReq_CMD = 8 [default = 8];
+  required int32 YXXJHCBetResp_CMD = 9 [default = 9];
+  required int32 YXXJHCBetNotify_CMD = 10 [default = 10];
+  required int32 YuXiaXie_LogOnReq_CMD = 11 [default = 11];
+  required int32 YXXJHCApplyForBankerReq_CMD = 12 [default = 12];
+  required int32 YXXJHCApplyForBankerResp_CMD = 13 [default = 13];
+  required int32 YXXJHCApplyCancelReq_CMD = 14 [default = 14];
+  required int32 YXXJHCApplyCancelResp_CMD = 15 [default = 15];
+  required int32 YXXJHCApplyResignReq_CMD = 16 [default = 16];
+  required int32 YXXJHCApplyResignResp_CMD = 17 [default = 17];
+  required int32 YXXJHCApplyForBankerNotify_CMD = 18 [default = 18];
+  required int32 YXXJHCApplyCancelNotify_CMD = 19 [default = 19];
+  required int32 YXXJHCBetAreaLimitNotify_CMD = 20 [default = 20];
+  required int32 YXXJHCCloseTableNotify_CMD = 21 [default = 21];
+  required int32 YXXJHCGMReq_CMD = 22 [default = 22];
+  required int32 YXXJHCReportedPeople_CMD = 23 [default = 23];
+  required int32 YXXJHCLiveBet_CMD = 24 [default = 24];
+  required int32 YXXJHCRecommend_CMD = 25 [default = 25];
+  required int32 YXXJHCOpenTableReq_CMD = 26 [default = 26];
+  required int32 YXXJHCOpenTableResp_CMD = 27 [default = 27];
+}
+
+message YXXJHCOpenTableReq {
+  optional int32 nGroupId = 1;
+  optional int32 nGameId = 2;
+  optional int32 nRoomId = 3;
+  optional string sClientID = 4;
+  optional int32 nUserId = 5;
+  optional int32 nShopId = 6;
+  optional int32 nServerId = 7;
+}
+
+message YXXJHCOpenTableResp {
+  optional int32 nTableId = 1;
+  optional string sClientID = 2;
+  optional int32 nUserId = 3;
+  optional string sTableKey = 4;
+}
+
+message YXXJHCUser {
+  required int32 nUserId = 1;
+  required string sFaceId = 2;
+  required string sName = 3;
+  required double nGold = 4;
+  required int32 nSex = 5;
+  optional int32 nBankerConsecutive = 6;
+  optional bool isResign = 7;
+  optional string sGameKey = 8;
+  optional bool isAndroid = 9;
+}
+
+message YXXJHCScence {
+  message YXXCAreaChipBetItem {
+    required double nSumBet = 1 [default = 0];
+    required int32 nBetArea = 2 [default = 0];
+  }
+  
+  message TrendItem {
+    repeated int32 nDice = 1;
+  }
+  
+  required int32 nCurrentStage = 1;
+  required int32 nRemainSeconds = 2;
+  required YXXJHCUser tBanker = 3;
+  repeated YXXCAreaChipBetItem arrBetDetail = 4;
+  repeated TrendItem arrTrend = 5;
+  repeated int32 arrDice = 6;
+  optional YXXJHCUser arrApplicants = 7;
+  required int32 nApplicantsMax = 8;
+  required int32 nTableId = 9;
+  required int32 nRoomId = 10;
+  optional int32 nGameId = 11;
+  required int32 nGroupId = 12;
+  optional string sTableId = 14;
+}
+
+message YXXJHCLogOnReq {
+  required int32 nServerId = 1;
+  optional int32 nTableId = 2;
+}
+
+message YXXJHCLogOnResp {
+  required int32 nRlt = 1 [default = -99];
+  optional int32 nTableId = 2 [default = -99];
+  optional int32 nLiveUserID = 3 [default = -99];
+  optional YXXJHCScence tScence = 4;
+}
+
+message GameCfg {
+  optional bool isUserBankerOn = 1;
+}
+
+message YXXJHCGoInFreeNotify {
+  required int32 nStageSeconds = 1 [default = -99];
+  optional YXXJHCUser tBanker = 2;
+  optional int32 nTipId = 3;
+  optional int32 nCenterSvrId = 4 [default = -99];
+  optional int32 nTableId = 5 [default = -99];
+  optional GameCfg tSwitchConfig = 6;
+  optional int32 nRobotsServerId = 7;
+  optional double nUserBankerLimit = 8;
+}
+
+message YXXJHCGoInBetStageNotify {
+  required int32 nStageSeconds = 1 [default = -99];
+  required int32 nTableId = 2;
+}
+
+message YXXJHCGoInDealStageNotify {
+  required int32 nStageSeconds = 1 [default = -99];
+}
+
+message YXXJHCGoInSettleNotify {
+  message tOpenDice {
+    repeated int32 nDice = 1;
+  }
+  
+  required int32 nStageSeconds = 1 [default = -99];
+  required tOpenDice arrDice = 2;
+  required int32 nTableId = 3;
+  optional string sPaiJuId = 4;
+  optional double nBankerWinLose = 5;
+  optional double nBanKerDrawWater = 6;
+  optional int32 nControl = 7;
+  optional int32 nControlType = 8;
+}
+
+message YXXJHCBetReq {
+  message BetItem {
+    required double nBetChip = 1;
+    required int32 nBetArea = 2;
+    required int32 nId = 3;
+    optional bool isAndroid = 4;
+    optional int32 nAccountType = 5;
+  }
+  
+  required int32 nTableId = 1;
+  repeated BetItem arrBetItem = 2;
+}
+
+message YXXJHCBetResp {
+  required int32 nTableId = 1;
+  repeated int32 arrSucceeId = 2;
+}
+
+message YXXJHCBetNotify {
+  required double nBetChip = 1;
+  required int32 nBetArea = 2;
+  required int32 nSerialId = 3;
+  required int32 nServerId = 4;
+}
+
+message YXXJHCBetAreaLimitNotify {
+  message tBetSumlimit {
+    required double nSumBet = 1 [default = 0];
+    required int32 nBetArea = 2 [default = 0];
+    required int32 nBetPeople = 3 [default = 0];
+    optional double nAnchorBet = 4 [default = 0];
+  }
+  
+  repeated tBetSumlimit arrBetLimit = 1;
+  optional int32 nTableId = 2;
+}
+
+message YXXJHCApplyForBankerReq {
+  required int32 nTableId = 1;
+  required YXXJHCUser tUser = 2;
+}
+
+message YXXJHCApplyForBankerResp {
+  required int32 nTableId = 1;
+  required int32 nRlt = 2;
+  required int32 nUserId = 3;
+}
+
+message YXXJHCApplyCancelReq {
+  required int32 nTableId = 1;
+  required int32 nUserId = 2;
+  optional int32 nType = 3;
+  optional double nGold = 4;
+}
+
+message YXXJHCApplyCancelResp {
+  required int32 nTableId = 1;
+  required int32 nRlt = 2;
+  required int32 nUserId = 3;
+}
+
+message YXXJHCApplyResignReq {
+  required int32 nTableId = 1;
+  required int32 nUserId = 2;
+}
+
+message YXXJHCApplyResignResp {
+  required int32 nTableId = 1;
+  required int32 nRlt = 2;
+  required int32 nUserId = 3;
+}
+
+message YXXJHCApplyForBankerNotify {
+  required int32 nTableId = 1;
+  required YXXJHCUser tUser = 2;
+  required int32 nApplicantCnt = 3;
+  required int32 nType = 4;
+}
+
+message YXXJHCApplyCancelNotify {
+  required int32 nTableId = 1;
+  required int32 nUserId = 2;
+  required int32 nApplicantCnt = 3;
+}
+
+message YXXJHCCloseTableNotify {
+  required int32 nTableId = 1;
+  required int32 nCloseType = 2;
+}
+
+message YXXJHCGMReq {
+  required int32 nTableId = 1;
+  repeated int32 tGM = 2;
+}
+
+message YXXJHCReportedPeople {
+  required int32 nTableId = 1;
+  optional int32 nSum = 2;
+  optional int32 nAndroid = 3;
+}
+
+message YXXJHCLiveBet {
+  required int32 nTableId = 1;
+  required int32 nBetArea = 2;
+  required double nBetChip = 3;
+}
+
+message YXXJHCRecommend {
+  required int32 nTableId = 1;
+  required int32 nRecommendType = 2;
+  repeated int32 arrRecommend = 3;
+}

@@ -1,0 +1,28 @@
+syntax = "proto2";
+
+package PilotCenter_pb;
+
+message PilotCenter_Proto {
+    required int32 Main = 1 [default = 258];
+    required int32 SUB_REQ_ADDSLAVE = 2 [default = 2];
+    required int32 SUB_REP_ADDSLAVE = 3 [default = 3];
+    required int32 SUB_REQ_MatchingTableCreate = 4 [default = 4];
+}
+
+message Req_PLC_AddSlave {
+    required int32 nSrvId = 1 [default = 1];
+    required string sKey = 2 [default = ""];
+    optional int32 nGameId = 3 [default = 0];
+}
+
+message Rep_PLC_AddSlave {
+    required int32 nSrvId = 1 [default = 1];
+    required string sKey = 2 [default = ""];
+    required int32 nResult = 3 [default = 0];
+}
+
+message Req_MatchingTableCreate {
+    required int32 nCntToCreate = 1 [default = 1];
+    required int32 nRoomId = 2 [default = 2];
+    required int32 nGroupId = 3 [default = 3];
+}

@@ -1,0 +1,251 @@
+syntax = "proto2";
+
+package qzBaijialeGame_pb;
+
+message qzBaijialeGame_Proto {
+    required int32 Main = 1 [default = 215];
+    required int32 SUB_REQ_LOGIN = 2 [default = 2];
+    required int32 SUB_REP_LOGIN = 3 [default = 3];
+    required int32 SUB_REP_USERENTER = 4 [default = 4];
+    required int32 SUB_REP_SCENE = 5 [default = 5];
+    required int32 SUB_REP_READY = 6 [default = 6];
+    required int32 SUB_REP_QIANGZHUAGN = 7 [default = 7];
+    required int32 SUB_REP_DIZHUANG = 8 [default = 8];
+    required int32 SUB_REP_XIAZHU = 9 [default = 9];
+    required int32 SUB_REP_2FAPAI = 10 [default = 10];
+    required int32 SUB_REP_KAIPAI = 11 [default = 11];
+    required int32 SUB_REP_RESETGAME = 12 [default = 12];
+    required int32 SUB_REQ_USERQZ = 13 [default = 13];
+    required int32 SUB_REP_USERQZ = 14 [default = 14];
+    required int32 SUB_REQ_USERXZ = 15 [default = 15];
+    required int32 SUB_REP_USERXZ = 16 [default = 16];
+    required int32 SUB_REQ_YAOPAI = 17 [default = 17];
+    required int32 SUB_REP_YAOPAI = 18 [default = 18];
+    required int32 SUB_REQ_LOGOUT_GAME = 19 [default = 19];
+    required int32 SUB_REP_LOGOUT_GAME = 20 [default = 20];
+    required int32 SUB_REQ_LOGOUT_NEXTGAME = 21 [default = 21];
+    required int32 SUB_REP_LOGOUT_NEXTGAME = 22 [default = 22];
+    required int32 SUB_REP_USERSTATUS = 23 [default = 23];
+    required int32 SUB_REP_TELLYAOPAI = 24 [default = 24];
+    required int32 SUB_REP_MESSAGETIP = 25 [default = 25];
+    required int32 SUB_REQ_GMCOMMAND = 26 [default = 26];
+    required int32 SUB_REP_GMCOMMAND = 27 [default = 27];
+    required int32 SUB_REP_USERKICK = 28 [default = 28];
+    required int32 SUB_REQ_USER_INFO = 29 [default = 29];
+    required int32 SUB_REP_USER_INFO = 30 [default = 30];
+    required int32 SUB_REQ_MAGIC_FACE = 31 [default = 31];
+    required int32 SUB_REP_MAGIC_FACE = 32 [default = 32];
+    required int32 SUB_REP_MAGIC_FACE_ALL = 33 [default = 33];
+    required int32 SUB_REP_USEREXITTABLE = 34 [default = 34];
+    required int32 SUB_REQ_SWITH_TABLE = 35 [default = 35];
+    required int32 SUB_REP_SWITH_TABLE = 36 [default = 36];
+    required int32 SUB_REQ_Matching = 40 [default = 40];
+    required int32 SUB_REP_Matching = 41 [default = 41];
+}
+
+message Login_qzBJLGame_Q {
+    required int32 GameID = 1 [default = -99];
+    required int32 Level = 2 [default = -99];
+    required int32 UserID = 3 [default = -99];
+}
+
+message Login_qzBJLGame_P {
+    required int32 nResult = 1 [default = -99];
+    required int32 GameID = 2 [default = -99];
+    required int32 Level = 3 [default = -99];
+    required double nGold = 4;
+}
+
+message qzBJLUserInfo_P {
+    required int32 Count = 1 [default = -99];
+    required int32 UserID = 2 [default = -99];
+    required string Name = 3 [default = ""];
+    required int32 Sex = 4 [default = -99];
+    required string FaceID = 5 [default = ""];
+    required int32 SitID = 6 [default = -99];
+    required int32 Status = 7 [default = -99];
+    required double Gold = 8 [default = -99];
+    optional int32 TableID = 9;
+}
+
+message qzBJLHandCard_P {
+    required int32 SitID = 1;
+    optional int32 hCard1 = 2;
+    optional int32 hCard2 = 3;
+    optional int32 hCard3 = 4;
+    optional int32 nDot = 5;
+}
+
+message XiaZhu {
+    optional int32 SitID = 1;
+    optional int32 qzMultiple = 2;
+    optional int32 xzMultiple = 3;
+}
+
+message JieSuan {
+    optional int32 SitID = 1;
+    optional int32 nDot = 2;
+    optional double nGold = 3;
+}
+
+message Game_qzBJLScene_P {
+    optional int32 nTableId = 1;
+    optional int32 TabelStep = 2;
+    optional int32 ZhuangSit = 3;
+    optional int32 GameID = 4;
+    optional int32 GameLevel = 5;
+    optional int32 TabelDiFen = 6;
+    repeated qzBJLUserInfo_P ArrUser = 7;
+    repeated qzBJLHandCard_P ArrCard = 8;
+    repeated XiaZhu arrXiaZhu = 9;
+    repeated JieSuan arrJieSuan = 10;
+}
+
+message qzBJL_qzBJLReady_P {
+    required int32 nStatus = 1;
+    required int32 nTime = 2;
+}
+
+message qzBJL_QiangZhuang_P {
+    required int32 Times = 1 [default = -99];
+}
+
+message qzBJL_DingZhuang_P {
+    required int32 UserID = 1 [default = -99];
+    required int32 SitID = 2 [default = -99];
+    repeated int32 Seats = 3;
+}
+
+message qzBJL_XiaZhu_P {
+    required int32 Times = 1 [default = -99];
+}
+
+message qzBJL_FaPai_P {
+    repeated int32 SitID = 1;
+    required int32 Card1 = 2 [default = -99];
+    required int32 Card2 = 3 [default = -99];
+    required int32 nDot = 4;
+}
+
+message qzBJL_JieSuan_P {
+    required int32 SitID = 1 [default = -99];
+    required int32 Card1 = 2 [default = -99];
+    required int32 Card2 = 3 [default = -99];
+    required int32 Card3 = 4 [default = -99];
+    required int32 nDOt = 5 [default = -99];
+    required double nWin = 6 [default = -99];
+    required double nGold = 7;
+}
+
+message qzBJL_KaiPai_P {
+    repeated qzBJL_JieSuan_P jiesuan = 1;
+}
+
+message qzBJL_Reset_P {
+    required int32 nStatus = 1;
+    required int32 nTime = 2;
+}
+
+message Game_qzBJLXiaZhu_Q {
+    required int32 nUserID = 1;
+    required int32 nMultiple = 2;
+}
+
+message Game_qzBJLXiaZhu_P {
+    required int32 SitID = 1;
+    required int32 nStatus = 2;
+}
+
+message Game_qzBJLQiangZhuang_Q {
+    required int32 nUserID = 1;
+    required int32 nMultiple = 2;
+}
+
+message Game_qzBJLQiangZhuang_P {
+    required int32 SitID = 1;
+    required int32 nStatus = 2;
+}
+
+message qzBJL_YaoPai_P {
+    required int32 SitID = 1 [default = -99];
+}
+
+message Game_qzBJLYaoPai_Q {
+    required int32 nUserID = 1;
+    required int32 nStatus = 2;
+}
+
+message Game_qzBJLYaoPai_P {
+    required int32 SitID = 1;
+    required int32 Card = 2;
+    required int32 nDot = 3;
+    required int32 nStatus = 4;
+}
+
+message LogOutqzBJL_Q {
+    required int32 UserID = 1 [default = -99];
+}
+
+message LogOutqzBJL_P {
+    required int32 UserID = 1 [default = -99];
+    required int32 Result = 2 [default = -99];
+}
+
+message LogOut_Next_qzBJL_Q {
+    required int32 UserID = 1 [default = -99];
+    required int32 Status = 2;
+}
+
+message LogOut_Next_qzBJL_P {
+    required int32 UserID = 1 [default = -99];
+    required int32 Result = 2 [default = -99];
+}
+
+message Game_UserStatus {
+    required int32 SitID = 1 [default = -99];
+    required int32 nStatus = 2 [default = -99];
+}
+
+message Game_qzBJLUserStatus_P {
+    repeated Game_UserStatus arrUserStatus = 1;
+}
+
+message qzBJL_MessageTip_P {
+    required int32 nMsgType = 1;
+    required string strMsg = 2;
+}
+
+message qzBJL_GMCommand_Q {
+    required int32 nUserID = 1;
+    required string strCommand = 2;
+}
+
+message qzBJL_GMCommand_P {
+    required int32 nStatus = 1;
+}
+
+message qzBJL_UserKick_P {
+    required int32 nStatus = 1;
+}
+
+message qzBJL_UserExitTable_P {
+    required int32 SitID = 1;
+}
+
+message qzBJL_WithTable_Q {
+    required int32 UserID = 1 [default = -99];
+}
+
+message qzBJL_WithTable_P {
+    required int32 UserID = 1 [default = -99];
+    required int32 Result = 2 [default = -99];
+}
+
+message qzBJL_MatchingReq {
+    required int32 nStatus = 1;
+}
+
+message qzBJL_MatchingRsp {
+    required int32 nRlt = 1;
+    optional string strErr = 2;
+}

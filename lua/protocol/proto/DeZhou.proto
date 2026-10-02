@@ -1,0 +1,395 @@
+syntax = "proto2";
+
+package DeZhou_pb;
+
+message DeZhou_Proto {
+    required int32 Main_CMD = 1 [default = 229];
+    required int32 DeZhouLogOnReq_CMD = 2 [default = 2];
+    required int32 DeZhouLogOnRsp_CMD = 3 [default = 3];
+    required int32 DeZhouUserSitDownNotify_CMD = 4 [default = 4];
+    required int32 DeZhouUserStanpUpNotify_CMD = 5 [default = 5];
+    required int32 DeZhouStartNotify_CMD = 6 [default = 6];
+    required int32 DeZhouOperationNotify_CMD = 7 [default = 7];
+    required int32 DeZhouOpReq_CMD = 8 [default = 8];
+    required int32 DeZhouOpNotify_CMD = 9 [default = 9];
+    required int32 DeZhouDealNotify_CMD = 10 [default = 10];
+    required int32 DeZhouSettleNotify_CMD = 11 [default = 11];
+    required int32 DeZhouBackToLobbyReq_CMD = 12 [default = 12];
+    required int32 DeZhouPreOpReq_CMD = 13 [default = 13];
+    required int32 DeZhouPreOpRsp_CMD = 14 [default = 14];
+    required int32 DeZhouStanpUpReq_CMD = 15 [default = 15];
+    required int32 DeZhouSitDownReq_CMD = 16 [default = 16];
+    required int32 DeZhouTakeInRangeReq_CMD = 17 [default = 17];
+    required int32 DeZhouTakeInRangeRsp_CMD = 18 [default = 18];
+    required int32 DeZhoTakeInReq_CMD = 19 [default = 19];
+    required int32 DeZhoTakeInRsp_CMD = 20 [default = 20];
+    required int32 DeZhouFailNotify_CMD = 21 [default = 21];
+    required int32 DeZhouTableResetNotify_CMD = 22 [default = 22];
+    required int32 DeZhouCancelAutoReq_CMD = 23 [default = 23];
+    required int32 DeZhouCancelAutoNotify_CMD = 24 [default = 24];
+    required int32 DeZhouGmReq_CMD = 25 [default = 25];
+    required int32 DeZhouShowCardNotify_CMD = 26 [default = 26];
+    required int32 DeZhouRecordReq_CMD = 27 [default = 27];
+    required int32 DeZhouRecordRsp_CMD = 28 [default = 28];
+    required int32 DeZhouRecordDetailReq_CMD = 29 [default = 29];
+    required int32 DeZhouRecordDetailRsp_CMD = 30 [default = 30];
+    required int32 DeZhouCofingReq_CMD = 31 [default = 31];
+    required int32 DeZhouConfigNotify_CMD = 32 [default = 32];
+    required int32 DeZhouKickUserReq_CMD = 33 [default = 33];
+    required int32 DeZhouGoldNotify_CMD = 34 [default = 34];
+    required int32 DeZhouOnLineCntNotify_CMD = 35 [default = 35];
+    required int32 DeZhouChatReq_CMD = 36 [default = 36];
+    required int32 DeZhouChatNotify_CMD = 37 [default = 37];
+    required int32 DeZhouToStartNotify_CMD = 38 [default = 38];
+    required int32 DeZhouKickUserRsp_CMD = 39 [default = 39];
+    required int32 DeZhouPauseReq_CMD = 40 [default = 40];
+    required int32 DeZhouPauseRsp_CMD = 41 [default = 41];
+    required int32 DeZhouBackToLobbyRsp_CMD = 42 [default = 42];
+    required int32 DeZhouBalanceNotify_CMD = 43 [default = 43];
+}
+
+message DeZhouLogOnReq {
+    required int32 nUserId = 1;
+    required string sTableId = 2 [default = ""];
+    optional bool isKeepStand = 3;
+    optional int32 nRoomId = 4 [default = -1];
+    optional int32 nIsChangeTable = 5;
+}
+
+message DeZhouLogOnRsp {
+    required int32 nRlt = 1;
+    optional string strErr = 2;
+    optional DeZhouScence tScence = 3;
+    optional string sTableId = 4 [default = ""];
+}
+
+message DeZhouConfigItem {
+    required int32 nConfigId = 1;
+    required double nSmallBlind = 2;
+    required double nBigBlind = 3;
+    required double nTakeInMin = 4;
+    required double nTakeInMax = 5;
+    optional double nZhuaTou = 5;
+}
+
+message DeZhouConfigOption {
+    repeated DeZhouConfigItem arrConfig = 1;
+    repeated int32 arrCapacity = 2;
+    optional int32 nConfigIdDefault = 3;
+    optional int32 nCapacityDefault = 4;
+    optional int32 nIntervalLevDefault = 5;
+}
+
+message DeZhouCofingReq {
+    required int32 nConfigId = 1;
+    required int32 nCapacity = 2;
+    optional int32 nIntervalLev = 3;
+}
+
+message DeZhouConfigNotify {
+    required DeZhouConfigItem tConfigItem = 1;
+    required int32 nCapacity = 2;
+}
+
+message DeZhouScence {
+    required double nSmallBlind = 1;
+    required double nBigBlind = 2;
+    required int32 nCapacity = 3;
+    required int32 nOperateTime = 4;
+    required double nPotSum = 5;
+    repeated double arrPot = 6;
+    repeated int32 arrCommunityCards = 7;
+    repeated DeZhouUser arrUsers = 8;
+    required int32 nStage = 9;
+    optional DeZhouOperation tOperation = 10;
+    optional DeZhouPreOpOption tPreOpOption = 11;
+    optional bool isConfigNotSet = 12;
+    optional DeZhouConfigOption tDeZhouConfigOption = 13;
+    optional int32 nLiveUserId = 14;
+    optional double nGold = 15;
+    optional int32 nMSeconds = 16;
+    optional bool isPause = 17;
+    optional int32 nRoomId = 18 [default = -1];
+    optional int32 nClubId = 19;
+    optional string sTableName = 20;
+    optional int32 nCurrency = 21;
+    optional int32 nTableType = 22;
+    optional bool isAuthor = 23;
+    optional int32 nMStatus = 24;
+}
+
+message DeZhouUser {
+    required int32 nUserId = 1;
+    required int32 nSitId = 2;
+    required string sFaceId = 3;
+    required string sName = 4;
+    required int32 nSex = 5;
+    required double nBalance = 6;
+    required bool isBanker = 7;
+    repeated int32 arrHoleCards = 8;
+    required int32 nCardType = 9;
+    required double nBet = 10;
+    required int32 nStatus = 11;
+    optional int32 nOpTimeRemain = 12;
+    optional bool isAuto = 13;
+    optional string sShopAcc = 14;
+    optional bool isAndroid = 15;
+}
+
+message DeZhouPreOpOption {
+    message Option {
+        required double nOpId = 1;
+        required bool isOn = 2;
+    }
+    repeated Option arrOption = 1;
+}
+
+message DeZhouOperation {
+    message RaiseChoice {
+        required double nMin = 1;
+        required double nMax = 2;
+        repeated int32 arrQuickRaise = 3;
+    }
+    required int32 nOpA = 1;
+    required double nOpB = 2;
+    required int32 nOpC = 3;
+    optional RaiseChoice tRaiseChoice = 4;
+}
+
+message DeZhouStanpUpReq {
+    optional int32 nNoUse = 1;
+}
+
+message DeZhouUserStanpUpNotify {
+    required int32 nSitId = 1;
+}
+
+message DeZhouSitDownReq {
+    optional int32 nPos = 1;
+}
+
+message DeZhouUserSitDownNotify {
+    required DeZhouUser tUser = 1;
+}
+
+message DeZhouStartNotify {
+    message UserBet {
+        required int32 nPos = 1;
+        required double nBet = 2;
+    }
+    message UserPartIn {
+        required int32 nPos = 1;
+        required double nTakeIn = 2;
+        optional double nBet = 3;
+    }
+    repeated int32 arrPosPartIn = 1;
+    required int32 nBankerPos = 2;
+    repeated UserBet arrUsersBet = 3;
+    repeated int32 arrHoleCards = 4;
+    required int32 nCardType = 5;
+    optional DeZhouPreOpOption tPreOpOption = 6;
+    required double nTakeIn = 7;
+    repeated UserPartIn arrUserPartIn = 8;
+    optional double nChipBuy = 9;
+}
+
+message DeZhouOperationNotify {
+    required int32 nPos = 1;
+    optional DeZhouOperation tOperation = 2;
+    optional DeZhouUser tUser = 3;
+}
+
+message DeZhouOpReq {
+    required int32 nOpButton = 1;
+    optional double nRaise = 2;
+}
+
+message DeZhouOpNotify {
+    required int32 nPos = 1;
+    required int32 nOp = 2;
+    optional double nBet = 3;
+    optional DeZhouPreOpOption tPreOpOption = 4;
+    optional bool isAuto = 5;
+}
+
+message DeZhouCancelAutoReq {
+    required int32 nNoUse = 1;
+}
+
+message DeZhouCancelAutoNotify {
+    required int32 nPos = 1;
+}
+
+message DeZhouPreOpReq {
+    required int32 nOpId = 1;
+    required bool isOn = 2;
+}
+
+message DeZhouPreOpRsp {
+    required int32 nRlt = 1;
+    optional double nOpId = 2;
+    optional bool isOn = 3;
+    optional string sErr = 4;
+}
+
+message DeZhouDealNotify {
+    message UserHoleCard {
+        required int32 nPos = 1;
+        repeated int32 arrHoleCards = 2;
+        required int32 nCardType = 3;
+        repeated int32 arrCardType = 4;
+    }
+    required double nPotSum = 1;
+    repeated double arrPot = 2;
+    repeated UserHoleCard arrUsersHoleCard = 3;
+    repeated int32 arrCards = 4;
+    required int32 nCardType = 5;
+    optional DeZhouPreOpOption tPreOpOption = 6;
+}
+
+message DeZhouSettleNotify {
+    message GetItem {
+        required double nGold = 1;
+        required int32 nPotIdFrom = 2;
+    }
+    message UserGetFromPot {
+        required int32 nPos = 1;
+        repeated int32 arrHoleCards = 2;
+        repeated int32 arrCombinedCards = 3;
+        required int32 nCardType = 4;
+        repeated GetItem arrGoldGet = 5;
+        required bool isWin = 6;
+        optional double nProfit = 7;
+        optional int32 nCmpValue = 8;
+        optional bool isShowCardWhenEnd = 9;
+        optional double nCurGold = 10;
+    }
+    repeated UserGetFromPot arrUsersWin = 1;
+    optional DeZhouPreOpOption tPreOpOption = 2;
+    repeated double arrPot = 3;
+}
+
+message DeZhouShowCardNotify {
+    required int32 nPos = 1;
+}
+
+message DeZhouTakeInRangeReq {
+    required int32 nNoUse = 1;
+}
+
+message DeZhouTakeInRangeRsp {
+    required double nGold = 1;
+    required double nMin = 2;
+    required double nMax = 3;
+    optional int32 nIsAuto = 4;
+}
+
+message DeZhoTakeInReq {
+    required double nTakeIn = 1;
+    optional int32 nIsAuto = 2;
+}
+
+message DeZhoTakeInRsp {
+    required int32 nRlt = 1;
+}
+
+message DeZhouBackToLobbyReq {
+    optional int32 nNoUse = 1;
+    required string sTableId = 2 [default = ""];
+}
+
+message DeZhouBackToLobbyRsp {
+    required int32 nRlt = 1;
+}
+
+message DeZhouTableResetNotify {
+    optional int32 nNoUse = 1;
+    optional double nSmallBlind = 2;
+    optional double nBigBlind = 3;
+}
+
+message DeZhouToStartNotify {
+    required int32 nMSeconds = 1;
+}
+
+message DeZhouFailNotify {
+    required int32 nCode = 1;
+    required string sErr = 2;
+    required bytes tRsp = 3;
+}
+
+message DeZhouGmReq {
+    required string sStr = 1;
+}
+
+message DeZhouRecordReq {
+    required int32 nQueryCnt = 1;
+    required int32 nMinId = 2;
+}
+
+message DeZhouRecordRsp {
+    message Item {
+        required string sSeriesNumber = 1;
+        required string sTime = 2;
+        required double nBet = 3;
+        required double nWin = 4;
+        required int32 id = 5;
+    }
+    repeated Item arrItem = 1;
+    required int32 nMinId = 2;
+}
+
+message DeZhouRecordDetailReq {
+    required string sSeriesNumber = 1;
+}
+
+message DeZhouRecordDetailRsp {
+    message Item {
+        required string sName = 1;
+        repeated int32 arrHoleCards = 2;
+        required double nBet = 3;
+        required double nWin = 4;
+        required int32 nUserId = 5;
+    }
+    required string sSeriesNumber = 1;
+    repeated int32 arrCommunityCards = 2;
+    repeated Item arrItem = 3;
+}
+
+message DeZhouKickUserReq {
+    required int32 nPos = 1;
+}
+
+message DeZhouKickUserRsp {
+    required int32 nRlt = 1;
+}
+
+message DeZhouPauseReq {
+    required bool isPause = 1;
+}
+
+message DeZhouPauseRsp {
+    required bool isPause = 1;
+    required int32 nMStatus = 2;
+}
+
+message DeZhouGoldNotify {
+    required double nGold = 1;
+}
+
+message DeZhouChatReq {
+    required int32 nChatId = 1;
+    required int32 nTarget = 2;
+}
+
+message DeZhouChatNotify {
+    required int32 nSpeaker = 1;
+    required int32 nChatId = 2;
+    required int32 nTarget = 3;
+}
+
+message DeZhouBalanceNotify {
+    required int32 nPos = 1;
+    required double nBalance = 2;
+    required double nTakeOut = 3;
+}

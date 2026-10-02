@@ -1,0 +1,337 @@
+syntax = "proto2";
+
+package PubProto_pb;
+
+message Protocol {
+  message Sys {
+    required int32 DB = 1 [default = 501];
+    required int32 ANDROID = 3 [default = 2000];
+  }
+  message Sub_Logon {
+    required int32 SUB_REQ_ACCOUNT_LOGON = 3 [default = 101];
+    required int32 SUB_REQ_ACCOUNT_REGISTER = 4 [default = 102];
+  }
+  message Sub_DB {
+    required int32 SUB_REQ_READTREASURE = 1 [default = 1];
+    required int32 SUB_REQ_WRITETREASURE = 2 [default = 2];
+    required int32 SUB_REQ_SAFEBOX_VERIFY = 3 [default = 3];
+    required int32 SUB_REQ_SAFEBOX_DETAIL = 4 [default = 4];
+    required int32 SUB_REQ_ACCOUNT_LOGON = 5 [default = 101];
+    required int32 SUB_REQ_ACCOUNT_REGISTER = 6 [default = 102];
+    required int32 SUB_REQ_SAFEBOX_RESETCODE = 7 [default = 5];
+    required int32 SUB_REQ_GET_RECORD_LIST = 8 [default = 6];
+    required int32 SUB_REQ_UPDATE_USERINFO = 12 [default = 8];
+    required int32 SUB_REP_UPDATE_USERINFO = 13 [default = 9];
+    required int32 SUB_REQ_WRITEPAIJU = 9 [default = 31];
+    required int32 SUB_REQ_WRITEPAIJU_WINLOSE = 10 [default = 32];
+    required int32 SUB_REQ_CONTROL_RECORD = 11 [default = 33];
+    required int32 SUB_REQ_CONTROL_WINLOSE = 26 [default = 44];
+    required int32 SUB_REQ_ZHIBO_WRITETREASURE = 27 [default = 27];
+    required int32 SUB_REQ_CONTROL_INFO = 28 [default = 45];
+    required int32 SUB_REP_WRITETREASURE = 29 [default = 28];
+    required int32 SUB_REQ_CONTROL_ROOM_DATA = 30 [default = 46];
+    required int32 SUB_REQ_PILOT_CONTROLRECORD = 31 [default = 47];
+    required int32 SUB_REQ_GAMELISTCFG = 100 [default = 50];
+    required int32 SUB_REQ_GAMESTYPECFG = 101 [default = 51];
+    required int32 SUB_REQ_LOADANDROIDCFG = 120 [default = 120];
+    required int32 SUB_REP_LOADANDROIDCFG = 121 [default = 121];
+    required int32 SUB_REQ_SAVEANDROIDITEM = 125 [default = 125];
+    required int32 SUB_REQ_ClEANMYSQL = 126 [default = 126];
+    required int32 SUB_REQ_UPDATEMYSQL = 127 [default = 127];
+    required int32 SUB_REQ_GETANDROIDNAME = 128 [default = 128];
+    required int32 SUB_REP_GETANDROIDNAME = 129 [default = 129];
+    required int32 SUB_REQ_ASSIGNDBLOGONACCOUNT = 130 [default = 130];
+    required int32 SUB_REQ_Chat_Record = 140 [default = 140];
+    required int32 AutoBetLoadUserInfoReq = 141 [default = 141];
+    required int32 AutoBetLoadUserInfoRep = 142 [default = 142];
+    required int32 SUB_REQ_CHECK_NICKNAME = 143 [default = 143];
+    required int32 SUB_RSP_CHECK_NICKNAME = 144 [default = 144];
+  }
+  message Sub_LobbyGame {
+    required int32 SYSLOBBY_GAME = 1 [default = 100];
+    required int32 SUB_GAME_KICK_USER = 2 [default = 3];
+    required int32 SUB_GAME_USERGOLD_CHANGE = 4 [default = 4];
+    required int32 SUB_CLUB_RECHARGE = 5 [default = 5];
+  }
+  message Sub_ANDROID {
+    required int32 SUB_REQ_GETANDROID = 1 [default = 1];
+    required int32 SUB_REP_GETANDROID = 2 [default = 2];
+    required int32 SUB_REQ_SETANDROID = 3 [default = 3];
+    required int32 SUB_REP_SETANDROID = 4 [default = 4];
+  }
+}
+
+message REQ_UserGold_Change {
+  required int32 nUserId = 1 [default = -99];
+  required int32 nItemId = 2 [default = -99];
+  required double nNowGold = 3 [default = -99];
+  required int32 nServerId = 4 [default = -99];
+  required int32 nSourceType = 5 [default = -99];
+  required double nChangeGold = 6 [default = -99];
+}
+
+message Ruq_Logon {
+  required string ClientID = 1;
+  required string sSql = 2;
+  required int32 nAccountType = 3;
+  optional string sToken = 4;
+  optional int32 nShopId = 5;
+  optional string sPlatform = 6;
+  optional string sChannel = 7;
+  optional string sSql2 = 8;
+}
+
+message Rup_Logon {
+  required string ClientID = 1;
+  required int32 UserID = 2;
+  required int32 nErrCode = 3;
+  optional int32 nTimeDiff = 4;
+  optional int32 nServerId = 5;
+  optional int32 nPort = 6;
+  optional string sIp = 7;
+  optional string sUnsetTime = 8;
+  optional string sToken = 9;
+  optional string sPlatform = 10;
+  optional int32 nLoginCount = 11;
+}
+
+message Ruq_Regist {
+  required string ClientID = 1;
+  required string sSql = 2;
+  required int32 nAccountType = 3;
+  optional string sPlatform = 4;
+}
+
+message Rup_Regist {
+  required string ClientID = 1;
+  required int32 UserID = 2;
+  required int32 nErrCode = 3;
+  optional string sIp = 4;
+  optional string sPlatform = 5;
+}
+
+message RUQ_GetTreasure {
+  optional string nClientID = 1 [default = ""];
+  optional int32 nUserID = 2 [default = 0];
+  optional string sSql = 3 [default = ""];
+}
+
+message RUP_GetTreasure {
+  optional string nClientID = 1 [default = ""];
+  optional int32 nUserID = 2 [default = 0];
+  optional double nGold = 3 [default = 0];
+}
+
+message RUP_WriteTreasure {
+  optional string sSql = 1 [default = ""];
+}
+
+message RUQ_SafePassword {
+  optional string nClientID = 1 [default = ""];
+  optional int32 nUserID = 2 [default = 0];
+  optional string nPassword = 3 [default = ""];
+  optional string sSql = 4 [default = ""];
+}
+
+message RUP_SafePassword {
+  optional string nClientID = 1 [default = ""];
+  optional int32 nUserID = 2 [default = 0];
+  optional int32 Result = 3 [default = 0];
+  optional double nGold = 4 [default = 0];
+}
+
+message RUQ_Safe_Detiail {
+  optional string nClientID = 1 [default = ""];
+  optional int32 nUserID = 2 [default = 0];
+}
+
+message RUP_Safe_Detiail {
+  message DetialItem {
+    optional string UpdateTime = 1 [default = ""];
+    optional int32 SourceType = 2 [default = 0];
+    optional int32 UpdateCount = 3 [default = 0];
+  }
+  required string nClientID = 1 [default = ""];
+  required int32 nUserID = 2 [default = 0];
+  repeated DetialItem arrSafeBoxDetailItem = 3;
+}
+
+message RUQ_Safe_ResetCode {
+  required string nClientID = 1 [default = ""];
+  required int32 nUserID = 2 [default = 0];
+  required int32 nType = 3 [default = 0];
+  optional string OldPassword = 4 [default = ""];
+  optional string NewPassword = 5 [default = ""];
+}
+
+message RUP_Safe_ResetCode {
+  required string nClientID = 1 [default = ""];
+  required int32 nUserID = 2 [default = 0];
+  required int32 nResult = 3 [default = 0];
+  required int32 nType = 4 [default = 0];
+}
+
+message RUQ_PaiJuRecord {
+  required string nClientID = 1 [default = ""];
+  required int32 nUserID = 2 [default = 0];
+  required int32 nPages = 3 [default = 0];
+  optional int32 nCollect = 4 [default = 0];
+}
+
+message RUP_PaiJuRecord {
+  message Paiju_Struct {
+    optional string nPaiJuID = 1 [default = ""];
+    optional string sSession = 2 [default = ""];
+    optional int32 nProfit = 3 [default = -99];
+    optional string sRecordTime = 4 [default = ""];
+  }
+  required string nClientID = 1 [default = ""];
+  required int32 nUserID = 2 [default = 0];
+  required int32 nTotal = 3 [default = 0];
+  required int32 nPages = 4 [default = 0];
+  optional int32 nCount = 5 [default = 0];
+  repeated Paiju_Struct tPaijuStruct = 6;
+}
+
+message Req_LoadAndroidCfg {
+  required string sSql = 1 [default = ""];
+  required int32 nLoadVersion = 2 [default = 0];
+}
+
+message Req_CleanAndroidMysql {
+  required int32 nSrvId = 1 [default = 0];
+}
+
+message Req_UpdateAndroidMysql {
+  required int32 nSrvId = 1 [default = 0];
+  required int32 nGrpId = 2 [default = 0];
+  required string sIndex = 3 [default = ""];
+  required int32 nTotal = 4 [default = 0];
+  required int32 nWorking = 5 [default = 0];
+  required int32 nRelax = 6 [default = 0];
+  required int32 nLending = 7 [default = 0];
+  required int32 nCanUse = 8 [default = 0];
+}
+
+message Req_LoadAndroidName {
+  optional int32 nLanguageId = 1 [default = 1];
+  required string sSql = 2 [default = ""];
+  required int32 nGrpId = 3 [default = 0];
+}
+
+message Rep_LoadAndroidName {
+  optional bool isLastPage = 1 [default = false];
+  optional int32 nLanguageId = 2 [default = 2];
+  repeated AndroidItemName arrAndroidItemName = 3;
+  required int32 nGrpId = 4 [default = 0];
+}
+
+message AndroidItemName {
+  optional string sNickName = 1 [default = ""];
+  optional string sHeadUrl = 2 [default = ""];
+  optional int32 nSex = 3 [default = 0];
+  optional int32 nId = 4 [default = 0];
+  optional int32 nLanguage = 5 [default = 0];
+  optional string sShopAcc = 6 [default = ""];
+  optional int32 nChannelID = 7 [default = -1];
+  optional int32 nShopId = 8 [default = -1];
+}
+
+message Req_SaveAndroidItem {
+  repeated AndroidItem arrAndroidItem = 1;
+}
+
+message AndroidItem {
+  optional int32 nUserId = 1 [default = 0];
+  optional string sAccounts = 2 [default = ""];
+  optional string sNickName = 3 [default = ""];
+  optional string sHeadUrl = 4 [default = ""];
+  optional int32 nSex = 5 [default = 0];
+  optional int32 nSleep = 6 [default = 0];
+  optional double nDiamond = 7 [default = 0];
+  optional int32 nMinRound = 8 [default = 0];
+  optional int32 nMaxRound = 9 [default = 0];
+  optional double nMinppty = 10 [default = 0];
+  optional double nMaxppty = 11 [default = 0];
+  optional string sInvite_Code = 12 [default = ""];
+  optional string sLocation = 13 [default = ""];
+  optional int32 nStatus = 14 [default = 0];
+  optional double nGold = 15 [default = 0];
+  optional int32 nGrpId = 16 [default = 0];
+  optional string sOnlineT = 17 [default = ""];
+  optional int32 nWin = 18 [default = 0];
+  optional int32 nLose = 19 [default = 0];
+  optional int32 nSimilar = 20 [default = 0];
+  optional string sShopAcc = 21 [default = ""];
+  optional int32 nLanguageId = 22 [default = 0];
+  optional int32 nServerId = 23 [default = 0];
+  optional int32 nChannelID = 24 [default = -1];
+  optional int32 nShopId = 25 [default = -1];
+}
+
+message Rep_LoadAndroidCfg {
+  optional bool isLastPage = 1 [default = false];
+  repeated AndroidItem arrAndroidItem = 2;
+}
+
+message Req_WritePaiJuRecord {
+  optional string sSql = 1 [default = ""];
+}
+
+message Rep_Write_PaiJuWinLose {
+  optional string sSql = 1 [default = ""];
+}
+
+message Req_GetAndroid {
+  required int32 nGrpId = 1;
+  required string sIndex = 2;
+  required double nMin = 3;
+  required double nHigh = 4;
+  required int32 nCnt = 5;
+  required int32 nR = 6;
+  required int32 nGameNeedCnt = 7;
+  optional int32 nIndex = 8;
+}
+
+message Rep_GetAndroid {
+  required int32 nR = 1;
+  repeated AndroidItem arrAndroidItem = 2;
+  required int32 nGameNeedCnt = 3;
+}
+
+message Req_SetAndroid {
+  repeated AndroidItem arrAndroidItem = 1;
+}
+
+message Rep_SetAndroid {
+  repeated int32 arrUserId = 1;
+}
+
+message Req_AssignDBLogonAccount {
+  optional string sReturnKey = 1;
+  optional int32 nUserId = 2;
+  optional string sLogonData = 3;
+}
+
+message AutoBetLoadUserInfoReq {
+  required int32 nUserId = 1;
+}
+
+message AutoBetLoadUserInfoRep {
+  required int32 nUserId = 1;
+  required int32 nResult = 2;
+}
+
+//    required int32 SUB_REQ_CHECK_NICKNAME = 143 [default = 143];
+// 请求校验checkname
+message CheckNickNameReq { 
+    required string sNickName = 1;
+    required int32 nUserID = 2;
+}
+
+//    required int32 SUB_RSP_CHECK_NICKNAME = 144 [default = 144];
+// 返回校验结果
+message CheckNickNameRsp {
+    required int32 nCode =  1;    // 0:成功（无人使用） 1:失败（已经使用）
+    required int32 nUserID = 2;
+}

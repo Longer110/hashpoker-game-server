@@ -1,0 +1,34 @@
+syntax = "proto2";
+
+package Dian21_2_pb;
+
+message Dian21Game_Proto2 {
+    required int32 Main = 1 [default = 206];
+    required int32 SUB_REQ_USER_INFO = 38 [default = 38];
+    required int32 SUB_REP_USER_INFO = 39 [default = 39];
+    required int32 SUB_REQ_MAGIC_FACE = 40 [default = 40];
+    required int32 SUB_REP_MAGIC_FACE = 41 [default = 41];
+    required int32 SUB_REP_MAGIC_FACE_ALL = 42 [default = 42];
+}
+
+message Dian21BaoXianJieSuan_P {
+    message UserWinData {
+        required int32 nSitId = 1 [default = -99];
+        required double Gold = 2 [default = -99];
+    }
+    repeated UserWinData tUserWinArr = 1;
+}
+
+message Game_GM_Command_Q {
+    required int32 nUserID = 1;
+    required string strCommand = 2;
+}
+
+message Game_GM_Command_P {
+    required int32 nStatus = 1;
+}
+
+message Dian21QZBeiShu_P {
+    required int32 nSitId = 1 [default = -1];
+    required int32 nQZBeiSHu = 2 [default = 0];
+}

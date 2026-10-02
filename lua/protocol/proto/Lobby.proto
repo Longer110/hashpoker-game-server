@@ -1,0 +1,713 @@
+syntax = "proto2";
+
+package Lobby_pb;
+
+//大厅命令,分三类: 请求(Req) 回复(Rsp) 通知(Notify)
+//注意命名规则为协议名称加后缀 '_CMD' (服务器代码中利用这一规则来寻找协议命令,)
+message Lobby_Proto 
+{			    
+	required int32	Main_CMD = 1 		 [default = 101];		//大厅主命令(101不可变)
+	required int32 LogonReq_CMD		= 2  [default = 1];			//大厅登陆请求
+	required int32 LogonRsp_CMD		= 3  [default = 2];			//大厅登陆返回
+	required int32 GameListNotify_CMD= 4 [default = 3];			//游戏列表更新通知
+	required int32 RoomListReq_CMD	= 5  [default = 4];			//房间列表请求
+	required int32 RoomListRsp_CMD	= 6  [default = 5];			//房间列表返回
+	required int32 TreasureReq_CMD	= 9  [default = 8];			//财富数据请求
+	required int32 TreasureRsp_CMD	= 10 [default = 9];			//财富数据返回
+	
+	required int32 EnterBankReq_CMD	=11 		 [default = 10]; //进入银行请求
+	required int32 EnterBankRsp_CMD	=12 		 [default = 11]; //进入银行返回
+	required int32 BankUnlockReq_CMD =13 		 [default = 12]; //解锁银行请求
+	required int32 BankUnlockRsp_CMD =14 		 [default = 13]; //解锁银行返回
+	required int32 BankAccessReq_CMD =15 		 [default = 14]; //银行金币存取请求
+	required int32 BankAccessRsp_CMD =16 		 [default = 15]; //银行金币存取返回
+	required int32 BankPasswordChangeReq_CMD =17 [default = 16]; //银行密码更改请求
+	required int32 BankPasswordChangeRsp_CMD =18 [default = 17]; //银行密码更改返回
+	required int32 BankAccessDetailReq_CMD =19 	 [default = 18]; //银行存取明细请求
+	required int32 BankAccessDetailRsp_CMD =20 	 [default = 19]; //银行存取明细返回
+	
+	required int32 PaijuRecordReq_CMD =21  		 [default = 20]; //战绩查询请求
+	required int32 PaijuRecordRsp_CMD =22  		 [default = 21]; //战绩查询返回
+	
+	required int32 BeforeLoadScenceReq_CMD=23	 [default = 22]; //前端加载游戏场景前预查询请求 (用以减少加载场景后登陆游戏服的失败率)
+	required int32 BeforeLoadScenceRsp_CMD=24	 [default = 23]; //预查询返回
+
+
+	required int32 SUB_REQ_UPDATE_USERINFO	= 25	  [default = 25];	//请求修改个人信息
+	required int32 SUB_REP_UPDATE_USERINFO	= 26	  [default = 26];	//返回修改个人信息
+
+
+	required int32 SUB_REQ_GET_USER_INFO	= 27	  [default = 27];	//获取玩家 信息
+	required int32 SUB_REP_GET_USER_INFO	= 28	  [default = 28];	//获取玩家 信息
+
+	required int32 SUB_REQ_GET_ZBTABLEID	= 29	  [default = 29];	//获得直播玩家的TableID
+	required int32 SUB_REP_GET_ZBTABLEID	= 30	  [default = 30];	//获得直播玩家的TableID
+	required int32 PaijuDetailReq_CMD =31  		 [default = 31]; //牌局明细查询请求
+	required int32 PaijuDetailRsp_CMD =32  		 [default = 32]; //牌局明细查询返回
+	
+	required int32 HelpInfoReq_CMD =33  		 [default = 33]; //帮助信息请求
+	required int32 HelpInfoRsp_CMD =34  		 [default = 34]; //帮助信息回复
+	
+	required int32 OnlinePeopleReq_CMD = 35 		 [default=35];   //在线人数列表请求 
+	required int32 NoticeOnlinePeople_CMD =36  		 [default = 36]; //在线人数列表返回
+	
+	required int32 LobbyDeZhouRecordReq_CMD =37			[default = 37]; //德州最近牌局记录查询 请求
+	required int32 LobbyDeZhouRecordRsp_CMD =38			[default = 38];	//德州最近牌局记录查询 回复
+	required int32 LobbyDeZhouRecordDetailReq_CMD =39	[default = 39]; //德州牌局记录详情查询 请求
+	required int32 LobbyDeZhouRecordDetailRsp_CMD =40	[default = 40]; //德州牌局记录详情查询 回复
+	
+	required int32 BrLiveGameRecordReq_CMD =41			[default = 41];//百人直播游戏战绩 请求
+	required int32 BrLiveGameRecordRsp_CMD =42			[default = 42];//百人直播游戏战绩 回复
+	required int32 BrLiveGameDetailReq_CMD =43			[default = 43];//百人直播游戏记录详情 请求
+	required int32 BrLiveGameDetailRsp_CMD =44			[default = 44];//百人直播游戏记录详情 回复
+
+	required int32 UserGoldLessStandardNotify_CMD=45    [default = 45];//用户金币低于设定值通知
+	required int32 BlockChianListInfoReq_CMD= 46    		[default = 46];//区块链列表信息请求
+	required int32 BlockChianListInfoRep_CMD= 47    		[default = 47];//区块链列表列表返回
+
+	required int32 AccountCloseReq_CMD =48				[default =48];		//账号注销请求
+	required int32 AccountCloseRsp_CMD =49				[default =49];		//账号注销返回
+
+	required int32 AccountPayURLReq_CMD =50				[default =50];		//玩家请求获取充值地址-请求
+	required int32 AccountPayURLRsp_CMD =51				[default =51];		//玩家请求获取充值地址-回复
+	required int32 AccountPayInfoReq_CMD =52			[default =52];		//玩家请求充值信息-请求
+	required int32 AccountPayInfoRsp_CMD =53			[default =53];		//玩家请求充值信息-回复
+	required int32 AccountWithdrawalReq_CMD =54			[default =54];		//玩家请求提现信息-请求
+	required int32 AccountWithdrawalRsp_CMD =55			[default =55];		//玩家请求提现信息-回复
+	required int32 AccountWithdrawalViewReq_CMD =56		[default =56];		//玩家请求提现信息-回复
+	required int32 AccountWithdrawalViewRsp_CMD =57		[default =57];		//玩家请求提现信息-回复
+
+	required int32 ClubSUserNoticeReq_CMD = 58                   [default = 58];  //个人通知请求
+    required int32 ClubSUserNoticeResp_CMD =59                  [default = 59];  //个人通知返回
+	
+	required int32 ClubSUserNoticeHandleReq_CMD = 60             [default = 60];  //处理个人通知请求
+    required int32 ClubSUserNoticeHandleResp_CMD = 61            [default = 61];  //处理个人通知返回
+}
+
+// OnlinePeopleReq_CMD = 35 		 [default=35];   //在线人数列表请求 
+message OnlinePeopleReq
+{
+	optional int32 nUserID = 1;
+}
+
+//NoticeOnlinePeople_CMD =36  		 [default = 36]; //在线人数列表返回
+message NoticeOnlinePeople
+{
+	message getOnLineItem
+	{
+		optional int32 nGameID=1;
+		optional int32 nPeople=2;
+	}
+	repeated getOnLineItem arrPeople = 1;
+}
+
+//帮助信息请求
+message HelpInfoReq 
+{
+	required int32 nUserID=1;
+	optional int32 nGameID=2;
+}
+
+//帮助信息回复
+message HelpInfoRsp
+{
+	optional string sUiType = 1; //(UI版本)
+	optional string nInfoDetail = 2; //(cjson格式 UI选项明细(抽水和赔率==)暂时不需要)
+}
+	
+//大厅登陆请求 LogonReq_CMD
+message LogonReq 
+{
+	required int32 nUserID = 1;  // 用户ID
+}
+//大厅登陆返回 LogonRsp_CMD
+message LogonRsp
+{
+	message UserInfo
+	{
+		 required int32  nUserID    = 2 [default = 0];	    // 用户ID
+		 required int32  nSex		= 3 [default = 0];	    // 性别
+		 required double nGold		= 4 [default = 0];	    // 金币
+		 required string sNickName  = 5 [default = ""];	    // 昵称
+		 required string sFaceID 	= 6 [default = ""];	    // 头像
+		 optional int32  nVisitor   = 7; //1是游客 2不是
+		 optional string sTime = 8;
+	}
+	//弃用了
+	 message CurrentPlaying
+	 {
+		required int32 nGameId=1;//当前所在游戏
+		required int32 nRoomId=2;//当前所在游戏房间
+		optional string sTableId =3 ;//当前所在游戏房间 id
+		optional int32 nClubId=4; //游戏房间所在的俱乐部id 如果nClubId是一个大于0，小于1000000,就是玩家所在分组的俱乐部大厅，大于等于1000000是私人俱乐部
+	 }
+	 required int32 nResult = 1   ; 		//登录结果:  0成功  1失败	
+	 optional UserInfo tUserInfo =2;		//登录成功时才有
+	 optional GameListNotify tGameList=3;	//游戏列表, 登录成功时才有
+	 optional CurrentPlaying tCurrentPlay=4;	//当前所在游戏信息, 玩家当前正在某游戏中玩时才有 （弃用了）
+	 optional int32 nLastClubId=5; //上一次登录的俱乐部id 如果nLastClubId是一个大于0，小于1000000,就是玩家所在分组的俱乐部大厅，大于等于1000000是私人俱乐部
+	 optional string tExtraConfigureInfo =6;		//登录成功时才有(游戏金币显示;) cjson格式 后台配置信息
+}
+
+//游戏列表更新通知	GameListNotify_CMD 
+message GameListNotify 
+ {
+   message GameItem 
+   {      
+	   required int32 	nGameId     	= 1 ;       				//游戏id, 105:扎金花 113:三公 106:21点 104:百人牛牛 103:通比牛牛 ...
+	   required int32   nGameOrder  	= 3 [default = 1];  		//游戏排序的位置:1 -- 100 
+	   required int32   nGameStatus 	= 4 [default = 0]; 			//游戏状态:0默认 1热门 2最新 3即将开启 4正在维护 5未开放
+	   required string  sIconUrl    	= 5 [default = ""]; 		// 图标地址
+	   required string  sGamePath   	= 6 [default = ""]; 		// 游戏路径
+	   required string  sVersion    	= 7 [default = ""]; 		// 版本号
+	   required string  sZipFilePath 	= 8 [default = ""];			// 地址
+	   required string  sMD5FilePath    = 9 [default = ""];			// 地址
+	   optional int32   nPeople=10;									// 人數
+   	}
+    repeated GameItem arrGameItems = 2;
+	optional int32 nErrCode = 3;			//错误码,异常时有 1:Config_GameList没有配置游戏或者后台没开游戏，2：Config_Update_Package没有配置对应平台的游戏
+	optional string sErrStr =4;				//异常描述 (异常时有，例如:找不到对应的服务器) 英文描述
+}            
+
+//房间列表请求	RoomListReq_CMD 
+message RoomListReq 
+{
+	required int32 	nGameId	= 1 ;			//游戏id
+}  
+//房间列表返回  RoomListRsp_CMD 
+message RoomListRsp 
+{	
+   message RoomItem 
+   {
+	   required int32 nRoomId  	  = 1 		[default = 1 ];   // 房间(场次)id  1新手 2初级 3中级 4高级 0免费
+	   required int32 nPlayerCnt   = 2 		[default = 0 ];   // 玩家数目
+	   required int32 nEnterFloorLimit = 4   [default = 0 ];  // 进入下限  
+	   optional double nAnte = 5 ;   						  // 底注 (某些游戏才有)
+   	}
+	required int32 	nGameId =1;
+    repeated RoomItem arrRoomItems = 2;		//发生异常时会为空数组
+	optional string sErrStr =3;				//异常描述 (异常时有，例如:找不到对应的服务器) 英文描述
+	optional int32 nErrCode=4;					//错误码,异常时有 1:游戏已关闭 2:游戏维护中
+}
+
+//财富数据请求   TreasureReq_CMD     
+message TreasureReq 
+{
+	optional int32 nNoUse = 1 ;		//没用
+}
+//财富数据返回   TreasureRsp_CMD     
+message TreasureRsp 
+{
+	required int32 nResult = 1 ;  	//0成功  其它:失败	
+	optional double nGold   = 2 ; 	//金币 (成功时有) 
+	optional string sErrStr =3;		//异常描述 (异常时有) 英文描述
+}
+
+
+
+//银行财富
+message Treasure
+{
+	required int32 nGold = 1; 		//玩家身上金币 现金 
+}
+
+//进入银行请求
+message EnterBankReq
+{
+	optional int32 nNoUse=1;	//没用字段
+}
+//进入银行返回
+message EnterBankRsp
+{
+	 required int32 nResult = 1   ;  	//0:成功 1:需要先解锁(弹出密码输入框) 10：游戏中
+	 optional Treasure tTreasure=2;		//当前银行财富,成功时有
+	 optional string sErrStr =3;		//异常描述 (异常时有),可不管
+	 optional int32 nGameId =4;			//nResult为10时有，当前正在玩的游戏
+}
+
+//解锁银行请求
+message BankUnlockReq
+{
+	required string sPassword =1;		//密码 (初始密码为123456)
+}
+//解锁银行返回 
+message BankUnlockRsp
+{
+	required int32 nResult = 1;  		//0:成功(这时可直接进入银行) 2:密码错误 其它:失败
+	optional Treasure tTreasure=2;		//当前银行财富,成功时有
+	optional string sErrStr =3;			//异常描述 (异常时有),可不管
+}
+
+//银行金币存取请求
+message BankAccessReq
+{
+	required int32 nOperation =1;		//操作 0:存钱 1:取钱
+	required int32 nGold =2		;		//所操作的金币数目
+}
+//银行金币存取返回 
+message BankAccessRsp
+{
+	required int32 nResult = 1;  		//0:成功 1:需要先解锁 3:金额不足 其它:失败
+	optional Treasure tTreasure=2;		//当前银行财富,成功时有
+	optional string sErrStr =3;			//异常描述 (异常时有),可不管
+	required int32 nOperation =4;		//操作 0:存钱 1:取钱
+}
+
+//银行密码更改请求
+message BankPasswordChangeReq
+{ 
+	required string sOldPassword = 1 ; //旧密码
+	required string sNewPassword = 2 ; //新密码
+	required string sOkPassword = 3 ; //确认密码 
+}
+//银行密码更改返回
+message BankPasswordChangeRsp
+{
+	required int32 nResult = 1;  		//0:成功 4:确认密码错误 5:旧密码错误 6:密码不合法 其它:失败
+	optional string sErrStr =2;			//异常描述 (异常时有),可不管
+}
+
+//银行存取明细请求
+message BankAccessDetailReq
+{
+	optional int32 nNoUse=1;	//没用字段
+}
+//银行存取明细返回
+message BankAccessDetailRsp
+{
+	message Item
+	{
+		required string sTime = 1 ; 			//时间
+		required int32  nOperation = 2 ; 		//操作 0:存钱 1:取钱
+		required int32  nGold = 3 ; 			//所操作的金币数目
+	}
+	required int32 nResult = 1;  		//0:成功 1:需要先解锁 其它:失败
+	repeated Item arrDetails = 2;	
+}
+
+
+//战绩查询请求
+message PaijuRecordReq
+{ 
+	optional int32 nGameId=1; //游戏id
+	optional int32 nPage=2;	//请求页数
+}
+//战绩查询返回 PaijuRecordRsp_CMD
+message PaijuRecordRsp{
+	message Item
+	{
+		required string sPaiJuID= 1; 		//牌局编号
+		required int32  nRoomId = 2; 		//房间(场次)id  1新手 2初级 3中级 4高级 0免费
+		required double  nProfit = 3; 		//盈利
+		required string sTime 	= 4; 		//结算时间
+		required int32  nType = 5;			//类型 0普通类型  1百人游戏庄家标志
+		optional double nAnte = 6 ;   		// 底注 (某些游戏需要用到（飞行棋匹配场）)
+	}
+	optional int32 nSumPage = 1; //总页
+	repeated Item arrRecords = 2;
+}
+
+//牌局明细查询请求
+message PaijuDetailReq
+{
+	optional string sPaiJuID=1; //牌局编号
+}
+
+//牌局明细查询返回
+message PaijuDetailRsp
+{
+  optional int32 GameId = 1;//游戏gameId
+  optional double nAnte = 2; //底分
+  optional string tUsersInfo = 3; //cjson 各玩家信息与金币变化; {{nUserId=,nSitId=,sName=昵称,nProfit=利润,nDrawWater=抽水} ,{},...}
+  optional int32 nZhuang = 4; //庄家座位id (0:系统做庄 ,-1:游戏不分庄闲) 百人是直接nUserID 
+  optional string tDealCardInfo =5; //cjson 最终得牌情况(各玩家 或各押注区域 或系统做庄得牌); {{nId=,arrCard={},?=?},{},...}格式不重要,各游戏自定义
+  optional string tBetInfo = 6; //cjson 各玩家最终下注数目与抢庄倍数;{{nSitId=,nAreaId=押注区域,nBet=押注数,nQiang=抢庄倍数},{},...}   ;(格式不重要,各游戏自定义，重点是‘各玩家最终下注数目与抢庄倍数’)
+}
+
+//前端加载游戏场景前预查询请求 (用以减少加载场景后登陆游戏服的失败率)
+message BeforeLoadScenceReq
+{
+	required int32 nGameId=1;
+	optional int32 nRoomId=2;			//当所处条件下不知道nRoomId时，可不填.
+}
+//预查询回复
+message BeforeLoadScenceRsp
+{
+	required int32 nResult = 1;  		//0:成功(可以加载场景) 101:金币不足 200:在其他游戏玩(或同游戏不同房间) 201:游戏已经结束 其它：未定义错误
+	optional int32 nGameId=2;			//当前正在玩的游戏id(nResult=200时有)
+	optional int32 nRoomId=3;			//当前正在玩的房间id(nResult=200时有)
+	optional string sErrStr =4;			//异常描述 (nResult非0时有),可不管
+	optional string sTableId =5 ;		//当前所在游戏房间 id(nResult=200时有)
+}
+
+
+//德州最近牌局记录查询 请求
+message LobbyDeZhouRecordReq{
+	required int32 nQueryCnt=1 [default = 10];	//查询记录的返回条数(最多50)
+	required int32 nMinId=2 [default = 0];		//(分页查询时,需要填上一次结果的最后一条记录id,即是最小的id)
+}
+
+//德州最近牌局记录查询 返回
+message LobbyDeZhouRecordRsp{
+	message Item{
+		required string sSeriesNumber=1;	//牌局编号
+		required string sTime=2;			//时间
+		required double  nBet=3;				//下注
+		required double nWin=4;				//派彩
+		required int32 Id=5;				//记录id. (最大的就是最近的记录)
+	}
+	repeated Item arrItem=1;				//已排序记录
+	required int32 nMinId=2;				//最后一条记录id,用于查询下一页,如果需要
+}
+
+
+//德州牌局记录详情查询 请求
+message LobbyDeZhouRecordDetailReq{
+	required string sSeriesNumber=1;	//牌局编号
+}
+//德州牌局记录详情查询 返回
+message LobbyDeZhouRecordDetailRsp{
+	message Item{
+		required string sName=1;		//玩家昵称
+		repeated int32 arrHoleCards=2;	//底牌
+		required int32  nBet=3;			//下注
+		required double nWin=4;			//派彩
+		required int32 nUserId=5;		//玩家ID
+		optional bool isFold=6;			//是否弃牌 true:是 其它:否
+	}
+	required string sSeriesNumber=1;	//牌局编号
+	repeated int32 arrCommunityCards=2; //公共牌
+	repeated Item arrItem=3;			//牌局各玩家记录
+}
+
+
+
+
+
+//   SUB_REQ_UPDATE_USERINFO	= 25	  [default = 25];		//请求修改个人信息
+message Update_UserInfo_Q {
+	required int32   nUserID = 1 ;        // 玩家id
+	required int32   nType = 2 ;          // 更新类型： 1 性别， 2 头像 3 昵称 4.账号绑定
+	optional string  sContent =3       [default = ""];     	  //  更新内容
+	optional string Accounts = 4 [default = ""];   // 账号
+	optional string Password = 5 [default = ""];   // 密码
+}
+
+//   SUB_REP_UPDATE_USERINFO	= 26	  [default = 26];		//
+message Update_UserInfo_P {   
+    optional int32  nResult         = 1 [default = -99];  // 0 成功  -1 失败 ,-3 -3 修改昵称超长范围, -4,昵称错误 -5账号错误 -6密码错误  -7 此账号已被注册，请重新注册！,  -8 账号由英文和数字组成 
+	required int32   nType = 2 ;          // 更新类型： 1 性别， 2 头像 3 昵称 4.账号绑定
+	optional string  sContent =3       [default = ""];     	  //  更新内容
+}
+
+
+// int32 SUB_REQ_GET_USER_INFO	= 27	  [default = 27];	//获取玩家 信息
+message Get_UserInfo_Q {   
+    repeated int32 arrUserId = 1 ;    //  用户id 数组
+}
+
+// required int32 SUB_REP_GET_USER_INFO	= 28	  [default = 28];	//获取玩家 信息
+message Get_UserInfo_P {   
+	message User_GroupInfo{ 
+	    optional int32  nUserID         = 1 [default = -99];
+	    optional int32  nGroupId        = 2 [default = -99];     // 分组id
+	    optional int32  nShoupId        = 3 [default = -99];    // 分店id
+	    optional string sNickName       = 4 [default = ""];     //昵称
+    }
+	repeated User_GroupInfo arrUserGroupInfo = 2; // 用户群组	数组
+
+}
+
+
+//SUB_REQ_GET_ZBTABLEID
+message Get_ZBTableID_Q {   
+    required string sUrl = 1 ;    //  
+}
+
+message Get_ZBTableID_P {  
+	required int32	nStatus  = 1 ;
+    required string sTableID = 2 ;   
+}
+
+//百人直播游戏战绩 请求
+message BrLiveGameRecordReq{
+	required int32 nGameID=1;					//游戏id
+	required int32 nQueryCnt=2 [default = 10];	//查询记录的返回条数(最多50)
+	required int32 nMinId=3    [default = 0];	//(分页查询时,需要填上一次结果的最后一条记录id,即是最小的id)
+	optional string sStartTime=4;				//起始时间
+	optional string sEndTime=5;					//结束时间
+}
+//百人直播游戏战绩 返回
+message BrLiveGameRecordRsp{
+	message Item{
+		required string sPaiJuID=1;		//牌局编号
+		required string sTime=2;		//时间
+		required double  nBet=3;			//下注
+		required double nProfit=4;			//输赢
+		required int32 nId=5;			//记录id. (最大的就是最近的记录)
+	}
+	repeated Item arrItem=1;			//已排序记录
+	required int32 nMinId=2;			//最后一条记录id,用于查询下一页,如果需要
+	required int32 nGameID=3;			//游戏id
+	optional int32 nSumItem=4;			//记录总条数
+	optional string sData =5;   		//拓展 json {直播游戏 统计数据： nAllWinlose,nAllBet,nAllValid}
+}
+
+
+//百人直播游戏记录详情 请求
+message BrLiveGameDetailReq{
+	required string sPaiJuID=1;			//牌局id
+}
+//百人直播游戏记录详情 返回
+message BrLiveGameDetailRsp{
+	message AreaProfit{
+		required int32 nAreaId=1;			//下注区域
+		required double nProfit=2;			//区域盈利
+	}
+	message BaiJiaLeResult{
+		repeated int32 arrCardsOfXian=1;		//闲家牌(牌数量2~3)
+		repeated int32 arrCardsOfZhuang=2;		//庄家牌(牌数量2~3)
+		required int32 nPointXian=3;			//闲点数 0~9
+		required int32 nPointZhuang=4;			//庄点数 0~9
+		required int32 nResult=5;				//1:闲赢 2:庄赢 0:和
+	}
+	message LongHuResult{
+		required int32 nCardL=1;								//龙 牌
+		required int32 nCardH=2;								//虎 牌
+		required int32 nResult=3;								//1:龙赢 2:虎赢 0:和
+	}
+	message NiuNiuResult{
+		repeated int32 arrCardsOfZhuang=1;		//庄家牌
+		repeated int32 arrCardsOfXian1=2;		//闲1家牌(牌数量5)
+		repeated int32 arrCardsOfXian2=3;		//闲2家牌(牌数量5)
+		repeated int32 arrCardsOfXian3=4;		//闲3家牌(牌数量5)
+		required int32 nZhuangNiuWhat = 5; 		//什么牌（牛啥）
+		required int32 nXian1NiuWhat = 6; 		//什么牌（牛啥）
+		required int32 nXian2NiuWhat = 7; 		//什么牌（牛啥）
+		required int32 nXian3NiuWhat = 8; 		//什么牌（牛啥）
+		repeated int32 arrResult=9;				//输赢结果 1.庄 2.闲一 3.闲二 4.闲三
+	}
+	message YuXiaXieResult{
+		repeated int32 arrCards =1;				//鱼虾蟹开奖结果
+	}
+	message SeDieResult{
+		repeated int32 arrCards =1;				//色碟开奖结果
+	}
+	message TouBaoResult{
+		repeated int32 arrCards =1;				//骰宝开奖结果
+	}
+	message FootBallResult{
+		repeated int32 arrCards =1;				//1:进  0:不进	//足球开奖结果
+	}
+	required string sPaiJuID =1;				//牌局id
+	optional string sTableNo=2;					//桌号
+	optional string sXueNo=3;					//靴号
+	optional string sRoundNo=4;					//局号
+	repeated AreaProfit arrProfitDetail=5;		//各区域盈利明细
+	required int32 nGameID=6;					//游戏id
+	optional BaiJiaLeResult tBaiJiaLeResult=7;	//百家乐开奖结果
+	optional YuXiaXieResult tYuXiaXieResult=8;	//鱼虾蟹开奖结果
+	optional SeDieResult    tSeDieResult=9;		//色碟开奖结果
+	optional TouBaoResult   tTouBaoResult=10;	//骰宝开奖结果
+	optional double nWinLose = 11; 				//总输赢
+	optional FootBallResult   tFootBallResult=12;	//足球开奖结果
+	
+	optional LongHuResult tLongHuResult=13;		//龙虎开奖结果
+
+	optional NiuNiuResult tNiuNiuResult=14;		//直播牛牛开奖结果
+}
+
+//用户金币低于设定值通知 UserGoldLessStandardNotify_CMD
+message UserGoldLessStandardNotify
+{
+	required int32 nUserId =1; 	   //玩家id
+    required double nGold =2;      //玩家现在的金币 
+    required int32 nItemId =3; 	   //金币类型 1:金币 其它:待定
+	required double nStandard=4;   //后台的设定值
+}
+ 
+//区块链列表信息请求 BlockChianListInfoReq_CMD
+message BlockChianListInfoReq{
+	required int32 nUserId =1; 	   //玩家id
+    required int32 nGameId =2;     //游戏id  
+	optional int32 nBlockChian = 3 [default=1];  //桌型: 1区块链、2固定桌、自己源桌 
+}
+
+//区块链列表列表返回 BlockChianListInfoRep_CMD
+message BlockChianListInfoRep{
+	required int32 nPeople =1; 	   //牌桌人数
+    required int32 nTableSum =2;   //牌桌数量
+	required string sTableId=3;	   //区块链牌桌列表下注 其中牌桌id：供进入游戏
+}
+ 
+//注销账号 请求
+message AccountCloseReq{
+	 required string sAccounts = 1 ;      // 账号
+	 required string sPassword = 2 ;      // 密码
+}
+//注销账号 返回
+message AccountCloseRsp{
+	 required int32 nCode =1; 			// 0:成功 其它:失败
+	 optional string sErrStr=2;			//错误描述
+}
+
+///-----------------
+// 玩家获取充值地址
+// required int32 AccountPayURLReq_CMD =50				[default =50];		//玩家请求获取充值地址-请求
+message AccountPayURLReq{
+	required int32 nUserId = 1; 	   	//	玩家id
+	optional string strDefault = 2;		// 	扩展字段
+}
+
+// 返回消息
+//required int32 AccountPayURLRsp_CMD =51				[default =51];		//玩家请求获取充值地址-回复
+message AccountPayURLRsp{ 
+  required int32 nCode = 1;        //   返回状态  0:完成 其他：出错
+  required string strPayURL = 2;      //   返回充值地址
+  message OneAddressInfo{
+    required string strMainNet = 1;      //   主网类型
+    required string strContractAddres = 2;  //   合约地址
+    required int32  nMinTopup = 3;      //  最小充值金额
+    required int32  nInputCompileTime = 4;  //  充值确认次数
+    required int32  nOutputCompileTime = 5;  //  提现确认次数
+  }
+  repeated OneAddressInfo arrAddressList = 3;  //   返回地址信息
+}
+
+//-----------------
+
+
+//-----------------
+// 玩家请求充值信息
+//required int32 AccountPayInfoReq_CMD =52			[default =52];		//玩家请求充值信息-请求
+message AccountPayInfoReq{
+	required int32 nUserId = 1; 	   	//	玩家id
+	required double fAmount = 2;		// 	金额（分，整数），例：1 USDT => 100
+	optional string strSubject = 3;		// 	订单标题
+}
+
+// 返回消息
+//required int32 AccountPayInfoRsp_CMD =53			[default =53];		//玩家请求充值信息-回复
+message AccountPayInfoRsp{ 
+	required int32 nCode = 1;			// 	订单状态  0未支付 1已完成 2 出错
+	required double fAmount = 2;		// 	金额（分，整数），例：1 USDT => 100
+	optional string strRemark = 3;		// 	附加信息
+}
+
+//-----------------
+
+
+
+//-----------------
+// 玩家请求提现信息
+//required int32 AccountWithdrawalReq_CMD =54			[default =54];		//玩家请求提现信息-请求
+message AccountWithdrawalReq{
+	required int32 nUserId 	= 1; 	   		//	玩家id
+	required double fAmount = 2;			// 	金额（分，整数），例：1 USDT => 100
+	required string strURL 	= 3;			// 	提现目标地址
+	required string strPwd	= 4;			// 	提现密码
+	required string strmainNet 	= 5;		// 	主网类型
+	optional string remark  	= 6;		// 	提现备注
+}
+
+// 返回消息
+//required int32 AccountWithdrawalRsp_CMD =55			[default =55];		//玩家请求提现信息-回复
+message AccountWithdrawalRsp{ 
+	required int32 nCode = 1;			// 	订单状态  0已完成 非0:出错
+	required double fAmount = 2;		// 	金额（分，整数），例：1 USDT => 100
+	optional string strRemark = 3;		// 	订单返回结果
+}
+//-----------------
+
+
+//-----------------
+// 玩家请求提现界面显示的信息
+//required int32 AccountWithdrawalViewReq_CMD =56			[default =56];		//玩家请求提现界面显示基本信息-请求
+message AccountWithdrawalViewReq{
+	required int32 nUserId 	= 1; 	   				//	玩家id
+}
+
+
+// 返回消息
+//required int32 AccountWithdrawalViewRsp_CMD =57			[default =57];		//玩家请求提现界面显示基本信息-回复
+message AccountWithdrawalViewRsp{ 
+	message OneWithdrawWViewInfo{
+			required string strMainNet = 1;      	//  主网类型
+			required string strRate = 2;      		//  手续费
+			required int32  nMinTopupMoney = 3;  	//  最小提现额
+			required string  strTime = 4;  			//  提现确认时间
+		}
+	repeated OneWithdrawWViewInfo arrWithdrawList = 1;  //   返回地址信息
+}
+//-----------------
+
+
+//----------------------------
+//个人通知请求 ClubSUserNoticeReq_CMD
+//required int32 ClubSUserNoticeReq_CMD =66                   [default = 66];  //个人通知请求
+message ClubSUserNoticeReq
+{
+    required int32 nIdOfStart=1   [default = 0]; //开始查询的id (查询少于该id的记录),第一页查询填0,第二页查询填上一页的最小id
+	required int32 nCnt=2 		  [default = 10];//本页的记录数目
+    required int32 nType=3        [default = 0];//通知的类型 1:系统通知 2:俱乐部邀请通知 3:个人加入俱乐部申请
+}
+
+//个人通知返回 ClubSUserNoticeResp_CMD
+//required int32 ClubSUserNoticeResp_CMD =67                  [default = 67];  //个人通知返回
+message ClubSUserNoticeResp
+{
+    repeated ClubSNoticesItem arrNotices = 1; ///nType=1或者nType=2才有
+    required int32 nAllCnt = 2; //总数
+    required int32 nType=3; //通知的类型 1:系统通知 2:俱乐部邀请通知 3:个人加入俱乐部申请
+    repeated ClubSPersonApply arrApplyList = 4; //nType=3才有
+    optional int32 nUnReadCnt = 5;  //未读的系统消息数量 nType=1才有
+}
+
+//申请信息
+message ClubSPersonApply
+{
+    required int32  nId=1;				    //记录id(自增全游戏记录唯一id)
+    required int32 nClubId=2;				//俱乐部id
+    required string sClubName=3;			//俱乐部名字
+    required string sTime=4;	    		//时间
+    required int32 nType=5;                 //申请类型: 1:增加俱乐部币 2:退还俱乐部币 3:加入俱乐部
+    required int32 nStatus=6;               //申请状态 0:未处理,1:同意 2:拒绝 3:已失效 4:已撤回
+    optional double nChange=7;              //俱乐部币变化值(nType=1和nType=2才有)
+}
+
+message ClubSNoticesItem
+{
+    required int32 nId=1;				//记录id(自增全游戏记录唯一id)
+    required int32 nType=2;             //消息分类 1:系统通知 2:俱乐部邀请通知 4:Mtt比赛领奖通知 5:Mtt比赛取消通知
+    required int32 nStatus=3;           //状态 0:未处理,1:同意 2:拒绝 3:不需要处理 4:已失效  5:已领取
+    required string sTime=4; 		    //时间
+    required string sData=5;            //数据,json格式,nType=2时,结构={sClubName=俱乐部名字,nClubId=俱乐部id,nUserId=邀请者id,sUserName=邀请者名字,sFaceId=邀请者头像} 
+                                        //  nType=1时,结构={sClubName=俱乐部名字,nClubId=俱乐部id,nUserId=管理员id,sUserName=管理员名字,sFaceId=管理员头像
+                                        //        nOpType=操作类型:1:增加俱乐部币 2:回收俱乐部币 3:提升为管理员 4:降成普通成员 5:踢出 6:修改权限 7:处理申请加入 8:处理俱乐部币申请 9:处理俱乐部币退还申请
+                                        //        nChange=变化的俱乐部币,arrChangePower={{nPowerType,isOpen},...},isAgree=1:同意 2:拒绝}
+										
+										//nType=4时,{sName=比赛名称Base64,nGold=获奖金币,nEventId=比赛ID,nRank=比赛名次,nGameId=游戏id}
+										//nType=5时,{sName=比赛名称Base64,nEventId=比赛ID}
+										
+										
+    optional int32 nHadRead=6;          //是否已读 0:未读 1:已读  nType=1才有
+}
+
+//required int32 ClubSUserNoticeHandleReq_CMD =68             [default = 68];  //处理个人通知请求
+//处理个人通知请求 ClubSUserNoticeHandleReq_CMD
+message ClubSUserNoticeHandleReq
+{
+    required int32 nId=1       [default = 0];//记录id(自增全游戏记录唯一id)
+    required int32 nOpType=2   [default = 0];//操作类型:1同意，2拒绝 3Mtt比赛领奖
+}
+
+//required int32 ClubSUserNoticeHandleResp_CMD =69            [default = 69];  //处理个人通知返回
+//处理个人通知返回 ClubSUserNoticeHandleResp_CMD
+message ClubSUserNoticeHandleResp
+{
+    required int32 nRlt = 1;     //0:成功 1:参数错误 2:无需处理 3:已处理 4:俱乐部不存在 5:俱乐部已满人 6:已失效 7:不是你的通知 8:没有这条通知 9:玩家通知的额外信息错误 10：已经是俱乐部成员 99:数据库操作异常
+    required string sErrStr = 2; //错误信息
+    required int32 nId=3;        //记录id(自增全游戏记录唯一id)
+    required int32 nOpType=4;    //操作类型:1同意，2拒绝 3Mtt比赛领奖
+}
+//

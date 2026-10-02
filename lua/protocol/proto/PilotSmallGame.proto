@@ -1,0 +1,236 @@
+syntax = "proto2";
+
+package PilotSmallGame_pb;
+
+message PilotSmallGameCMD {
+  required int32 Main_CMD = 1 [default = 227];
+  required int32 PilotSGLogOnReq_CMD = 2 [default = 2];
+  required int32 PilotSGLogOnRsp_CMD = 3 [default = 3];
+  required int32 PilotSGBetReq_CMD = 4 [default = 4];
+  required int32 PilotSGBetRsp_CMD = 5 [default = 5];
+  required int32 PilotSGScenceChangeNotify_CMD = 6 [default = 6];
+  required int32 PilotSGBetRecordReq_CMD = 7 [default = 7];
+  required int32 PilotSGBetRecordRsp_CMD = 8 [default = 8];
+  required int32 PilotSGHistoryReq_CMD = 9 [default = 9];
+  required int32 PilotSGHistoryRsp_CMD = 10 [default = 10];
+  required int32 PilotSGTrendReq_CMD = 11 [default = 11];
+  required int32 PilotSGTrendRsp_CMD = 12 [default = 12];
+  required int32 PilotSGSettleNotify_CMD = 13 [default = 13];
+  required int32 DouQiStartNotify_CMD = 14 [default = 14];
+  required int32 DouQiBetBanNotify_CMD = 15 [default = 15];
+  required int32 PilotSGResultNotify_CMD = 16 [default = 16];
+}
+
+message AreaOdds {
+  message Item {
+    required int32 nGameId = 1;
+    required int32 nArea = 2;
+    required double nOdds = 3;
+  }
+  repeated Item arrItem = 1;
+}
+
+message PilotSGBetLimit {
+  message Item {
+    required int32 nGameId = 1;
+    required int32 nAreaId = 2;
+    required int32 nMin = 3;
+    required int32 nMax = 4;
+  }
+  repeated Item arrItem = 1;
+}
+
+message PilotSGScenceOfDouQi {
+  required string sSeriesNumber = 1;
+  repeated int32 arrBanAreas = 2;
+}
+
+message PilotSGScence {
+  message BetItem {
+    required int32 nGameId = 1;
+    required int32 nBetSum = 2;
+  }
+  required string sSeriesNumber = 1;
+  required int32 nToStopBetCnt = 2;
+  optional AreaOdds tAreaOdds = 3;
+  optional double nGold = 4;
+  optional PilotSGScenceOfDouQi tScenceOfDouQi = 5;
+  optional PilotSGBetLimit tPilotSGBetLimit = 6;
+  repeated BetItem arrBetDetail = 7;
+}
+
+message PilotSGLogOnReq {
+  required int32 nUserId = 1;
+  required string sTableId = 2;
+}
+
+message PilotSGLogOnRsp {
+  required int32 nResult = 1;
+  optional PilotSGScence tPilotSGScence = 2;
+  optional string strErr = 3;
+}
+
+message PilotSGBetReq {
+  message BetItem {
+    required int32 nArean = 1;
+    required int32 nBet = 2;
+    optional int32 nBall = 3;
+  }
+  required int32 nGameId = 1;
+  repeated BetItem arrBetItem = 2;
+}
+
+message PilotSGBetRsp {
+  required int32 nResult = 1;
+  optional string strErr = 2;
+}
+
+message PilotSGScenceChangeNotify {
+  required string sSeriesNumber = 1;
+  required int32 nToStopBetCnt = 2;
+}
+
+message DouQiStartNotify {
+  required string sSeriesNumber = 1;
+}
+
+message DouQiBetBanNotify {
+  required int32 nBanAreas = 1;
+}
+
+message PilotSGBetRecordReq {
+  required int32 nStatus = 1;
+  required int32 nQueryCnt = 2 [default = 10];
+  required int32 nMinId = 3 [default = 0];
+}
+
+message PilotSGBetRecordRsp {
+  message Item {
+    required string sSeriesNumber = 1;
+    required int32 nGameId = 2;
+    required int32 nArean = 3;
+    required double nOdds = 4;
+    required int32 nBet = 5;
+    required double nGoldCanWin = 6;
+    optional int32 nBall = 7;
+    required int32 Id = 8;
+  }
+  message ItemA {
+    required string sSeriesNumber = 1;
+    required int32 nGameId = 2;
+    required int32 nAnte = 3;
+    required double nGoldWin = 4;
+  }
+  repeated Item arrItem = 1;
+  required int32 nMinId = 2;
+  optional int32 nStatus = 3;
+  repeated ItemA arrTtem = 4;
+}
+
+message PilotSGTrendReq {
+  required int32 nType = 1;
+}
+
+message PilotSGTrendRsp {
+  required int32 nType = 1;
+  optional ShiShiCaiHaoMa tShiShiCaiHaoMa = 2;
+  optional ShiShiCaiDanShuang tShiShiCaiDanShuang = 3;
+  optional ShiShiCaiDaXiao tShiShiCaiDaXiao = 4;
+  optional DouNiuNiuLu tDouNiuNiuLu = 5;
+  optional DouNiuDanShuang tDouNiuDanShuang = 6;
+  optional DouNiuDaXiao tDouNiuDaXiao = 7;
+  optional SuoHaPaiXing tSuoHaPaiXing = 8;
+  optional DouQiTakeOff tDouQiTakeOff = 9;
+  optional DouQiCiShu tDouQiCiShu = 10;
+}
+
+message ShiShiCaiHaoMa {
+  repeated int32 arrDiceA = 1;
+  repeated int32 arrDiceB = 2;
+  repeated int32 arrDiceC = 3;
+  repeated int32 arrDiceD = 4;
+  repeated int32 arrDiceE = 5;
+  repeated int32 arrDiceF = 6;
+}
+
+message ShiShiCaiDanShuang {
+  repeated int32 arrBallA = 1;
+  repeated int32 arrBallB = 2;
+  repeated int32 arrBallC = 3;
+  repeated int32 arrBallD = 4;
+  repeated int32 arrBallE = 5;
+}
+
+message ShiShiCaiDaXiao {
+  repeated int32 arrBallA = 1;
+  repeated int32 arrBallB = 2;
+  repeated int32 arrBallC = 3;
+  repeated int32 arrBallD = 4;
+  repeated int32 arrBallE = 5;
+}
+
+message DouNiuNiuLu {
+  repeated int32 arrNiu = 1;
+}
+
+message DouNiuDanShuang {
+  repeated int32 arr = 1;
+}
+
+message DouNiuDaXiao {
+  repeated int32 arr = 1;
+}
+
+message SuoHaPaiXing {
+  repeated int32 arr = 1;
+}
+
+message DouQiTakeOff {
+  repeated int32 arrA = 1;
+  repeated int32 arrB = 2;
+  repeated int32 arrC = 3;
+  repeated int32 arrD = 4;
+}
+
+message DouQiCiShu {
+  repeated int32 arr = 1;
+}
+
+message PilotSGHistoryReq {
+  optional int32 nNoUse = 1;
+}
+
+message PilotSGHistoryRsp {
+  repeated BallsItem arrBallsItem = 1;
+}
+
+message BallsItem {
+  required string sSeriesNumber = 1;
+  repeated int32 arrBall = 2;
+  required int32 nSuoHaCardType = 3;
+  required int32 nNiuNiuCardType = 4;
+}
+
+message PilotSGSettleNotify {
+  required int32 nType = 1;
+  optional BallsItem tBallsItem = 2;
+  optional PilotTakeOff tPilotTakeOff = 3;
+  optional int32 nWinnerOccur = 4;
+  optional double nGold = 5;
+}
+
+message PilotTakeOff {
+  required int32 nColor = 1;
+  required int32 nRank = 2;
+}
+
+message PilotSGResultNotify {
+  message Item {
+    required int32 nGameId = 1;
+    required double nWin = 2;
+  }
+  required double nWinSum = 1;
+  repeated Item arrWinDetail = 2;
+  required int32 nDouQiRltCnt = 3;
+  optional BallsItem tBallsItem = 4;
+}

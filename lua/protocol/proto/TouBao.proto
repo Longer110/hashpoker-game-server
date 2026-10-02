@@ -1,0 +1,525 @@
+syntax = "proto2";
+
+package TouBao_pb;
+
+message TouBao_Proto {
+    required int32 Main_CMD = 1 [default = 252];
+    required int32 MainJH_CMD = 33 [default = 225];
+    required int32 TBSLogOnReq_CMD = 2 [default = 2];
+    required int32 TBSLogOnResp_CMD = 3 [default = 3];
+    required int32 TBSGoInBetStageNotify_CMD = 4 [default = 4];
+    required int32 TBSBetReq_CMD = 5 [default = 5];
+    required int32 TBSBetResp_CMD = 6 [default = 6];
+    required int32 TBSBetNotify_CMD = 7 [default = 7];
+    required int32 TBSGoInResultStageNotify_CMD = 8 [default = 8];
+    required int32 TBSGoInFreeStageNotify_CMD = 9 [default = 9];
+    required int32 TBSGetApplicantsReq_CMD = 10 [default = 10];
+    required int32 TBSGetApplicantsResp_CMD = 11 [default = 11];
+    required int32 TBSApplyForBankerReq_CMD = 12 [default = 12];
+    required int32 TBSApplyForBankerResp_CMD = 13 [default = 13];
+    required int32 TBSApplyCancelReq_CMD = 14 [default = 14];
+    required int32 TBSApplyCancelResp_CMD = 15 [default = 15];
+    required int32 TBSApplyResignReq_CMD = 16 [default = 16];
+    required int32 TBSApplyResignResp_CMD = 17 [default = 17];
+    required int32 TBSBackToLobbyReq_CMD = 18 [default = 18];
+    required int32 TBSBackToLobbyRsp_CMD = 19 [default = 19];
+    required int32 TBSGmReq_CMD = 20 [default = 20];
+    required int32 TBSKickOutNotify_CMD = 22 [default = 22];
+    required int32 TBSBetDetail_CMD = 23 [default = 23];
+    required int32 TBSCloseTableNotify_CMD = 24 [default = 24];
+    required int32 TBSGoldChangeNotify_CMD = 25 [default = 25];
+    required int32 TBSWithCastq_CMD = 26 [default = 26];
+    required int32 TBSWithCastp_CMD = 27 [default = 27];
+    required int32 TBSRecommendQ_CMD = 28 [default = 28];
+    required int32 TBSRecommendP_CMD = 29 [default = 29];
+    required int32 TBSModRank_CMD = 30 [default = 30];
+    required int32 TBSTrendMapReq_CMD = 31 [default = 31];
+    required int32 TBSTrendMapRsp_CMD = 32 [default = 32];
+    required int32 TBSRecordReq_CMD = 34 [default = 34];
+    required int32 TBSRecordRsp_CMD = 35 [default = 35];
+    required int32 TBSBatchBetReq_CMD = 36 [default = 36];
+    required int32 TBSBatchBetRsp_CMD = 37 [default = 37];
+    required int32 TBSComfirmRecommendP_CMD = 38 [default = 38];
+    required int32 TBSTableInfoReq_CMD = 39 [default = 39];
+    required int32 TBSTableInfoNotify_CMD = 40 [default = 40];
+    required int32 TBSSwitchGameReq_CMD = 41 [default = 41];
+    required int32 TBSSwitchGameRep_CMD = 42 [default = 42];
+    required int32 TBSStreetNameplateNotify_CMD = 43 [default = 43];
+    required int32 TBSUserWinLoseRep_CMD = 44 [default = 44];
+    required int32 TBSBlockChainCardReq_CMD = 45 [default = 45];
+    required int32 TBSBlockChainCardRep_CMD = 46 [default = 46];
+    required int32 TBUserCntChangeNotify_CMD = 47 [default = 47];
+    required int32 TBSTableStatusNotify_CMD = 48 [default = 48];
+    required int32 TBSLiveInfoNotify_CMD = 49 [default = 49];
+    required int32 TBSRecordDetailReq_CMD = 50 [default = 50];
+    required int32 TBSRecordDetailRsp_CMD = 51 [default = 51];
+    required int32 TBSLiveDemoPetternRsq_CMD = 52 [default = 52];
+    required int32 TBSLiveDemoPetternRsp_CMD = 53 [default = 53];
+    required int32 TBSLiveDemoPetternNotify_CMD = 54 [default = 54];
+    required int32 TBSTestGoldResetNotify_CMD = 55 [default = 55];
+}
+
+message TBSLogOnReq {
+    required int32 nUserId = 1 [default = -99];
+    required int32 nRoomId = 2 [default = -99];
+    optional string sTableId = 3;
+}
+
+message TBSLogOnResp {
+    required int32 nRlt = 1;
+    optional TBSScence tScence = 2;
+    optional string strErr = 3;
+}
+
+message TBSSwitchGameReq {
+    required int32 nUserId = 1;
+    required int32 nSwitchType = 2;
+    required string sTableId = 3;
+}
+
+message TBSSwitchGameRep {
+    required int32 nRlt = 1;
+    required int32 nSwitchType = 2;
+    required string sTableId = 3;
+}
+
+message TBtTableInfo {
+    required string sTableId = 1;
+    optional string sTableName = 2;
+    required int32 nRoomId = 3;
+    optional string sPaiJuId = 4;
+    required int32 nStage = 5;
+    required int32 nSeconds = 6;
+    optional TBTrendMap arrTrendMap = 7;
+    optional bool isBet = 8;
+    optional int32 nCurrentRealUserCnt = 10;
+    optional int32 nTableType = 11;
+    optional string sLiveID = 12;
+    optional string sPlatformID = 13;
+    optional int32 nTableStatus = 14;
+    optional int32 nGroupId = 15;
+    optional int32 nStageTime = 16;
+}
+
+message TBSTableInfoReq {
+    repeated int32 arrTableType = 1;
+}
+
+message TBSTableInfoNotify {
+    repeated TBtTableInfo arrTableInfo = 1;
+}
+
+message TBSStreetNameplateNotify {
+    required int32 nType = 1;
+    required string sTableId = 2;
+    required int32 nCurrentRealUserCnt = 3;
+    optional string sTableName = 4;
+    optional int32 nSeconds = 5;
+    repeated int32 arrDice = 6;
+    optional bool isBet = 7;
+    optional int32 nTableType = 8;
+    optional string sLiveID = 9;
+    optional string sPlatformID = 10;
+    repeated TBDiceRecordStatis arrDiceRecordStatis = 11;
+    optional int32 nTableStatus = 12;
+    optional int32 nGroupId = 13;
+    optional int32 nStageTime = 14;
+}
+
+message TBSUser {
+    required int32 nUserId = 1;
+    required string sFaceId = 2;
+    required string sName = 3;
+    required double nGold = 4;
+    required int32 nSex = 5;
+    optional int32 nBankerConsecutive = 6 [default = -99];
+    optional double nBankerWinLose = 7 [default = -99];
+    optional double nBanKerDrawWater = 8 [default = -99];
+    optional double nBetSum = 9;
+}
+
+message TBDiceRecordStatis {
+    required int32 nDice = 1;
+    required int32 nCount = 2;
+}
+
+message TBTrendMap {
+    message tDice {
+        repeated int32 nDice = 1;
+    }
+    
+    repeated tDice arrRecordTrend = 1;
+    repeated tDice arrRecommendTrend = 2;
+    repeated TBDiceRecordStatis arrDiceRecordStatis = 3;
+    optional int32 nInning = 4;
+    repeated bool arrRecommendCentre = 5;
+}
+
+message TBSTrendMapReq {
+    optional int32 nNoUse = 1;
+}
+
+message TBSTrendMapRsp {
+    optional TBTrendMap arrTrendMap = 1;
+}
+
+message TBRankTreasure {
+    required double nSelfProfit = 1;
+    required double nSelfGold = 2;
+    required int32 nSitId = 3;
+}
+
+message TBSSelfGold {
+    repeated TBRankTreasure tAllBetSelf = 1;
+}
+
+message TBSwitchConfig {
+    optional bool bShangZhuangOpen = 1;
+    optional bool bWithCastOpen = 2;
+    optional bool bRecommendOpen = 3;
+}
+
+message TBBetLimit {
+    optional int32 nType = 1;
+    optional double nMin = 2;
+    optional double nMax = 3;
+}
+
+message TBSScence {
+    required int32 nRoomId = 1;
+    repeated double arrChipsForBet = 2;
+    required double nBankerRequirement = 3;
+    required int32 nConsecutiveMax = 4;
+    required TBSUser tBanker = 5;
+    required TBSUser tMyself = 6;
+    required int32 nStage = 7;
+    required int32 nSeconds = 8;
+    required int32 nButtonStatus = 9;
+    optional TBTrendMap arrTrendMap = 10;
+    optional TBSBetDetail tBetDetail = 11;
+    repeated int32 arrDice = 12;
+    optional double nSelfProfit = 13;
+    optional double nSelfGold = 25;
+    optional double nBankerProfit = 14;
+    optional double nBankerGold = 26;
+    optional int32 nWithCastSum = 15;
+    optional int32 nCount = 16;
+    optional double nMoney = 17;
+    optional int32 nLiveUserID = 18;
+    optional int32 nCurrentRealUserCnt = 23;
+    repeated int32 arrRecommend = 24;
+    optional TBSSelfGold arrRankGold = 27;
+    optional int32 nIsRepeatBet = 28;
+    repeated TBSAreaWinLose tWinResult = 29;
+    optional TBSwitchConfig tSwitchConfig = 30;
+    optional TBSBetDetail tScenceWinResult = 31;
+    repeated TBBetLimit arrBetLimit = 32;
+    optional double nLiveGold = 33;
+    optional string sTableName = 34;
+    optional string sPaiJuId = 35;
+    required string sTableId = 36;
+    optional TBRecommendSet tRecommendSet = 37;
+    repeated int32 arrSysRecommend = 38;
+    optional bool isRecommendStatus = 39;
+    optional int32 nTableType = 40;
+    repeated int32 arrOpenKey = 41;
+    required int32 nTableStatus = 42;
+    optional int32 nGroupId = 43;
+    optional int32 nRound = 44;
+    optional string sExten = 45;
+    optional string sFollowConfig = 46;
+    optional int32 nStageTime = 47;
+}
+
+message TBSGoInBetStageNotify {
+    required int32 nSeconds = 1;
+    repeated int32 arrRecommend = 2;
+    optional bool isRecommendStatus = 3;
+}
+
+message TBSBatchBetReq {
+    repeated TBSBetReq arrBatchBet = 1;
+}
+
+message TBSBetReq {
+    required double nBetChip = 1;
+    required int32 nBetArea = 2;
+}
+
+message TBSBetResp {
+    required int32 nRlt = 1;
+    optional string strErr = 2;
+    optional TBSBetDetail tBetDetail = 3;
+    optional int32 nBetLimitType = 4;
+    optional double nUserGold = 5;
+}
+
+message TBSAreaChipBetItem {
+    required int32 nAreaId = 1;
+    required double nSumBet = 2;
+    optional int32 nBetPeople = 3;
+    optional double nAnchorBet = 4;
+    optional int32 nSitId = 5;
+}
+
+message TBSBetDetail {
+    repeated TBSAreaChipBetItem arrAllBetDetail = 1;
+    repeated TBSAreaChipBetItem arrSelfBetDetail = 2;
+}
+
+message TBSBetNotify {
+    repeated TBSAreaChipBetItem arrSelfBet = 1;
+    repeated TBSAreaChipBetItem arrOtherBet = 2;
+}
+
+message TBSAreaWinLose {
+    required int32 nAreaId = 1;
+    required double nWinLose = 2;
+    required double nDrawWater = 3;
+}
+
+message TBSGoInResultStageNotify {
+    required int32 nSeconds = 1;
+    repeated int32 arrDice = 2;
+    required double nSelfProfit = 3;
+    required double nBankerProfit = 4;
+    required double nSelfGold = 5;
+    required double nBankerGold = 6;
+    optional TBSSelfGold arrRankGold = 7;
+    repeated TBSAreaWinLose tWinResult = 8;
+    optional TBSBetDetail tSettleResult = 9;
+    repeated int32 arrHitArea = 10;
+}
+
+message TBSGoInFreeStageNotify {
+    required int32 nSeconds = 1;
+    required TBSUser tBanker = 2;
+    required int32 nTipId = 3;
+    required int32 nButtonStatus = 4;
+    required double nSelfGold = 5;
+    required int32 nWithCastSum = 6;
+    required TBSSwitchConfig tSwitchConfig = 7;
+    repeated TBBetLimit arrBetLimit = 8;
+    required int32 nLiveUserID = 9;
+    required double nLiveGold = 10;
+    required string sTableName = 11;
+    required string sPaiJuId = 12;
+    required TBRecommendSet tRecommendSet = 13;
+    repeated int32 arrOpenKey = 14;
+    required int32 nTableStatus = 15;
+    repeated double arrChipsForBet = 16;
+    required int32 nRound = 17;
+    required string sExten = 18;
+}
+
+message TBSUserWinLoseRep {
+    required string sTableId = 1;
+    required double nSelfProfit = 2;
+    required double nSelfGold = 3;
+}
+
+message TBSGetApplicantsReq {
+}
+
+message TBSGetApplicantsResp {
+    repeated TBSUser arrApplicants = 1;
+}
+
+message TBSApplyForBankerReq {
+}
+
+message TBSApplyForBankerResp {
+    required int32 nRlt = 1;
+    optional string strErr = 2;
+}
+
+message TBSApplyCancelReq {
+}
+
+message TBSApplyCancelResp {
+    required int32 nRlt = 1;
+    optional string strErr = 2;
+}
+
+message TBSApplyResignReq {
+    optional int32 nNoUse = 1;
+}
+
+message TBSApplyResignResp {
+    required int32 nRlt = 1;
+    optional string strErr = 2;
+}
+
+message TBSBackToLobbyReq {
+    optional int32 nNoUse = 1;
+}
+
+message TBSBackToLobbyRsp {
+    required int32 nRlt = 1;
+    optional string strErr = 2;
+}
+
+message TBSGmReq {
+    required string strCmd = 1;
+}
+
+message TBSKickOutNotify {
+    optional int32 nNoUse = 1;
+    required int32 nReason = 2;
+}
+
+message TBSCloseTableNotify {
+    optional int32 nNoUse = 1;
+}
+
+message TBSGoldChangeNotify {
+    required double nChangeGold = 1;
+}
+
+message TBSWithCastq {
+    required int32 nOperateType = 1;
+    required double nMoney = 2;
+    required int32 nCount = 3;
+    required int32 nType = 4;
+    required bool isLeaveWithCast = 5;
+    required int32 nIsLimitArea = 6;
+    required int32 nIsOpposedToLive = 7;
+    required int32 nFollowUserId = 8;
+}
+
+message TBSWithCastp {
+    required int32 nRlt = 1;
+    optional string strErr = 2;
+    required int32 nOperateType = 3;
+    required int32 nCount = 4;
+    required double nMoney = 5;
+    required int32 nType = 6;
+    required bool isLeaveWithCast = 7;
+    required int32 nIsLimitArea = 8;
+    required int32 nIsOpposedToLive = 9;
+    required int32 nFollowUserId = 10;
+}
+
+message TBSModRank {
+    required TBSUser tRankUser4 = 1;
+}
+
+message TBSRecordReq {
+    required int32 nIdOfStart = 1;
+    required int32 nCnt = 2;
+}
+
+message TBSRecordRsp {
+    message Item {
+        required string sPaiJuId = 1;
+        required double nBet = 2;
+        required double nProfit = 3;
+        required string sTime = 4;
+        required int32 nId = 5;
+    }
+    
+    repeated Item arrRecords = 1;
+    required Item nSumItem = 2;
+}
+
+message TBSComfirmRecommendP {
+    required int32 nType = 1;
+    repeated int32 arrRecommend = 2;
+}
+
+message TBRecommendSet {
+    required bool bRecommendsWith = 1;
+    required bool bSysRecommendsWith = 2;
+    required bool bAutoRecommendsWith = 3;
+}
+
+message TBSRecommendQ {
+    required int32 nType = 1;
+    required TBRecommendSet tRecommendSet = 2;
+    repeated int32 arrRecommend = 3;
+}
+
+message TBSRecommendP {
+    required int32 nRlt = 1;
+    optional string strErr = 2;
+    required int32 nType = 3;
+    required TBRecommendSet tRecommendSet = 4;
+}
+
+message TBSBlockChainCardReq {
+    required int32 nType = 1;
+    required int32 nCardKey = 2;
+}
+
+message TBSBlockChainCardRep {
+    message Verification {
+        required string sTableId = 1;
+        required int32 nKey = 2;
+        required int32 nVal = 3;
+        required string sPlainText = 4;
+        required string sCardPass = 5;
+    }
+    
+    message TBlockChainCard {
+        required int32 nKey = 1;
+        required int32 nVal = 2;
+    }
+    
+    required int32 nType = 1;
+    required int32 nRlt = 2;
+    repeated TBlockChainCard arrBlockChainCard = 3;
+    optional Verification tVerification = 4;
+}
+
+message TBUserCntChangeNotify {
+    message Item {
+        required string sTableId = 1;
+        required int32 nCurrentRealUserCnt = 2;
+    }
+    
+    repeated Item arrItem = 1;
+}
+
+message TBSTableStatusNotify {
+    required string sTableId = 1;
+    required int32 nTableType = 2;
+    required int32 nTableStatus = 3;
+}
+
+message TBSLiveInfoNotify {
+    required string sTableId = 1;
+    required int32 nLiveUserID = 2;
+    required double nLiveGold = 3;
+}
+
+message TBSRecordDetailReq {
+    required string sPaiJuId = 1;
+}
+
+message TBSRecordDetailRsp {
+    required string sPaiJuId = 1;
+    required string sTableNo = 2;
+    required string sRoundNo = 3;
+    repeated int32 arrDice = 4;
+    repeated TBSAreaWinLose tWinResult = 5;
+}
+
+message TBSLiveDemoPetternRsq {
+    required int32 nLiveGoldPettern = 1;
+}
+
+message TBSLiveDemoPetternRsp {
+    required int32 nRlt = 1;
+}
+
+message TBSLiveDemoPetternNotify {
+    required int32 nLiveGoldPettern = 1;
+    required bool bIsForce = 2;
+    required int32 nLiveGold = 3;
+}
+
+message TBSTestGoldResetNotify {
+    required int32 nToday = 1;
+    required int32 nTotal = 2;
+    required int32 nGold = 3;
+}

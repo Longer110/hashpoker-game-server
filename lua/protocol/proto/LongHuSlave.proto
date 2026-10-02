@@ -1,0 +1,731 @@
+syntax = "proto2";
+
+package LongHuSlave_pb;
+
+message LHS_Proto {
+    required int32 Main_CMD = 1 [default = 307];
+    required int32 LHSLogOnReq_CMD = 2 [default = 2];
+    required int32 LHSLogOnResp_CMD = 3 [default = 3];
+    required int32 LHSGoInBetStageNotify_CMD = 4 [default = 4];
+    required int32 LHSBetNotify_CMD = 7 [default = 7];
+    required int32 LHSGoInResultStageNotify_CMD = 8 [default = 8];
+    required int32 LHSGoInFreeStageNotify_CMD = 9 [default = 9];
+    required int32 LHSGetApplicantsReq_CMD = 10 [default = 10];
+    required int32 LHSGetApplicantsResp_CMD = 11 [default = 11];
+    required int32 LHSApplyForBankerReq_CMD = 12 [default = 12];
+    required int32 LHSApplyForBankerResp_CMD = 13 [default = 13];
+    required int32 LHSApplyCancelReq_CMD = 14 [default = 14];
+    required int32 LHSApplyCancelResp_CMD = 15 [default = 15];
+    required int32 LHSApplyResignReq_CMD = 16 [default = 16];
+    required int32 LHSApplyResignResp_CMD = 17 [default = 17];
+    required int32 LHSBackToLobbyReq_CMD = 18 [default = 18];
+    required int32 LHSBackToLobbyRsp_CMD = 19 [default = 19];
+    required int32 LHSGmReq_CMD = 20 [default = 20];
+    required int32 LHSGmRsp_CMD = 21 [default = 21];
+    required int32 LHSKickOutNotify_CMD = 22 [default = 22];
+    required int32 LHSGoldChangeNotify_CMD = 23 [default = 23];
+    required int32 LHSBetFollowEffectReq_CMD = 24 [default = 24];
+    required int32 LHSBetFollowEffectRsp_CMD = 25 [default = 25];
+    required int32 LHSBetFollowStopReq_CMD = 26 [default = 26];
+    required int32 LHSBetFollowStopRsp_CMD = 27 [default = 27];
+    required int32 LHSRecommendReq_CMD = 28 [default = 28];
+    required int32 LHSRecommendRsp_CMD = 29 [default = 29];
+    required int32 LHSRecommendSelectReq_CMD = 30 [default = 30];
+    required int32 LHSRecommendSelectRsp_CMD = 31 [default = 31];
+    required int32 LHSRecommendTrendReq_CMD = 32 [default = 32];
+    required int32 LHSRecommendTrendRsp_CMD = 33 [default = 33];
+    required int32 LHSRecordReq_CMD = 34 [default = 34];
+    required int32 LHSRecordRsp_CMD = 35 [default = 35];
+    required int32 LHSMultiBetReq_CMD = 36 [default = 36];
+    required int32 LHSMultiBetResp_CMD = 37 [default = 37];
+    required int32 LHSRecommendAreaChangeNotify_CMD = 38 [default = 38];
+    required int32 LHSGoInShuffleNotify_CMD = 39 [default = 39];
+    required int32 LHSTableListReq_CMD = 41 [default = 41];
+    required int32 LHSTableListRsp_CMD = 42 [default = 42];
+    required int32 LHSOpenMenuReq_CMD = 43 [default = 43];
+    required int32 LHSOpenMenuRsp_CMD = 44 [default = 44];
+    required int32 LHSCloseMenuReq_CMD = 45 [default = 45];
+    required int32 LHSTableGoInBetStageNotify_CMD = 46 [default = 46];
+    required int32 LHSTrendChangeNotify_CMD = 47 [default = 47];
+    required int32 LHSUserCntChangeNotify_CMD = 48 [default = 48];
+    required int32 LHSSettleNotify_CMD = 49 [default = 49];
+    required int32 LHSRecommendChooseReq_CMD = 50 [default = 50];
+    required int32 LHSRecommendChooseRsp_CMD = 51 [default = 51];
+    required int32 LHSRecommendSwitchReq_CMD = 52 [default = 52];
+    required int32 LHSRecommendSwitchRsp_CMD = 53 [default = 53];
+    required int32 LHSCheckCardsReq_CMD = 54 [default = 54];
+    required int32 LHSCheckCardsRsp_CMD = 55 [default = 55];
+    required int32 LHSCheckCardReq_CMD = 56 [default = 56];
+    required int32 LHSCheckCardRsp_CMD = 57 [default = 57];
+    required int32 LHSGoInBetStopNotify_CMD = 58 [default = 58];
+    required int32 LHSGoInFaultNotify_CMD = 59 [default = 59];
+    required int32 LHSTableGoInFaultNotify_CMD = 60 [default = 60];
+    required int32 LHSTableBetNotify_CMD = 61 [default = 61];
+    required int32 LHSXiPaiReq_CMD = 62 [default = 62];
+    required int32 LHSXIPAIRsp_CMD = 63 [default = 63];
+    required int32 LHSXiPaiCDReq_CMD = 64 [default = 64];
+    required int32 LHSXIPAICDRsp_CMD = 65 [default = 65];
+    required int32 LHSRecommendUsersReq_CMD = 66 [default = 66];
+    required int32 LHSRecommendUsersRsp_CMD = 67 [default = 67];
+    required int32 LHSConcernUsersReq_CMD = 68 [default = 68];
+    required int32 LHSConcernUsersRsp_CMD = 69 [default = 69];
+    required int32 LHSLookUserBetReq_CMD = 70 [default = 70];
+    required int32 LHSLookUserBetRsp_CMD = 71 [default = 71];
+    required int32 LHSUserLeaveNotify_CMD = 72 [default = 72];
+    required int32 LHSUserWinLoseNotify_CMD = 73 [default = 73];
+    required int32 LHSUserConcernReq_CMD = 74 [default = 74];
+    required int32 LHSUserConcernRsp_CMD = 75 [default = 75];
+    required int32 LHSConcernUserBetNotify_CMD = 76 [default = 76];
+    required int32 LHSFollowLockChangeNotify_CMD = 77 [default = 77];
+    required int32 LHSUserBetAreaReq_CMD = 78 [default = 78];
+    required int32 LHSUserBetAreaRsp_CMD = 79 [default = 79];
+    required int32 LHSRecordDetailReq_CMD = 80 [default = 80];
+    required int32 LHSRecordDetailRsp_CMD = 81 [default = 81];
+    required int32 LHSPlayerModeChangeReq_CMD = 82 [default = 82];
+    required int32 LHSPlayerModeChangeRsp_CMD = 83 [default = 83];
+    required int32 LHSTestGoldSupplyNotify_CMD = 84 [default = 84];
+    required int32 LHSSearchUserReq_CMD = 85 [default = 85];
+    required int32 LHSSearchUserRsp_CMD = 86 [default = 86];
+    required int32 LHSUserBetAreaNotify_CMD = 87 [default = 87];
+    required int32 LHSLiveChangeTbNotify_CMD = 88 [default = 88];
+}
+
+message LHSUser {
+    required int32 nUserId = 1;
+    required string sFaceId = 2;
+    required string sName = 3;
+    required double nGold = 4;
+    required int32 nSex = 5;
+    optional int32 nBankerConsecutive = 6;
+}
+
+message LHSAreaChipBetItem {
+    required int32 nAreaId = 1;
+    required double nBetSum = 2;
+    optional int32 nUserCnt = 3;
+    optional double nAnchorBet = 4;
+}
+
+message LHSBetDetail {
+    repeated LHSAreaChipBetItem arrAllBetDetail = 1;
+    repeated LHSAreaChipBetItem arrSelfBetDetail = 2;
+}
+
+message LHSBlockChainBothCard {
+    message Item {
+        required int32 nDex = 1;
+        optional int32 nCard = 2;
+        optional string sClearText = 3;
+    }
+    repeated Item arrCardLH = 1;
+}
+
+message LHSResultsOfCardOpen {
+    required int32 nCardL = 1;
+    required int32 nCardH = 2;
+    required int32 nResult = 3;
+    required bool isLDan = 4;
+    required bool isHDan = 5;
+    repeated int32 arrHitArea = 6;
+    optional int32 nPredict = 7;
+    optional LHSBlockChainBothCard tBlockChainBothCard = 8;
+}
+
+message LHSBetFollowConfig {
+    required double nAmount = 1;
+    required int32 nCount = 2;
+    optional int32 nIsLimitArea = 3;
+    optional int32 nRemainCnt = 4;
+    optional int32 nIsOpposedToLive = 5;
+    optional int32 nIsOffLineEffect = 6;
+    optional int32 nFollowUserId = 7;
+}
+
+message LHSSwitchConfig {
+    required bool isRecommendOn = 1;
+    required bool isFollowBetOn = 2;
+    required bool isUserBankerOn = 3;
+    optional bool isVipOn = 4;
+}
+
+message LHSBetLimit {
+    message Item {
+        required int32 nAreaId = 1;
+        required double nMin = 2;
+        required double nMax = 3;
+    }
+    repeated Item arrItem = 1;
+}
+
+message LHSHeadLine {
+    required string sPaiJuId = 1;
+    required string sTableName = 2;
+    required double nBalance = 3;
+    optional string sRoundNo = 4;
+    optional string sXueNo = 5;
+}
+
+message LHSTrendItem {
+    required int32 nResult = 1;
+    optional int32 nOrder = 4;
+    optional int32 nPredict = 5;
+}
+
+message LHSProfitItem {
+    required int32 nBetArea = 1;
+    required double nProfit = 2;
+}
+
+message LHSMaintenanceInfo {
+    required int32 status = 1;
+    required int32 nTimestampStart = 2;
+    required int32 nTimestampEnd = 3;
+    required int32 nCountDown = 4;
+}
+
+message LHSPlayerMode {
+    required int32 status = 1;
+}
+
+message LHSScence {
+    required int32 nRoomId = 1;
+    repeated double arrChipsForBet = 2;
+    required LHSBetLimit tBetLimit = 3;
+    required bool isBetExclusive = 4;
+    required int32 nBankerRequirement = 5;
+    required int32 nConsecutiveMax = 6;
+    required LHSUser tBanker = 7;
+    required LHSUser tMyself = 8;
+    required int32 nStage = 9;
+    required int32 nSeconds = 10;
+    required int32 nButtonStatus = 11;
+    optional LHSBetDetail tBetDetail = 12;
+    optional LHSBlockChainBothCard tBlockChainBothCard = 13;
+    optional LHSGoInResultStageNotify tResult = 14;
+    repeated LHSTrendItem arrTrend = 15;
+    repeated int32 arrPredict = 16;
+    optional int32 nRecommendAreaId = 17;
+    optional int32 nIsAnchor = 18;
+    optional int32 nLiveUserID = 19;
+    optional string sPlatformID = 20;
+    optional LHSHeadLine tHeadLine = 21;
+    optional string sTableId = 22;
+    optional string sLiveTableId = 23;
+    optional string sSrcTableId = 24;
+    optional bool isBlockChainTable = 25;
+    optional int32 nTableType = 26;
+    optional LHSBetFollowConfig tBetFollowConfig = 27;
+    optional LHSSwitchConfig tSwitchConfig = 28;
+    optional LHSMaintenanceInfo tMaintenanceInfo = 29;
+    optional LHSPlayerMode tPlayerMode = 30;
+    optional LHSXiPaiConfig tXiPaiConfig = 31;
+    optional int32 nVip = 32;
+    optional string sFollowConfig = 33;
+}
+
+message LHSLogOnReq {
+    required int32 nUserId = 1;
+    required int32 nRoomId = 2;
+    optional string sTableId = 3;
+}
+
+message LHSLogOnResp {
+    required int32 nRlt = 1;
+    optional LHSScence tScence = 2;
+    optional string strErr = 3;
+}
+
+message LHSGoInFreeStageNotify {
+    required int32 nSeconds = 1;
+    required LHSUser tBanker = 2;
+    required int32 nTipId = 3;
+    optional int32 nButtonStatus = 4;
+    optional double nSelfGold = 5;
+    optional LHSSwitchConfig tSwitchConfig = 6;
+    optional LHSHeadLine tHeadLine = 7;
+    optional int32 nIsAnchor = 8;
+    optional LHSScence tScence = 9;
+    optional int32 nIsRecover = 10;
+    optional LHSBetLimit tBetLimit = 11;
+    optional int32 nLiveUserID = 12;
+    optional string sPlatformID = 13;
+    optional LHSMaintenanceInfo tMaintenanceInfo = 14;
+    optional LHSPlayerMode tPlayerMode = 15;
+    optional int32 nVip = 16;
+    repeated double arrChipsForBet = 17;
+}
+
+message LHSGoInShuffleNotify {
+    required int32 nSeconds = 1;
+    repeated int32 arrCards = 2;
+}
+
+message LHSGoInBetStageNotify {
+    required int32 nSeconds = 1;
+    optional int32 nRemainCnt = 2;
+    optional int32 nRecommendAreaId = 3;
+    optional int32 nIsCanRecommend = 4;
+    optional int32 nSysRecommendAreaId = 5;
+    optional LHSBlockChainBothCard tBlockChainBothCard = 6;
+}
+
+message LHSGoInBetStopNotify {
+    required int32 nNoUse = 1;
+}
+
+message LHSGoInResultStageNotify {
+    required int32 nSeconds = 1;
+    required LHSResultsOfCardOpen tResultsOfCardOpen = 2;
+    required double nSelfProfit = 3;
+    required double nBankerProfit = 4;
+    required double nSelfGold = 5;
+    required double nBankerGold = 6;
+    repeated LHSProfitItem arrSelfProfitDetail = 7;
+}
+
+message LHSGoInFaultNotify {
+    required int32 nNoUse = 1;
+}
+
+message LHSMultiBetReq {
+    message Item {
+        required double nBetChip = 1;
+        required int32 nBetArea = 2;
+    }
+    repeated Item arrBet = 1;
+}
+
+message LHSMultiBetResp {
+    required int32 nRlt = 1;
+    required string strErr = 2;
+    repeated LHSAreaChipBetItem arrSelfBet = 3;
+    required double nGold = 4;
+}
+
+message LHSBetNotify {
+    repeated LHSAreaChipBetItem arrAreasBetSum = 1;
+    required double nLiveBalance = 2;
+}
+
+message LHSGetApplicantsReq {
+    required int32 nNoUse = 1;
+}
+
+message LHSGetApplicantsResp {
+    repeated LHSUser arrApplicants = 1;
+}
+
+message LHSApplyForBankerReq {
+    required int32 nNoUse = 1;
+}
+
+message LHSApplyForBankerResp {
+    required int32 nRlt = 1;
+    optional string strErr = 2;
+}
+
+message LHSApplyCancelReq {
+    required int32 nNoUse = 1;
+}
+
+message LHSApplyCancelResp {
+    required int32 nRlt = 1;
+    optional string strErr = 2;
+}
+
+message LHSApplyResignReq {
+    required int32 nNoUse = 1;
+}
+
+message LHSApplyResignResp {
+    required int32 nRlt = 1;
+    optional string strErr = 2;
+}
+
+message LHSRecommendChooseReq {
+    required int32 nRecommendAreaId = 1;
+}
+
+message LHSRecommendChooseRsp {
+    required int32 nRlt = 1;
+    optional string strErr = 2;
+}
+
+message LHSRecommendAreaChangeNotify {
+    required int32 nRecommendAreaId = 1;
+}
+
+message LHSRecommendSwitchReq {
+    required int32 nRecommend = 1;
+    required int32 nSysRecommend = 2;
+    required int32 nAutoRecommend = 3;
+}
+
+message LHSRecommendSwitchRsp {
+    required int32 nRecommend = 1;
+    required int32 nSysRecommend = 2;
+    required int32 nAutoRecommend = 3;
+}
+
+message LHSRecommend {
+    required int32 nRecommendCloseButton = 1;
+    required int32 nRecommendAreaId = 2;
+    required int32 nRemainSeconds = 3;
+    required int32 nCurrentSelect = 4;
+}
+
+message LHSRecommendReq {
+    required int32 nNoUse = 1;
+}
+
+message LHSRecommendRsp {
+    required int32 nRlt = 1;
+    optional string strErr = 2;
+    optional LHSRecommend tRecommend = 3;
+}
+
+message LHSRecommendSelectReq {
+    required int32 nSelect = 1;
+}
+
+message LHSRecommendSelectRsp {
+    required int32 nSelect = 1;
+    required int32 nRlt = 2;
+    optional string strErr = 3;
+    optional int32 nRecommendAreaId = 4;
+}
+
+message LHSRecommendTrendReq {
+    required int32 nNoUse = 1;
+}
+
+message LHSRecommendTrendRsp {
+    required int32 nRecommendState = 1;
+}
+
+message LHSBetFollowEffectReq {
+    required LHSBetFollowConfig tBetFollowConfig = 1;
+}
+
+message LHSBetFollowEffectRsp {
+    required int32 nRlt = 1;
+    optional string strErr = 2;
+}
+
+message LHSBetFollowStopReq {
+    required int32 nNoUse = 1;
+}
+
+message LHSBetFollowStopRsp {
+    required int32 nRlt = 1;
+    optional string strErr = 2;
+}
+
+message LHSPlayerModeChangeReq {
+    required int32 status = 1;
+}
+
+message LHSPlayerModeChangeRsp {
+    required int32 nRlt = 1;
+    required int32 status = 2;
+    required double nGold = 3;
+    optional string strErr = 4;
+}
+
+message LHSBackToLobbyReq {
+    required int32 nNoUse = 1;
+}
+
+message LHSBackToLobbyRsp {
+    required int32 nRlt = 1;
+    optional string strErr = 2;
+}
+
+message LHSGmReq {
+    required string strCmd = 1;
+}
+
+message LHSGmRsp {
+    required int32 nRlt = 1;
+    optional string strErr = 2;
+}
+
+message LHSKickOutNotify {
+    required int32 nNoUse = 1;
+    required int32 nReason = 2;
+}
+
+message LHSGoldChangeNotify {
+    required double nChange = 1;
+}
+
+message LHSTableListReq {
+    required int32 nNoUse = 1;
+}
+
+message LHSTableListRsp {
+    message Item {
+        required string sTableId = 1;
+        required string sTableName = 2;
+        required int32 nStageSeconds = 3;
+        required int32 nRemainSeconds = 4;
+        required int32 nIsHaveBet = 5;
+        required string sLiveId = 6;
+        required string sPlatformId = 7;
+        required int32 nIsFault = 8;
+        required double nBetSum = 9;
+    }
+    repeated Item arrItem = 1;
+}
+
+message LHSOpenMenuReq {
+    required int32 nNoUse = 1;
+}
+
+message LHSOpenMenuRsp {
+    message Item {
+        required string sTableId = 1;
+        required string sTableName = 2;
+        required int32 nStageSeconds = 3;
+        required int32 nRemainSeconds = 4;
+        required int32 nUserCnt = 5;
+        repeated LHSTrendItem arrTrend = 6;
+        required string sLiveId = 7;
+        required string sPlatformId = 8;
+        required int32 nTableType = 9;
+        required int32 nIsFault = 10;
+        repeated int32 arrPredict = 11;
+        required int32 nGoodTrendType = 12;
+        required string sLiveName = 13;
+    }
+    repeated Item arrItem = 1;
+    required int32 nCntOfAll = 2;
+    required int32 nCntOfRsp = 3;
+}
+
+message LHSCloseMenuReq {
+    required int32 nNoUse = 1;
+}
+
+message LHSTableGoInBetStageNotify {
+    required string sTableId = 1;
+    required int32 nStageSeconds = 2;
+    required string sLiveId = 3;
+    required string sPlatformId = 4;
+    required string sLiveName = 5;
+}
+
+message LHSTableBetNotify {
+    required string sTableId = 1;
+    required double nBet = 2;
+}
+
+message LHSTrendChangeNotify {
+    required string sTableId = 1;
+    required LHSTrendItem tTrendItem = 2;
+    required int32 nGoodTrendType = 3;
+}
+
+message LHSUserCntChangeNotify {
+    message Item {
+        required string sTableId = 1;
+        required int32 nUserCnt = 2;
+    }
+    repeated Item arrItem = 1;
+}
+
+message LHSSettleNotify {
+    required string sTableId = 1;
+    required double nSelfProfit = 2;
+    required double nSelfGold = 3;
+    required string sTableName = 4;
+    required double nBet = 5;
+}
+
+message LHSCheckCardsReq {
+    required int32 nNoUse = 1;
+}
+
+message LHSCheckCardsRsp {
+    repeated int32 arrCards = 1;
+    required int32 nMaxDex = 2;
+    required int32 nWhiteCardPos = 3;
+}
+
+message LHSCheckCardReq {
+    required int32 nCardDex = 1;
+}
+
+message LHSCheckCardRsp {
+    required int32 nCardDex = 1;
+    required string sEncryptText = 2;
+    required string sClearText = 3;
+    required int32 nCard = 4;
+}
+
+message LHSTableGoInFaultNotify {
+    required string sTableId = 1;
+}
+
+message LHSXiPaiReq {
+    required int32 nNoUse = 1;
+}
+
+message LHSXIPAIRsp {
+    required int32 nResult = 1;
+    optional string sErrStr = 2;
+}
+
+message LHSXiPaiCDReq {
+    required int32 nNoUse = 1;
+}
+
+message LHSXIPAICDRsp {
+    required int32 nReTime = 1;
+}
+
+message LHSXiPaiConfig {
+    required int32 nXiPaiCost = 1;
+    required int32 nTime = 2;
+}
+
+message LHSRecommendUsersReq {
+    message ArrMicUserId {
+        required int32 nMicUserId = 1;
+    }
+    repeated ArrMicUserId tMicUserId = 1;
+}
+
+message LHSRecommendUser {
+    required int32 nUserId = 1;
+    required string sFaceId = 2;
+    required string sName = 3;
+    required double nBet = 4;
+    required double nWinLose = 5;
+    required int32 nIsMic = 6;
+    required int32 nIsConcern = 7;
+    required double tWinLose = 8;
+}
+
+message LHSConcernUser {
+    required int32 nUserId = 1;
+    required string sFaceId = 2;
+    required string sName = 3;
+    required double nBet = 4;
+    required double nWinLose = 5;
+    required int32 nIsLock = 6;
+    required int32 nIsFollow = 7;
+    required double tWinLose = 8;
+    required string sShopAcc = 9;
+    required int32 nBetArea = 10;
+}
+
+message LHSSingleWinLoseInfo {
+    required string sPaiJuId = 1;
+    required double nWl = 2;
+}
+
+message LHSRecommendUsersRsp {
+    repeated LHSRecommendUser tUserList = 1;
+}
+
+message LHSConcernUsersReq {
+    message ArrMicUserId {
+        required int32 nMicUserId = 1;
+    }
+    repeated ArrMicUserId tMicUserId = 1;
+}
+
+message LHSConcernUsersRsp {
+    repeated LHSConcernUser tUserList = 1;
+}
+
+message LHSLookUserBetReq {
+    required int32 nUserId = 1;
+}
+
+message LHSBetInfo {
+    required int32 nAreaId = 1;
+    required double nBetSum = 2;
+}
+
+message LHSUserBetInfo {
+    repeated LHSBetInfo tBetInfo = 1;
+}
+
+message LHSLookUserBetRsp {
+    required int32 nResult = 1;
+    required int32 nUserId = 2;
+    required LHSUserBetInfo tUserBetInfo = 3;
+    required string sShopAcc = 4;
+}
+
+message LHSUserLeaveNotify {
+    required int32 nUserId = 1;
+}
+
+message LHSUserWinLoseInfo {
+    required int32 nUserId = 1;
+    required double nBet = 2;
+    required double nWinLose = 3;
+    required string sPaiJuId = 4;
+    required double nWl = 5;
+}
+
+message LHSUserWinLoseNotify {
+    repeated LHSUserWinLoseInfo tWinLoseInfo = 1;
+}
+
+message LHSUserConcernReq {
+    required int32 nUserId = 1;
+    required int32 nConcern = 2;
+}
+
+message LHSUserConcernRsp {
+    required int32 nResult = 1;
+    required int32 nConcern = 2;
+    optional string sErrStr = 3;
+    required int32 nUserId = 4;
+}
+
+message LHSConcernUserBetNotify {
+    required int32 nUserId = 1;
+    repeated LHSBetInfo tBetInfo = 2;
+}
+
+message LHSFollowLockChangeNotify {
+    required int32 nUserId = 1;
+    required int32 nLock = 2;
+}
+
+message LHSUserBetAreaReq {
+    repeated int32 arrShowAreaId = 1;
+}
+
+message LHSUserBetAreaRsp {
+    required int32 nRlt = 1;
+    optional string sErrStr = 2;
+}
+
+message LHSTestGoldSupplyNotify {
+    required int32 nToday = 1;
+    required int32 nTotal = 2;
+    required double nGold = 3;
+}
+
+message LHSSearchUserReq {
+    required string sSearchKey = 1;
+}
+
+message LHSSearchUserRsp {
+    repeated LHSRecommendUser tUserList = 1;
+}
+
+message LHSUserBetAreaNotify {
+    required int32 nUserId = 1;
+    required int32 nBetArea = 2;
+}
+
+message LHSLiveChangeTbNotify {
+    required string sTableId = 1;
+}

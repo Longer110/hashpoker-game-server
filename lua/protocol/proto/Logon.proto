@@ -1,0 +1,192 @@
+syntax = "proto2";
+package logon;
+
+// 协议
+message Logon_Proto {			    
+ 	// 主协议
+	required int32	LOGON_MAIN = 1 [default = 1];						//登录系统	
+	
+	// 子协议
+	required int32 SUB_REQ_LOGON		= 2 [default = 100];				//帐号登录
+	required int32 SUB_REQ_REGISTER		= 3 [default = 2];				//注册帐号
+	required int32 SUB_REQ_LOGON_TENCENT= 4 [default = 3];				//微信登录
+	
+	required int32 SUB_REP_LOGON_RESULT		 	= 100 [default = 100];				//登录返回
+	required int32 SUB_REP_REGISTER_RESULT		= 101 [default = 101];				//注册返回
+	
+	// 返回重连信息
+    required int32 SUB_REP_RECONNECT			= 102 [default = 102];				//返回重连信息
+	required int32 SUB_REQ_ADDR	=103 [default = 103];					//地址请求
+	required int32 SUB_REP_ADDR	=104 [default = 104];					//地址返回
+	
+	required int32 CurrentGameQuerryReq_CMD=29	[default = 29];			//查询玩家当前正在玩的游戏 请求
+	required int32 CurrentGameQuerryRsp_CMD=30	[default = 30];			//查询玩家当前正在玩的游戏 返回
+	
+	required int32 VeriCodeReq_CMD=31			[default = 31];			//获取验证码请求
+	required int32 VeriCodeRsp_CMD=32			[default = 32];			//获取验证码返回
+	
+	required int32 BindQuerryReq_CMD=33			[default = 33];		//绑定查询请求
+	required int32 BindQuerryRsp_CMD=34			[default = 34];		//绑定查询返回
+	required int32 PasswordResetReq_CMD=35		[default = 35];		//密码重置请求
+	required int32 PasswordResetRsp_CMD=36		[default = 36];		//密码重置返回
+}
+
+//地址请求
+message AddressesReq
+{
+	required string sChannel =1; 	//渠道
+	required string sPlatform = 2;	//平台
+	optional int32 nScoketType=3;	//通讯方式 0:socket，1:websocket 不填:本请求使用何种方式便是何种方式
+}
+//地址返回
+message AddressesRsp
+{
+	required int32 nRlt=1;		//0:成功 其它:失败
+	optional string sIp =2; 	//可用登陆(注册)ip;   成功时有
+	optional int32 nPort = 3;	//可用登陆(注册)端口; 成功时有
+	optional string sFailTip=4;//失败提示,失败时有
+}
+
+
+// 请求登陆   SUB_REQ_LOGON
+message Ruq_Logon {
+	 required string Accounts = 1 [default = ""];   // 账号或手机或邮箱 ,视Type字段而定 tg就是
+	 required string Password = 2 [default = ""];   // 密码
+	 required int32  Type	  = 3 [default = 1];	//  登录类型：  0 游客 ，1 ：账号，2微信 3令牌登陆 4观察 5手机 6邮箱 7TG登录
+	  
+	 required string SysVersion = 4 [default = ""]; // 操作系统版本号
+	 required string Models = 5  [default = ""];   	// 机器码
+	 required string Channel = 6 [default = ""];    // 登录渠道
+	 required string sPlatform = 7 [default = ""];  // 平台号
+	 required string sVersions = 8 [default = ""];  // 版本号
+	 required string Location = 9 [default = ""];   // 地点
+	 optional string sToken =10;					//令牌登陆 首次令牌或临时令牌(首次令牌从后台接口获得，只能用一次;后续登陆使用临时令牌)
+	 optional int32 nShopId=13;						//分店id
+	 optional string sDeviceModel=14;				//设备型号 (防伙牌功能需要)
+	 optional string sGps=15;						//GPS位置 (防伙牌功能需要) json格式 {nLongitude=经度(范围:-180~180;负为西经,正为东经),nLatitude=纬度(范围:-90~90;负为南纬,正为北纬)}
+}
+
+//  登陆返回   SUB_REP_LOGON_RESULT
+message Rup_Logon {
+ required int32 nUserID = 1 [default = 0];  	//用户ID	
+ required int32 nError  = 2 [default = 0];	// 错误码
+  /*1//成功，2// '抱歉地通知您，机器码不存在,不能登录!'
+	3// '抱歉地通知您，系统禁止了您登录功能，请联系客户服务中心了解详细情况！';
+	5// '您的帐号不存在，请再次尝试登录！';
+	6// '您的密码输入有误，请查证后再次尝试登录！';
+	7 防沉迷中，无法登录
+	8 未成年玩家每日22时至次日8时不能登录游戏
+	10,11;     // 10 账号不符合规则（4 - 20 范围）， 11 密码不符合规则（6 - 24 范围）
+	12 令牌无效
+	17//游戏暂不对国内用户开放，请见谅！
+  */ 	    
+  optional string sConfineTime =3 [default = ""];  	// if nError == 3 then   封号时间  
+  optional string sToken =4;						//临时令牌，使用首次令牌登陆成功后有
+  optional string sSkin = 5 [default = ""];
+  optional string sUiType = 6 [default = ""]; 						//(UI版本)	
+  optional string sVersions =7 [default = ""];		//当前后端配置的版本
+  optional int32 nLoginCount = 8;                  //登录次数
+}
+
+//请求注册    SUB_REQ_REGISTER
+message Ruq_Regist {
+	required string Accounts = 1 [default = ""];      // 账号或手机号或邮箱 ,视nRegistWay字段而定
+	required string Password = 2 [default = ""];      // 密码
+	required string NickName = 3 [default = ""];      // 昵称
+	required int32  Sex	  = 4 [default = 0];		 // 用户性别  
+	
+	required string SysVersion =5 [default = ""];    // 操作系统版本号
+	required string Models = 6 [default = ""];   	 // 机器码 //现在改成推荐码 2022-05-24 json格式 {nType=类型(1:表示推荐码(可写可不写),2表示机器码),sValue=值(推荐码长度只能是5,英文数字混合)}
+	required string Channel =7 [default = ""];       // 注册渠道
+	required string IP = 8 [default = ""];     		 // 注册机IP
+	required string PhoneType = 9 [default = ""];     // 注册机型
+	required string sPlatform = 10 [default = ""];     // 平台号
+	required string sVersions = 11 [default = ""];     // 版本号
+	required string Location = 12 [default = ""];   	 // 地点
+	optional int32 nShopId=13;							//分店id
+    optional string sFaceID = 14 [default = "1"];		//头像
+	
+	optional int32 nRegistWay=15	[default = 1];		//注册方式 5:手机, 6:邮箱, <=1或nil:账号
+	optional string sVeriCode=16;						//验证码(手机或邮箱注册时填)
+}
+
+//注册返回    SUB_REP_REGISTER_RESULT
+message Rup_Regist{
+    required int32 nUserID = 1 [default = 0];  	//用户ID	  默认值  -1  ，失败，其他成功
+	required int32 nError  = 2 [default = 0];	// 错误码
+	optional string sSkin  = 3 [default = ""]; 
+	optional string sUiType = 4 [default = ""]; 				//(UI版本)
+	optional string sVersions =5 [default = ""];		//当前后端配置的版本
+  /*1 //成功，2// '抱歉地通知您，系统禁止了您所在的 IP 地址的注册功能，请联系客户服务中心了解详细情况 '
+	3// '抱歉地通知您，系统禁止了您的机器的注册功能，请联系客户服务中心了解详细情况！';
+	4// '此帐号已被注册，请换另一帐号尝试再次注册1'
+	5// '由于意外的原因，帐号注册失败，请尝试再次注册！';
+	6// '您的密码输入有误，请查证后再次尝试登录！';
+	7// '抱歉地通知您，机器码不存在,不能注册!';
+	10,11;     // 10 账号不符合规则（4 - 20 范围）， 11 密码不符合规则（6 - 24 范围）
+	12： 账号由英文和数字组成
+	13：推荐码格式错误
+	17//游戏暂不对国内用户开放，请见谅！
+	20验证码错误
+  */ 	    
+}
+
+
+//返回重连信息    SUB_REP_RECONNECT
+message RUP_Reconnect {
+	 required string sIp 	= 1 ;      // IP
+	 required int32  nPort	= 2 ;	   // 端口  
+}
+
+
+//查询玩家当前正在玩的游戏 请求
+message CurrentGameQuerryReq
+{
+	required int32 nUserId=1;
+}
+//查询玩家当前正在玩的游戏 回复
+message CurrentGameQuerryRsp
+{
+	required int32 nGameId=1;	//-1:表示不在任何游戏中
+	optional string sTableId=2;	//玩家当前进行游戏的牌桌id
+}
+
+//获取验证码请求
+message VeriCodeReq
+{
+	required int32 nWay=1;		//验证方式 5:手机 6:邮箱
+	required string sWayAddr=2;	//手机号码或邮箱地址,视nWay而定
+	optional int32 nPurpose=3;  //验证码用途(0:注册与绑定; 1:密码重置 2:修改支付密码)
+	optional string sAcc=4;		//账号(密码重置时,如需验证账号与sWayAddr是否匹配时填)
+}
+//获取验证码返回
+message VeriCodeRsp
+{
+	required int32 nRlt=1;		//0:成功 10:请求过频 -1接口错误 9验证方式错误 8手机号或邮箱格式错误 11重复注册  12手机号或邮箱与账号不匹配
+	optional int32 nWay=2;		//验证方式回音(5:手机 6:邮箱)
+}
+
+//绑定查询请求
+message BindQuerryReq{
+	required string sAcc=1;		//账号
+}
+//绑定查询返回
+message BindQuerryRsp{
+	required int32 nRlt=1;		//0:没绑定 1:仅绑定手机 2:仅绑定邮箱 3:手机邮箱皆绑定
+}
+//密码重置请求
+message PasswordResetReq{
+	required int32 nWay=1;			//5:通过手机重置 6:通过邮箱重置
+	required string sAddrNew=2;		//手机或邮箱地址
+	required string sVeriCode=3;	//验证码(使用Logon.proto里的VeriCodeReq获取验证码)
+	required string sPasswordNew=4; //使用的新密码
+}
+//密码重置返回
+message PasswordResetRsp{
+	required int32 nRlt=1;			//0:成功
+}
+
+
+
+
+

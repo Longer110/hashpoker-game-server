@@ -1,0 +1,59 @@
+syntax = "proto2";
+
+package DbMiniGame_pb;
+
+message DbMiniGame_Proto {
+    required int32 Main_CMD = 1 [default = 501];
+    required int32 OldHandHandleReq_CMD = 2 [default = 3001];
+    required int32 OldHandHandleRsp_CMD = 3 [default = 3002];
+    required int32 DiShuHandleReq_CMD = 4 [default = 3003];
+    required int32 DiShuHandleRsp_CMD = 5 [default = 3004];
+    required int32 TanQiuHandleReq_CMD = 6 [default = 3005];
+    required int32 TanQiuHandleRsp_CMD = 7 [default = 3006];
+    required int32 TanXianHandleReq_CMD = 8 [default = 3007];
+    required int32 TanXianHandleRsp_CMD = 9 [default = 3008];
+}
+
+message OldHandHandleReq {
+    required string sSubPro = 1;
+    optional string sSql = 2;
+    optional string sJson = 3;
+}
+
+message OldHandHandleRsp {
+    required string sSubPro = 2;
+    optional string sJson = 3;
+}
+
+message TanQiuHandleReq {
+    required string sSubPro = 1;
+    optional string sSql = 2;
+    optional string sJson = 3;
+}
+
+message TanQiuHandleRsp {
+    required string sSubPro = 2;
+    optional string sJson = 3;
+}
+
+message DiShuHandleReq {
+    required string sSubPro = 1;
+    optional string sSql = 2;
+    optional string sJson = 3;
+}
+
+message DiShuHandleRsp {
+    required string sSubPro = 2;
+    optional string sJson = 3;
+}
+
+message TanXianHandleReq {
+    required string sSubPro = 1;
+    optional string sSql = 2;
+    optional string sJson = 3;
+}
+
+message TanXianHandleRsp {
+    required string sSubPro = 2;
+    optional string sJson = 3;
+}

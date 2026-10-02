@@ -1,0 +1,1151 @@
+syntax = "proto2";
+
+package DeZhouClubSC_pb;
+
+//命令ID
+//注意: 命名规则为协议名称加后缀 '_CMD' ;本游戏服代码中,以这一规则来寻找协议命令的。
+//命名为啥加个ClubDeZhouSC前缀，因为与其他游戏命名冲突
+
+//牌值定义:
+//  0x11,0x16,0x17,0x18,0x19,0x1a,0x1b,0x1c,0x1d,	--方块 A~K
+//	0x21,0x26,0x27,0x28,0x29,0x2a,0x2b,0x2c,0x2d,	--梅花 A~K
+//	0x31,0x36,0x37,0x38,0x39,0x3a,0x3b,0x3c,0x3d,	--红桃 A~K
+//	0x41,0x46,0x47,0x48,0x49,0x4a,0x4b,0x4c,0x4d,   --黑桃 A~K
+
+//牌型定义
+// 0没牌或不可见 1高牌 2对子 3两对 4三条 5顺子 6葫芦 7同花 8四条(金刚) 9同花顺 10皇家同花顺
+
+//顺时针方向定义:座位号1->6->9
+//前端下注、跟注、加注 xx动作定义 :飞xx筹码(累加)到玩家下注区,同时从玩家余额中减掉同等xx筹码,接着累加同等xx筹码到底池总额.
+//结算 :前端把从底池赢得的金币累加回余额
+
+message ClubDeZhouSC_Proto {			    
+	required int32 Main_CMD =1 			[default = 232];					//主命令 (不可改)-- 德州短牌 
+	required int32 ClubDeZhouSCLogOnReq_CMD =2 [default = 2]; 				//登陆请求 (进入游戏，需要先登陆)
+	required int32 ClubDeZhouSCLogOnRsp_CMD =3 [default = 3];					//登陆回复
+	required int32 ClubDeZhouSCUserSitDownNotify_CMD =4 [default = 4]; 		//有玩家坐下通知
+	required int32 ClubDeZhouSCUserStanpUpNotify_CMD =5 [default = 5]; 		//有玩家从座位上站起通知
+	required int32 ClubDeZhouSCStartNotify_CMD =6 [default = 6];       		//游戏开始通知
+	required int32 ClubDeZhouSCOperationNotify_CMD =7 [default = 7];   		//操作权获得通知 (倒计时使用场景信息中的 "操作最大时间")
+	required int32 ClubDeZhouSCOpReq_CMD =8 [default = 8];					//操作请求
+	required int32 ClubDeZhouSCOpNotify_CMD =9 [default = 9];          		//有玩家操作通知
+	required int32 ClubDeZhouSCDealNotify_CMD =10 [default = 10];        		//公共牌新增通知 
+	required int32 ClubDeZhouSCSettleNotify_CMD =11 [default = 11];     		//结算通知
+	required int32 ClubDeZhouSCBackToLobbyReq_CMD =12 [default = 12];			//返回大厅请求
+	
+	required int32 ClubDeZhouSCPreOpReq_CMD =13 [default = 13]; 			    //预操作请求
+	required int32 ClubDeZhouSCPreOpRsp_CMD =14 [default = 14];			    //预操作回复
+	
+	required int32 ClubDeZhouSCStanpUpReq_CMD	=15	[default = 15];				//站起请求
+	required int32 ClubDeZhouSCSitDownReq_CMD =16	[default = 16];				//坐下请求
+	
+	required int32 ClubDeZhouSCTakeInRangeReq_CMD=17  [default = 17];		//筹码买入范围查看请求
+	required int32 ClubDeZhouSCTakeInRangeRsp_CMD=18	[default = 18];		//筹码买入范围查看回复
+	required int32 ClubDeZhouSCTakeInReq_CMD	=19	[default = 19];			//筹码买入请求
+	required int32 ClubDeZhouSCTakeInRsp_CMD   =20    [default = 20];		//筹码买入回复
+	
+	required int32 ClubDeZhouSCFailNotify_CMD =21		[default = 21];		//异常提示通知
+	
+	required int32 ClubDeZhouSCTableResetNotify_CMD=22 [default = 22];	//桌子重置通知(发生在结算一断时间后)
+	required int32 ClubDeZhouSCCancelAutoReq_CMD=23    [default = 23];	//取消托管请求
+	required int32 ClubDeZhouSCCancelAutoNotify_CMD=24 [default = 24];	//有玩家取消托管通知
+	
+	required int32 ClubDeZhouSCGmReq_CMD =25			 [default = 25];	//Gm命令请求
+	required int32 ClubDeZhouSCShowCardNotify_CMD =26		[default = 26];	//有玩家亮牌通知
+	
+	required int32 ClubDeZhouSCRecordReq_CMD =27			[default = 27]; //最近牌局记录查询 请求
+	required int32 ClubDeZhouSCRecordRsp_CMD =28			[default = 28];	//最近牌局记录查询 回复
+	required int32 ClubDeZhouSCRecordDetailReq_CMD =29	[default = 29]; //牌局记录详情查询 请求
+	required int32 ClubDeZhouSCRecordDetailRsp_CMD =30	[default = 30]; //牌局记录详情查询 回复
+	
+	required int32 ClubDeZhouSCCofingReq_CMD =31			[default = 31]; ////房间设置 请求
+	required int32 ClubDeZhouSCConfigNotify_CMD =32		[default = 32]; //房间设置成功 通知 
+	
+	required int32 ClubDeZhouSCKickUserReq_CMD =33		[default = 33]; //踢人请求 (给主播踢人用)
+	
+	required int32 ClubDeZhouSCGoldNotify_CMD =34			[default = 34]; //金币变化通知
+	required int32 ClubDeZhouSCOnLineCntNotify_CMD =35    [default = 35]; //在线用户数变化通知
+	
+	required int32 ClubDeZhouSCChatReq_CMD =36			[default = 36]; //表情聊天请求
+	required int32 ClubDeZhouSCChatNotify_CMD =37			[default = 37]; //表情聊天通知
+	required int32 ClubDeZhouSCToStartNotify_CMD=38		[default = 38]; //开局倒计时通知
+	
+	required int32 ClubDeZhouSCKickUserRsp_CMD =39		[default = 39]; //踢人回复
+	
+	required int32 ClubDeZhouSCPauseReq_CMD =40			[default = 40]; //暂停设置 请求
+	required int32 ClubDeZhouSCPauseRsp_CMD =41			[default = 41]; //暂停设置 返回
+	required int32 ClubDeZhouSCBackToLobbyRsp_CMD =42 	[default = 42];	//返回大厅回复
+	
+	required int32 ClubDeZhouSCBalanceNotify_CMD=43		[default = 43];	//有玩家筹码余额发生变化通知 (主播更改配置后可能发生)
+	
+	required int32 ClubDeZhouSCOverViewReq_CMD=44			[default = 44];	//牌桌总览请求
+	required int32 ClubDeZhouSCOverViewRsp_CMD=45			[default = 45];	//牌桌总览返回
+	
+	required int32 ClubDeZhouSCTableStartReq_CMD =46		[default = 46];	//"开始牌局"请求 (房主使用)
+	required int32 ClubDeZhouSCTableStartNotify_CMD =47	[default = 47]; //房主点击了"开始牌局" 通知
+	
+	required int32 ClubDeZhouSCAutoNextReq_CMD =48		[default = 48];	//"开始游戏" 请求 (房主使用)
+	required int32 ClubDeZhouSCAutoNextNotify_CMD =49		[default = 49];	//房主点击了"开始游戏" 通知
+	
+	required int32 ClubDeZhouSCInsurNotify_CMD =50					[default = 50];		//进入保险阶段通知
+	required int32 ClubDeZhouSCInsurDealNotify_CMD = 51				[default = 51];		//保险后发牌通知(同时表示最近保险阶段结束)
+	required int32 ClubDeZhouSCInsurBuyReq_CMD =52					[default = 52];		//保险购买请求
+	required int32 ClubDeZhouSCInsurBuyRsp_CMD =53					[default = 53];		//保险购买回复
+	
+	required int32 ClubDeZhouSCDelayReq_CMD =54 					[default = 54];		//延时请求
+	required int32 ClubDeZhouSCDelayRsp_CMD =55 					[default = 55];		//延时回复
+	required int32 ClubDeZhouSCDelayNotify_CMD =56 					[default = 56];		//有人延时成功通知
+	
+	required int32 ClubDeZhouSCHeadInfoReq_CMD=57					[default = 57];		//头像信息请求
+	required int32 ClubDeZhouSCHeadInfoRsp_CMD=58					[default = 58];		//头像信息回复
+
+	required int32 ClubDeZhouSCTakeOutRangeReq_CMD=59  				[default = 59];		//筹码带出范围查看请求
+	required int32 ClubDeZhouSCTakeOutRangeRsp_CMD=60				[default = 60];		//筹码带出范围查看回复
+	required int32 ClubDeZhouSCTakeOutReq_CMD=61					[default = 61];		//筹码带出请求
+	required int32 ClubDeZhouSCTakeOutRsp_CMD=62 		   			[default = 62];		//筹码带出回复
+
+	required int32 ClubDeZhouSCRetainReq_CMD=63 						[default = 63];		//'留座离桌'或'回到座位' 请求
+	required int32 ClubDeZhouSCRetainRsp_CMD=64						[default = 64];		//'留座离桌'或'回到座位' 回复
+	required int32 ClubDeZhouSCRetainNotify_CMD=65					[default = 65];		//'留座离桌'或'回到座位' 生效通知
+
+	required int32 ClubDeZhouSCCardOpenReq_CMD=66						[default = 66];		//翻牌请求
+	required int32 ClubDeZhouSCCardOpenRsp_CMD=67						[default = 67];		//翻牌回复
+	
+	required int32 SCElapsedStatusNotify_CMD=69						[default = 69];		//桌子计时状态变化 通知
+	required int32 SCElapWarnNotify_CMD=70							[default = 70];		//桌子剩余时间 警告
+
+	required int32 ClubDeZhouHashListReq_CMD=79			[default = 79]; //Hash列表请求
+	required int32 ClubDeZhouHashListRsp_CMD=80			[default = 80];	//Hash列表请求 返回
+
+	required int32 ClubDeZhouHashCardReq_CMD=81			[default = 81]; //Hash当前局牌序列请求
+	required int32 ClubDeZhouHashCardRsp_CMD=82			[default = 82];	//Hash当前局牌序列请求 返回
+
+	required int32 ClubDeZhouUserStaticRsp_CMD=83			[default = 83];	//结算统计数据下发
+
+	required int32 ClubDeZhouSCTakeChipsOutReq_CMD=84			[default = 84]; //手动撤码
+	required int32 ClubDeZhouSCTakeChipsOutRsp_CMD=85			[default = 85];	//手动撤码 返回
+
+	required int32 ClubDeZhouSCTakeOutInfoReq_CMD=86			[default = 86]; //撤码查看请求
+	required int32 ClubDeZhouSCTakeOutInfoRsp_CMD=87			[default = 87];	//撤码查看请求 返回
+
+	required int32 ClubDeZhouSCTakeOutSetReq_CMD=88			[default = 88]; //撤码设置
+	required int32 ClubDeZhouSCTakeOutSetRsp_CMD=89			[default = 89];	//撤码设置 返回
+
+	required int32 ClubDeZhouSCTakeOutSetReq1_CMD=90			[default = 90]; //撤码设置
+
+	required int32 ClubDeZhouSCInsureNotify_CMD =91 					[default = 91];		//保险成功通知
+
+	required int32 ClubDeZhouSCHandCardReq_CMD=92			[default = 92];		//看手牌请求
+	required int32 ClubDeZhouSCHandCardRsp_CMD=93			[default = 93];		//看手牌请求回复
+
+	required int32 ClubDeZhouSCCutCardReq_CMD=94			[default = 94];		//切牌请求
+	required int32 ClubDeZhouSCCutCardRsp_CMD=95			[default = 95];		//切牌请求回复
+
+	required int32 ClubDeZhouSCCardOpNotify_CMD=96            [default = 96];	//广播操作
+
+	required int32 ClubDeZhouSCTakeInNotify_CMD=97            [default = 97];	//广播筹码买入
+
+	required int32 ClubDeZhouSCLeaveNotify_CMD=98        [default = 98];	//广播用户离开
+	required int32 ClubDeZhouSCEnterNotify_CMD=99        [default = 99];	//广播用户进入
+	required int32 ClubDeZhouSCRevenueNotify_CMD=100        [default = 100];	//广播用户强制离开处罚时的收益通知
+}
+
+//DZ 登陆请求 (进入游戏，需要先登陆)
+message ClubDeZhouSCLogOnReq
+{
+	required int32 nUserId =1;
+	required string sTableId =2 [default = ""];	//桌子ID  (当使用有效nRoomId登陆时，该字段无效,填空串"")
+	optional bool isKeepStand=3;   				//是否保持站立状态 true:是 其它:否
+	optional int32 nRoomId=4 [default = -1];	// 0:试玩场 1:新手场 2:初级场 3:中级场 4:高级场 其它:无效 
+	optional int32 nIsChangeTable=5;			//是否为切换牌桌 1:是 其它:否 (1时，nRoomId字段也要填上)
+	optional string nPass = 6;                  //密码
+}
+//DZ 登陆回复
+message ClubDeZhouSCLogOnRsp
+{
+	required int32 nRlt=1;								//0:成功 22:已被管理员踢出 17:桌子不存在 16:其它游戏中有未完成牌局 15:当天试玩场次数已用尽 其它:错误码
+	optional string strErr=2;							//错误描述 错误时有
+	optional ClubDeZhouSCScence tScence=3;				//场景信息 
+	optional string sTableId =4  [default = ""];		//自由匹配桌子ID: 登录从服请求游戏服开桌,用户进入牌桌
+}
+
+//盲注配置
+message ClubDeZhouSCConfigItem
+{
+	required int32 nConfigId=1;			//配置id
+	required double nSmallBlind=2;		//小盲
+	required double nBigBlind=3;		//大盲
+	required double nTakeInMin=4;		//最低带入
+	required double nTakeInMax=5;		//最高带入
+}
+
+//桌子可选配置
+message ClubDeZhouSCConfigOption
+{
+	repeated ClubDeZhouSCConfigItem arrConfig=1;	//可选的盲注配置
+	repeated int32 arrCapacity=2;				//可选的人数配置
+	optional int32 nConfigIdDefault=3;			//默认配置
+	optional int32 nCapacityDefault=4;			//默认人数
+	optional int32 nIntervalLevDefault=5;		//默认牌局间隔 1:短暂 2:适中 3:漫长
+}
+
+//房间设置 请求
+message ClubDeZhouSCCofingReq
+{
+	required int32 nConfigId=1;		 //配置id
+	required int32 nCapacity =2;	 //人数配置
+	optional int32 nIntervalLev=3;  //牌局间隔 1:短暂 2:适中 3:漫长
+}
+//房间设置成功 通知 
+message ClubDeZhouSCConfigNotify
+{
+	required ClubDeZhouSCConfigItem tConfigItem=1;	//盲注配置
+	required int32 nCapacity =2;					//人数配置
+}
+
+message LeaveSCTableConfig{
+	optional bool isOpen=1;	 
+	optional double nWinThreshold=2;	
+	optional int32 nLots=3;	
+	optional double nPenaltyRatio=4;	
+	optional double nUserRatio=5;	
+	optional int32 nType=6;	
+}
+
+//桌子配置信息显示
+message SCTableConfig{
+	required string sTableName=1;	  //房间名称,不带<>符号
+	required string sPaiJuId=2;		  //牌局编号
+	required string sClubName=3;	  //俱乐部名称,不带[]符号
+	required double nSmallBlind=4;	  //小盲
+	required double nBigBlind=5;	  //大盲
+	required bool  isForceBlind=6;    //是否强制盲注 true:是 false:否
+	required bool  isOnlyPlayByIOS=7; //是否仅限IOS玩 true:是 fasle:否
+	required bool  isGPSLimit=8;	  //是否开启GPS限制 true:是 fasle:否
+	required bool  isIPLimit=9;		  //是否开启ip地址限制 true:是 fasle:否
+	required int32 nPoolEntryRate=10; //入池率限制,取值范围0~100; 0: 表示不限制
+	required bool isDelayLook=11;	  //是否延迟看牌 true:是 fasle:否
+	required int32 nInsureMode=12;	  //保险模式 0:无保险 1:传统保险 2:低水保险
+	required double nPreAnte=13;	  //前注     0:表示没有
+	optional bool isAOF=14;			  //是否仅能全下或弃牌;true:是, 其它:否
+	optional int32 nPlayerAtLeast=15; //自动开始人数 (实际人数>=2且<该值时,显示"开始游戏")
+	optional bool isTabkeOut=16;	  //是否带出筹码;true:是, 其它:否
+	optional bool isDPreAnte=17;	  //庄家是否2倍前注
+	optional int32 nEnterMin=18;	  //最小进入
+	optional int32 nInsureNType = 19;
+    repeated double arrOdds = 20;
+    optional double nZhuaTou = 21;
+	optional double nBuyMin = 22;   //最低买入
+	optional int32 nTabkeOutOdd=23;	  //撤码阙值倍数N
+	optional double nBuyMax = 24;
+	optional int32 nIsPerson = 25;
+	optional int32 nIsShow = 26;
+	optional string sPassWord = 27;
+	optional string nTableCost = 28;     //消耗配置 付费看公牌1 付费看手牌2 付费切牌3
+	optional bool isVideoFee = 29;       //是否开启语音收费
+	optional int32 preAnteOdd = 30;      //庄家几倍前注
+	optional int32 nPoolHands = 31;      //手数限制
+	optional double nLoseMaxAmount = 32;         //输钱限制金额
+	optional double nVideoFee = 33;         //语音金额
+	optional double nTakeInLimit = 34;      //补码上限
+	optional int32 nPoolEntryRateHands = 35;      //入池率多少手不限制
+	optional LeaveSCTableConfig tLeaveTableConfig = 36;
+}
+
+message ChatItem{
+	required int32 nChatId=1;	//表情id
+	required double nCost=2;	//表情价格(金币)
+}
+
+message WinRate{
+	required int32 nPos=1;				//座位号
+	required double nWinRate=2;			//胜率 (值100即为100%, <=0:无意义)
+}
+
+// 底池玩家对应下注
+message PotUser {
+	required int32 nUserId=1;	//玩家
+	required double nBet=2;	    //下注
+	required int32 nPoolId=3;	    //底池Id
+}
+
+//场景信息
+message ClubDeZhouSCScence
+{
+	required double nSmallBlind=1;				//小盲注数额
+	required double nBigBlind=2;				//大盲注数额(通常等于:小盲注x2)
+	required int32 nCapacity=3;					//桌子座位数(6或9)
+	required int32 nOperateTime=4;				//操作最大时间,单位:秒 (通常为10)
+	required double nPotSum =5;					//底池总额(已押筹码总额)
+	repeated double arrPot =6;					//已收归的各底池数额(池数量:>=0)
+	repeated int32 arrCommunityCards=7;			//公共牌(最多5个牌)
+	repeated ClubDeZhouSCUser arrUsers=8;			//座位上的玩家
+	required int32 nStage =9;						//当前游戏状态 0:未开始(等待游戏开始) 1:游戏中 2:结算阶段
+	optional ClubDeZhouSCOperation tOperation=10;		//当前自己可操作信息(自己为思考状态时有)
+	optional ClubDeZhouSCPreOpOption tPreOpOption=11; //自己当前可预操作选项
+	optional bool isConfigNotSet =12;					 	//本桌子是否需要配置后才能开始 true:是 其它:否
+	optional ClubDeZhouSCConfigOption tDeZhouConfigOption=13;  //桌子可选配置(主播有)
+	optional int32 nLiveUserId =14;						 	//房主Id
+	optional double nGold =15;							 	//当前可用币数
+	optional int32 nMSeconds =16;						 	// >0:开局倒计时剩余时间(毫秒) -1:等待状态(因为主播设置了暂停) 其它:无意义
+	optional bool isPause =17;							 	//当前桌子暂停状态(主播有用) true:已设置为暂停 其它:非暂停
+	optional int32 nRoomId=18 [default = -1];				// 0:试玩场 1:新手场 2:初级场 3:中级场 4:高级场 其它:无效
+	optional int32 nClubId=19;								//>0:俱乐部id
+	optional string sTableName=20;							//桌子名称
+	optional int32 nCurrency=21;							//本桌子使用的币种 1:金币 >1:俱乐部币
+	optional bool isCanCloseTable=22;						//是否有桌子管理权限 true:是, false:否
+	optional bool isTableStart=23;	   						//牌桌是否开始 true:是, false:否(管理者需点击"开始牌局"才能开始)
+	optional bool isAutoNext=24;							//下局是否自动开始 true:是 (废弃字段)
+	optional int32 nPauseRemain=25;							// >0:正在暂停倒计时(秒); 其他:无意义
+	optional SCTableConfig tTableConfig=26;					//桌子配置信息
+	repeated SCInsurPanelData tInsurPanelData=27;				//保险面板数据(非保险阶段时,字段不存在)
+	optional int32 nTableType=28;							//桌子类型 10:大厅桌子 11:俱乐部桌子 其它:未定义
+	repeated ChatItem arrChat=29;							//表情价格列表 
+	repeated int32 arrCombinedCards=30; 					//能组成最大牌型的5个牌
+	repeated WinRate arrWinRate=31;							//玩家胜率
+	optional int32 nElapsedStatus =32;						//桌子当前计时状态 0正常计时中 1暂停计时中
+	optional double nZhuaTou = 33;
+    optional double nPreAnte = 34;
+	optional int32 nKeepTime = 35;
+	repeated PotUser potUsers =36;					       //已收归的各底池玩家对应信息
+	optional double nLoseAmount = 37;        // 用户在桌子中的盈利信息
+	optional int32 nPlayCnt = 38;        // 用户在桌子中的手数信息
+}
+
+//玩家信息
+message ClubDeZhouSCUser
+{
+	required int32 nUserId=1;			 //玩家ID
+	required int32 nSitId=2;			 //座位号
+	required string sFaceId=3;			 //头像url
+	required string sName=4;			 //昵称
+	required int32 nSex=5;	    		 //性别 0:男 1:女
+	required double nBalance=6;			 //余额
+	required bool isBanker=7;			 //是否为庄; true:是 ,false:否
+	repeated int32 arrHoleCards=8;		 //底牌(值为0的牌，显示牌背,表示还没亮牌)
+	required int32 nCardType=9;			 //牌型(见本文件头部"牌型定义")
+	required double nBet =10;			 //玩家当轮当前下注数目(0时不要显示)
+	required int32 nStatus=11;		 	 //当前玩家状态, 0:等待操作权中 1:思考中 2:跟注 3:看牌 4:加注 5:AllIn 6:弃牌 7:旁观 
+	optional int32 nOpTimeRemain=12;	 //剩余可操作(思考)时间 (思考中时有效,其它情况时为0)
+	optional bool isAuto=13;			 //是否托管中
+	optional string sShopAcc = 14;		//第三方用户ID
+	optional bool isAndroid = 15;		//第三方用户ID
+	optional int32 nDelay=16;			//是否有延时,0:没延时 >0:延时后的总时间
+	optional int32 nRetain=17;			//>0:留座离桌剩余时间(秒) ,其它:无效 
+	optional double nWinRate=18;		//胜率(值100即为100%, <=0:无意义)
+	optional int32 nPlayCnt=19;			// 玩牌次数
+	optional double nTotalWinGold=20;		// 总输赢
+}
+
+//可预操作的选项
+message ClubDeZhouSCPreOpOption
+{
+	message Option{
+		required double nOpId =1; // -20:弃或过  -21:过牌 -22:跟任何注 >0:跟xx -23:结束后亮牌 -24:亮牌
+		required bool isOn =2;	 //当前预操作按钮选中状态 true:选中 false:未选中
+	}
+	repeated Option arrOption=1;	
+}
+
+//操作权信息 (弃牌 跟注xx AllIn 看牌 加注)
+message ClubDeZhouSCOperation
+{
+	message RaiseChoice{
+		required double nMin=1;			//加注最小值
+		required double nMax=2;			//加注最大值
+		repeated int32 arrQuickRaise=3; //可快速操作的选项 -10:(1/2底池)  -11:(2/3底池) -12:(1个底池)  -13:(2个大盲) -14:(3个大盲)  -15:(4个大盲)  -1:(AllIn)
+	}
+	required int32 nOpA =1;	 			  //按钮1显示,只有一种状态   -5:弃牌
+	required double nOpB =2;	 		  //按钮2显示,有三种可能状态 -1:AllIn, -2:看牌, >0:跟注xx
+	required int32 nOpC =3;	 			  //按钮3显示,有三种可能状态 -1:AllIn, -3:加注 -4:加注(置灰)
+	optional RaiseChoice tRaiseChoice =4; //可加注范围 (可加注时有效)
+	optional double nDelayCost=5;			//延时花费, -1或nil:不能延时,0:免费 ,>0:金币数
+	optional double nInsureDelayCost=6;		//保险延时花费, -1或nil:不能延时,0:免费 ,>0:金币数
+}
+
+//站起请求
+message ClubDeZhouSCStanpUpReq
+{
+	optional int32 nNoUse=1;				//没用字段
+}
+
+//有玩家从座位上站起通知
+message ClubDeZhouSCUserStanpUpNotify
+{
+	required int32 nSitId=1;				//站起玩家的座位号
+}
+
+//坐下请求 longitude and latitude
+message ClubDeZhouSCSitDownReq
+{
+	message Gps{
+		required double nLongitude=1;	//经度(范围:-180~180;负为西经,正为东经)
+		required double nLatitude=2;	//纬度(范围:-90~90;负为南纬,正为北纬)
+	}
+	optional int32 nPos=1;				//>0:坐下的座位号. 0:随机坐下
+	optional Gps tGps=2;				//经纬度坐标(gps很耗电,给n分钟内的值便可) (防伙牌功能开启时需要)
+	optional string sIP=3;				//外网ip(例如:14.23.82.242;因为走代理,真实ip前端传下)  (防伙牌功能开启时需要)
+}
+
+//有玩家坐下通知
+message ClubDeZhouSCUserSitDownNotify
+{
+	required ClubDeZhouSCUser tUser =1;			//新坐下的玩家
+}
+
+
+//游戏开始通知
+message ClubDeZhouSCStartNotify
+{
+	message UserBet{
+		required int32 nPos=1;
+		required double nBet=2;
+	}
+	message UserPartIn{
+		required int32 nPos=1;
+		required double nTakeIn =2;			//玩家余额(下注后)
+		optional double nBet=3;				//玩家大小盲或强制盲
+		optional double nPreAnte=4;			//前注
+	}
+	repeated int32 arrPosPartIn=1;					//参与本局游戏的玩家座位号(每人发两个底牌,只能自己看到自己的底牌是啥) (发牌顺序按数组顺序) "可选择废弃 改用第8字段"
+	required int32 nBankerPos=2;					//庄家座位号(头像显示标识:'D')
+	repeated UserBet arrUsersBet=3;					//(大小盲,强盲)玩家下注	"可选择废弃 改用第8字段"
+	repeated int32 arrHoleCards=4;					//自己的底牌(2张,因为延迟看牌,可能是两个0)
+	required int32 nCardType =5;					//自己当前牌型(见本文件头部"牌型定义")
+	optional ClubDeZhouSCPreOpOption tPreOpOption=6; 	//自己当前可预操作选项
+	required double nTakeIn =7;						//初始筹码带入
+	repeated UserPartIn arrUserPartIn=8;			//参与本局游戏的玩家信息(发牌顺序按数组顺序,小盲->大盲->强盲->...)
+	optional double nChipBuy =9;					//新增筹码数量 
+	optional string sPaiJuId=10;					//牌局id
+	repeated ChatItem arrChat=11;					//表情价格列表
+	optional int32 nInsureStatus =12;					//可购买保险状态 0正常 1不能买 
+	optional double nTotalWinGold=13;					//总盈利
+	optional int32 nPlayCnt=14;					//总手数
+}
+
+//操作权获得通知 (倒计时使用场景信息中的 "操作最大时间")
+message ClubDeZhouSCOperationNotify
+{
+	message HandCard{
+		repeated int32 arrHoleCards=1;			//底牌(2张)
+		required int32 nCardType =2;			//牌型(见本文件头部"牌型定义")
+	}
+	required int32 nPos =1;						//获得操作权的座位号
+	optional ClubDeZhouSCOperation tOperation=2;  //操作权 (该玩家为自己时存在且有效)
+	optional HandCard tHandCard=3;				//自己的手牌(由于延迟看牌原因,可能现在才开底牌)
+}
+
+
+//延时请求
+message ClubDeZhouSCDelayReq{
+	optional int32 nNoUse=1;
+	optional bool isInsure=2;           //是否是保险延迟
+}
+//延时回复
+message ClubDeZhouSCDelayRsp{
+	required int32 nRlt=1;						//0:成功 1:金币不足 其它:未定义
+	required double nDelayCost=2;				//下次再延时的花费, -1:不能延时,0:免费 ,>0:金币数 
+	optional bool isInsure=3;                   //是否是保险延迟
+	required int32 nOpLong=4;					//剩余总时间
+}
+//有人延时成功通知
+message ClubDeZhouSCDelayNotify{
+	required int32 nPos=1;						//延时玩家座位号
+	required int32 nSeconds=2;					//延时后，增加的时间
+	optional int32 nRemain=3;					//延时后,剩余时间 秒
+	optional bool isInsure=4;                   //是否是保险延迟
+	optional int32 resRemain=5;                 //延时前剩余时间
+}
+
+//头像信息请求
+message ClubDeZhouSCHeadInfoReq{
+	required int32 nPos=1;						//请求目标座位号
+}
+//头像信息返回
+message ClubDeZhouSCHeadInfoRsp{
+	required int32 nUserId=1;			 //玩家ID
+	required string sFaceId=2;			 //头像url
+	required string sName=3;			 //昵称
+	required int32 nSex=4;	    		 //性别 0:男 1:女
+	required double nBalance=5;			 //余额(金币)
+	required string sSigna=6;			 //签名 (""表示没签名)
+	required int32 nVipLev=7;			 //vip等级
+	
+	required int32 nPlayCount=8;		//总手数
+	required double nProfit=9;			//盈亏
+	required double nInpoolRate=10;		//入池率(值50即表示50%)
+	required double nBFlopRaiseRate=11; //翻前加注率(值50即表示50%)
+	required double nAllInAndWinRate=12;//All in胜率(值50即表示50%)
+	optional int32 nJuShu=13;			//总局数
+	optional double nWinRate = 14; //胜率
+    optional double nQiPaiRate = 15; //弃牌率
+    optional double nHandProfit = 16; //手均盈利
+	optional double nTanPaiRate = 17; //摊牌率
+	optional string nMarkText = 18; //备注信息
+	optional int32 nMarkColorId = 19; //备注颜色ID
+	//表情列表放场景中
+}
+
+
+//操作请求
+message ClubDeZhouSCOpReq
+{
+	required int32 nOpButton=1;		//1:"按钮1" 2:"按钮2" 3:"按钮3"
+	optional double nRaise=2;		//nOpButton为3且有加注权时有效. >0:表示具体的加注值, <0:可快速操作的选项(见操作权信息定义)
+}
+
+//有玩家操作通知
+message ClubDeZhouSCOpNotify
+{
+	required int32 nPos =1;							//座位号
+	required int32 nOp=2;							//-5:弃牌,  -1:AllIn, -2:看牌, -6:跟注, -3:加注
+	optional double nBet=3; 						//跟注或加注或 AllIn时有效，表示具体的跟注\加注数值(>0)
+	optional ClubDeZhouSCPreOpOption tPreOpOption=4; 	//自己当前可预操作选项
+	optional bool isAuto=5;							//操作的玩家是否进入了托管状态(托管时，操作时间会缩短) true:是 
+	repeated WinRate arrWinRate=6;					//玩家胜率
+}
+
+//取消托管 请求
+message ClubDeZhouSCCancelAutoReq
+{
+	required int32 nNoUse=1;					//没用字段
+}
+//有玩家取消托管 通知
+message ClubDeZhouSCCancelAutoNotify
+{
+	required int32 nPos=1;					//座位号
+}
+
+//预操作请求
+message ClubDeZhouSCPreOpReq
+{
+	required int32 nOpId =1; //-20:弃或过  -21:过牌 -22:跟任何注 >0:跟xx -23:结束后亮牌 -24:亮牌  
+	required bool isOn =2;	//true:请求选中 false:取消选中
+}
+//预操作回复
+message ClubDeZhouSCPreOpRsp
+{
+	required int32 nRlt =1;			//0:成功 其它:错误码
+	optional double nOpId =2;		//(成功时有效)请求的操作
+	optional bool isOn =3;			//(成功时有效)操作状态 true:选中成功 false:取消成功
+	optional string sErr=4;			//(失败时有)失败提示
+}
+
+//保险面板数据
+message  SCInsurPanelData
+{
+	message RelevantUser{
+		required int32 nUserId=1;		//玩家id
+		required string sName=2;		//玩家昵称
+		repeated int32 arrHoleCards=3;	//底牌
+		required int32 nOuts=4;			//-1:保险购买中, >= 0:OUTS数量, 其它:无意义
+	}
+	message ElseUserHoleCard{
+		repeated int32 arrOuts=1;		//占outs的手牌(高亮显示)
+		repeated int32 arrCard=2;		//其它手牌
+	}
+	message Remaining{
+		repeated int32 arrOuts=1;		//剩余outs
+		required int32 nPileCnt=2;		//牌堆剩余牌数量
+		required double nOdds=3;		//赔率
+	}
+	message Pool{
+		required double nInsurePool=1;	//可投保池
+		required double nPool=2;		//底池
+		required double nInvest=3;		//投入
+		optional int32 nPoolId=4;		//底池Id
+	}
+	message InsurancePlan{
+		required int32 nPlanId=1;		//投保方案 0:(保本),1:(满池),2:(1/2底池),3:(1/3底池),5:(1/5底池),8:(1/8底池)
+		required double nCosts=2;		//方案所需金币 
+	}	 
+	
+	repeated RelevantUser arrRelevantUser=1;			//与保险相关的玩家显示
+	repeated int32 arrCommunityCards=2;			 		//公共牌
+	optional ElseUserHoleCard tElseUserHoleCard=3;		//其他玩家手牌
+	required Remaining tRemaining=4;					//剩余outs,牌堆剩余多少张牌,赔率
+	required Pool tPool=5;								//可投保池,底池,投入
+	repeated InsurancePlan arrInsurancePlan=6;			//投保方案
+	required int32 nSeconds=7;							//剩余购买保险时间 (秒)
+	required int32 nInsurUserId=8;						//可以买保险的玩家id 
+	
+	optional int32 nInsureMode=9;	  					//保险模式 1:传统保险 2:低水保险
+	repeated double arrOddsList=10;						//赔率表(传统保险才有效);按数组顺序,值1为补牌1赔率、值2为补牌2赔率...
+	optional bool isMustBuy=11;							//是否必须购买保险(true时，保险玩家必须购买所有outs保险)
+	optional bool isPossibleEq=12; 						//是否存在平分的可能 true:是, 其它:否 (传统保险才有效)
+	optional double nInvestInThisPool=13;				//保险玩家在该池的投入(触发保险的最大池) 
+
+}
+
+//进入保险阶段
+message ClubDeZhouSCInsurNotify{
+	message ShowCard{
+		message Item{
+			required int32 nPos=1;			//座位号
+			repeated int32 arrHoleCards=2;	//底牌(2张)
+			required int32 nCardType=3;		//牌型
+		}
+		repeated Item arrHoleCard=1;
+	}
+	message PoolChange{
+		repeated double arrPot =1;			//变化后的底池
+	}
+	optional ShowCard tShowCard=1;					//亮牌     (如已亮过牌，则字段不存在)
+	optional PoolChange tPoolChange=2;				//底池变化 (如底池无变化,则字段不存在)
+	repeated SCInsurPanelData tInsurPanelData=3;		//保险面板
+	repeated WinRate arrWinRate=4;					//玩家胜率
+	repeated PotUser potUsers =5;					       //已收归的各底池玩家对应信息
+	optional int32 nInsureStatus =6;					//可购买保险状态 0正常 1不能买 
+}
+
+//保险后发牌通知(同时表示最近保险阶段结束)
+message ClubDeZhouSCInsurDealNotify{
+	message CardType{
+		required int32 nPos=1;				//座位号
+		required int32 nCardType=2;			//变化后的牌型
+		repeated int32 arrCombinedCards=3;	//能组成最大牌型的5个牌
+	}
+	message Choice{
+		required int32 nPos=1;				//投保玩家座位号
+		required double nChoice=2;			//>0:投保xx ,其它:不投保
+	}
+	required int32 nCard=1;					//转牌或河牌
+	repeated CardType arrUsersCardType=2;	//发牌后，各玩家的牌型变化
+	repeated Choice tChoice=3;				//投保玩家投保数额
+	repeated WinRate arrWinRate=4;					//玩家胜率
+	optional int32 nHit=5;                  //保险中牌 4转牌 5河牌
+}
+//保险购买请求
+message ClubDeZhouSCInsurBuyReq{
+	message InsurBuyItem {
+		required int32 nPlanId=1;    //投保方案 -1不买 ,0:(保本),1:(满池),2:(1/2底池),3:(1/3底池),5:(1/5底池),8:(1/8底池)
+		required int32 nPoolId=2;    //底池Id
+	}
+	required int32 nPlanId=1;				//投保方案 -1不买 ,0:(保本),1:(满池),2:(1/2底池),3:(1/3底池),5:(1/5底池),8:(1/8底池)
+	repeated int32 arrOuts=2;				//购买保险的outs (传统保险且非必须购买时有效)
+	repeated InsurBuyItem nBuy=3;           //购买信息
+}
+//保险购买回复
+message ClubDeZhouSCInsurBuyRsp{
+	required int32 nCode=1;				   //0:成功, 其它失败
+	required int32 nPlanId=2;			   //投保方案
+	optional double nCost=3;
+}
+
+
+//公共牌新增通知 (该通知表示一轮的结束,先收归玩家下注筹码,再亮玩家底牌,接着发公共牌)
+message ClubDeZhouSCDealNotify
+{
+	//玩家底牌
+	message UserHoleCard{
+		required int32 nPos=1;			//座位号
+		repeated int32 arrHoleCards=2;	//底牌(2张)
+		required int32 nCardType=3;		//牌型 (本次新增公共牌前 的牌型)
+		repeated int32 arrCardType=4;	//三个元素: 分别为与前3、前4、前5个公共牌组合成的牌型
+	}
+	required double nPotSum =1;						//底池总额(已押筹码总额)
+	repeated double arrPot =2;						//收归的各底池数额(池数量:>0),数组索引代表池ID,索引从1开始
+	repeated UserHoleCard arrUsersHoleCard=3;		//各玩家的底牌(某些情况下非空数组);
+	repeated int32 arrCards=4;						//新增的公共牌
+	required int32 nCardType=5;						//新增公共牌后，自己的牌型(见本文件头部"牌型定义")
+	optional ClubDeZhouSCPreOpOption tPreOpOption=6; 	//自己当前可预操作选项
+	repeated int32 arrCombinedCards=7;				//能组成最大牌型的5个牌
+	repeated WinRate arrWinRate=8;					//玩家胜率
+	repeated PotUser potUsers =9;					       //已收归的各底池玩家对应信息
+	optional int32 nInsureStatus =10;					//可购买保险状态 0正常 1不能买 
+}
+
+//结算信息
+message ClubDeZhouSCSettleNotify
+{
+	message GetItem{	
+		required double nGold=1;			//获得的金币
+		required int32 nPotIdFrom=2;		//金币来源(池ID)
+	}
+	message UserGetFromPot{
+		required int32 nPos=1;				//座位号
+		repeated int32 arrHoleCards=2;		//底牌(该玩家可能在公共牌阶段已亮过牌,前端看重复亮牌会不会有问题)
+		repeated int32 arrCombinedCards=3;	//能组成最大牌型的5个牌
+		required int32 nCardType=4;			//牌型(见本文件头部"牌型定义")
+		repeated GetItem arrGoldGet=5;		//从各个池处中获得的金币
+		required bool isWin =6;				//true时高亮牌型.
+		optional double nProfit=7;			//盈利.>0时显示"胜利"
+		optional int32 nCmpValue=8;			//牌型相同时,由该字段决定大小
+		optional bool isShowCardWhenEnd=9;	//是否亮牌,true:是 其它:否
+		optional double nCurGold=10;		//玩家当前筹码值(结算后)
+		optional double nInsurProfit=11;    //保险收入
+		optional int32 nInsureCardVal=12;    //保险中牌 4转牌 5河牌 9转牌+河牌
+		optional double nDrawChips=13;    //撤码成功数值
+	}
+	repeated UserGetFromPot arrUsersWin=1;			//所有玩家牌型与输赢情况(弃牌玩家除外)
+	optional ClubDeZhouSCPreOpOption tPreOpOption=2; 	//自己当前可预操作选项 (用于让弃牌玩家弹"亮牌" 操作)
+	repeated double arrPot =3;						//收归的各底池数额(池数量:>0),数组索引代表池ID,索引从1开始
+	optional double nCardOpenFee=4;					//>=0:翻牌费用,其它:不能翻牌
+	optional double nTempChips=5;					//暂存区数值
+	optional double nTotalWinGold=6;					//在该牌桌上总盈利
+	optional int32 nPlayCnt=7;					//在该牌桌上总玩的局数
+}
+
+//有玩家亮牌通知 (结算阶段且弃牌玩家才会亮牌)
+message ClubDeZhouSCShowCardNotify
+{
+	required int32 nPos=1;				//亮牌玩家座位号
+}
+
+
+//筹码买入范围查看请求
+message ClubDeZhouSCTakeInRangeReq
+{
+	required int32 nNoUse=1;			//没用字段
+}
+//筹码买入范围查看回复
+message ClubDeZhouSCTakeInRangeRsp
+{
+	required double nGold =1;		//当前身上金币
+	required double nMin=2;			//最小买入
+	required double nMax =3;			//最大买入
+	optional int32 nIsAuto=4;		//是否每局自动买入 1:是 其它:否
+}
+//筹码买入请求
+message ClubDeZhouSCTakeInReq
+{
+	required double nTakeIn=1;			//买入数量
+	optional int32 nIsAuto=2;			//是否每局自动买入 1:是 其它:否
+	optional int32 nIsAutoSitDown=3;	//如果没坐下的话，是否自动坐下 1:是 其它:否
+}
+//筹码买入回复
+message ClubDeZhouSCTakeInRsp
+{
+	required int32 nRlt=1;				//0:成功(下局开始时生效) 1:金币不足 其它:其它错误码 	
+	optional double nBalance=2;			// nRlt为0时有意义 (>=0:买入后当前筹码 ,-1:买入后下局生效;注意浮点数判断问题)
+	optional double nTempChips=3;       //暂存区数值
+	optional double nCanOutChips=4;     //剩余可撤码数值
+}
+
+//返回大厅请求
+message ClubDeZhouSCBackToLobbyReq
+{
+	optional int32 nNoUse=1;
+	required string sTableId =2    [default = ""];	//桌子ID   
+}
+
+//返回大厅回复
+message ClubDeZhouSCBackToLobbyRsp
+{
+	required int32 nRlt=1;						//0:成功   其它:错误码  
+}
+
+//"开始牌局"请求 (房主使用)
+message ClubDeZhouSCTableStartReq{
+	optional int32 nNoUse=1;			//没用字段
+}
+//房主点击了"开始牌局" 通知
+message ClubDeZhouSCTableStartNotify{
+	required bool isTableStart=1;	   //牌桌是否开始 (必然true)
+}
+
+//"开始游戏" 请求 (房主使用)
+message ClubDeZhouSCAutoNextReq{
+	optional int32 nNoUse=1;			//没用字段
+}
+//房主点击了"开始游戏" 通知
+message ClubDeZhouSCAutoNextNotify{
+	required bool isAutoNext=1;			//下局是否自动开始 (必然true)(废弃字段)
+}
+//桌子重置
+message ClubDeZhouSCTableResetNotify
+{
+	optional int32 nNoUse=1;			//没用字段
+	optional bool isAutoNext=2;			//下局是否自动开始 true:是, false:房主需要点击一次 "开始游戏"(前端判断>=2人时才给房主显示该按钮)(废弃字段)
+}
+
+//开局倒计时通知
+message ClubDeZhouSCToStartNotify
+{
+	required int32 nMSeconds =1;  	// >0:倒计时时间(毫秒),并取消暂停(如果有), 0:取消倒计时或暂停(如果有), -1:取消倒计时(如果有),并暂停等待(等待时间为nPauseRemain)
+	optional int32 nPauseRemain=2;  //>0:暂停等待时间(单位:秒) (nMSeconds为-1时有效)
+}
+
+
+//异常提示通知
+message ClubDeZhouSCFailNotify
+{
+	required int32 nCode=1;						//错误码,见错码定义
+	optional string sErr=2;						//错误提示
+	optional ClubDeZhouSCTakeInRangeRsp tRsp=3;	//最小最大带入(金币不足时有)
+	optional double nLoseMaxAmount = 4;         //输钱限制金额
+}
+
+//DeZhouFailNotify 错误码定义
+//11:金币不足(登陆游戏成功, 但坐下失败时) 0
+//12:金币不足('坐下'请求失败时) 0
+//13:金币不足(被请离座位后) 
+
+//14:座位不足('坐下'请求失败时) 0
+//15:重复坐下(已在座位上,'坐下'请求失败时) 0 
+//16:重复站起(当前不在座位上,'站起'请求失败) 0
+
+//17:超时站起 (因超时被踢出座位后)
+//18:桌子解散 
+
+//19:主播未配置房间(坐下失败)
+//20:被强制站起 (被主播)
+
+//21:被强制站起 (被后台管理员)
+//22:被管理员请离该牌桌(返回大厅)
+//23:封禁
+
+//30:输钱限制到达
+//31:缺少gps信息，坐下失败
+//32:存在距离过近的玩家,坐下失败
+//33:缺少IP信息，坐下失败
+//34:存在相同IP的玩家,坐下失败
+//35:入池率过低,坐下失败
+//36:金币不足,魔法表情使用失败
+//40:输钱达到限制
+//41:手数限制
+
+//Gm命令 请求
+message ClubDeZhouSCGmReq
+{
+	required string sStr=1;		//Gm命令
+}
+
+
+//最近牌局记录查询 请求
+message ClubDeZhouSCRecordReq{
+	required int32 nQueryCnt=1 [default = 10];	//查询记录的返回条数(最多50)
+	required int32 nMinId=2 [default = 0];		//(分页查询时,需要填上一次结果的最后一条记录id,即是最小的id)
+}
+
+//最近牌局记录查询 返回
+message ClubDeZhouSCRecordRsp{
+	message Item{
+		required string sSeriesNumber=1;	//牌局编号
+		required string sTime=2;			//时间
+		required double  nBet=3;				//下注
+		required double nWin=4;				//派彩
+		required int32 Id=5;				//记录id. (最大的就是最近的记录)
+	}
+	repeated Item arrItem=1;				//已排序记录
+	required int32 nMinId=2;				//最后一条记录id,用于查询下一页,如果需要
+}
+
+
+//牌局记录详情查询 请求
+message ClubDeZhouSCRecordDetailReq{
+	required string sSeriesNumber=1;	//牌局编号
+}
+//牌局记录详情查询 返回
+message ClubDeZhouSCRecordDetailRsp{
+	message Item{
+		required string sName=1;		//玩家昵称
+		repeated int32 arrHoleCards=2;	//底牌
+		required double  nBet=3;		//下注
+		required double nWin=4;			//派彩
+		required int32 nUserId=5;		//玩家ID
+	}
+	required string sSeriesNumber=1;	//牌局编号
+	repeated int32 arrCommunityCards=2; //公共牌
+	repeated Item arrItem=3;			//牌局各玩家记录
+}
+
+//踢人请求 (给主播踢人用)
+message ClubDeZhouSCKickUserReq{
+	required int32 nPos=1;			//强制站起的对象(座位号)
+}
+//踢人回复
+message ClubDeZhouSCKickUserRsp{
+	required int32 nRlt=1;			//0:踢出成功 1:本局结束后踢出 其它:失败
+}
+
+//暂停状态设置 请求 (仅主播能用)
+message ClubDeZhouSCPauseReq{
+	required bool isPause =1;		//true:设置为暂停 false:设置为非暂停
+}
+//暂停状态设置 返回
+message ClubDeZhouSCPauseRsp{
+	required bool isPause=1;		//当前桌子暂停状态
+}
+
+
+//金币变化通知
+message ClubDeZhouSCGoldNotify{
+	required double nGold=1;		//当前可用金币数
+}
+
+//表情聊天请求
+message ClubDeZhouSCChatReq{
+	required int32 nChatId =1;		//表情id
+	optional int32 nTarget =2;	   //聊天对象(对谁聊天,可不填)
+	optional int32 nType=3;        //类型1魔法表情
+}
+//表情聊天通知
+message ClubDeZhouSCChatNotify{
+	required int32 nSpeaker =1;		//聊天发起者座位号 (0表示不在座位上的旁观玩家)
+	required int32 nChatId =2;		//表情id
+	optional int32 nTarget =3;	    //聊天对象(对谁聊天)
+}
+
+//有玩家筹码余额发生变化通知 (主播更改配置后可能发生)
+message ClubDeZhouSCBalanceNotify{
+	required int32 nPos=1;			//座位号
+	required double nBalance=2;		//对应玩家的当前筹码余额
+}
+
+//牌桌总览请求
+message ClubDeZhouSCOverViewReq{
+	optional int32 nNoUse=1;	//0或nil:新的请求 ,1:继续获取剩下的数据, -1:总览界面关闭
+}
+//牌桌总览回复
+message ClubDeZhouSCOverViewRsp{
+	message Item{
+		required int32 nUserId=1;		//用户id
+		required string sName=2;		//昵称
+		required int32 nStatus=3;		//状态 0:正常 1:离桌(头像变灰)
+		optional int32 nPlayCnt=4;		//局数
+		optional double nPayRate=5;		//入池率(假如值为8即代表8%)
+		optional double nTakeIn=6;		//带入
+		optional double nProfitSum=7;	//盈亏
+		optional string sFaceId=8;	    //头像url
+		optional double nTakeOutChips=9;	//撤码数值
+	}
+	message InsuranceItem {
+		required int32 nUserId=1;		//用户id
+		required string sName=2;		//昵称
+		required int32 stage=3;		    //阶段 1转牌 2:河牌
+		required double buy=4;		   //投保金额
+		required double win=5;		   //赔付
+		required int32 hand=6;         //局数
+	}
+	message RevenueItem{
+		required int32 nUserId=1;		//用户id
+		required string sName=2;		//昵称
+		required int32 nStatus=3;		//状态 0:正常 1:离桌(头像变灰)
+		optional double nGoldCnt=4;		//收益金额
+	}
+	message PenaltyItem{
+		required int32 nUserId=1;		//用户id
+		required string sName=2;		//昵称
+		required int32 nStatus=3;		//状态 0:正常 1:离桌(头像变灰)
+		optional int32 nPlayCnt=4;		//局数
+		optional int32 nLimitPlayCnt=5;		//离桌限制局数
+		optional double nWinGold = 6;  // 盈利金额
+		optional double nGoldCnt=7;		//罚款金额
+		repeated RevenueItem arrRevenue=8; // 受益人列表
+	}
+	required string sPaiJuId=1;				//牌局编号
+	required string sTableName=2;			//牌桌名称
+	required double nSmallBlind=3;			//小盲
+	required double nBigBlind=4;			//大盲
+	repeated Item arrPartInUser=5;			//参与过牌局的用户
+	repeated Item arrLooker=6;				//观看用户
+	optional double nBetBefore=7;			//前注
+	optional double nInsur =8;				//保险赔付
+	optional int32 nRound=9;				//第几手
+	optional int32 nRemainTime=10;			//桌子剩余时间 秒(-1:表示无限)
+	optional int32 nEndFlag =11;			//列表arrPartInUserd的结束标记(1:列表还未结束, 其它:已结束)
+	optional double nZhuaTou = 12;
+    optional double nPreAnte = 13;
+	repeated InsuranceItem arrInsurance=14;				//保险信息
+	optional double nInsurGot =15;				//保险收入
+	repeated PenaltyItem  arrPenalty=16;				//罚款信息
+} 
+//桌子计时状态变化 通知
+message SCElapsedStatusNotify{
+	required int32 nElapsedStatus=1;						//桌子计时状态 0正常计时中 1暂停计时中
+}
+//桌子剩余时间 警告
+message SCElapWarnNotify{
+	required int32 nRemainTime=1;							//桌子剩余时间 秒
+}
+
+//筹码带出范围查看请求
+message ClubDeZhouSCTakeOutRangeReq{
+	required int32 nNoUse=1;			//没用字段
+}
+
+//筹码带出范围查看回复
+message ClubDeZhouSCTakeOutRangeRsp{
+	required double nGold =1;		//当前身上金币
+	required double nMin=2;			//最小带出
+	required double nMax =3;		//最大带出 
+}
+
+//筹码带出请求
+message ClubDeZhouSCTakeOutReq{
+	required double nTakeOut =1;			//带出数量 
+}
+
+//筹码带出回复
+message ClubDeZhouSCTakeOutRsp{
+	required int32 nRlt=1;				//0:成功(下局开始时生效) 1:超出范围 其它:其它错误码
+}
+ 
+  
+//'留座离桌'或'回到座位' 请求
+message ClubDeZhouSCRetainReq{
+	required int32 nOp=1;			//0:留座离桌 1:回到座位
+}
+//'留座离桌'或'回到座位' 回复
+message ClubDeZhouSCRetainRsp{
+	required int32 nRlt=1;			//0:成功 1:本手结束后生效 其它:失败
+	required int32 nOp=2;			//0:留座离桌 1:回到座位
+}
+//有玩家'留座离桌'或'回到座位' 生效通知
+message ClubDeZhouSCRetainNotify{
+	required int32 nPos=1;			//座位号
+	required int32 nOp=2;			//0:留座离桌 1:回到座位
+	optional int32 nSeconds=3;		//留座离桌剩余时间 秒 (nOp为0时有效)
+}
+
+
+//翻牌请求
+message ClubDeZhouSCCardOpenReq{
+	optional int32 nNoUse=1;		//没用字段
+}
+//翻牌回复
+message ClubDeZhouSCCardOpenRsp{
+	required int32 nRlt=1;			//0:成功 1:金币不足 其它:失败
+	repeated int32 arrCards=2;		// 翻牌 或转牌 或河牌 (成功时有效)
+}
+
+ 
+ 
+// 可存证hash请求
+message ClubDeZhouHashListReq{
+	required int32 nQueryCnt=1 [default = 10];	//查询记录的返回条数(最多50)
+	required int32 nMinId=2 [default = 0];		//(分页查询时,需要填上一次结果的最后一条记录id,即是最小的id)
+}
+
+//可存证hash请求 返回
+message ClubDeZhouHashListRsp{
+	message HashItem{
+		required string sPaiJuId=1;	        //牌局编号
+		required string sTime=2;			//时间
+		required string hash=3;				//card哈希
+		optional string cards=4;			//card序列哈希
+		optional string hand=5;				//手牌
+		required int32 nPlayCnt=6;			//第几手
+		required string seed=7;			    //种子
+		required int32 show=8;			    //是否秀牌0否1是
+		optional string fTime=9;			//发牌时间
+	}
+	repeated HashItem arrItem=1;			//已排序记录
+	required int32 nMinId=2;				//最后一条记录id,用于查询下一页,如果需要
+	required int32 nRlt=3;				   //返回值 0成功 1不在座位上
+}
+
+// Hash指定局牌序列请求
+message ClubDeZhouHashCardReq{
+	required string sPaiJuId=1;	   //牌局id
+}
+
+//Hash指定局牌序列请求 返回
+message ClubDeZhouHashCardRsp{
+	required int32 nRlt=1;			        //返回值 0成功 1不在座位上 2当前局不允许获取 3金币不足 4获取失败
+	optional string nCards=2;				//牌序列
+	optional string nDetail=3;				//详情
+} 
+ 
+// 结算统计数据下发
+message ClubDeZhouUserStaticRsp{
+	required double tProfit=1;			    //输赢
+	required double nHandProfit=2;				//手均盈利
+	required int32 nCount=3;				//手牌数
+	optional double nTakeIn=4;              //买入
+}
+
+message ClubDeZhouSCTakeChipsOutReq {
+	required double nValue=1;          //撤码数值
+}
+
+message ClubDeZhouSCTakeChipsOutRsp {
+	required int32 nRlt=1;			        //返回值 0成功 1不在座位上 2牌桌撤码未开启 3可撤码金币不足 4参数错误
+	optional double nTempChips=2;				//暂存区数值
+	optional double nCanOutChips=3;				//剩余可撤码数值
+	optional double nBalance=4;				//当前金币
+}
+
+message ClubDeZhouSCTakeOutInfoReq {
+}
+
+message ClubDeZhouSCTakeOutInfoRsp {
+	required int32 nRlt=1;			        //返回值 0成功 1不在座位上 2牌桌撤码未开启 3可撤码金币不足
+	optional double nTempChips=2;				//暂存区数值
+	optional double nCanOutChips=3;				//剩余可撤码数值
+	optional bool isAutoTabkeOut=4;				//当前设置是否自动撤码
+}
+
+message ClubDeZhouSCTakeOutSetReq {
+	required double nIsAuto=1;             //是否自动撤码
+	required double nAuto=2;             //是否自动撤码
+}
+
+message ClubDeZhouSCTakeOutSetRsp {
+	required int32 nRlt=1;			        //返回值 0成功 1不在座位上
+	optional bool isAutoTabkeOut=2;				//当前设置是否自动撤码
+	optional double nCanOutChips=3;				//剩余可撤码数值
+}
+
+message ClubDeZhouSCTakeOutSetReq1 {
+	required int32 nIsAuto=1;             //是否自动撤码
+	required int32 nAuto=2;             //是否自动撤码
+}
+
+message ClubDeZhouSCInsureNotify {
+	required double nCost = 1;        //花费
+	required int32 nPos = 2;          //座位ID
+}
+
+message ClubDeZhouSCHandCardReq {
+}
+
+message ClubDeZhouSCHandCardRsp {
+	message HandInfo{
+		required int32 nUserId=1;		//玩家id
+		repeated int32 arrHoleCards=2;	//底牌
+		required int32 nPos = 3;        //座位号
+	}
+	required int32 nRlt=1;			        //返回值 0成功 1不在座位上
+	repeated HandInfo nHands = 2;          //手牌
+}
+
+message ClubDeZhouSCCutCardReq {
+	required int32 nIndex = 1;          //切牌位置
+	required bool nIsStart = 2;         //开始/结束
+}
+
+message ClubDeZhouSCCutCardRsp {
+	required int32 nRlt=1;			        //返回值 0成功 1不在座位上
+}
+
+message ClubDeZhouSCCardOpNotify {
+	required int32 nOpId = 1;           //操作类型 1看公牌 2看手牌 3切牌
+	optional int32 nRemain = 2;         //时间
+	optional int32 nIndex = 3;          //切牌位置
+	optional int32 nUserId = 4;
+	optional string nName = 5;
+}
+
+message ClubDeZhouSCTakeInNotify {
+	required int32 nPos=1;			//座位号
+	required double nBalance=2;     //买入金额
+}
+
+message ClubDeZhouSCLeaveNotify {
+	required int32 nPos=1;			//座位号
+	required string nName=2;        //名字
+}
+
+message ClubDeZhouSCEnterNotify {
+	required string nName=1;        //名字
+}
+
+message ClubDeZhouSCRevenueNotify {
+	message UserBalance{
+		required int32 nPos=1;			//座位号
+		required double nBalance=2;		//对应玩家的当前筹码余额
+	}
+	repeated UserBalance arrUserBalance=1;
+}

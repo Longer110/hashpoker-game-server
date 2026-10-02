@@ -1,0 +1,62 @@
+syntax = "proto2";
+
+package MaJiang5_pb;
+
+message VoteCrule_P {
+    required int32 nSitId = 1 [default = -99];
+    required int32 cChoose = 2 [default = -99];
+    required string sRule = 3 [default = ""];
+}
+
+message VotecruleEnd_P {
+    required int32 cResult = 1 [default = -99];
+}
+
+message LookEerSCoreWater_P {
+    message ArrLookOnInfo {
+        message ArrMaPai {
+            required string sName = 1 [default = ""];
+            required int32 nMaType = 2 [default = -99];
+            required string sMaPai = 3 [default = ""];
+        }
+        
+        message ArrAccount {
+            required int32 nUserId = 4 [default = -99];
+            required string sName = 5 [default = ""];
+            required int32 nScoreChange = 6 [default = -99];
+        }
+        
+        required int32 nMaPaiLen = 1 [default = 0];
+        repeated ArrMaPai tArrMaPaiInfo = 2;
+        required int32 nAccountLen = 3 [default = 0];
+        repeated ArrAccount tArrAccountInfo = 4;
+    }
+    
+    required int32 nUserLookLen = 1 [default = 0];
+    repeated ArrLookOnInfo tArrLookOn = 2;
+}
+
+message LookErkaiMa_P {
+    message ArrLooker {
+        message ArrMaPai {
+            required int32 nMaPai = 1 [default = -99];
+            required int32 nHit = 2 [default = -99];
+        }
+        
+        required int32 nUserId = 1 [default = -99];
+        required int32 nMaPaiLen = 2 [default = 0];
+        required ArrMaPai tArrMaPai = 3;
+    }
+    
+    required int32 nUserLookLen = 1 [default = 0];
+    repeated ArrLooker tArrLookerInfo = 2;
+}
+
+message MajongReGame_GM_Q {
+    required string sGmString = 1 [default = ""];
+}
+
+message MajongRe_Gold_P {
+    required int32 nUserId = 1 [default = -99];
+    required int32 nError = 2 [default = -99];
+}

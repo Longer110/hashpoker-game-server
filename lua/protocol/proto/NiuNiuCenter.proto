@@ -1,0 +1,586 @@
+syntax = "proto2";
+
+package NiuNiuCenter_pb;
+
+message NNC_Proto {
+    required int32 Main_CMD = 1 [default = 255];
+    required int32 NNCLogOnReq_CMD = 2 [default = 2];
+    required int32 NNCLogOnResp_CMD = 3 [default = 3];
+    required int32 NNCGoInBetStageNotify_CMD = 4 [default = 4];
+    required int32 NNCGoInSettleNotify_CMD = 6 [default = 6];
+    required int32 NNCGoInFreeNotify_CMD = 7 [default = 7];
+    required int32 NNCBetReq_CMD = 8 [default = 8];
+    required int32 NNCBetResp_CMD = 9 [default = 9];
+    required int32 NNCApplyForBankerReq_CMD = 11 [default = 11];
+    required int32 NNCApplyForBankerResp_CMD = 12 [default = 12];
+    required int32 NNCApplyCancelReq_CMD = 13 [default = 13];
+    required int32 NNCApplyCancelResp_CMD = 14 [default = 14];
+    required int32 NNCApplyResignReq_CMD = 15 [default = 15];
+    required int32 NNCApplyResignResp_CMD = 16 [default = 16];
+    required int32 NNCApplyForBankerNotify_CMD = 17 [default = 17];
+    required int32 NNCApplyCancelNotify_CMD = 18 [default = 18];
+    required int32 NNCGoldChangeSynReq_CMD = 19 [default = 19];
+    required int32 NNCGoldChangeSynNotify_CMD = 20 [default = 20];
+    required int32 NNCTableCreateNotify_CMD = 21 [default = 21];
+    required int32 NNCTableCloseNotify_CMD = 22 [default = 22];
+    required int32 NNCScenceReq_CMD = 23 [default = 23];
+    required int32 NNCScenceRsp_CMD = 24 [default = 24];
+    required int32 NNCResultControlReq_CMD = 25 [default = 25];
+    required int32 NNCAreasBetNotify_CMD = 26 [default = 26];
+    required int32 NNCAnchorBetNotify_CMD = 27 [default = 27];
+    required int32 NNCRecommendReq_CMD = 28 [default = 28];
+    required int32 NNCRecommendSwitchReq_CMD = 29 [default = 29];
+    required int32 NNCRecommendSwitchNotify_CMD = 30 [default = 30];
+    required int32 NNCMultiBetReq_CMD = 31 [default = 31];
+    required int32 NNCMultiBetResp_CMD = 32 [default = 32];
+    required int32 NNCAnchorMultiBetNotify_CMD = 33 [default = 33];
+    required int32 NNCRecommendAreaChangeNotify_CMD = 34 [default = 34];
+    required int32 NNCGoInShuffleNotify_CMD = 35 [default = 35];
+    required int32 NNCLiveUserGoldReq_CMD = 37 [default = 37];
+    required int32 NNCGoInBetStopNotify_CMD = 38 [default = 38];
+    required int32 NNCPlayerCntReportReq_CMD = 39 [default = 39];
+    required int32 NNCPlayerCntSummaryNotify_CMD = 40 [default = 40];
+    required int32 NNCGetPileInfoReq_CMD = 41 [default = 41];
+    required int32 NNCPileInfoNotify_CMD = 42 [default = 42];
+    required int32 NNCLiveUserOnlineReportReq_CMD = 43 [default = 43];
+    required int32 NNCGoInFaultNotify_CMD = 44 [default = 44];
+    required int32 NNCTickNotify_CMD = 45 [default = 45];
+    required int32 NNCXiPaiReq_CMD = 46 [default = 46];
+    required int32 NNCXiPaiTimeNotify_CMD = 47 [default = 47];
+    required int32 NNCUserSettleNotifyReq_CMD = 48 [default = 48];
+    required int32 NNCUserSettleNotify_CMD = 49 [default = 49];
+    required int32 NNCUserLeaveNotifyReq_CMD = 50 [default = 50];
+    required int32 NNCUserLeaveNotify_CMD = 51 [default = 51];
+    required int32 NNCUserBetNotify_CMD = 52 [default = 52];
+    required int32 NNCUserEnterNotifyReq_CMD = 53 [default = 53];
+    required int32 NNCUserEnterNotify_CMD = 54 [default = 54];
+    required int32 NNCFollowLockChangeNotifyReq_CMD = 55 [default = 55];
+    required int32 NNCFollowLockChangeNotify_CMD = 56 [default = 56];
+    required int32 NNCPlayerModeChangeReq_CMD = 57 [default = 57];
+    required int32 NNCPlayerModeChangeRsp_CMD = 58 [default = 58];
+    required int32 NNCPlayerModeChangeNotify_CMD = 59 [default = 59];
+    required int32 NNCCommonReq_CMD = 60 [default = 60];
+    required int32 NNCLiveTbChangReq_CMD = 61 [default = 61];
+    required int32 NNCLiveTbChangNotify_CMD = 62 [default = 62];
+}
+
+message NNCUser {
+    required int32 nUserId = 1;
+    required string sFaceId = 2;
+    required string sName = 3;
+    required double nGold = 4;
+    required int32 nSex = 5;
+    optional int32 nBankerConsecutive = 6;
+    optional int32 nShopId = 7;
+    optional NNCShowArea tShowArea = 8;
+}
+
+message NNCShowArea {
+    repeated int32 arrShowAreaId = 1;
+}
+
+message NNCBlockChainBothCard {
+    message Item {
+        required int32 nDex = 1;
+        optional int32 nCard = 2;
+        optional string sClearText = 3;
+    }
+    repeated Item arrCardLH = 1;
+}
+
+message NNCResultsOfCardOpen {
+    message arrPaiItem {
+        required int32 NiuWhat = 1;
+        repeated int32 ShouPai = 2;
+        required int32 Times = 3;
+        required int32 nResult = 4;
+    }
+    required arrPaiItem nCardZ = 1;
+    required arrPaiItem nCardx1 = 2;
+    required arrPaiItem nCardx2 = 3;
+    required arrPaiItem nCardx3 = 4;
+    repeated int32 arrHitArea = 5;
+    optional int32 nPredict = 6;
+    optional NNCBlockChainBothCard tBlockChainBothCard = 7;
+}
+
+message NNCAreaChipBetItem {
+    required int32 nAreaId = 1;
+    required double nBetSum = 2;
+    optional int32 nUserCnt = 3;
+    optional double nAnchorBet = 4;
+}
+
+message NNCSwitchConfig {
+    required bool isRecommendOn = 1;
+    required bool isFollowBetOn = 2;
+    required bool isUserBankerOn = 3;
+    optional bool isVipOn = 4;
+}
+
+message NNCMaintenanceInfo {
+    required int32 status = 1;
+    required int32 nTimestampStart = 2;
+    required int32 nTimestampEnd = 3;
+    required int32 nCountDown = 4;
+}
+
+message NNCPlayerMode {
+    required int32 status = 1;
+    optional bool isCanExperience = 2;
+}
+
+message NNCPlayerModeChangeReq {
+    required string sTableId = 1;
+    required int32 status = 2;
+}
+
+message NNCPlayerModeChangeRsp {
+    required string sTableId = 1;
+    required int32 status = 2;
+    required int32 nRlt = 3;
+}
+
+message NNCPlayerModeChangeNotify {
+    required string sTableId = 1;
+    required int32 status = 2;
+}
+
+message NNCScence {
+    message TrendItem {
+        message Item {
+            required int32 nResult = 1;
+            required int32 NiuWhat = 2;
+        }
+        required Item nCardZResult = 1;
+        required Item nCardX1Result = 2;
+        required Item nCardX2Result = 3;
+        required Item nCardX3Result = 4;
+        optional int32 nOrder = 5;
+        optional int32 nPredict = 6;
+    }
+    required int32 nCurrentStage = 1;
+    required int32 nRemainSeconds = 2;
+    required NNCUser tBanker = 3;
+    repeated NNCAreaChipBetItem arrBetDetail = 4;
+    repeated TrendItem arrTrend = 5;
+    repeated NNCUser arrApplicants = 6;
+    required int32 nApplicantsMax = 7;
+    required int32 nBankerConsecutiveMax = 8;
+    required int32 nBankerRequirement = 9;
+    optional NNCResultsOfCardOpen tResultsOfCardOpen = 10;
+    optional int32 nLiveUserID = 11;
+    repeated double arrChipsForBet = 12;
+    optional int32 nGroupId = 13;
+    optional int32 nJuShu = 14;
+    optional int32 nRecommendState = 15;
+    optional NNCSwitchConfig tSwitchConfig = 16;
+    optional int32 nRecommendStateBeUse = 17;
+    optional string sTableName = 18;
+    optional int32 nAnte = 19;
+    optional string sPaiJuId = 20;
+    optional double nLiveUserBalance = 21;
+    optional bool isBlockChainTable = 22;
+    optional bool isBetExclusive = 23;
+    optional string sLiveID = 24;
+    optional string sPlatformID = 25;
+    optional int32 nTableType = 26;
+    optional int32 nLastReqXiPaiTime = 27;
+    optional string sRoundNo = 28;
+    optional string sXueNo = 29;
+    optional NNCMaintenanceInfo tMaintenanceInfo = 30;
+    optional NNCPlayerMode tPlayerMode = 31;
+    repeated int32 arrPredict = 32;
+    optional bool isVoiceRoom = 33;
+    optional int32 nTax = 34;
+    optional string sFollowConfig = 35;
+    optional int32 nSrcType = 36;
+    optional int32 nTableIdOfSrc = 37;
+    optional int32 nPaiJuDuration = 38;
+    optional string sSrcTableId = 39;
+    optional bool isCopyTable = 41;
+    optional string sHeadTableId = 42;
+}
+
+message NNCLogOnReq {
+    required int32 nServerId = 1;
+}
+
+message NNCLogOnResp {
+    required int32 nRlt = 1;
+}
+
+message NNCGoInBetStageNotify {
+    required int32 nSeconds = 1;
+    required string sTableId = 2;
+    optional int32 nRecommendAreaId = 3;
+    optional NNCBlockChainBothCard tBlockChainBothCard = 4;
+}
+
+message NNCGoInSettleNotify {
+    message Item {
+        required int32 nBetArea = 1;
+        required double nProfit = 2;
+    }
+    required int32 nSeconds = 1;
+    required string sTableId = 2;
+    required NNCResultsOfCardOpen tResultsOfCardOpen = 3;
+    required string sPaiJuId = 4;
+    required double nZhuangWin = 5;
+    optional int32 nIsNewAgain = 6;
+    optional int32 nRecommendTimeLimit = 7;
+    repeated Item arrBankerProfitDetail = 8;
+    optional int32 nCtrlUserId = 9;
+    optional int32 nCtrlType = 10;
+}
+
+message NNCGoInFreeNotify {
+    required int32 nSeconds = 1;
+    required string sTableId = 2;
+    required NNCUser tBanker = 3;
+    required int32 nTipId = 4;
+    optional int32 nIsClose = 5;
+    optional int32 nLiveUserID = 6;
+    optional int32 nRobotsServerId = 7;
+    optional int32 nJuShu = 8;
+    optional int32 nCurrentRealUserCnt = 9;
+    optional NNCSwitchConfig tSwitchConfig = 10;
+    optional string sPaiJuId = 11;
+    optional double nLiveUserBalance = 12;
+    optional int32 nBootsno = 13;
+    optional string sPlatformID = 14;
+    optional string sLiveID = 15;
+    optional NNCScence tScence = 16;
+    optional int32 nIsRecover = 17;
+    optional string sRoundNo = 18;
+    optional string sXueNo = 19;
+    optional NNCMaintenanceInfo tMaintenanceInfo = 20;
+    optional NNCPlayerMode tPlayerMode = 21;
+    optional bool isCanResetTestGold = 22;
+    optional int32 nTax = 23;
+    repeated double arrChipsForBet = 24;
+}
+
+message NNCGoInShuffleNotify {
+    required int32 nSeconds = 1;
+    required string sTableId = 2;
+    repeated int32 arrCards = 3;
+    optional int32 nBootsno = 4;
+}
+
+message NNCGoInBetStopNotify {
+    required int32 nSeconds = 1;
+    required string sTableId = 2;
+}
+
+message NNCGoInFaultNotify {
+    required int32 nSeconds = 1;
+    required string sTableId = 2;
+    required NNCUser tBanker = 3;
+}
+
+message NNCBetReq {
+    message BetItem {
+        required double nBetChip = 1;
+        required int32 nBetArea = 2;
+        required int32 nId = 3;
+        required int32 nUserType = 4;
+    }
+    required string sTableId = 1;
+    repeated BetItem arrBetItem = 2;
+}
+
+message NNCBetResp {
+    required string sTableId = 1;
+    repeated int32 arrSucceeId = 2;
+}
+
+message NNCMultiBetReq {
+    message Bet {
+        required double nBetChip = 1;
+        required int32 nBetArea = 2;
+    }
+    message UserBet {
+        required int32 nUserId = 1;
+        repeated Bet arrBet = 2;
+        required int32 nUserType = 3;
+    }
+    required string sTableId = 1;
+    repeated UserBet arrUserBet = 2;
+}
+
+message NNCMultiBetResp {
+    required string sTableId = 1;
+    repeated int32 arrSucceeId = 2;
+}
+
+message NNCAreasBetNotify {
+    required string sTableId = 1;
+    repeated NNCAreaChipBetItem arrAreasBetSum = 2;
+}
+
+message NNCApplyForBankerReq {
+    required string sTableId = 1;
+    required NNCUser tUser = 2;
+}
+
+message NNCApplyForBankerResp {
+    required string sTableId = 1;
+    required int32 nRlt = 2;
+    required int32 nUserId = 3;
+}
+
+message NNCApplyForBankerNotify {
+    required string sTableId = 1;
+    required NNCUser tUser = 2;
+    required int32 nApplicantCnt = 3;
+}
+
+message NNCApplyCancelReq {
+    required string sTableId = 1;
+    required int32 nUserId = 2;
+}
+
+message NNCApplyCancelResp {
+    required string sTableId = 1;
+    required int32 nRlt = 2;
+    required int32 nUserId = 3;
+}
+
+message NNCApplyCancelNotify {
+    required string sTableId = 1;
+    required int32 nUserId = 2;
+    required int32 nApplicantCnt = 3;
+    required int32 nReason = 4;
+}
+
+message NNCApplyResignReq {
+    required string sTableId = 1;
+    required int32 nUserId = 2;
+}
+
+message NNCApplyResignResp {
+    required string sTableId = 1;
+    required int32 nRlt = 2;
+    required int32 nUserId = 3;
+}
+
+message NNCGoldChangeSynReq {
+    message ChangeItem {
+        required int32 nUserId = 1;
+        required double nChange = 2;
+    }
+    required string sTableId = 1;
+    required double nZhuangWin = 2;
+    repeated ChangeItem arrGoldChange = 3;
+    required int32 nIsHaveRealUserIn = 4;
+    required int32 nCurrentRealUserCnt = 5;
+}
+
+message NNCGoldChangeSynNotify {
+    message ChangeItem {
+        required int32 nUserId = 1;
+        required double nChange = 2;
+    }
+    required string sTableId = 1;
+    repeated ChangeItem arrGoldChange = 2;
+}
+
+message NNCTableCreateNotify {
+    required string sTableId = 1;
+    required int32 nRoomId = 2;
+    required NNCScence tScence = 3;
+}
+
+message NNCScenceReq {
+    required string sTableId = 1;
+}
+
+message NNCScenceRsp {
+    required string sTableId = 1;
+    required int32 nRoomId = 2;
+    required NNCScence tScence = 3;
+}
+
+message NNCTableCloseNotify {
+    required string sTableId = 1;
+}
+
+message NNCResultControlReq {
+    required string sTableId = 1;
+    required int32 nPriority = 2;
+    required int32 nResult = 3;
+}
+
+message NNCAnchorBetNotify {
+    required string sTableId = 1;
+    required int32 nBetArea = 2;
+    required double nBetChip = 3;
+    required int32 nUserId = 4;
+}
+
+message NNCAnchorMultiBetNotify {
+    message Bet {
+        required double nBetChip = 1;
+        required int32 nBetArea = 2;
+    }
+    required string sTableId = 1;
+    repeated Bet arrBet = 2;
+    required int32 nUserId = 3;
+}
+
+message NNCRecommendReq {
+    required string sTableId = 1;
+    required int32 nAreaId = 2;
+}
+
+message NNCRecommendAreaChangeNotify {
+    required string sTableId = 1;
+    required int32 nAreaId = 2;
+}
+
+message NNCRecommendSwitchReq {
+    required string sTableId = 1;
+    required int32 nRecommendState = 2;
+}
+
+message NNCRecommendSwitchNotify {
+    required string sTableId = 1;
+    required int32 nRecommendState = 2;
+    required int32 nRecommendStateBeUse = 3;
+}
+
+message NNCLiveUserGoldReq {
+    required string sTableId = 1;
+    required double nGold = 2;
+    required bool isTooLess = 3;
+}
+
+message NNCPlayerCntReportReq {
+    required string sTableId = 1;
+    required int32 nServerId = 2;
+    required int32 nCnt = 3;
+}
+
+message NNCPlayerCntSummaryNotify {
+    required string sTableId = 1;
+    required int32 nSumCnt = 2;
+}
+
+message NNCGetPileInfoReq {
+    required string sTableId = 1;
+}
+
+message NNCPileInfoNotify {
+    message CardItem {
+        required int32 nCardDex = 1;
+        required string sEncryptText = 2;
+        required string sClearText = 3;
+        required int32 nCard = 4;
+    }
+    required string sTableId = 1;
+    required int32 nBootsno = 2;
+    required int32 nStartKey = 3;
+    required int32 nEndKey = 4;
+    required int32 nMaxDex = 5;
+    repeated CardItem arrCardItem = 6;
+    required int32 nCurSend = 7;
+}
+
+message NNCLiveUserOnlineReportReq {
+    required string sTableId = 1;
+}
+
+message NNCTickNotify {
+    required string sTableId = 1;
+    required int32 nSeconds = 2;
+}
+
+message NNCXiPaiReq {
+    required string sTableId = 1;
+    required int32 nUserId = 2;
+}
+
+message NNCXiPaiTimeNotify {
+    required string sTableId = 1;
+    required int32 nUserId = 2;
+    required int32 nLastReqXiPaiTime = 3;
+}
+
+message NNCUserWinLoseInfo {
+    required int32 nUserId = 1;
+    required double nBet = 2;
+    required double nWinLose = 3;
+    required string sPaiJuId = 4;
+    required double nWL = 5;
+}
+
+message NNCUserSettleNotifyReq {
+    required string sTableId = 1;
+    required NNCUserWinLoseInfo tUserWinLoseInfo = 2;
+}
+
+message NNCUserSettleNotify {
+    required string sTableId = 1;
+    required NNCUserWinLoseInfo tUserWinLoseInfo = 2;
+}
+
+message NNCUserLeaveNotifyReq {
+    required string sTableId = 1;
+    required int32 nUserId = 2;
+}
+
+message NNCUserLeaveNotify {
+    required string sTableId = 1;
+    required int32 nUserId = 2;
+}
+
+message NNCUserBetNotify {
+    message Bet {
+        required double nBetChip = 1;
+        required int32 nBetArea = 2;
+    }
+    message arrBetInfo {
+        required int32 nUserId = 1;
+        repeated Bet arrBet = 2;
+    }
+    required string sTableId = 1;
+    repeated arrBetInfo arrBetInfo = 2;
+}
+
+message NNCUserEnterNotifyReq {
+    required string sTableId = 1;
+    required int32 nUserId = 2;
+}
+
+message NNCUserEnterNotify {
+    required string sTableId = 1;
+    required int32 nUserId = 2;
+}
+
+message NNCFollowLockChangeNotifyReq {
+    required int32 nUserId = 1;
+    required int32 nLock = 2;
+    required string sTableId = 3;
+}
+
+message NNCFollowLockChangeNotify {
+    required int32 nUserId = 1;
+    required int32 nLock = 2;
+    required string sTableId = 3;
+}
+
+message NNCCommonReq {
+    required string sCmd = 1;
+    required string sParameter = 2;
+}
+
+message NNCLiveTbChangReq {
+    required string sTableId = 1;
+    required string sChangeTo = 2;
+}
+
+message NNCLiveTbChangNotify {
+    required string sTableId = 1;
+    required string sChangeTo = 2;
+}

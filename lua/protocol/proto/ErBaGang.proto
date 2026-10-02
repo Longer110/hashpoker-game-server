@@ -1,0 +1,168 @@
+syntax = "proto2";
+
+package ErBaGang_pb;
+
+message ErBaGang_Proto {
+    required int32 Main_CMD = 1 [default = 220];
+    required int32 ErBaGangLogOnReq_CMD = 2 [default = 2];
+    required int32 ErBaGangLogOnResp_CMD = 3 [default = 3];
+    required int32 ErBaGangMatchingReq_CMD = 4 [default = 4];
+    required int32 ErBaGangMatchingRsp_CMD = 5 [default = 5];
+    required int32 ErBaGangMatchingSucceeNotify_CMD = 6 [default = 6];
+    required int32 ErBaGangCancelMatchingReq_CMD = 7 [default = 7];
+    required int32 ErBaGangGoInQiangZhuangStageNotify_CMD = 8 [default = 8];
+    required int32 ErBaGangQiangZhuangReq_CMD = 9 [default = 9];
+    required int32 ErBaGangQiangZhuangNotify_CMD = 10 [default = 10];
+    required int32 ErBaGangDingZhuangNotify_CMD = 11 [default = 11];
+    required int32 ErBaGangGoInBetStageNotify_CMD = 12 [default = 12];
+    required int32 ErBaGangBetReq_CMD = 13 [default = 13];
+    required int32 ErBaGangBetNotify_CMD = 14 [default = 14];
+    required int32 ErBaGangGoInCmpStageNotify_CMD = 15 [default = 15];
+    required int32 ErBaGangToNextNotify_CMD = 16 [default = 16];
+    required int32 ErBaGangEndNotify_CMD = 17 [default = 17];
+    required int32 ErBaGangBackToLobbyReq_CMD = 18 [default = 18];
+    required int32 ErBaGangBackToLobbyRsp_CMD = 19 [default = 19];
+    required int32 ErBaGangGmReq_CMD = 20 [default = 20];
+    required int32 ErBaGangGmRsp_CMD = 21 [default = 21];
+}
+
+message ErBaGangLogOnReq {
+    required int32 nUserId = 1;
+    optional int32 nRoomId = 2;
+}
+
+message ErBaGangLogOnResp {
+    required int32 nRlt = 1;
+    optional string strErr = 2;
+    optional ErBaGangScence tScence = 3;
+    optional int32 nOtherGameId = 4;
+    optional int32 nOtherGameRoomId = 5;
+}
+
+message ErBaGangUser {
+    required int32 nUserId = 1;
+    required int32 nSitId = 2;
+    required string sFaceId = 3;
+    required string sName = 4;
+    required double nGold = 5;
+    required int32 nSex = 6;
+    optional int32 nStatus = 7;
+}
+
+message ErBaGangScence {
+    repeated ErBaGangUser arrUsers = 1;
+    required string sPaijuId = 2;
+    required int32 nRoomId = 3;
+    required int32 nAnte = 4;
+    required int32 nCurRound = 5;
+    required int32 nMaxRound = 6;
+    required int32 nStage = 7;
+    required int32 nSeconds = 8;
+    repeated int32 arrChoices = 9;
+    optional int32 nZhuangJiaPos = 10;
+    optional ErBaGangGoInCmpStageNotify tRlt = 11;
+    repeated int32 arrPileCard = 12;
+}
+
+message ErBaGangMatchingReq {
+    optional int32 nNoUse = 1;
+}
+
+message ErBaGangMatchingRsp {
+    required int32 nRlt = 1;
+    optional string strErr = 2;
+}
+
+message ErBaGangMatchingSucceeNotify {
+    required ErBaGangScence tScence = 1;
+}
+
+message ErBaGangCancelMatchingReq {
+    optional int32 nNoUse = 1;
+}
+
+message ErBaGangGoInQiangZhuangStageNotify {
+    required int32 nSeconds = 1;
+    repeated int32 arrChoices = 2;
+    required int32 nCurRound = 3;
+}
+
+message ErBaGangQiangZhuangReq {
+    required int32 nChoice = 1;
+}
+
+message ErBaGangQiangZhuangNotify {
+    required int32 nSitId = 1;
+    required int32 nChoice = 2;
+}
+
+message ErBaGangDingZhuangNotify {
+    repeated int32 arrSitId = 1;
+    required int32 nZhuangSitId = 2;
+}
+
+message ErBaGangGoInBetStageNotify {
+    required int32 nSeconds = 1;
+    repeated int32 arrChoices = 2;
+}
+
+message ErBaGangBetReq {
+    required int32 nChoice = 1;
+}
+
+message ErBaGangBetNotify {
+    required int32 nSitId = 1;
+    required int32 nChoice = 2;
+}
+
+message ErBaGangGoInCmpStageNotify {
+    message Item {
+        required int32 nSitId = 1;
+        repeated int32 arrCard = 2;
+        required string nType = 3;
+        required int32 nIsWin = 4;
+        required double nProfit = 5;
+    }
+    required int32 nDiceA = 1;
+    required int32 nDiceB = 2;
+    repeated Item arrItem = 3;
+    required int32 nFirstOpenPos = 4;
+    repeated int32 arrPileCard = 5;
+}
+
+message ErBaGangToNextNotify {
+    required int32 nSeconds = 1;
+}
+
+message ErBaGangEndNotify {
+    message Item {
+        required string sNickName = 1;
+        required double nInitGold = 2;
+        required int32 nType = 3;
+        required int32 nAnte = 4;
+        required int32 nQiangZhuangChoice = 5;
+        required int32 nBetChoice = 6;
+        required double nProfit = 7;
+        required int32 nRound = 8;
+        required int32 nIsZhuang = 9;
+    }
+    repeated Item arrItem = 1;
+}
+
+message ErBaGangBackToLobbyReq {
+    optional int32 nNoUse = 1;
+}
+
+message ErBaGangBackToLobbyRsp {
+    required int32 nRlt = 1;
+    optional string strErr = 2;
+}
+
+message ErBaGangGmReq {
+    required string strCmd = 1;
+}
+
+message ErBaGangGmRsp {
+    required int32 nRlt = 1;
+    optional string strErr = 2;
+}

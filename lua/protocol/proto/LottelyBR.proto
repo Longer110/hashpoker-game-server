@@ -1,0 +1,208 @@
+syntax = "proto2";
+
+package LottelyBR_pb;
+
+message LBR_Proto {
+    required int32 Main_CMD = 1 [default = 317];
+    required int32 LBRLogOnReq_CMD = 2 [default = 1];
+    required int32 LBRLogOnResp_CMD = 3 [default = 2];
+    required int32 LBRGoInFreeStageNotify_CMD = 4 [default = 3];
+    required int32 LBRGoInBetStageNotify_CMD = 5 [default = 4];
+    required int32 LBRGoInBetStopNotify_CMD = 6 [default = 5];
+    required int32 LBRNumberNotify_CMD = 7 [default = 6];
+    required int32 LBRSettleNotify_CMD = 8 [default = 7];
+    required int32 LBRMultiBetReq_CMD = 9 [default = 8];
+    required int32 LBRMultiBetResp_CMD = 10 [default = 9];
+    required int32 LBRBetNotify_CMD = 11 [default = 10];
+    required int32 LBRStartReq_CMD = 12 [default = 11];
+    required int32 LBRStartRsp_CMD = 13 [default = 12];
+    required int32 LBRShowNumReq_CMD = 14 [default = 13];
+    required int32 LBRShowNumRsp_CMD = 15 [default = 14];
+    required int32 LBRGmReq_CMD = 16 [default = 15];
+    required int32 LBRBackToLobbyReq_CMD = 17 [default = 16];
+    required int32 LBRBackToLobbyRsp_CMD = 18 [default = 17];
+    required int32 LBRKickOutNotify_CMD = 19 [default = 18];
+    required int32 LBRLiveChangeNotify_CMD = 20 [default = 19];
+    required int32 LBRGoldUpdateNotify_CMD = 21 [default = 20];
+}
+
+message LBRUser {
+    required int32 nUserId = 1;
+    required string sFaceId = 2;
+    required string sName = 3;
+    required double nGold = 4;
+    required int32 nSex = 5;
+}
+
+message LBRBetItem {
+    required int32 nAreaId = 1;
+    required double nBetSum = 2;
+    required int32 nUserCnt = 3;
+}
+
+message LBRBetItemSelf {
+    required int32 nAreaId = 1;
+    required int32 nNumber = 2;
+    required double nBetSum = 3;
+}
+
+message LBRBetDetail {
+    repeated LBRBetItem arrAllBetDetail = 1;
+    repeated LBRBetItemSelf arrSelfBetDetail = 2;
+}
+
+message LBRProfitItem {
+    required int32 nBetArea = 1;
+    required int32 nNumber = 2;
+    required double nProfit = 3;
+}
+
+message LBRHeadLine {
+    required string sPaiJuId = 1;
+    required string sTableName = 2;
+}
+
+message LBRBetLimit {
+    message Item {
+        required int32 nAreaId = 1;
+        required double nMin = 2;
+        required double nMax = 3;
+    }
+    
+    repeated Item arrItem = 1;
+    repeated Item arrItemG = 2;
+    optional int32 nDiff = 3;
+    optional int32 nDiffG = 4;
+}
+
+message LBRMulti {
+    message Item {
+        required int32 nAreaId = 1;
+        required double nMulti = 2;
+    }
+    
+    required double nRedMuti = 1;
+    required double nBlackMuti = 2;
+    required double nNumberMuti = 3;
+    required double nNumberL = 4;
+    required double nNumberH = 5;
+    repeated Item arrMulti = 10;
+}
+
+message LBRScence {
+    repeated double arrChipsForBet = 1;
+    required LBRUser tMyself = 2;
+    required int32 nStage = 3;
+    required int32 nSeconds = 4;
+    repeated int32 arrTrend = 5;
+    required int32 nLiveUserID = 6;
+    required string sPlatformID = 7;
+    required LBRBetLimit tBetLimit = 8;
+    required LBRHeadLine tHeadLine = 9;
+    optional LBRBetDetail tBetDetail = 11;
+    optional int32 nNumber = 12;
+    repeated LBRProfitItem arrProfit = 13;
+    optional int32 nDuration = 14;
+    optional LBRMulti tLBRMulti = 15;
+    optional int32 nModel = 16;
+}
+
+message LBRLogOnReq {
+    required int32 nUserId = 1;
+    required string sTableId = 2;
+}
+
+message LBRLogOnResp {
+    required int32 nRlt = 1;
+    optional LBRScence tScence = 2;
+    optional string strErr = 3;
+}
+
+message LBRGoInFreeStageNotify {
+    optional double nSelfGold = 5;
+    optional LBRHeadLine tHeadLine = 7;
+    optional int32 nLiveUserID = 12;
+    optional string sPlatformID = 13;
+}
+
+message LBRGoInBetStageNotify {
+    required int32 nSeconds = 1;
+}
+
+message LBRGoInBetStopNotify {
+    optional int32 nNoUse = 1;
+}
+
+message LBRNumberNotify {
+    required int32 nNumber = 1;
+}
+
+message LBRSettleNotify {
+    required int32 nSeconds = 1;
+    repeated LBRProfitItem arrProfit = 2;
+    required double nSelfGold = 3;
+}
+
+message LBRLiveChangeNotify {
+    required int32 nLiveUserID = 1;
+    required string sPlatformID = 2;
+}
+
+message LBRMultiBetReq {
+    message Item {
+        required double nBetChip = 1;
+        required int32 nBetArea = 2;
+        optional int32 nNumber = 3;
+    }
+    
+    repeated Item arrBet = 1;
+}
+
+message LBRMultiBetResp {
+    required int32 nRlt = 1;
+    optional string strErr = 2;
+    repeated LBRBetItemSelf arrSelfBet = 3;
+    required double nGold = 4;
+}
+
+message LBRBetNotify {
+    repeated LBRBetItem arrAreasBetSum = 1;
+}
+
+message LBRStartReq {
+    optional int32 nNoUse = 1;
+}
+
+message LBRStartRsp {
+    required int32 nRlt = 1;
+}
+
+message LBRShowNumReq {
+    required int32 nNumber = 1;
+}
+
+message LBRShowNumRsp {
+    required int32 nRlt = 1;
+}
+
+message LBRGmReq {
+    required string strCmd = 1;
+}
+
+message LBRBackToLobbyReq {
+    optional int32 nNoUse = 1;
+}
+
+message LBRBackToLobbyRsp {
+    required int32 nRlt = 1;
+    optional string strErr = 2;
+}
+
+message LBRKickOutNotify {
+    optional int32 nNoUse = 1;
+    optional int32 nReason = 2;
+}
+
+message LBRGoldUpdateNotify {
+    required double nGold = 1;
+}

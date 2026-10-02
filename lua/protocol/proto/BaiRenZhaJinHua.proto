@@ -1,0 +1,242 @@
+syntax = "proto2";
+
+package BaiRenZhaJinHua_pb;
+
+message BaiRenZjh_Proto {
+    required int32 Main_CMD = 1 [default = 218];
+    required int32 BaiRenZjhLogOnReq_CMD = 2 [default = 2];
+    required int32 BaiRenZjhLogOnResp_CMD = 3 [default = 3];
+    required int32 BaiRenZjhGoInBetStageNotify_CMD = 4 [default = 4];
+    required int32 BaiRenZjhBetReq_CMD = 5 [default = 5];
+    required int32 BaiRenZjhBetResp_CMD = 6 [default = 6];
+    required int32 BaiRenZjhBetNotify_CMD = 7 [default = 7];
+    required int32 GoInResultStageNotify_CMD = 8 [default = 8];
+    required int32 GoInFreeStageNotify_CMD = 9 [default = 9];
+    required int32 GetApplicantsReq_CMD = 10 [default = 10];
+    required int32 GetApplicantsResp_CMD = 11 [default = 11];
+    required int32 ApplyForBankerReq_CMD = 12 [default = 12];
+    required int32 ApplyForBankerResp_CMD = 13 [default = 13];
+    required int32 ApplyCancelReq_CMD = 14 [default = 14];
+    required int32 ApplyCancelResp_CMD = 15 [default = 15];
+    required int32 ApplyResignReq_CMD = 16 [default = 16];
+    required int32 ApplyResignResp_CMD = 17 [default = 17];
+    required int32 GetTopUsersReq_CMD = 18 [default = 18];
+    required int32 GetTopUsersResp_CMD = 19 [default = 19];
+    required int32 BaiRenZjhBackToLobbyReq_CMD = 20 [default = 20];
+    required int32 BaiRenZjhBackToLobbyRsp_CMD = 21 [default = 21];
+    required int32 BaiRenZjhGmReq_CMD = 22 [default = 22];
+    required int32 BaiRenZjhGmRsp_CMD = 23 [default = 23];
+    required int32 BaiRenZjhKickOutNotify_CMD = 24 [default = 24];
+    required int32 RepeatBetReq_CMD = 25 [default = 25];
+    required int32 RepeatBetRsp_CMD = 26 [default = 26];
+    required int32 OnlineCountNotify_CMD = 27 [default = 27];
+}
+
+message BaiRenZjhUser {
+    required int32 nUserId = 1;
+    required string sFaceId = 2;
+    required string sName = 3;
+    required double nGold = 4;
+    required int32 nSex = 5;
+    optional int32 nBankerConsecutive = 6;
+    optional int32 nBetSum = 7;
+}
+
+message ChipItem {
+    required int32 nChip = 1;
+    required int32 nChipCnt = 2;
+}
+
+message BetDetail {
+    repeated ChipItem arrChipsInBlack = 1;
+    repeated ChipItem arrChipsInRed = 2;
+    repeated ChipItem arrChipsInLuckyArea = 3;
+    required int32 nBetInBlackOfMyself = 4;
+    required int32 nBetInRedOfMyself = 5;
+    required int32 nBetInLuckyAreaOfMyself = 6;
+}
+
+message ResultsOfCardOpen {
+    repeated int32 arrCardsOfBlack = 1;
+    required int32 nCardTypeOfBlack = 2;
+    repeated int32 arrCardsOfRed = 3;
+    required int32 nCardTypeOfRed = 4;
+    required int32 nWinner = 5;
+    required int32 nIsLuckyAreaWin = 6;
+    optional int32 nLuckyAreaOdds = 7;
+}
+
+message BaiRenZjhTopUsers {
+    repeated BaiRenZjhUser arrTopFourUser = 1;
+}
+
+message BaiRenZjhScence {
+    message TrendItem {
+        required int32 nWinner = 1;
+        required int32 nWinnerCardType = 2;
+        required int32 nOrder = 3;
+    }
+    
+    required int32 nRoomId = 1;
+    repeated int32 arrChipsForBet = 2;
+    required int32 nBankerRequirement = 3;
+    required int32 nOnLineCount = 4;
+    required BaiRenZjhUser tBanker = 5;
+    required BaiRenZjhUser tMyself = 6;
+    required int32 nStage = 7;
+    required int32 nSeconds = 8;
+    required int32 nButtonStatus = 9;
+    repeated TrendItem arrTrend = 10;
+    optional BetDetail tBetDetail = 11;
+    optional ResultsOfCardOpen tResultsOfCardOpen = 12;
+    optional int32 nConsecutiveMax = 13;
+    optional int32 nIsRepeatBet = 14;
+    optional bool isUserBankerOn = 15;
+    optional BaiRenZjhTopUsers tTopUsers = 16;
+}
+
+message BaiRenZjhLogOnReq {
+    required int32 nUserId = 1;
+    optional int32 nRoomId = 2;
+}
+
+message BaiRenZjhLogOnResp {
+    required int32 nRlt = 1;
+    optional BaiRenZjhScence tScence = 2;
+    optional string strErr = 3;
+}
+
+message BaiRenZjhGoInBetStageNotify {
+    required int32 nSeconds = 1;
+    required BetDetail tBetDetail = 2;
+    optional double nSelfGold = 3;
+}
+
+message BaiRenZjhBetReq {
+    required int32 nBetChip = 1;
+    required int32 nBetArea = 2;
+}
+
+message BaiRenZjhBetResp {
+    message Interval {
+        required int32 nLower = 1;
+        required int32 nUpper = 2;
+    }
+    
+    required int32 nRlt = 1;
+    optional string strErr = 2;
+    optional Interval tInterval = 3;
+}
+
+message BaiRenZjhBetNotify {
+    required int32 nBetChip = 1;
+    required int32 nBetArea = 2;
+    required int32 nIsMe = 3;
+    optional int32 nUserId = 4;
+}
+
+message GoInResultStageNotify {
+    message ProfitOfTopUser {
+        required int32 nUserId = 1;
+        required double nProfit = 2;
+        required double nGold = 3;
+    }
+    
+    required int32 nSeconds = 1;
+    required ResultsOfCardOpen tResultsOfCardOpen = 2;
+    required double nSelfProfit = 3;
+    required double nBankerProfit = 4;
+    required double nSelfGold = 5;
+    required double nBankerGold = 6;
+    repeated ProfitOfTopUser arrProfitOfTopUser = 7;
+}
+
+message GoInFreeStageNotify {
+    required int32 nSeconds = 1;
+    required BaiRenZjhUser tBanker = 2;
+    required int32 nTipId = 3;
+    optional int32 nButtonStatus = 4;
+    optional double nSelfGold = 5;
+    optional bool isUserBankerOn = 6;
+    optional int32 nBankerRequirement = 7;
+    optional BaiRenZjhTopUsers tTopUsers = 8;
+    repeated int32 arrChipsForBet = 9;
+}
+
+message GetApplicantsReq {
+    optional int32 nNoUse = 1;
+}
+
+message GetApplicantsResp {
+    repeated BaiRenZjhUser arrApplicants = 1;
+}
+
+message ApplyForBankerReq {
+    optional int32 nNoUse = 1;
+}
+
+message ApplyForBankerResp {
+    required int32 nRlt = 1;
+    optional string strErr = 2;
+}
+
+message ApplyCancelReq {
+    optional int32 nNoUse = 1;
+}
+
+message ApplyCancelResp {
+    required int32 nRlt = 1;
+    optional string strErr = 2;
+}
+
+message ApplyResignReq {
+    optional int32 nNoUse = 1;
+}
+
+message ApplyResignResp {
+    required int32 nRlt = 1;
+    optional string strErr = 2;
+}
+
+message GetTopUsersReq {
+    optional int32 nNoUse = 1;
+}
+
+message GetTopUsersResp {
+    repeated BaiRenZjhUser arrUsers = 1;
+}
+
+message BaiRenZjhBackToLobbyReq {
+    optional int32 nNoUse = 1;
+}
+
+message BaiRenZjhBackToLobbyRsp {
+    required int32 nRlt = 1;
+    optional string strErr = 2;
+}
+
+message BaiRenZjhGmReq {
+    required string strCmd = 1;
+}
+
+message BaiRenZjhGmRsp {
+    required int32 nRlt = 1;
+    optional string strErr = 2;
+}
+
+message BaiRenZjhKickOutNotify {
+    optional int32 nNoUse = 1;
+    optional int32 nReason = 2;
+}
+
+message RepeatBetReq {
+    required int32 nIsRepeatBet = 1;
+}
+
+message RepeatBetRsp {
+    required int32 nIsRepeatBet = 1;
+}
+
+message OnlineCountNotify {
+    required int32 nOnlineCount = 1;
+}

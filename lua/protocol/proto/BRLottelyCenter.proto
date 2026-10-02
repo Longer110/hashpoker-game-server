@@ -1,0 +1,46 @@
+syntax = "proto2";
+
+package BRLottelyCenter_pb;
+
+message BRC_Proto {
+  required int32 Main_CMD = 1 [default = 326];
+  required int32 BRCLogOnReq_CMD = 2 [default = 2];
+  required int32 BRCLogOnResp_CMD = 3 [default = 3];
+  required int32 BRCReq_CMD = 4 [default = 4];
+  required int32 BRCRsp_CMD = 5 [default = 5];
+  required int32 BRCScenceReq_CMD = 6 [default = 6];
+  required int32 BRCScenceRsp_CMD = 7 [default = 7];
+}
+
+message BRCLogOnReq {
+  required int32 nServerId = 1;
+}
+
+message BRCLogOnResp {
+  required int32 nRlt = 1;
+}
+
+message BRCReq {
+  required string sTableId = 1;
+  required string sCmd = 2;
+  required string sJsonData = 3;
+  optional int32 nEcho = 4;
+}
+
+message BRCRsp {
+  required string sTableId = 1;
+  required string sCmd = 2;
+  required string sJsonData = 3;
+  optional int32 nEcho = 4;
+}
+
+message BRCScenceReq {
+  required string sTableId = 1;
+  optional int32 nEcho = 2;
+}
+
+message BRCScenceRsp {
+  required string sTableId = 1;
+  required string sJsonScenc = 2;
+  optional int32 nEcho = 3;
+}

@@ -1,0 +1,176 @@
+syntax = "proto2";
+
+package BoDeng_pb;
+
+message BoDeng_Proto {
+    required int32 Main_CMD = 1 [default = 219];
+    required int32 BoDengLogOnReq_CMD = 2 [default = 2];
+    required int32 BoDengLogOnResp_CMD = 3 [default = 3];
+    required int32 BoDengMatchingReq_CMD = 4 [default = 4];
+    required int32 BoDengMatchingRsp_CMD = 5 [default = 5];
+    required int32 BoDengMatchingSucceeNotify_CMD = 6 [default = 6];
+    required int32 BoDengCancelMatchingReq_CMD = 7 [default = 7];
+    required int32 BoDengGoInQiangZhuangNotify_CMD = 8 [default = 8];
+    required int32 BoDengQiangZhuangReq_CMD = 9 [default = 9];
+    required int32 BoDengHaveQiangZhuangNotify_CMD = 10 [default = 10];
+    required int32 BoDengDingZhuangNotify_CMD = 11 [default = 11];
+    required int32 BoDengGoInBetStageNotify_CMD = 12 [default = 12];
+    required int32 BoDengBetReq_CMD = 13 [default = 13];
+    required int32 BoDengHaveBetNotify_CMD = 14 [default = 14];
+    required int32 BoDengGoDealNotify_CMD = 15 [default = 15];
+    required int32 BoDengBuNotify_CMD = 16 [default = 16];
+    required int32 BoDengBuReq_CMD = 17 [default = 17];
+    required int32 BoDengHaveBuNotify_CMD = 18 [default = 18];
+    required int32 BoDengGoInCmpStageNotify_CMD = 19 [default = 19];
+    required int32 BoDengBackToLobbyReq_CMD = 20 [default = 20];
+    required int32 BoDengBackToLobbyRsp_CMD = 21 [default = 21];
+    required int32 BoDengGmReq_CMD = 22 [default = 22];
+    required int32 BoDengGmRsp_CMD = 23 [default = 23];
+}
+
+message BoDengLogOnReq {
+    required int32 nUserId = 1;
+    optional int32 nRoomId = 2;
+}
+
+message BoDengLogOnResp {
+    required int32 nRlt = 1;
+    optional string strErr = 2;
+    optional BoDengScence tScence = 3;
+}
+
+message BoDengHandCard {
+    repeated int32 arrCard = 1;
+    required int32 nCardType = 2;
+    optional int32 nMulti = 3;
+}
+
+message BoDengUser {
+    required int32 nUserId = 1;
+    required int32 nSitId = 2;
+    required string sFaceId = 3;
+    required string sName = 4;
+    required double nGold = 5;
+    required int32 nSex = 6;
+    optional int32 nQiangState = 9;
+    optional int32 nBet = 10;
+    optional BoDengHandCard tHandCard = 11;
+}
+
+message BoDengScence {
+    repeated BoDengUser arrUsers = 1;
+    required int32 nRoomId = 2;
+    required int32 nAnte = 3;
+    required int32 nStage = 4;
+    required int32 nSeconds = 5;
+    optional int32 nZhuangSitId = 6;
+    optional int32 nIsCanQiang = 7;
+    repeated int32 arrBet = 8;
+    optional int32 nPosOfCanBu = 9;
+    optional int32 nIsMustBu = 10;
+}
+
+message BoDengMatchingReq {
+    optional int32 nNoUse = 1;
+}
+
+message BoDengMatchingRsp {
+    required int32 nRlt = 1;
+    optional string strErr = 2;
+}
+
+message BoDengMatchingSucceeNotify {
+    required BoDengScence tScence = 1;
+}
+
+message BoDengCancelMatchingReq {
+    optional int32 nNoUse = 1;
+}
+
+message BoDengGoInQiangZhuangNotify {
+    required int32 nSeconds = 1;
+}
+
+message BoDengQiangZhuangReq {
+    required int32 nChoice = 1;
+}
+
+message BoDengHaveQiangZhuangNotify {
+    required int32 nSitId = 1;
+    required int32 nChoice = 2;
+}
+
+message BoDengDingZhuangNotify {
+    repeated int32 arrSitId = 1;
+    required int32 nZhuangSitId = 2;
+}
+
+message BoDengGoInBetStageNotify {
+    required int32 nSeconds = 1;
+    repeated int32 arrChoices = 2;
+}
+
+message BoDengBetReq {
+    required int32 nChoice = 1;
+}
+
+message BoDengHaveBetNotify {
+    required int32 nSitId = 1;
+    required int32 nChoice = 2;
+}
+
+message BoDengGoDealNotify {
+    required BoDengHandCard tHandCard = 1;
+}
+
+message BoDengBuNotify {
+    required int32 nPosOfCanBu = 1;
+    required int32 nSeconds = 2;
+    optional int32 nIsMustBu = 3;
+}
+
+message BoDengBuReq {
+    required int32 nChoice = 1;
+}
+
+message BoDengHaveBuNotify {
+    message BuCard {
+        required int32 nCard = 1;
+        required int32 nCardType = 2;
+    }
+    
+    required int32 nSitId = 1;
+    required int32 nChoice = 2;
+    optional BuCard tBuCard = 3;
+}
+
+message BoDengGoInCmpStageNotify {
+    message Item {
+        required int32 nSitId = 1;
+        required BoDengHandCard tHandCard = 2;
+        required int32 nIsWin = 3;
+        required double nProfit = 4;
+        required double nGold = 5;
+    }
+    
+    repeated Item arrItem = 1;
+    optional int32 nStatus = 2;
+}
+
+message BoDengBackToLobbyReq {
+    optional int32 nNoUse = 1;
+}
+
+message BoDengBackToLobbyRsp {
+    required int32 nRlt = 1;
+    optional string strErr = 2;
+}
+
+message BoDengGmReq {
+    required string strCmd = 1;
+}
+
+message BoDengGmRsp {
+    required int32 nRlt = 1;
+    optional string strErr = 2;
+}

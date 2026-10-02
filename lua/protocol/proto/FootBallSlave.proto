@@ -1,0 +1,239 @@
+syntax = "proto2";
+
+package FootBallSlave_pb;
+
+message FBS_Proto {
+  required int32 Main_CMD = 1 [default = 311];
+  required int32 FBSLogOnReq_CMD = 2 [default = 2];
+  required int32 FBSLogOnResp_CMD = 3 [default = 3];
+  required int32 FBSGoInBetStageNotify_CMD = 4 [default = 4];
+  required int32 FBSMultiBetReq_CMD = 5 [default = 5];
+  required int32 FBSMultiBetResp_CMD = 6 [default = 6];
+  required int32 FBSBetNotify_CMD = 7 [default = 7];
+  required int32 FBSGoInResultStageNotify_CMD = 8 [default = 8];
+  required int32 FBSGoInFreeStageNotify_CMD = 9 [default = 9];
+  required int32 FBSGetApplicantsReq_CMD = 10 [default = 10];
+  required int32 FBSGetApplicantsResp_CMD = 11 [default = 11];
+  required int32 FBSApplyForBankerReq_CMD = 12 [default = 12];
+  required int32 FBSApplyForBankerResp_CMD = 13 [default = 13];
+  required int32 FBSApplyCancelReq_CMD = 14 [default = 14];
+  required int32 FBSApplyCancelResp_CMD = 15 [default = 15];
+  required int32 FBSApplyResignReq_CMD = 16 [default = 16];
+  required int32 FBSApplyResignResp_CMD = 17 [default = 17];
+  required int32 FBSBackToLobbyReq_CMD = 18 [default = 18];
+  required int32 FBSGmReq_CMD = 19 [default = 19];
+  required int32 FBSGmRsp_CMD = 20 [default = 20];
+  required int32 FBSKickOutNotify_CMD = 21 [default = 21];
+  required int32 FBSGoldChangeNotify_CMD = 22 [default = 22];
+  required int32 FBSPlayerModeChangeReq_CMD = 23 [default = 23];
+  required int32 FBSPlayerModeChangeRsp_CMD = 24 [default = 24];
+  required int32 FBSTestGoldSupplyNotify_CMD = 25 [default = 25];
+}
+
+message FBSUser {
+  required int32 nUserId = 1;
+  required string sFaceId = 2;
+  required string sName = 3;
+  required double nGold = 4;
+  required int32 nSex = 5;
+  optional int32 nBankerConsecutive = 6;
+}
+
+message FBSAreaChipBetItem {
+  required int32 nAreaId = 1;
+  required double nBetSum = 2;
+  optional int32 nUserCnt = 3;
+  optional double nAnchorBet = 4;
+}
+
+message FBSBetDetail {
+  repeated FBSAreaChipBetItem arrAllBetDetail = 1;
+  repeated FBSAreaChipBetItem arrSelfBetDetail = 2;
+}
+
+message FBSBetLimit {
+  message Item {
+    required int32 nAreaId = 1;
+    required double nMin = 2;
+    required double nMax = 3;
+  }
+  repeated Item arrItem = 1;
+}
+
+message FBSTrendItem {
+  required int32 nResult = 1;
+}
+
+message FBSResult {
+  required int32 nResult = 1;
+  optional int32 nRandomNum = 2;
+}
+
+message FBSProfitItem {
+  required double nBetArea = 1;
+  required double nProfit = 2;
+}
+
+message FBSSwitchConfig {
+  required bool isUserBankerOn = 1;
+}
+
+message FBSPlayerMode {
+  required int32 status = 1;
+}
+
+message FBSPlayerModeChangeReq {
+  required int32 status = 1;
+}
+
+message FBSPlayerModeChangeRsp {
+  required int32 nRlt = 1;
+  required int32 status = 2;
+  optional double nGold = 3;
+  optional string strErr = 4;
+}
+
+message FBSScence {
+  repeated double arrChipsForBet = 1;
+  required double nBankerRequirement = 2;
+  required int32 nConsecutiveMax = 3;
+  required FBSUser tBanker = 4;
+  required FBSUser tMyself = 5;
+  required int32 nStage = 6;
+  required int32 nSeconds = 7;
+  required int32 nDuration = 8;
+  required int32 nButtonStatus = 9;
+  repeated FBSTrendItem arrTrend = 10;
+  required FBSBetLimit tBetLimit = 11;
+  optional FBSBetDetail tBetDetail = 12;
+  optional FBSResult tResult = 13;
+  optional double nSelfProfit = 14;
+  optional double nBankerProfit = 15;
+  repeated FBSProfitItem arrSelfProfitDetail = 16;
+  optional int32 nLiveUserID = 17;
+  optional string sPlatformID = 18;
+  optional FBSSwitchConfig tSwitchConfig = 19;
+  optional FBSPlayerMode tFBSPlayerMode = 20;
+}
+
+message FBSLogOnReq {
+  required int32 nUserId = 1;
+  optional string sTableId = 2;
+}
+
+message FBSLogOnResp {
+  required int32 nRlt = 1;
+  optional FBSScence tScence = 2;
+  optional string strErr = 3;
+}
+
+message FBSGoInBetStageNotify {
+  required int32 nSeconds = 1;
+}
+
+message FBSMultiBetReq {
+  message BetItem {
+    required double nBetChip = 1;
+    required int32 nBetArea = 2;
+  }
+  repeated BetItem arrBet = 1;
+}
+
+message FBSMultiBetResp {
+  required int32 nRlt = 1;
+  optional string strErr = 2;
+  repeated FBSAreaChipBetItem arrSelfBet = 3;
+  required double nGold = 4;
+  optional FBSBetDetail tBetDetail = 5;
+}
+
+message FBSBetNotify {
+  repeated FBSAreaChipBetItem arrAreasBetSum = 1;
+  optional double nLiveBalance = 2;
+}
+
+message FBSGoInResultStageNotify {
+  required int32 nSeconds = 1;
+  required FBSResult tResult = 2;
+  required double nSelfProfit = 3;
+  required double nBankerProfit = 4;
+  required double nSelfGold = 5;
+  required double nBankerGold = 6;
+  repeated FBSProfitItem arrSelfProfitDetail = 7;
+}
+
+message FBSGoInFreeStageNotify {
+  required int32 nSeconds = 1;
+  required FBSUser tBanker = 2;
+  required int32 nTipId = 3;
+  optional int32 nButtonStatus = 4;
+  optional double nSelfGold = 5;
+  optional FBSBetLimit tBetLimit = 6;
+  optional int32 nLiveUserID = 7;
+  optional string sPlatformID = 8;
+  optional FBSSwitchConfig tSwitchConfig = 9;
+  optional FBSPlayerMode tFBSPlayerMode = 10;
+}
+
+message FBSGetApplicantsReq {
+  optional int32 nNoUse = 1;
+}
+
+message FBSGetApplicantsResp {
+  repeated FBSUser arrApplicants = 1;
+}
+
+message FBSApplyForBankerReq {
+  optional int32 nNoUse = 1;
+}
+
+message FBSApplyForBankerResp {
+  required int32 nRlt = 1;
+  optional string strErr = 2;
+}
+
+message FBSApplyCancelReq {
+  optional int32 nNoUse = 1;
+}
+
+message FBSApplyCancelResp {
+  required int32 nRlt = 1;
+  optional string strErr = 2;
+}
+
+message FBSApplyResignReq {
+  optional int32 nNoUse = 1;
+}
+
+message FBSApplyResignResp {
+  required int32 nRlt = 1;
+  optional string strErr = 2;
+}
+
+message FBSBackToLobbyReq {
+  optional int32 nNoUse = 1;
+}
+
+message FBSGmReq {
+  required string strCmd = 1;
+}
+
+message FBSGmRsp {
+  required int32 nRlt = 1;
+  optional string strErr = 2;
+}
+
+message FBSKickOutNotify {
+  optional int32 nNoUse = 1;
+  optional int32 nReason = 2;
+}
+
+message FBSGoldChangeNotify {
+  required double nChange = 1;
+}
+
+message FBSTestGoldSupplyNotify {
+  required int32 nToday = 1;
+  required int32 nTotal = 2;
+  required double nGold = 3;
+}

@@ -1,0 +1,11 @@
+syntax = "proto2"; // 使用 proto2 因为有 default 和 required
+
+// 包名，和 lua 文件里 ".Android_Proto" 对应
+package Android_pb;
+
+// Android 系统相关配置消息
+message Android_Proto {
+    // 系统 Android 版本号/标识
+    // required 表示必须有值，默认值是 801
+    required int32 SYSANDROID = 1 [default = 801];
+}

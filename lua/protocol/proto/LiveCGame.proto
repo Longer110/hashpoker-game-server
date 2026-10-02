@@ -1,0 +1,13 @@
+syntax = "proto2";
+
+package LiveCGame_pb;
+
+message LiveCGame_Proto {
+    required int32 Main = 1 [default = 301];
+    required int32 SUB_REP_SendDeZhouPeople = 4 [default = 4];
+}
+
+message Req_LCG_DeZhouPeople {
+    required string sTableId = 1 [default = ""];
+    required int32 nCount = 2;
+}

@@ -1,0 +1,574 @@
+syntax = "proto2";
+
+package LongHuCenter_pb;
+
+message LHC_Proto {
+  required int32 Main_CMD = 1 [default = 255];
+  required int32 LHCLogOnReq_CMD = 2 [default = 2];
+  required int32 LHCLogOnResp_CMD = 3 [default = 3];
+  required int32 LHCGoInBetStageNotify_CMD = 4 [default = 4];
+  required int32 LHCGoInSettleNotify_CMD = 6 [default = 6];
+  required int32 LHCGoInFreeNotify_CMD = 7 [default = 7];
+  required int32 LHCBetReq_CMD = 8 [default = 8];
+  required int32 LHCBetResp_CMD = 9 [default = 9];
+  required int32 LHCApplyForBankerReq_CMD = 11 [default = 11];
+  required int32 LHCApplyForBankerResp_CMD = 12 [default = 12];
+  required int32 LHCApplyCancelReq_CMD = 13 [default = 13];
+  required int32 LHCApplyCancelResp_CMD = 14 [default = 14];
+  required int32 LHCApplyResignReq_CMD = 15 [default = 15];
+  required int32 LHCApplyResignResp_CMD = 16 [default = 16];
+  required int32 LHCApplyForBankerNotify_CMD = 17 [default = 17];
+  required int32 LHCApplyCancelNotify_CMD = 18 [default = 18];
+  required int32 LHCGoldChangeSynReq_CMD = 19 [default = 19];
+  required int32 LHCGoldChangeSynNotify_CMD = 20 [default = 20];
+  required int32 LHCTableCreateNotify_CMD = 21 [default = 21];
+  required int32 LHCTableCloseNotify_CMD = 22 [default = 22];
+  required int32 LHCScenceReq_CMD = 23 [default = 23];
+  required int32 LHCScenceRsp_CMD = 24 [default = 24];
+  required int32 LHCResultControlReq_CMD = 25 [default = 25];
+  required int32 LHCAreasBetNotify_CMD = 26 [default = 26];
+  required int32 LHCAnchorBetNotify_CMD = 27 [default = 27];
+  required int32 LHCRecommendReq_CMD = 28 [default = 28];
+  required int32 LHCRecommendSwitchReq_CMD = 29 [default = 29];
+  required int32 LHCRecommendSwitchNotify_CMD = 30 [default = 30];
+  required int32 LHCMultiBetReq_CMD = 31 [default = 31];
+  required int32 LHCMultiBetResp_CMD = 32 [default = 32];
+  required int32 LHCAnchorMultiBetNotify_CMD = 33 [default = 33];
+  required int32 LHCRecommendAreaChangeNotify_CMD = 34 [default = 34];
+  required int32 LHCGoInShuffleNotify_CMD = 35 [default = 35];
+  required int32 LHCLiveUserGoldReq_CMD = 37 [default = 37];
+  required int32 LHCGoInBetStopNotify_CMD = 38 [default = 38];
+  required int32 LHCPlayerCntReportReq_CMD = 39 [default = 39];
+  required int32 LHCPlayerCntSummaryNotify_CMD = 40 [default = 40];
+  required int32 LHCGetPileInfoReq_CMD = 41 [default = 41];
+  required int32 LHCPileInfoNotify_CMD = 42 [default = 42];
+  required int32 LHCLiveUserOnlineReportReq_CMD = 43 [default = 43];
+  required int32 LHCGoInFaultNotify_CMD = 44 [default = 44];
+  required int32 LHCTickNotify_CMD = 45 [default = 45];
+  required int32 LHCXiPaiReq_CMD = 46 [default = 46];
+  required int32 LHCXiPaiTimeNotify_CMD = 47 [default = 47];
+  required int32 LHCUserSettleNotifyReq_CMD = 48 [default = 48];
+  required int32 LHCUserSettleNotify_CMD = 49 [default = 49];
+  required int32 LHCUserLeaveNotifyReq_CMD = 50 [default = 50];
+  required int32 LHCUserLeaveNotify_CMD = 51 [default = 51];
+  required int32 LHCUserBetNotify_CMD = 52 [default = 52];
+  required int32 LHCUserEnterNotifyReq_CMD = 53 [default = 53];
+  required int32 LHCUserEnterNotify_CMD = 54 [default = 54];
+  required int32 LHCFollowLockChangeNotifyReq_CMD = 55 [default = 55];
+  required int32 LHCFollowLockChangeNotify_CMD = 56 [default = 56];
+  required int32 LHCPlayerModeChangeReq_CMD = 57 [default = 57];
+  required int32 LHCPlayerModeChangeRsp_CMD = 58 [default = 58];
+  required int32 LHCPlayerModeChangeNotify_CMD = 59 [default = 59];
+  required int32 LHCCommonReq_CMD = 60 [default = 60];
+  required int32 LHCLiveTbChangReq_CMD = 61 [default = 61];
+  required int32 LHCLiveTbChangNotify_CMD = 62 [default = 62];
+}
+
+message LHCUser {
+  required int32 nUserId = 1;
+  required string sFaceId = 2;
+  required string sName = 3;
+  required double nGold = 4;
+  required int32 nSex = 5;
+  optional int32 nBankerConsecutive = 6;
+  optional int32 nShopId = 7;
+  optional LHCShowArea tShowArea = 8;
+}
+
+message LHCShowArea {
+  repeated int32 arrShowAreaId = 1;
+}
+
+message LHCBlockChainBothCard {
+  message Item {
+    required int32 nDex = 1;
+    optional int32 nCard = 2;
+    optional string sClearText = 3;
+  }
+  repeated Item arrCardLH = 1;
+}
+
+message LHCResultsOfCardOpen {
+  required int32 nCardL = 1;
+  required int32 nCardH = 2;
+  required int32 nResult = 3;
+  required bool isLDan = 4;
+  required bool isHDan = 5;
+  optional int32 nPredict = 6;
+  optional LHCBlockChainBothCard tBlockChainBothCard = 7;
+}
+
+message LHCAreaChipBetItem {
+  required int32 nAreaId = 1;
+  required double nBetSum = 2;
+  optional int32 nUserCnt = 3;
+  optional double nAnchorBet = 4;
+}
+
+message LHCSwitchConfig {
+  required bool isRecommendOn = 1;
+  required bool isFollowBetOn = 2;
+  required bool isUserBankerOn = 3;
+  optional bool isVipOn = 4;
+}
+
+message LHCMaintenanceInfo {
+  required int32 status = 1;
+  required int32 nTimestampStart = 2;
+  required int32 nTimestampEnd = 3;
+  required int32 nCountDown = 4;
+}
+
+message LHCPlayerMode {
+  required int32 status = 1;
+  optional bool isCanExperience = 2;
+}
+
+message LHCPlayerModeChangeReq {
+  required string sTableId = 1;
+  required int32 status = 2;
+}
+
+message LHCPlayerModeChangeRsp {
+  required string sTableId = 1;
+  required int32 status = 2;
+  required int32 nRlt = 3;
+}
+
+message LHCPlayerModeChangeNotify {
+  required string sTableId = 1;
+  required int32 status = 2;
+}
+
+message LHCScence {
+  message TrendItem {
+    required int32 nResult = 1;
+    optional int32 nOrder = 4;
+    optional int32 nPredict = 5;
+  }
+  required int32 nCurrentStage = 1;
+  required int32 nRemainSeconds = 2;
+  required LHCUser tBanker = 3;
+  repeated LHCAreaChipBetItem arrBetDetail = 4;
+  repeated TrendItem arrTrend = 5;
+  repeated LHCUser arrApplicants = 6;
+  required int32 nApplicantsMax = 7;
+  required int32 nBankerConsecutiveMax = 8;
+  required int32 nBankerRequirement = 9;
+  optional LHCResultsOfCardOpen tResultsOfCardOpen = 10;
+  optional int32 nLiveUserID = 11;
+  repeated double arrChipsForBet = 12;
+  optional int32 nGroupId = 13;
+  optional int32 nJuShu = 14;
+  optional int32 nRecommendState = 15;
+  optional LHCSwitchConfig tSwitchConfig = 16;
+  optional int32 nRecommendStateBeUse = 17;
+  optional string sTableName = 18;
+  optional int32 nAnte = 19;
+  optional string sPaiJuId = 20;
+  optional double nLiveUserBalance = 21;
+  optional bool isBlockChainTable = 22;
+  optional bool isBetExclusive = 23;
+  optional string sLiveID = 24;
+  optional string sPlatformID = 25;
+  optional int32 nTableType = 26;
+  optional int32 nLastReqXiPaiTime = 27;
+  optional string sRoundNo = 28;
+  optional string sXueNo = 29;
+  optional LHCMaintenanceInfo tMaintenanceInfo = 30;
+  optional LHCPlayerMode tPlayerMode = 31;
+  repeated int32 arrPredict = 32;
+  optional bool isVoiceRoom = 33;
+  optional int32 nTax = 34;
+  optional string sFollowConfig = 35;
+  optional int32 nSrcType = 36;
+  optional int32 nTableIdOfSrc = 37;
+  optional int32 nPaiJuDuration = 38;
+  optional string sSrcTableId = 39;
+  optional bool isCopyTable = 41;
+  optional string sHeadTableId = 42;
+  optional bool isExpOnce = 43;
+}
+
+message LHCLogOnReq {
+  required int32 nServerId = 1;
+}
+
+message LHCLogOnResp {
+  required int32 nRlt = 1;
+}
+
+message LHCGoInBetStageNotify {
+  required int32 nSeconds = 1;
+  required string sTableId = 2;
+  optional int32 nRecommendAreaId = 3;
+  optional LHCBlockChainBothCard tBlockChainBothCard = 4;
+}
+
+message LHCGoInSettleNotify {
+  message Item {
+    required int32 nBetArea = 1;
+    required double nProfit = 2;
+  }
+  required int32 nSeconds = 1;
+  required string sTableId = 2;
+  required LHCResultsOfCardOpen tResultsOfCardOpen = 3;
+  required string sPaiJuId = 4;
+  required double nZhuangWin = 5;
+  optional int32 nIsNewAgain = 6;
+  optional int32 nRecommendTimeLimit = 7;
+  repeated Item arrBankerProfitDetail = 8;
+  optional int32 nCtrlUserId = 9;
+  optional int32 nCtrlType = 10;
+}
+
+message LHCGoInFreeNotify {
+  required int32 nSeconds = 1;
+  required string sTableId = 2;
+  required LHCUser tBanker = 3;
+  required int32 nTipId = 4;
+  optional int32 nIsClose = 5;
+  optional int32 nLiveUserID = 6;
+  optional int32 nRobotsServerId = 7;
+  optional int32 nJuShu = 8;
+  optional int32 nCurrentRealUserCnt = 9;
+  optional LHCSwitchConfig tSwitchConfig = 10;
+  optional string sPaiJuId = 11;
+  optional double nLiveUserBalance = 12;
+  optional int32 nBootsno = 13;
+  optional string sPlatformID = 14;
+  optional string sLiveID = 15;
+  optional LHCScence tScence = 16;
+  optional int32 nIsRecover = 17;
+  optional string sRoundNo = 18;
+  optional string sXueNo = 19;
+  optional LHCMaintenanceInfo tMaintenanceInfo = 20;
+  optional LHCPlayerMode tPlayerMode = 21;
+  optional bool isCanResetTestGold = 22;
+  optional int32 nTax = 23;
+  repeated double arrChipsForBet = 24;
+}
+
+message LHCGoInShuffleNotify {
+  required int32 nSeconds = 1;
+  required string sTableId = 2;
+  repeated int32 arrCards = 3;
+  optional int32 nBootsno = 4;
+}
+
+message LHCGoInBetStopNotify {
+  required int32 nSeconds = 1;
+  required string sTableId = 2;
+}
+
+message LHCGoInFaultNotify {
+  required int32 nSeconds = 1;
+  required string sTableId = 2;
+  required LHCUser tBanker = 3;
+}
+
+message LHCBetReq {
+  message BetItem {
+    required double nBetChip = 1;
+    required int32 nBetArea = 2;
+    required int32 nId = 3;
+    required int32 nUserType = 4;
+  }
+  required string sTableId = 1;
+  repeated BetItem arrBetItem = 2;
+}
+
+message LHCBetResp {
+  required string sTableId = 1;
+  repeated int32 arrSucceeId = 2;
+}
+
+message LHCMultiBetReq {
+  message Bet {
+    required double nBetChip = 1;
+    required int32 nBetArea = 2;
+  }
+  message UserBet {
+    required int32 nUserId = 1;
+    repeated Bet arrBet = 2;
+    required int32 nUserType = 3;
+  }
+  required string sTableId = 1;
+  repeated UserBet arrUserBet = 2;
+}
+
+message LHCMultiBetResp {
+  required string sTableId = 1;
+  repeated int32 arrSucceeId = 2;
+}
+
+message LHCAreasBetNotify {
+  required string sTableId = 1;
+  repeated LHCAreaChipBetItem arrAreasBetSum = 2;
+}
+
+message LHCApplyForBankerReq {
+  required string sTableId = 1;
+  required LHCUser tUser = 2;
+}
+
+message LHCApplyForBankerResp {
+  required string sTableId = 1;
+  required int32 nRlt = 2;
+  required int32 nUserId = 3;
+}
+
+message LHCApplyForBankerNotify {
+  required string sTableId = 1;
+  required LHCUser tUser = 2;
+  required int32 nApplicantCnt = 3;
+}
+
+message LHCApplyCancelReq {
+  required string sTableId = 1;
+  required int32 nUserId = 2;
+}
+
+message LHCApplyCancelResp {
+  required string sTableId = 1;
+  required int32 nRlt = 2;
+  required int32 nUserId = 3;
+}
+
+message LHCApplyCancelNotify {
+  required string sTableId = 1;
+  required int32 nUserId = 2;
+  required int32 nApplicantCnt = 3;
+  required int32 nReason = 4;
+}
+
+message LHCApplyResignReq {
+  required string sTableId = 1;
+  required int32 nUserId = 2;
+}
+
+message LHCApplyResignResp {
+  required string sTableId = 1;
+  required int32 nRlt = 2;
+  required int32 nUserId = 3;
+}
+
+message LHCGoldChangeSynReq {
+  message ChangeItem {
+    required int32 nUserId = 1;
+    required double nChange = 2;
+  }
+  required string sTableId = 1;
+  required double nZhuangWin = 2;
+  repeated ChangeItem arrGoldChange = 3;
+  required int32 nIsHaveRealUserIn = 4;
+  required int32 nCurrentRealUserCnt = 5;
+}
+
+message LHCGoldChangeSynNotify {
+  message ChangeItem {
+    required int32 nUserId = 1;
+    required double nChange = 2;
+  }
+  required string sTableId = 1;
+  repeated ChangeItem arrGoldChange = 2;
+}
+
+message LHCTableCreateNotify {
+  required string sTableId = 1;
+  required int32 nRoomId = 2;
+  required LHCScence tScence = 3;
+}
+
+message LHCScenceReq {
+  required string sTableId = 1;
+}
+
+message LHCScenceRsp {
+  required string sTableId = 1;
+  required int32 nRoomId = 2;
+  required LHCScence tScence = 3;
+}
+
+message LHCTableCloseNotify {
+  required string sTableId = 1;
+}
+
+message LHCResultControlReq {
+  required string sTableId = 1;
+  required int32 nPriority = 2;
+  required int32 nResult = 3;
+}
+
+message LHCAnchorBetNotify {
+  required string sTableId = 1;
+  required int32 nBetArea = 2;
+  required double nBetChip = 3;
+  required int32 nUserId = 4;
+}
+
+message LHCAnchorMultiBetNotify {
+  message Bet {
+    required double nBetChip = 1;
+    required int32 nBetArea = 2;
+  }
+  required string sTableId = 1;
+  repeated Bet arrBet = 2;
+  required int32 nUserId = 3;
+}
+
+message LHCRecommendReq {
+  required string sTableId = 1;
+  required int32 nAreaId = 2;
+}
+
+message LHCRecommendAreaChangeNotify {
+  required string sTableId = 1;
+  required int32 nAreaId = 2;
+}
+
+message LHCRecommendSwitchReq {
+  required string sTableId = 1;
+  required int32 nRecommendState = 2;
+}
+
+message LHCRecommendSwitchNotify {
+  required string sTableId = 1;
+  required int32 nRecommendState = 2;
+  required int32 nRecommendStateBeUse = 3;
+}
+
+message LHCLiveUserGoldReq {
+  required string sTableId = 1;
+  required double nGold = 2;
+  required bool isTooLess = 3;
+}
+
+message LHCPlayerCntReportReq {
+  required string sTableId = 1;
+  required int32 nServerId = 2;
+  required int32 nCnt = 3;
+}
+
+message LHCPlayerCntSummaryNotify {
+  required string sTableId = 1;
+  required int32 nSumCnt = 2;
+}
+
+message LHCGetPileInfoReq {
+  required string sTableId = 1;
+}
+
+message LHCPileInfoNotify {
+  message CardItem {
+    required int32 nCardDex = 1;
+    required string sEncryptText = 2;
+    required string sClearText = 3;
+    required int32 nCard = 4;
+  }
+  required string sTableId = 1;
+  required int32 nBootsno = 2;
+  required int32 nStartKey = 3;
+  required int32 nEndKey = 4;
+  required int32 nMaxDex = 5;
+  repeated CardItem arrCardItem = 6;
+  required int32 nCurSend = 7;
+}
+
+message LHCLiveUserOnlineReportReq {
+  required string sTableId = 1;
+}
+
+message LHCTickNotify {
+  required string sTableId = 1;
+  required int32 nSeconds = 2;
+}
+
+message LHCXiPaiReq {
+  required string sTableId = 1;
+  required int32 nUserId = 2;
+}
+
+message LHCXiPaiTimeNotify {
+  required string sTableId = 1;
+  required int32 nUserId = 2;
+  required int32 nLastReqXiPaiTime = 3;
+}
+
+message LHCUserWinLoseInfo {
+  required int32 nUserId = 1;
+  required double nBet = 2;
+  required double nWinLose = 3;
+  required string sPaiJuId = 4;
+  required double nWl = 5;
+}
+
+message LHCUserSettleNotifyReq {
+  required string sTableId = 1;
+  required LHCUserWinLoseInfo tUserWinLoseInfo = 2;
+}
+
+message LHCUserSettleNotify {
+  required string sTableId = 1;
+  required LHCUserWinLoseInfo tUserWinLoseInfo = 2;
+}
+
+message LHCUserLeaveNotifyReq {
+  required string sTableId = 1;
+  required int32 nUserId = 2;
+}
+
+message LHCUserLeaveNotify {
+  required string sTableId = 1;
+  required int32 nUserId = 2;
+}
+
+message LHCUserBetNotify {
+  message Bet {
+    required double nBetChip = 1;
+    required int32 nBetArea = 2;
+  }
+  message ArrBetInfo {
+    required int32 nUserId = 1;
+    repeated Bet arrBet = 2;
+  }
+  required string sTableId = 1;
+  repeated ArrBetInfo arrBetInfo = 2;
+}
+
+message LHCUserEnterNotifyReq {
+  required string sTableId = 1;
+  required int32 nUserId = 2;
+}
+
+message LHCUserEnterNotify {
+  required string sTableId = 1;
+  required int32 nUserId = 2;
+}
+
+message LHCFollowLockChangeNotifyReq {
+  required int32 nUserId = 1;
+  required int32 nLock = 2;
+  required string sTableId = 3;
+}
+
+message LHCFollowLockChangeNotify {
+  required int32 nUserId = 1;
+  required int32 nLock = 2;
+  required string sTableId = 3;
+}
+
+message LHCCommonReq {
+  required string sCmd = 1;
+  required string sParameter = 2;
+}
+
+message LHCLiveTbChangReq {
+  required string sTableId = 1;
+  required string sChangeTo = 2;
+}
+
+message LHCLiveTbChangNotify {
+  required string sTableId = 1;
+  required string sChangeTo = 2;
+}

@@ -1,0 +1,200 @@
+syntax = "proto2";
+
+package DbServerClub_pb;
+
+// 主协议定义
+message Db_ClubProto {
+    required int32 Main_CMD = 1 [default = 501];
+    required int32 ClubDataReq_CMD = 74 [default = 1774];
+    required int32 ClubDataRsp_CMD = 75 [default = 1775];
+
+    required int32 ClubGetTableDetailReq_CMD = 181 [default = 1881];
+    required int32 ClubGetTableDetailRsp_CMD = 182 [default = 1882];
+
+    required int32 ClubUserLogonReq_CMD = 82 [default = 1782];
+    required int32 ClubUserLogonRsp_CMD = 83 [default = 1783];
+
+    required int32 ClubMembersReq_CMD = 92 [default = 1792];
+    required int32 ClubMembersRsp_CMD = 93 [default = 1793];
+
+    required int32 ClubGetPersonTableRecord2Req_CMD = 209 [default = 2009];
+    required int32 ClubGetPersonTableRecord2Rsp_CMD = 210 [default = 2010];
+}
+
+// 俱乐部数据请求
+message ClubDataReq {
+    optional int32 nMinClubId = 1;
+    optional int32 nMaxClubId = 2;
+    optional int32 nLimitCnt = 3;
+}
+
+// 俱乐部数据响应
+message ClubDataRsp {
+    repeated ClubItem arrClub = 1;
+    optional int32 nMinClubId = 2;
+    optional int32 nMaxClubId = 3;
+    optional int32 nLimitCnt = 4;
+}
+
+// 俱乐部项
+message ClubItem {
+    optional int32 nClubId = 1;
+    optional string sClubName = 2;
+    optional int32 nMaster = 3;
+    optional int32 nClubGold = 4;
+    optional int32 nCanApply = 5;
+    optional int32 nCanSearch = 6;
+    optional int32 nIncome = 7;
+    optional int32 nUserCnt = 8;
+    optional int32 nGroupId = 9;
+    optional string sCreateTime = 10;
+    optional string sPassword = 11;
+    optional int32 nApplyJionCnt = 12;
+    optional int32 nApplyAddGoldCnt = 13;
+    optional int32 nApplyCutGoldCnt = 14;
+    optional string sFaceId = 15;
+    optional string sName = 16;
+    optional int32 nSex = 17;
+    optional string sShopAcc = 18;
+    optional int32 nGold = 19;
+    optional int32 nGoldIncome = 20;
+}
+
+message ClubGetTableDetailReq {
+    required int32 nGameId = 1;
+    required string sTableId = 2;
+    required int32 nUserId = 3;
+}
+
+message ClubGetTableDetailRsp {
+    message TexasTableDetail {
+        message UserInfo {
+            required int32 nUserId = 1;
+            required string sFaceId = 2;
+            required string sName = 3;
+        }
+        required UserInfo tLiver = 1;
+        required UserInfo tMVPUser = 2;
+        required UserInfo tTHUser = 3;
+        required UserInfo tDYUser = 4;
+        required int32 nHandCnt = 5;
+        required double nTakeIn = 6;
+        required double nJournalAccount = 7;
+        required double nMaxPool = 8;
+        required int32 nGameId = 9;
+        required string sTime = 10;
+        required int32 nKeepTime = 11;
+        required double nInsurancePool = 12;
+        required string sTableInfo = 13;
+        required double nSumBet = 14;
+    }
+    required int32 nGameId = 1;
+    required string sTableId = 2;
+    required int32 nUserId = 3;
+    optional TexasTableDetail tTexas = 4;
+}
+
+message ClubGameStatics {
+    required int32 nPaiJuCnt = 1;
+    required int32 nPlayCount = 2;
+    required double nProfitSum = 3;
+    required int32 nInPoolCount = 4;
+    required int32 nRaiseCountBFlop = 5;
+    required int32 nAllInAndWinCount = 6;
+    required int32 nWinCount = 7;
+    required int32 nQiPaiCount = 8;
+    required double nHandProfit = 9;
+    required int32 nAllInCount = 10;
+}
+
+// ClubGetPersonTableRecord2Req
+message ClubGetPersonTableRecord2Req {
+  required int32 nIdOfStart = 1;
+  required int32 nCnt = 2;
+  required int32 nGameId = 3;
+  required int32 nGoldType = 4;
+  required int32 nClubId = 5;
+  required int32 nUserId = 6;
+  optional int32 nDay = 7;
+  required string nStartTime=8;//开始时间
+  required string nEndTime=9;//结束时间
+}
+
+// ClubGetPersonTableRecord2Rsp
+message ClubGetPersonTableRecord2Rsp {
+  repeated ClubPersonTable2 arrRecords = 1;
+  optional ClubGameStatics tStatics = 2;
+  required int32 nGameId = 3;
+  required int32 nGoldType = 4;
+  required int32 nClubId = 5;
+  required int32 nUserId = 6;
+  required int32 nIdOfStart = 7;
+  required int32 nDay = 8;
+  optional string nStartTime=9;//开始时间
+  optional string nEndTime=10;//结束时间
+}
+
+message ClubPersonTable2 {
+    required int32 nId = 1;
+    required int32 nLiveUserID = 2;
+    required string sFaceId = 3;
+    required double nWinLose = 4;
+    required string sTime = 5;
+    required string sTableInfo = 6;
+    required string sTableId = 7;
+    optional int32 nTableIndex = 8;
+    optional string nFaceIdList = 9;
+}
+
+// 俱乐部用户信息
+message ClubUserInfo {
+    optional int32 nUserId = 1;
+    optional string sFaceId = 2;
+    optional string sName = 3;
+    optional int32 nSex = 4;
+    optional int32 nClubId = 5;
+    optional int32 nIdentify = 6;
+    optional int32 nContribution = 7;
+    optional string sPower = 8;
+    optional string sShopAcc = 9;
+    optional int32 nGold = 10;
+    optional int32 nClubGold = 11;
+    optional int32 nGroupId = 12;
+    optional int32 nGoldContribution = 13;
+    optional string nCreateTime = 14;
+}
+
+// 俱乐部用户登录请求
+message ClubUserLogonReq {
+    optional int32 nClubId = 1;
+    optional int32 nUserId = 2;
+    optional int32 nInviteCode = 3;
+}
+
+// 俱乐部用户登录响应
+message ClubUserLogonRsp {
+    optional int32 nRlt = 1;
+    optional int32 nClubId = 2;
+    optional int32 nUserId = 3;
+    optional ClubUserInfo tUserInfo = 4;
+    optional string sExData = 5;
+    optional int32 iFbinging = 6;
+}
+
+// 俱乐部成员请求
+message ClubMembersReq {
+    optional int32 nClubId = 1;
+    optional int32 nCnt = 2;
+    optional int32 nPage = 3;
+    optional int32 nUserId = 4;
+    optional int32 nShopId = 5;
+}
+
+// 俱乐部成员响应
+message ClubMembersRsp {
+    repeated ClubUserInfo arrUser = 1;
+    optional int32 nPage = 2;
+    optional int32 nUserCnt = 3;
+    optional int32 nUserId = 4;
+    optional int32 nClubId = 5;
+}

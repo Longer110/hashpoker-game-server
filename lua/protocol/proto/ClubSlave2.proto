@@ -1,0 +1,684 @@
+
+syntax = "proto2";
+
+package ClubSlave2_pb;
+message ClubS_Proto2
+{
+    required int32 Main_CMD =1 						                [default = 263]; //主命令 (不可改)
+    required int32 ClubTransferWayReq_CMD=239                       [default = 239]; //转账方式请求
+    required int32 ClubTransferWayRsp_CMD=240                       [default = 240]; //转账方式返回
+
+    required int32 ClubRechargeWithdrawalReq_CMD=241                [default = 241]; //充值或提现请求
+    required int32 ClubRechargeWithdrawalRsp_CMD=242                [default = 242]; //充值或提现返回
+
+    required int32 ClubActivityInfoReq_CMD=243                      [default = 243]; //福利活动请求请求
+    required int32 ClubActivityInfoRsp_CMD=244                      [default = 244]; //福利活动返回请求
+
+    required int32 ClubRecommendUserReq_CMD=245                     [default = 245]; //推荐关系
+	
+	required int32 ClubBindReq_CMD=246						        [default = 246]; //绑定手机邮箱请求
+	required int32 ClubBindRsp_CMD=247						        [default = 247]; //绑定手机邮箱回复
+
+    required int32 ClubFirChargeRewardReq_CMD=248			        [default = 248]; //获取首充奖励请求
+	required int32 ClubFirChargeRewardRsp_CMD=249				    [default = 249]; //获取首充奖励返回
+
+	required int32 ClubSignInfoReq_CMD=250					        [default = 250]; //签到界面信息 请求
+	required int32 ClubSignInfoRsp_CMD=251					        [default = 251]; //签到界面信息 回复
+	required int32 ClubSignReq_CMD=252						        [default = 252]; //签到 请求
+	required int32 ClubSignRsp_CMD=253						        [default = 253]; //签到 回复
+
+	required int32 ClubDrawActivityRewardReq_CMD=260				[default = 260]; //领取活动奖励请求
+	required int32 ClubDrawActivityRewardRsp_CMD=261				[default = 261]; //领取活动奖励请求
+
+    required int32 ClubShareRewardReq_CMD=254					    [default = 254]; //分享奖励请求
+    required int32 ClubShareRewardRsp_CMD=255				        [default = 255]; //分享奖励返回
+
+    required int32 ClubActivityCfgReq_CMD=256					    [default = 256]; //活动配置请求
+    required int32 ClubActivityCfgRsp_CMD=257				        [default = 257]; //活动配置返回
+
+    required int32 ClubGetValueByKeyReq_CMD=258                     [default = 258]; //根据key获取value请求 （通用于从redis拿配置）
+    required int32 ClubGetValueByKeyRsp_CMD=259                     [default = 259]; //根据key获取value请求 （通用于从redis拿配置）
+    
+	required int32 ClubGetBindAwardReq_CMD=270						[default = 270];//领取绑定奖励 请求
+	required int32 ClubGetBindAwardRsp_CMD=271						[default = 271];//领取绑定奖励 返回
+
+    required int32 ClubRechargeWithdrawalV2Req_CMD=272                [default = 272]; //充值或提现请求2
+    required int32 ClubRechargeWithdrawalV2Rsp_CMD=273                [default = 273]; //充值或提现返回2
+
+    required int32 ClubActivityListReq_CMD=274                 [default = 274]; //活动列表请求
+    required int32 ClubActivityListRsp_CMD=275                 [default = 275]; //活动列表返回
+
+    required int32 ClubSumUserCountReq_CMD=276                 [default = 276]; //总用户数请求
+    required int32 ClubSumUserCountRsp_CMD=277                 [default = 277]; //总用户数返回
+
+    required int32 ClubSGetPersonTableStaticReq_CMD=278         [default = 278]; //获取大厅统计信息(大厅 永久牌桌)
+    required int32 ClubSGetPersonTableStaticRsp_CMD=279         [default = 279]; //获取大厅统计信息返回(大厅 永久牌桌)
+
+    required int32 ClubSGetConfigReq_CMD=280                    [default = 280]; //获取配置信息(客服链接。。)
+    required int32 ClubSGetConfigRsp_CMD=281                    [default = 281]; //获取配置信息(客服链接。。)
+
+    required int32 ClubSGetGoldHistoryReq_CMD=282                    [default = 282]; //账变记录
+    required int32 ClubSGetGoldHistoryRsp_CMD=283                    [default = 283]; //账变记录返回
+
+    required int32 ClubSGetGameGoldHistoryReq_CMD=284                    [default = 284]; //局内消耗
+    required int32 ClubSGetGameGoldHistoryRsp_CMD=285                    [default = 285]; //局内消耗返回
+
+    required int32 ClubSGetGameGoldDetailReq_CMD=286                    [default = 286]; //局内消耗详情
+    required int32 ClubSGetGameGoldDetailRsp_CMD=287                    [default = 287]; //局内消耗详情返回
+
+    required int32 ClubSGoldTransToUserReq_CMD=288                    [default = 288]; //内部转币
+    required int32 ClubSGoldTransToUserRsp_CMD=289                    [default = 289]; //内部转币返回
+
+    required int32 ClubSHashListReq_CMD=290                    [default = 290]; //可存证hash请求
+    required int32 ClubSHashListRsp_CMD=291                    [default = 291]; //可存证hash请求返回
+
+    required int32 ClubSHashCardReq_CMD=292                    [default = 292]; //Hash指定局牌序列请求
+    required int32 ClubSHashCardRsp_CMD=293                    [default = 293]; //Hash指定局牌序列请求返回
+
+    required int32 ClubSOnlineUserReq_CMD=294                    [default = 294]; // 在线用户请求
+    required int32 ClubSOnlineUserRsp_CMD=295                    [default = 295]; // 在线用户请求返回
+    
+    required int32 ClubSInvitePlayGameReq_CMD=296                    [default = 296]; // 邀请玩家进入牌局请求
+    required int32 ClubSInvitePlayGameRsp_CMD=297                    [default = 297]; // 邀请玩家进入牌局返回
+
+    required int32 ClubSInvitedPlayGameRsp_CMD=298                    [default = 298]; // 收到邀请通知
+    required int32 ClubSInvitedPlayGameReq_CMD=299                    [default = 299]; // 收到邀请回复
+    
+    required int32 ClubSTableModuleSaveReq_CMD=303                    [default = 303]; // 牌桌模板保存/修改
+    required int32 ClubSTableModuleSaveRsp_CMD=304                    [default = 304]; // 牌桌模板保存回复
+
+    required int32 ClubSTableModuleListReq_CMD=305                    [default = 305]; // 牌桌模板列表
+    required int32 ClubSTableModuleListRsp_CMD=306                    [default = 306]; // 牌桌模板列表回复
+
+    required int32 ClubSMarkUserReq_CMD=307                    [default = 307]; // 标记玩家
+    required int32 ClubSMarkUserRsp_CMD=308                    [default = 308]; // 标记玩家回复
+
+    required int32 ClubSNameCountNotify_CMD=309                    [default = 309]; // 改名次数通知
+
+    required int32 ClubSLookCardReq_CMD=310                    [default = 310]; // 看手牌 看公牌
+    required int32 ClubSLookCardRsp_CMD=311                    [default = 311]; //
+
+    required int32 ClubSTablePassReq_CMD=312                    [default = 312]; // 验证私人房密码
+    required int32 ClubSTablePassRsp_CMD=313                    [default = 313]; //
+    
+    required int32 ClubSGetBillRecordReq_CMD=314                    [default = 314]; // 获取充提账单
+    required int32 ClubSGetBillRecordRsp_CMD=315                    [default = 315]; //
+}
+
+//转账方式请求 ClubTransferWayReq_CMD
+message ClubTransferWayReq
+{
+    required int32 nUserId =1   [default = 0];
+}
+
+//转账方式返回 ClubTransferWayRsp_CMD
+message ClubTransferWayRsp
+{
+    required int32 nUserId =1   [default = 0];
+    required string nWayInfo =2  [default = ""]; //渠道信息
+    optional string sInfos = 3  [default = ""]; //新增渠道信息
+}
+
+//ClubRechargeWithdrawalReq_CMD
+message ClubRechargeWithdrawalReq
+{
+    required int32 nUserId =1;
+    optional string imgHandTransfer =2; //图片地址
+    required int32 amount =3;  //金额，充值为正，提现为负
+    required int32 payType =4; //1：充值 2：提现
+    required int32  channelNo =5; //渠道：6:支付宝支付 7：qq支付 8：云支付 9：银联支付 10：微信支付
+    optional string name =6; //名字
+    optional string account =7; //账户
+    optional string phoneNo =8; //手机号
+    optional string remarks =9  [default = ""]; //备注
+    optional string bankName =10; //银行名称
+    optional string country = 11; //地区
+}
+
+//ClubRechargeWithdrawalRsp_CMD
+message ClubRechargeWithdrawalRsp
+{
+    required int32 nUserId =1;
+    required string res =2; //json：code  0：成功  1/-1：失败 -2重复插入  text：描述   
+}
+
+//ClubRechargeWithdrawalV2Req_CMD
+message ClubRechargeWithdrawalV2Req
+{
+    required int32 nUserId =1;
+    optional string imgHandTransfer =2; //图片地址
+    required double amount =3;  //金额，充值为正，提现为负
+    required int32 payType =4; //1：充值 2：提现
+    required int32  channelNo =5; //渠道：6:支付宝支付 7：qq支付 8：云支付 9：银联支付 10：微信支付
+    optional string name =6; //名字
+    optional string account =7; //账户
+    optional string phoneNo =8; //手机号
+    optional string remarks =9  [default = ""]; //备注
+    optional string bankName =10; //银行名称
+    optional string country = 11; //地区
+}
+
+//ClubRechargeWithdrawalRsp_CMD
+message ClubRechargeWithdrawalV2Rsp
+{
+    required int32 nUserId =1;
+    required string res =2; //json：code  0：成功  1/-1：失败 -2重复插入  text：描述   
+}
+
+//ClubActivityInfoReq_CMD   活动奖励信息 请求 
+message ClubActivityInfoReq{
+    required int32 nUserId =1;
+    required int32 nActivityType = 2;//活动类型: 0所有、1首冲、2推荐、3签到、4分享
+}
+
+//ClubActivityInfoRsp_CMD   // 活动奖励信息 返回
+message ClubActivityInfoRsp
+{
+    required int32 nUserId =1;
+    required string nActiSwitch = 2;//活动是否开启 0开启 1关闭
+    repeated ActiInfo nActiInfos = 3;//活动信息 用于前端判断红点（是否有奖励没领取）
+}
+
+//活动信息结构
+message ActiInfo
+{
+    optional int32 nId = 1;
+	optional int32 nActivityType = 2;//活动类型:  1首冲、2推荐、3签到、4分享 5绑定手机
+	optional double	nAwardCount = 3;//奖励金币数量
+	optional int32 nGetStatus = 4; //领取状态:  0 未领取、1已领取; (手机绑定 0:没领取,红点 1:已领取 2:审核中 3:审核不通过) (签到时含义 0：有红点，1:没红点) 
+	optional int32 nAging = 5;//时效： 0 当天、 1 永久
+	optional string sCreateTime = 6;//创建时间
+	optional string sExpand = 7;//JSON拓展： 可存 活动信息、 活动条件
+    /*
+        推荐活动: 
+            { 
+                nUserId 
+                sName
+                sFaceId
+                nRecommendCnt   // 当前位置
+            }
+    */
+
+	optional string sGetTime = 8;//领取时间
+}
+
+//绑定手机或邮箱 请求
+message ClubBindReq{
+	required int32 nWay=1;			//5:绑定手机 6:绑定邮箱
+	required string sAddrNew=2;		//新手机或邮箱地址
+	required string sVeriCode=3;	//验证码(使用Logon.proto里的VeriCodeReq获取验证码)
+	optional string sAddrOld=4;		//旧手机或邮箱地址  (更换绑定时需要填，新绑定不用)
+	optional string sPassWord=5;	//登陆密码			(更换绑定时需要填，新绑定不用)
+    optional int32 nPurpose=6;              //验证码用途(0:注册与绑定; 1:密码重置 2:修改支付密码)
+}
+//绑定手机或邮箱 回复
+message ClubBindRsp{
+	required int32 nRlt=1;			//0成功,20验证码错误 21密码验证错误 10正在审核中
+}
+
+// ClubFirChargeRewardReq_CMD
+message ClubFirChargeRewardReq{
+    required int32 nUserId =1;      
+    required int32 nId =2; //奖励id
+    optional int32 nReward =3; //奖励数量
+}
+
+//ClubFirChargeRewardRsp_CMD
+message ClubFirChargeRewardRsp{
+    required int32 nRlt =1; //领取是否成功 1成功、-1失败 -2已领取 -3无数据 -4未达到局数
+    optional int32 nJushu =2; //局数
+}
+
+//签到界面信息 请求
+message ClubSignInfoReq{
+	optional int32 nNoUse=1; //没用字段
+}
+//签到界面信息 返回
+message ClubSignInfoRsp{
+	message Item{
+		required int32 nDays=1;		//天数,1表示第一天，最多7天
+		required int32 nAward=2;	//奖励金币数量
+	}
+	repeated Item arrAwards=1;		//1~7天的奖励,大于7的奖励使用第7天的
+	required int32 nDaysCur=2;		//当前天数,取值为1至无穷大
+	required bool isSign=3;			//当天是否已经签到 true:是,false:否
+	required int32 nPlayCntCur=4;	//当天手数
+	required int32 nPlayCntMax=5;	//可领奖的手数
+}
+//签到 请求
+message ClubSignReq{
+	optional int32 nNoUse=1; 		//没用字段
+}
+//签到 返回
+message ClubSignRsp{
+	required int32 nRlt=1;			//0:成功 其它:失败
+	optional int32 nAward=2;		//签到成功时获得的金币奖励
+}
+//领取绑定奖励 请求
+message ClubGetBindAwardReq{
+	optional int32 nNoUse=1; 		//没用字段
+}
+//领取绑定奖励 返回
+message ClubGetBindAwardRsp{
+	required int32 nRlt=1;			//0:成功 其它:失败
+	optional int32 nAward=2;		//成功时获得的金币奖励
+}
+
+// ClubShareRewardReq_CMD
+message ClubShareRewardReq{
+    required int32 nUserId =1;      
+    required int32 nId =2; //奖励id
+    optional int32 nReward =3; //奖励数量
+}
+
+// ClubShareRewardRsp_CMD
+message ClubShareRewardRsp{
+    required int32 nRlt =1; //领取是否成功 1成功、-1失败 -2已领取 -3无数据 -4未达到局数
+    optional int32 nJushu =2; //局数
+}
+
+// ClubDrawActivityRewardReq_CMD   领取活动奖励请求
+message ClubDrawActivityRewardReq{
+    required int32 nUserId =1;     
+    required int32 nActivityType =2; // 活动类型:  1首冲、2推荐、3签到、4分享 
+    optional int32 nRewardId =3;     //奖励id ： 推荐活动 一键领取默认0
+}
+
+//ClubDrawActivityRewardRsp_CMD     领取活动奖励请求
+message ClubDrawActivityRewardRsp{
+    required int32 nActivityType =1; //活动类型:  1首冲、2推荐、3签到、4分享
+    required int32 nRlt =2;          //领取是否成功 1成功、-1失败 -2已领取 -3无数据 -4未达到局数    
+    optional int32 nAwardCount =3;   //奖励数量
+    optional int32 nJushu =4;        //局数
+}
+
+//ClubRecommendUserReq_CMD  推荐关系
+message ClubRecommendUserReq{
+    required int32 nUserId =1;      //注册用户
+    required int32 nRecommendId = 2;  //推荐人Id
+    required int32 nRegisterWay = 3;  //注册方式: 1账号注册、2手机注册、3邮件注册
+}
+ 
+// ClubActivityCfgReq_CMD   活动配置请求
+message ClubActivityCfgReq{ 
+    required int32 nCfgType = 1; // 1:推荐分享URL
+}
+
+// ClubActivityCfgRsp_CMD     活动配置返回
+message ClubActivityCfgRsp{
+    required int32 nCfgType = 1;            // 1:推荐分享URL
+    optional string sRecommendShareUrl =2; // 推荐分享URL
+}
+
+//ClubGetValueByKeyReq_CMD
+message ClubGetValueByKeyReq{
+    required int32 nUserId = 1;
+    required string sKey = 2;
+    optional string sSubKey = 3;
+}
+
+//ClubGetValueByKeyRsp_CMD
+message ClubGetValueByKeyRsp{
+    required int32 nUserId = 1;
+    required string sValue = 2;
+}
+
+
+//请求活动列表 ClubActivityListReq_CMD
+message ClubActivityListReq{
+}
+
+//活动
+message ActivityCfg{
+    required int32 nActId=1;	     //活动id
+    required string nName=2;         //活动名称 
+	required int32 nSort=3;          //排序
+    optional string nStartTime=4;     //开始时间   
+    optional string nEndTime=5;       //结束时间
+    required string nConfig=6;       //配置1  
+    optional string nBaseConfig=7;    //配置2  
+    optional string nImage=8;       //图片地址   
+    optional int32 nRecharge=9;     //所需充值   
+    optional string nTitle=10;        //标题   
+}
+
+//请求活动列表 返回 ClubActivityListRsp_CMD
+message ClubActivityListRsp{
+    repeated ActivityCfg arrActivityCfg=1;          //配置    
+}
+
+message ClubSumUserCountReq{
+}
+
+message ClubSumUserCountRsp{
+    required int32 nCount=1;       //用户数
+}
+
+//俱乐部德州统计
+message ClubSGameStatics
+{
+	required int32 nPaiJuCnt = 1; //总牌局数
+	required int32 nHandCnt = 2; //总手数
+	required double nWinLose = 3; //总输赢
+	required double nInpoolRate = 4; //入池率(值50即表示50%) 
+	required double nBFlopRaiseRate = 5; //翻前加注率(值50即表示50%)
+	required double nAllInAndWinRate = 6; //All in胜率(值50即表示50%)
+    required double nWinRate = 7; //胜率
+    required double nQiPaiRate = 8; //弃牌率
+    required double nHandProfit = 9; //手均盈利
+}
+
+//获取大厅统计信息 ClubSGetPersonTableStaticReq_CMD(大厅 永久牌桌)
+message ClubSGetPersonTableStaticReq
+{
+	required int32 nGameId=1;//游戏id
+    required int32 nGoldType=2;//货币类型 1:金币 2:俱乐部币
+    required int32 nClubId=3;//俱乐部id(传-1获取所有俱乐部的记录)
+}
+
+//获取大厅统计信息返回 ClubSGetPersonTableStaticRsp_CMD(大厅 永久牌桌)
+message ClubSGetPersonTableStaticRsp
+{
+	optional ClubSGameStatics tStatics = 1; //玩家个人统计(nIdOfStart=0才返回)
+	required int32 nGameId=2;//游戏id
+    required int32 nGoldType=3;//货币类型 1:金币 2:俱乐部币
+    required int32 nClubId=4;//俱乐部id
+}
+
+message ClubSGetConfigReq
+{
+}
+
+message ClubSGetConfigRsp
+{
+    optional string nTgLink = 1;  //tg客服链接
+}
+
+
+message ClubSGetGoldHistoryReq{
+    optional int32 nIdOfStart=1; //开始查询的id (查询少于该id的记录),第一页查询填0,第二页查询填上一页的最小id
+	optional int32 nCnt=2;//本页的记录数目 （一次不要超过15条）
+    optional string nStartTime=3;//开始时间
+    optional string nEndTime=4;//结束时间
+    required int32 nType = 5; // 0 转币 1消耗
+}
+
+message TransferItem
+{
+    required int32 nId = 1;				//记录id(自增全游戏记录唯一id)
+    required double nChange = 2;        //变化数额
+    required double nClubGold = 3;      //变化后数额
+    required string sTime = 4; 		    //记录时间
+    required int32 nSourceType = 5;		//来源
+    optional string nExData = 6;        //额外信息
+}
+
+message ClubSGetGoldHistoryRsp{
+    repeated TransferItem arrRecord=1;   // 账单
+    optional int32 nIdOfStart=2;
+    optional int32 nAllCnt=3; //总条数
+    optional string nStartTime=4;//开始时间
+    optional string nEndTime=5;//结束时间
+    required int32 nType = 6; // 0 转币 1消耗
+}
+
+
+message ClubSGetGameGoldHistoryReq {
+    optional int32 nIdOfStart=1; //开始查询的id (查询少于该id的记录),第一页查询填0,第二页查询填上一页的最小id
+	optional int32 nCnt=2;//本页的记录数目 （一次不要超过15条）
+    optional string nStartTime=3;//开始时间
+    optional string nEndTime=4;//结束时间
+}
+
+message GameGoldDetails
+{
+    required int32 nSourceType = 1;				//类型
+    required double nChange = 2;          //变化数额
+    required string sTime = 3; 		//记录时间
+}
+
+message GameGoldItem
+{
+    required int32 nId = 1;				//记录id(自增全游戏记录唯一id)
+    required double nChange = 2;          //变化数额
+    required string sTableId = 3;        //桌子ID
+    required string sTableName = 4;        //桌子名
+    required string sTime = 5; 		//记录时间
+    required int32 nGameId = 6;		//游戏ids
+    required int32 nGoldType = 7;		//金币类型
+    required string sPaiJuId = 8;     //牌局id
+    repeated GameGoldDetails arrDetails=9;   // 牌局消耗明细
+    repeated GameGoldDetails arrFeeDetails=10;   // 增值费消耗名下
+    required double nZhuang = 11;
+    required double nZhuaTou = 12; //
+    required double nPreAnte = 13; //
+    required double preAnteOdd = 14; //
+    required double nSmallBlind = 15; //
+    required double nBigBlind = 16; //
+}
+
+message ClubSGetGameGoldHistoryRsp {
+    repeated GameGoldItem arrRecord=1;   // 账单
+    optional int32 nIdOfStart=2;
+    optional int32 nAllCnt=3; //总条数
+    optional string nStartTime=4;//开始时间
+    optional string nEndTime=5;//结束时间
+}
+
+message GameGoldDetail
+{
+    required int32 nId = 1;		    //记录id(自增全游戏记录唯一id)
+    required double nChange = 2;    //变化数额
+    required string sTime = 3; 		//记录时间
+    required int32 nSourceType = 4;  //变化类型
+}
+
+message ClubSGetGameGoldDetailReq {
+    required string sTableId = 1;        //桌子ID
+    required string sPaiJuId = 2;        //牌局id
+    required string nStartTime = 3;      //时间
+}
+
+message ClubSGetGameGoldDetailRsp {
+    repeated GameGoldDetail arrRecord=1;   // 账单
+}
+
+message ClubSGoldTransToUserReq {
+    required int32 nUserId = 1;        //对方ID
+    required double nAmount = 2;       //转账金额
+    required string nPassWord = 3;
+    optional string nName = 4;
+}
+
+message ClubSGoldTransToUserRsp {
+    required int32 nRlt = 1;          //返回值0成功 1失败 2金币不做 3密码错误 4:未开启 5:被禁止转币
+}
+
+// 可存证hash请求
+message ClubSHashListReq{
+	required string sTableId=1;	    // 牌桌ID
+	required string sPaiJuId=2;		// 牌局id
+}
+
+//可存证hash请求 返回
+message ClubSHashListRsp{
+	message HashItem{
+		required string sPaiJuId=1;	        //牌局编号
+		required string sTime=2;			//时间
+		required string hash=3;				//card哈希
+		optional string cards=4;			//card序列哈希
+		optional string hand=5;				//手牌
+		required int32 nPlayCnt=6;			//第几手
+		required string seed=7;			    //种子
+		required int32 show=8;			    //是否秀牌0否1是
+        optional string nCards=9;				//牌序列
+	    optional string nDetail=10;				//详情
+        optional string fTime=11;			//发牌时间
+	}
+	optional HashItem item=1;			  //记录
+}
+
+// Hash指定局牌序列请求
+message ClubSHashCardReq{
+	required string sTableId=1;	    // 牌桌ID
+	required string sPaiJuId=2;		// 牌局id
+}
+
+//Hash指定局牌序列请求 返回
+message ClubSHashCardRsp{
+	required int32 nRlt=1;			        //返回值 0成功 1失败 2金币不足
+	optional string nCards=2;				//牌序列
+	optional string nDetail=3;				//详情
+}
+
+message ClubSOnlineUserReq {
+    optional int32 nIdOfStart=1; //开始查询的id (查询少于该id的记录),第一页查询填0,第二页查询填上一页的最小id
+	optional int32 nCnt=2;       //本页的记录数目 （一次不要超过15条）
+    required string str = 3     [default = ""]; //检索字符串(base64加密)
+}
+
+message ClubSOnlineUserRsp {
+    message UserItem {
+        required int32 nUserId=1;				//玩家id
+        required string sFaceId=2;				//url
+        required string sName=3;				//昵称
+        optional int32 nStatus=4;               //状态 0在线 1游戏中
+    }
+    repeated UserItem arrUser=1;
+    optional int32 nIdOfStart=2;
+    optional int32 nAllCnt=3; //总条数
+}
+
+message ClubSInvitePlayGameReq {
+    required int32 nUserId=1;				//被邀请玩家id
+    required string sTableId=2;				//桌子ID
+    required int32 nGameId=3;		        //游戏ID
+    optional int32 nPos=4;                  //座位号 可选
+    optional double nSmallBlind=5;		    //小盲注数额
+	optional double nBigBlind=6;		    //大盲注数额(通常等于:小盲注x2)
+    optional double nZhuaTou = 7;          //抓头
+    optional double nPreAnte = 8;          //前注
+    optional double nTakeInMin=9;		    //最低带入
+    optional string sTableName=10;		    //房间名称
+    optional int32 nIsPerson=11;           //私人房 0否 1是
+    optional int32 preAnteOdd=12;          //庄家几倍前注
+}
+
+message ClubSInvitePlayGameRsp {
+    required int32 nRlt=1;			        //返回值 0成功 1玩家拒绝 2在游戏中 3不在线
+}
+
+message ClubSInvitedPlayGameRsp {
+    required int32 nUserId=1;				//邀请玩家id
+    required string sName=2;				//邀请玩家昵称
+    required string sTableId=3;				//桌子ID
+    required int32 nGameId=4;				//游戏ID
+    optional int32 nPos=5;                  //座位号 可选
+    optional double nSmallBlind=6;		    //小盲注数额
+	optional double nBigBlind=7;		    //大盲注数额(通常等于:小盲注x2)
+    optional double nZhuaTou = 8;          //抓头
+    optional double nPreAnte = 9;          //前注
+    optional double nTakeInMin=10;		    //最低带入
+    optional string sTableName=11;		    //房间名称
+    optional int32 nIsPerson=12;           //私人房 0否 1是
+    optional int32 preAnteOdd=13;          //庄家几倍前注
+}
+
+message ClubSInvitedPlayGameReq {
+    required int32 nUserId=1;			//原邀请玩家id
+    required int32 nRlt=2;				//0 接收 1拒绝
+}
+
+message DeskModule {
+    optional int32 nId=1;				//配置id
+    optional string name=2;				    //模板名称
+    optional string content=3;				//配置内容
+    optional int32 nGameId=4;
+}
+
+message ClubSTableModuleSaveReq {
+    required int32 nGameId=1;				//游戏ID
+    required string name=2;				    //模板名称
+    required string content=3;				//配置内容
+    optional int32 nId =4;                  //修改时传入模板ID
+}
+
+message ClubSTableModuleSaveRsp {
+    required int32 nRlt=1;				//0 成功 1失败
+    optional DeskModule nModule=2;				//配置
+}
+
+message ClubSTableModuleListReq {
+}
+
+message ClubSTableModuleListRsp {
+    repeated DeskModule nList=1;
+}
+
+message ClubSMarkUserReq {
+    required int32 nUserId = 1;    // 目标玩家ID
+    optional string nText = 2;     //标记文本
+    optional int32 nColorId = 3;   //颜色下标
+}
+
+message ClubSMarkUserRsp {
+    required int32 nRlt = 1;      // 0成功  1失败
+    optional string nText = 2;     //标记文本
+    optional int32 nColorId = 3;   //颜色下标
+}
+
+message ClubSNameCountNotify {
+    required int32 nCount = 1;    //当前次数
+    required double nCost = 2;    //花费
+    optional bool isRecharge = 3; //是否是首充
+}
+
+message ClubSLookCardReq {
+    required int32 nType = 1;      //1 看公牌 2看手牌
+    required string sPaiJuID = 2;
+    required double nCost = 3;  //花费
+}
+
+message ClubSLookCardRsp {
+    required int32 nRlt = 1;      // 0成功 1失败 2金币不做 3参数错误
+    required int32 nType = 2;      //1 看公牌 2看手牌
+}
+
+message ClubSTablePassReq {
+    required string sTableId = 1;  //桌子id
+    required string nPass = 2;     //密码
+}
+
+message ClubSTablePassRsp {
+    required int32 nRlt = 1;      // 0成功 1失败
+}
+
+message ClubSGetBillRecordReq{
+    optional int32 nIdOfStart=1; //开始查询的id (查询少于该id的记录),第一页查询填0,第二页查询填上一页的最小id
+	optional int32 nCnt=2;//本页的记录数目 （一次不要超过15条）
+    required int32 nType = 3; // 0 充值 1提现
+}
+
+message OrderItem
+{
+    required int32 nId = 1;				//记录id(自增全游戏记录唯一id)
+    optional string nOrderId = 2;       //订单号
+    optional string nAmount = 3;        //金额
+    optional string nRealAmount = 4;        //实际金额
+    optional string nFromAddr = 5; 		//付款地址
+    optional string nToAddr = 6;		 //收款地址
+    optional int32 nStatus = 7;        //状态
+    optional string nTxHash = 8;        //哈希
+    optional string fee = 9;            //手续费
+    optional string contract = 10;        //合同
+    optional string nCreatetime = 11;        //创建时间
+    optional string nUpdatetime = 12;        //更新时间
+    optional string nRemark = 13;        //备注
+}
+
+message ClubSGetBillRecordRsp{
+    repeated OrderItem arrRecord=1;   // 账单
+    optional int32 nIdOfStart=2;
+    optional int32 nAllCnt=3; //总条数
+    required int32 nType = 4; // 0 充值 1提现
+}

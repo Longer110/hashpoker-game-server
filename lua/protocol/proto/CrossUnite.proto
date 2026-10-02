@@ -1,0 +1,72 @@
+syntax = "proto2";
+
+package CrossUnite_pb;
+
+message CrossUnite_Proto {
+    required int32 Main = 1 [default = 701];
+    required int32 SUB_REQ_PILOTREGIST = 2 [default = 2];
+    required int32 SUB_REP_PILOTREGIST = 3 [default = 3];
+    required int32 SUB_REP_PILOTDICE = 5 [default = 5];
+    required int32 SUB_REP_STARTGAME = 6 [default = 6];
+    required int32 SUB_REP_DICE = 7 [default = 7];
+    required int32 SUB_REP_NOTICEEND = 8 [default = 8];
+    required int32 SUB_REP_GAMEEND = 9 [default = 9];
+}
+
+message Req_CRU_Regist {
+    required string sServerKey = 1 [default = ""];
+}
+
+message Rep_CRU_Regist {
+    required string sServerKey = 1 [default = ""];
+}
+
+message Rep_CRU_SubDice {
+    required int32 nDiceId = 1 [default = 1];
+}
+
+message Rep_CRU_PilotDice {
+    required string sTableId = 1 [default = ""];
+    required int32 nDiceId = 2 [default = 2];
+    required int32 nDiceDot = 3 [default = 3];
+    repeated Rep_CRU_SubDice arrDice = 4;
+}
+
+message Req_CRU_Common {
+    required int32 nPilotId1 = 1 [default = 0];
+    required int32 nPilotId2 = 2 [default = 0];
+    required int32 nPilotId3 = 3 [default = 0];
+    required int32 nPilotId4 = 4 [default = 0];
+}
+
+message Req_CRU_StartGame {
+    required string sTableId = 1;
+    required int32 nRoundId = 2;
+    required int32 nPlayModel = 3 [default = 1];
+    required string sTableName = 5;
+    required int32 nSeconds = 6;
+    optional Req_CRU_Common tCom = 7;
+    optional int32 nStatus = 8 [default = 0];
+}
+
+message Req_CRU_Dice {
+    required string sTableId = 1;
+    required int32 nRoundId = 2;
+    required int32 nDiceId = 3;
+    required int32 nDiceDot = 4;
+    optional int32 nTakeOffColor = 5 [default = 0];
+    required int32 nSeconds = 6;
+    optional int32 nStatus = 7 [default = 0];
+}
+
+message Req_CRU_NoticeEnd {
+    required string sTableId = 1;
+    optional int32 nStatus = 2 [default = 0];
+}
+
+message Req_CRU_GameEnd {
+    required string sTableId = 1;
+    required int32 nRoundId = 2;
+    required int32 nRollCnt = 3;
+    optional int32 nStatus = 4 [default = 0];
+}

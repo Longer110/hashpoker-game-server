@@ -1,0 +1,51 @@
+CREATE PROCEDURE `Club_GetTexasTableUserList`(
+	IN `sTableId` VARCHAR(100),
+	IN `nBegin` INT,
+	IN `nCnt` INT
+) BEGIN DECLARE nAllCnt INT DEFAULT 0;
+
+SELECT
+	COUNT(*) INTO nAllCnt
+FROM
+	DJH_RecordDB.TexaTableUserStatistic
+WHERE
+	TableId = sTableId;
+
+SELECT
+	t.UserId,
+	t.PlayCount,
+	t.TakeInTotal,
+	t.InPoolCount,
+	COALESCE(w.WinLoseNew, 0) AS ProfitSum,
+	COALESCE(w.PenaltySum, 0) AS nPenalty,
+	COALESCE(w.RevenueSum, 0) AS nRevenue,
+	t.Insurance,
+	t.FaceID,
+	t.NickName,
+	nAllCnt AS AllCnt
+FROM
+	DJH_RecordDB.TexaTableUserStatistic t
+	LEFT JOIN (
+		SELECT
+			TableId,
+			UserId,
+			SUM(HandProfit) - SUM(InsureBuy) + SUM(InsureWin) AS WinLoseNew,
+			SUM(Penalty) AS PenaltySum,
+			SUM(Revenue) AS RevenueSum
+		FROM
+			DJH_RecordDB.PaiJuWinLoseRecord
+		WHERE
+			TableId = sTableId
+		GROUP BY
+			TableId,
+			UserId
+	) w ON w.TableId = t.TableId
+	AND w.UserId = t.UserId
+WHERE
+	t.TableId = sTableId
+ORDER BY
+	COALESCE(w.WinLoseNew, 0) DESC
+LIMIT
+	nBegin, nCnt;
+
+END

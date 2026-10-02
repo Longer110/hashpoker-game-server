@@ -1,0 +1,263 @@
+syntax = "proto2";
+
+package LobbyPilot_pb;
+
+message LobbyPilot_Proto {
+    required int32 Main_CMD = 1 [default = 310];
+    required int32 LobbyPilot_LogonReq_CMD = 2 [default = 1];
+    required int32 LobbyPilot_LogonRsp_CMD = 3 [default = 2];
+    required int32 LobbyPilot_GetUserItemsReq_CMD = 4 [default = 3];
+    required int32 LobbyPilot_GetUserItemsRsp_CMD = 5 [default = 4];
+    required int32 LobbyPilot_GetShopItemsReq_CMD = 6 [default = 5];
+    required int32 LobbyPilot_GetShopItemsRsp_CMD = 7 [default = 6];
+    required int32 LobbyPilot_TreasureReq_CMD = 8 [default = 7];
+    required int32 LobbyPilot_TreasureRsp_CMD = 9 [default = 8];
+    required int32 LobbyPilot_SetUseSkinReq_CMD = 10 [default = 9];
+    required int32 LobbyPilot_SetUseSkinRsp_CMD = 11 [default = 10];
+    required int32 LobbyPilot_ItemChangeNotify_CMD = 12 [default = 11];
+    required int32 LobbyPilot_BuyItemReq_CMD = 13 [default = 12];
+    required int32 LobbyPilot_BuyItemRsp_CMD = 14 [default = 13];
+    required int32 LobbyPilot_BeforeLoadScenceReq_CMD = 15 [default = 14];
+    required int32 LobbyPilot_BeforeLoadScenceRsp_CMD = 16 [default = 15];
+    required int32 LobbyPilot_UpdateUserInfoReq_CMD = 17 [default = 16];
+    required int32 LobbyPilot_UpdateUserInfoRsp_CMD = 18 [default = 17];
+    required int32 LobbyPilot_GetUserInfoReq_CMD = 19 [default = 18];
+    required int32 LobbyPilot_GetUserInfoRsp_CMD = 20 [default = 19];
+    required int32 LobbyPilot_GetRankReq_CMD = 21 [default = 20];
+    required int32 LobbyPilot_GetRankRsp_CMD = 22 [default = 21];
+    required int32 LobbyPilot_GetLevelReq_CMD = 23 [default = 22];
+    required int32 LobbyPilot_GetLevelRsp_CMD = 24 [default = 23];
+    required int32 LobbyPilot_GMReq_CMD = 25 [default = 24];
+    required int32 LobbyPilot_GMRsp_CMD = 26 [default = 25];
+    required int32 LobbyPilot_RealNameReq_CMD = 27 [default = 26];
+    required int32 LobbyPilot_RealNameRsp_CMD = 28 [default = 27];
+    required int32 LobbyPilot_UserOnlineTimeReq_CMD = 29 [default = 28];
+    required int32 LobbyPilot_UserOnlineTimeRsp_CMD = 30 [default = 29];
+    required int32 LobbyPilot_OnLimitNotify_CMD = 31 [default = 30];
+    required int32 LobbyPilot_RechargeReq_CMD = 32 [default = 31];
+    required int32 LobbyPilot_RechargeRsp_CMD = 33 [default = 32];
+}
+
+message LobbyPilot_LogonReq {
+    required int32 nUserID = 1;
+}
+
+message LobbyPilot_LogonRsp {
+    message UserInfo {
+        required int32 nUserID = 2 [default = 0];
+        required int32 nSex = 3 [default = 0];
+        required double nGold = 4 [default = 0];
+        required string sNickName = 5 [default = ""];
+        required string sFaceID = 6 [default = ""];
+        required int32 nExp = 7 [default = 0];
+        required int32 nDiamonds = 8 [default = 0];
+        optional int32 nVisitor = 9;
+        optional int32 nRealName = 10 [default = 0];
+    }
+
+    message CurrentPlaying {
+        required int32 nGameId = 1;
+        required int32 nRoomId = 2;
+    }
+
+    message UsingSkin {
+        optional int32 nItemID = 1;
+        optional int32 nPos = 2;
+    }
+
+    required int32 nResult = 1;
+    optional UserInfo tUserInfo = 2;
+    optional CurrentPlaying tCurrentPlay = 3;
+    repeated UsingSkin tUsingSkin = 4;
+}
+
+message LobbyPilot_GetUserItemsReq {
+    optional int32 nNoUse = 1;
+}
+
+message LPItemInfo {
+    required int32 nItemID = 1 [default = 0];
+    required int32 nType = 2 [default = 0];
+    optional int32 nCount = 3 [default = 0];
+    optional string nInDate = 4 [default = ""];
+    optional int32 nIsUse = 5 [default = 0];
+    optional int32 nPos = 6 [default = 0];
+}
+
+message LobbyPilot_GetUserItemsRsp {
+    repeated LPItemInfo arrItems = 1;
+}
+
+message LobbyPilot_GetShopItemsReq {
+    optional int32 nNoUse = 1;
+}
+
+message LobbyPilot_GetShopItemsRsp {
+    message ShopItemInfo {
+        required int32 nItemID = 3 [default = 0];
+        required int32 nType = 4 [default = 0];
+        required string sItemPhotoGuid = 5 [default = ""];
+        required int32 nPrice = 6 [default = 0];
+        required string sInDate = 7 [default = ""];
+        required int32 nPos = 8 [default = 0];
+        required int32 nBiType = 9 [default = 0];
+        required int32 nRewardID = 10 [default = 0];
+        required int32 nCount = 11 [default = 0];
+    }
+
+    repeated ShopItemInfo arrShopItem = 1;
+}
+
+message LobbyPilot_TreasureReq {
+    optional int32 nNoUse = 1;
+}
+
+message LobbyPilot_TreasureRsp {
+    required int32 nResult = 1;
+    optional double nDiamonds = 2;
+    optional string sErrStr = 3;
+}
+
+message LobbyPilot_SetUseSkinReq {
+    required int32 nItemID = 1;
+    required int32 nPos = 2;
+}
+
+message LobbyPilot_SetUseSkinRsp {
+    required int32 nResult = 1;
+    optional int32 nItemID = 2;
+    optional int32 nPos = 3;
+}
+
+message LobbyPilot_ItemChangeNotify {
+    repeated LPItemInfo arrItems = 1;
+}
+
+message LobbyPilot_BuyItemReq {
+    required int32 nItemID = 1;
+    required int32 nCount = 2;
+}
+
+message LobbyPilot_BuyItemRsp {
+    required int32 nResult = 1;
+}
+
+message LobbyPilot_BeforeLoadScenceReq {
+    required int32 nGameId = 1;
+    optional int32 nRoomId = 2;
+}
+
+message LobbyPilot_BeforeLoadScenceRsp {
+    required int32 nResult = 1;
+    optional int32 nGameId = 2;
+    optional int32 nRoomId = 3;
+    optional string sErrStr = 4;
+}
+
+message LobbyPilot_UpdateUserInfoReq {
+    required int32 nUserID = 1;
+    required int32 nType = 2;
+    optional string sContent = 3 [default = ""];
+    optional string Accounts = 4 [default = ""];
+    optional string Password = 5 [default = ""];
+}
+
+message LobbyPilot_UpdateUserInfoRsp {
+    optional int32 nResult = 1 [default = -99];
+    required int32 nType = 2;
+    optional string sContent = 3 [default = ""];
+}
+
+message LobbyPilot_GetUserInfoReq {
+    required int32 nUserId = 1;
+}
+
+message LobbyPilot_GetUserInfoRsp {
+    message User_GroupInfo {
+        required int32 nUserID = 2 [default = 0];
+        required int32 nSex = 3 [default = 0];
+        required string sNickName = 4 [default = ""];
+        required string sFaceID = 5 [default = ""];
+        required int32 nExp = 6 [default = 0];
+        required int32 nWin = 7 [default = 0];
+        required int32 nLose = 8 [default = 0];
+        optional int32 nRealName = 9 [default = 0];
+    }
+
+    repeated User_GroupInfo arrUserGroupInfo = 1;
+}
+
+message LobbyPilot_GetRankReq {
+    required int32 nRankId = 1;
+}
+
+message LobbyPilot_GetRankRsp {
+    message RankInFo {
+        required int32 nUserID = 3 [default = -99];
+        required string sNickName = 4 [default = ""];
+        required int32 nSex = 5 [default = 0];
+        required string sFaceID = 6 [default = 0];
+        optional int32 nWin = 7 [default = 0];
+        optional int32 nLose = 8 [default = 0];
+        optional int32 nTotal = 9 [default = 0];
+        optional int32 nExp = 10 [default = 0];
+    }
+
+    required int32 nRankId = 1;
+    repeated RankInFo arrRank = 2;
+}
+
+message LobbyPilot_GetLevelReq {
+    optional int32 nNoUse = 1;
+}
+
+message LobbyPilot_GetLevelRsp {
+    message LevelItem {
+        optional int32 nLevel = 1;
+        optional int32 nExp = 2;
+    }
+
+    repeated LevelItem arrLevelItem = 1;
+}
+
+message LobbyPilot_GMReq {
+    required int32 nItemID = 1;
+    required int32 nCount = 2;
+}
+
+message LobbyPilot_GMRsp {
+    required int32 nResult = 1;
+    required int32 nItemID = 2;
+    required int32 nCount = 3;
+}
+
+message LobbyPilot_RealNameReq {
+    required string sUserName = 1;
+    required string sIdentification = 2;
+}
+
+message LobbyPilot_RealNameRsp {
+    required int32 nResult = 1;
+    required string sUserName = 2;
+    required string sIdentification = 3;
+}
+
+message LobbyPilot_UserOnlineTimeReq {
+    optional int32 nNoUse = 1;
+}
+
+message LobbyPilot_UserOnlineTimeRsp {
+    required int32 nResidueTime = 1 [default = 0];
+}
+
+message LobbyPilot_OnLimitNotify {
+    required int32 nSatus = 1 [default = 0];
+}
+
+message LobbyPilot_RechargeReq {
+    required int32 nShopItemId = 1 [default = 0];
+}
+
+message LobbyPilot_RechargeRsp {
+    required int32 nResult = 1 [default = 0];
+}

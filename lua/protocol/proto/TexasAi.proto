@@ -1,0 +1,20 @@
+syntax = "proto2";
+
+package TexasAi_pb;
+
+message DZA_Proto {
+    required int32 Main_CMD = 1 [default = 357];
+    required int32 DZAReq_CMD = 2 [default = 2];
+    required int32 DZARsp_CMD = 3 [default = 3];
+}
+
+message DZAReq {
+    required string sJsonData = 1;
+    required string sEcho = 2;
+}
+
+message DZARsp {
+    required int32 nActionId = 1;
+    required double nBet = 2;
+    required string sEcho = 3;
+}

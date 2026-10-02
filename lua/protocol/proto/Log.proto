@@ -1,0 +1,41 @@
+syntax = "proto2";
+
+package Log_pb;
+
+message Log_Proto {
+    required int32 Main_CMD = 1 [default = 1300];
+    required int32 LogFileCreateReq_CMD = 2 [default = 5];
+    required int32 LogFileCreateRsp_CMD = 3 [default = 6];
+    required int32 LogWriteReq_CMD = 4 [default = 4];
+    required int32 LineCheckReq_CMD = 7 [default = 7];
+    required int32 LineCheckRsp_CMD = 8 [default = 8];
+}
+
+message LogFileCreateReq {
+    required string sFileName = 1;
+}
+
+message LogFileCreateRsp {
+    required int32 nResult = 1;
+}
+
+message LogWriteReq {
+    required string sText = 2;
+}
+
+message LineInfo {
+    optional int32 nTimeDiffer = 1;
+    required string sLineName = 2;
+}
+
+message LineCheckReq {
+    required int32 nType = 1;
+    required int32 nUserId = 2;
+    optional double nSendTime = 3;
+    repeated LineInfo arrLineInfo = 4;
+}
+
+message LineCheckRsp {
+    optional int32 nType = 1;
+    optional double nSendTime = 2;
+}

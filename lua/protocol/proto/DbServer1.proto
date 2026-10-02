@@ -1,0 +1,450 @@
+syntax = "proto2";
+
+package DbServer1_pb;
+
+message Db_Proto1 {
+    required int32 Main_CMD = 1 [default = 501];
+    required int32 DbScriptCfgListReq_CMD = 38 [default = 1636];
+    required int32 DbScriptCfgListRsp_CMD = 39 [default = 1637];
+    required int32 RecentDetailReq_CMD = 40 [default = 1638];
+    required int32 RecentDetailRsp_CMD = 41 [default = 1639];
+    required int32 DbRechargeReq_CMD = 42 [default = 1640];
+    required int32 DbRechargeRsp_CMD = 43 [default = 1641];
+    required int32 DbBurWriteNotify_CMD = 44 [default = 1642];
+    required int32 DbLiveRecordReq_CMD = 45 [default = 1643];
+    required int32 DbLiveRecordRsp_CMD = 46 [default = 1643];
+    required int32 DbBetRecordReq_CMD = 47 [default = 1644];
+    required int32 DbBetRecordRsp_CMD = 48 [default = 1645];
+    required int32 DbFollowLockChangeNotify_CMD = 49 [default = 1646];
+    required int32 DbUnLockFollowNotify_CMD = 50 [default = 1647];
+    required int32 GetResultsBySqlReq_CMD = 51 [default = 1648];
+    required int32 GetResultsBySqlRsp_CMD = 52 [default = 1649];
+    required int32 ServerGroupRelationReq_CMD = 53 [default = 1653];
+    required int32 ServerGroupRelationRsp_CMD = 54 [default = 1654];
+    required int32 DbTexaStatisticInit_CMD = 55 [default = 1655];
+    required int32 AutoBetMissingRecordReq_CMD = 56 [default = 1656];
+    required int32 AutoBetMissingRecordRsp_CMD = 57 [default = 1657];
+    required int32 AutoBetMissingWinRateReq_CMD = 58 [default = 1658];
+    required int32 AutoBetMissingWinRateRsp_CMD = 59 [default = 1659];
+    required int32 DbAccountCloseReq_CMD = 60 [default = 1660];
+    required int32 DbAccountCloseRsp_CMD = 61 [default = 1661];
+    required int32 DbVeriCodeReq_CMD = 62 [default = 1662];
+    required int32 DbVeriCodeRsp_CMD = 63 [default = 1663];
+    required int32 DbBindReq_CMD = 64 [default = 1664];
+    required int32 DbBindRsp_CMD = 65 [default = 1665];
+    required int32 DbSignInfoReq_CMD = 66 [default = 1666];
+    required int32 DbSignInfoRsp_CMD = 67 [default = 1667];
+    required int32 DbSignReq_CMD = 68 [default = 1668];
+    required int32 DbSignRsp_CMD = 69 [default = 1669];
+    required int32 DbBindQuerryReq_CMD = 1670 [default = 1670];
+    required int32 DbBindQuerryRsp_CMD = 1671 [default = 1671];
+    required int32 DbPasswordResetReq_CMD = 1672 [default = 1672];
+    required int32 DbPasswordResetRsp_CMD = 1673 [default = 1673];
+    required int32 DbGetBindAwardReq_CMD = 1674 [default = 1674];
+    required int32 DbGetBindAwardRsp_CMD = 1675 [default = 1675];
+    required int32 DbPublicAPIReq_CMD = 1676 [default = 1676];
+    required int32 DbPublicAPIRsp_CMD = 1677 [default = 1677];
+    required int32 DbJackpotSettleCReq_CMD = 1678 [default = 1678];
+    required int32 DbJackpotSettleCRsp_CMD = 1679 [default = 1679];
+
+    required int32 DbWritePaiJuHashReq_CMD = 1680 [default = 1680];
+    required int32 DbWritePaiJuHashRsp_CMD = 1681 [default = 1681];
+
+    required int32 DbGetHashCardReq_CMD = 1682 [default = 1682];
+    required int32 DbGetHashCardRsp_CMD = 1683 [default = 1683];
+
+    required int32 DbWriteRecordCostReq_CMD = 1684 [default = 1684];
+    required int32 DbWriteRecordCostRsp_CMD = 1685 [default = 1685];
+
+    required int32 DbGetGloBalConfigReq_CMD = 1686 [default = 1686];
+    required int32 DbGetGloBalConfigRsp_CMD = 1687 [default = 1687];
+
+    required int32 DbPaiJuHashRecordUpdateReq_CMD = 1688 [default = 1688];
+    required int32 DbPaiJuHashRecordUpdateRsp_CMD = 1689 [default = 1689];
+    required int32 UserLockGlodReq_CMD    = 1690 [default = 1690];
+    required int32 UserLockGlodRsp_CMD    = 1691 [default = 1691];
+}
+
+message DbBurWriteNotify {
+    optional string tBuildUserData = 1 [default = ""];
+}
+
+message RecentDetailReq {
+    optional string sPaiJuID = 1;
+    optional int32 nUserId = 2;
+    optional int32 nVer = 3;
+}
+
+message RecentDetailRsp {
+    optional int32 GameId = 1;
+    optional int32 nAnte = 2;
+    optional string tUsersInfo = 3;
+    optional int32 nZhuang = 4;
+    optional string tDealCardInfo = 5;
+    optional string tBetInfo = 6;
+    optional double nWinLose = 7;
+    optional string tElseInfo = 8;
+    required int32 nUserId = 9;
+    optional string sPaiJuID = 10;
+}
+
+message GetResultsBySqlReq {
+    required string sEcho = 1;
+    required string sSql = 2;
+    required string sDbName = 3;
+    optional int32 nUserId = 4;
+}
+
+message GetResultsBySqlRsp {
+    required string sEcho = 1;
+    required string sJsonRows = 2;
+    optional int32 nUserId = 3;
+}
+
+message DbJackpotSettleCReq {
+    required string sEcho = 1;
+    required string sSql = 2;
+    required string sDbName = 3;
+    optional int32 nUserId = 4;
+}
+
+message DbJackpotSettleCRsp {
+    message Item {
+        required int64 nIssue = 1;
+        required int32 nBetArea = 2;
+        required int32 nBetGold = 3;
+        required double nWin = 4;
+        required int32 nBetTime = 5;
+        optional string sElse = 6;
+    }
+    repeated Item arrRow = 1;
+    required string sEcho = 2;
+    optional int32 nUserId = 3;
+}
+
+message DbScriptCfgListReq {
+    optional int32 nNoUse = 1;
+}
+
+message DbScriptCfgListRsp {
+    message CLuaScriptItem {
+        required string ScriptName = 1;
+        required string UIPath = 2;
+        required string Event = 3;
+        required string Script = 4;
+        required string UUID = 5;
+        required int32 ID = 6;
+    }
+    repeated CLuaScriptItem arrScriptItem = 1;
+}
+
+message DbRechargeReq {
+    required int32 nUserId = 1;
+    required string sSerialNumber = 2;
+    required string sResultKey = 3;
+}
+
+message DbRechargeRsp {
+    required int32 nRlt = 1;
+    required int32 nUserId = 2;
+    required string sSerialNumber = 3;
+    required double nAmount = 4;
+    required int32 nItemId = 5;
+    required string sResultKey = 6;
+    required double nCurrentAmount = 7;
+}
+
+message DbTexaStatisticInit {
+    required int32 nUserId = 1;
+}
+
+message DbLiveRecordReq {
+    required int32 nUserId = 1;
+    required int32 nGameId = 2;
+    required int32 nIdOfStart = 3 [default = 0];
+    required int32 nCnt = 4 [default = 10];
+    optional int32 nPage = 5;
+    optional string sEcho = 6;
+    optional string sStartTime = 7;
+    optional string sEndTime = 8;
+}
+
+message DbLiveRecordRsp {
+    message Item {
+        required string sPaiJuID = 1;
+        required double nBet = 2;
+        required double nProfit = 3;
+        required string sTime = 4;
+        required int32 nId = 5;
+    }
+    required int32 nUserId = 1;
+    required int32 nGameId = 2;
+    repeated Item arrRecords = 3;
+    optional int32 nIdOfStart = 4;
+    optional int32 nPage = 5;
+    optional int32 nAllPage = 6;
+    optional string sEcho = 7;
+    optional int32 nSumItem = 8;
+    optional string sData = 9;
+}
+
+message DbBetRecordReq {
+    required int32 nUserId = 1;
+    required int32 nGameType = 2;
+    required int32 nStatus = 3;
+    required int32 nQueryCnt = 4;
+    required int32 nMinId = 5 [default = 0];
+}
+
+message DbBetRecordRsp {
+    message Item {
+        required string sSeriesNumber = 1;
+        required int32 nGameId = 2;
+        required int32 nArean = 3;
+        required double nOdds = 4;
+        required int32 nBet = 5;
+        optional int32 nBall = 6;
+        required int32 Id = 7;
+        optional double nGoldWin = 8;
+    }
+    message ItemA {
+        required string sSeriesNumber = 1;
+        required int32 nGameId = 2;
+        required int32 nAnte = 3;
+        required double nGoldWin = 4;
+        required int32 Id = 5;
+    }
+    repeated Item arrItem = 1;
+    required int32 nUserId = 2;
+    required int32 nStatus = 3;
+    repeated ItemA arrTtem = 4;
+}
+
+message DbFollowLockChangeNotify {
+    required int32 nUserId = 1;
+    required int32 nLock = 2;
+}
+
+message DbUnLockFollowNotify {
+    required int32 nUserId = 1;
+    required int32 nLock = 2;
+    required int32 nTargetUserId = 3;
+}
+
+message ServerGroupRelationReq {
+    required int32 nServerId = 1;
+}
+
+message ServerGroupRelationRsp {
+    message Item {
+        required int32 nServerId = 1;
+        required int32 nGroupId = 2;
+    }
+    repeated Item arrItems = 1;
+    required int32 nPage = 2;
+    required int32 nAllPage = 3;
+}
+
+message AutoBetMissingRecordReq {
+    required int32 nUserId = 1;
+    required int32 nTimeStart = 2;
+    required int32 nTimeEnd = 3;
+    required int32 nIdStart = 4;
+    required int32 nCnt = 5;
+    required int32 nEcho = 6;
+    optional int32 nGroupId = 7;
+    optional string sCdtPaiJuId = 8;
+}
+
+message AutoBetMissingRecordRsp {
+    required int32 nUserId = 1;
+    required int32 nEcho = 2;
+    required string sJsonRlt = 3;
+}
+
+message AutoBetMissingWinRateReq {
+    required int32 nUserId = 1;
+    required int32 nTimeStart = 2;
+    required int32 nTimeEnd = 3;
+    required int32 nEcho = 4;
+    optional int32 nGroupId = 5;
+}
+
+message AutoBetMissingWinRateRsp {
+    required int32 nUserId = 1;
+    required int32 nEcho = 2;
+    required string sJsonRlt = 3;
+    required int32 nTimeStart = 4;
+    required int32 nTimeEnd = 5;
+}
+
+message DbAccountCloseReq {
+    required string sAccounts = 1;
+    required string sPassword = 2;
+    required int32 nUserId = 3;
+}
+
+message DbAccountCloseRsp {
+    required int32 nUserId = 1;
+    required int32 nCode = 2;
+    optional string sErr = 3;
+}
+
+message DbVeriCodeReq {
+    required int32 nWay = 1;
+    required string sWayAddr = 2;
+    required string sClientID = 3;
+    optional int32 nPurpose = 4;
+    optional string sAcc = 5;
+}
+
+message DbVeriCodeRsp {
+    required int32 nRlt = 1;
+    required string sClientID = 2;
+    optional int32 nWay = 3;
+}
+
+message DbBindReq {
+    required int32 nWay = 1;
+    required string sAddrNew = 2;
+    required string sVeriCode = 3;
+    optional string sAddrOld = 4;
+    optional string sPassWord = 5;
+    required int32 nUserId = 6;
+    optional int32 nPurpose=7;              //验证码用途(0:注册与绑定; 1:密码重置 2:修改支付密码)
+}
+
+message DbBindRsp {
+    required int32 nRlt = 1;
+    required int32 nUserId = 2;
+}
+
+message DbBindQuerryReq {
+    required string sAcc = 1;
+    required string sClientID = 2;
+}
+
+message DbBindQuerryRsp {
+    required int32 nRlt = 1;
+    required string sClientID = 2;
+}
+
+message DbPasswordResetReq {
+    required int32 nWay = 1;
+    required string sAddrNew = 2;
+    required string sVeriCode = 3;
+    required string sPasswordNew = 4;
+    required string sClientID = 5;
+}
+
+message DbPasswordResetRsp {
+    required int32 nRlt = 1;
+    required string sClientID = 2;
+}
+
+message DbSignInfoReq {
+    required int32 nUserId = 1;
+}
+
+message DbSignInfoRsp {
+    message Item {
+        required int32 nDays = 1;
+        required int32 nAward = 2;
+    }
+    repeated Item arrAwards = 1;
+    required int32 nDaysCur = 2;
+    required bool isSign = 3;
+    required int32 nPlayCntCur = 4;
+    required int32 nPlayCntMax = 5;
+    required int32 nUserId = 6;
+}
+
+message DbSignReq {
+    required int32 nUserId = 1;
+}
+
+message DbSignRsp {
+    required int32 nRlt = 1;
+    required int32 nAward = 2;
+    required int32 nUserId = 3;
+}
+
+message DbGetBindAwardReq {
+    required int32 nUserId = 1;
+}
+
+message DbGetBindAwardRsp {
+    required int32 nRlt = 1;
+    required int32 nAward = 2;
+    required int32 nUserId = 3;
+}
+
+message DbPublicAPIReq {
+    required string sDatabaseName = 1;
+    required string sSql = 2;
+}
+
+message DbPublicAPIRsp {
+    required int32 nRlt = 1;
+}
+
+message DbWritePaiJuHashReq {
+    required string sSql = 1;
+}
+
+message DbWritePaiJuHashRsp {
+    required int32 nRlt = 1;
+}
+
+message DbGetHashCardReq {
+    required int32 nUserId = 1;
+    required string sTableId = 2;
+    required string sPaiJuId = 3;
+}
+
+message DbGetHashCardRsp {
+    required int32 nUserId = 1;
+    optional string nCards=2;				//牌序列
+	optional string nDetail=3;				//详情
+    optional string seed=4;				    //种子
+    optional string cardHash=5;				//牌hash
+    optional int32 nIsShow=6;               //0没秀牌1是
+}
+
+message DbWriteRecordCostReq {
+    required string sSql = 1;
+}
+
+message DbWriteRecordCostRsp {
+    required int32 nRlt = 1;
+}
+
+message GlobalConfig {
+    required int32 nId = 1;
+    required string name=2;				 //名称
+	required string detail=3;			 //描述
+    required string content=4;		     //详情
+}
+
+message DbGetGloBalConfigReq {
+}
+
+message DbGetGloBalConfigRsp {
+    repeated GlobalConfig nList =1;
+}
+
+message DbPaiJuHashRecordUpdateReq {
+    required string sSql = 1;
+}
+
+message DbPaiJuHashRecordUpdateRsp {
+}
+
+message UserLockGlodReq
+{
+    required string sSql = 1;
+}
+
+
+message UserLockGlodRsp {
+}

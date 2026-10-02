@@ -1,0 +1,223 @@
+syntax = "proto2";
+
+package Ddz_pb;
+
+message Ddz_Proto {
+    required int32 Main_CMD = 1 [default = 221];
+    required int32 DdzLogonReq_CMD = 2 [default = 2];
+    required int32 DdzLogonResp_CMD = 3 [default = 3];
+    required int32 DdzBeginReq_CMD = 4 [default = 4];
+    required int32 DdzBeginResp_CMD = 5 [default = 5];
+    required int32 DdzDealNotify_CMD = 6 [default = 6];
+    required int32 DdzCardsOpenReq_CMD = 7 [default = 7];
+    required int32 DdzCardsOpenNotify_CMD = 8 [default = 8];
+    required int32 DdzLandlordOpNotify_CMD = 9 [default = 9];
+    required int32 DdzLandlordOpReq_CMD = 10 [default = 10];
+    required int32 DdzHaveLandlordOpNotify_CMD = 11 [default = 11];
+    required int32 DdzLandlordBelongNotify_CMD = 12 [default = 12];
+    required int32 DdzCanDoubleNotify_CMD = 13 [default = 13];
+    required int32 DdzDoubleReq_CMD = 14 [default = 14];
+    required int32 DdzHaveDoubleNotify_CMD = 15 [default = 15];
+    required int32 DdzOutCardTurnNotify_CMD = 16 [default = 16];
+    required int32 DdzOutCardReq_CMD = 17 [default = 17];
+    required int32 DdzHaveOutCardNotify_CMD = 18 [default = 18];
+    required int32 DdzEndNotify_CMD = 19 [default = 19];
+    required int32 MultiChangeNotify_CMD = 20 [default = 20];
+    required int32 DdzBackToLobbyReq_CMD = 21 [default = 21];
+}
+
+message DdzUser {
+    required int32 nUserId = 1;
+    required int32 nSitId = 2;
+    required string sFaceId = 3;
+    required string sName = 4;
+    required double nGold = 5;
+    required int32 nSex = 6;
+}
+
+message MultiInfo {
+    message Item {
+        required int32 nLandlord = 1;
+        required int32 nFarmer = 2;
+        required int32 nPublic = 3;
+        required int32 nTotal = 4;
+        required int32 nSitId = 5;
+    }
+    
+    required int32 nInit = 1;
+    required int32 nCardOpen = 2;
+    required int32 nLandlordCompete = 3;
+    required int32 nExtraCard = 4;
+    required int32 nBomb = 5;
+    required int32 nSpring = 6;
+    repeated Item arrItems = 7;
+}
+
+message UserHandCard {
+    required int32 nSitId = 1;
+    required int32 nCardCount = 2;
+    repeated int32 arrCards = 3;
+    required int32 nIsOpenCard = 4;
+}
+
+message DealScene {
+    repeated UserHandCard arrUsersHandCard = 1;
+    required int32 nDivideTotal = 2;
+    required int32 nCurrentSubStage = 3;
+    required int32 nMultipleOfOpenCard = 4;
+}
+
+message LandlordScene {
+    message OpItem {
+        required int32 nSitId = 1;
+        required int32 nStatus = 2;
+    }
+    
+    repeated UserHandCard arrUsersHandCard = 1;
+    required int32 nCurrentSubStage = 2;
+    required int32 nSitIdOfTurn = 3;
+    required int32 nRemainTime = 4;
+    repeated OpItem arrOpItems = 5;
+}
+
+message DoubleScene {
+    message UserDoubleItem {
+        required int32 nSitId = 1;
+        required int32 nStatus = 2;
+        required int32 nSuperDouble = 3;
+    }
+    
+    repeated UserHandCard arrUsersHandCard = 1;
+    required int32 nSitIdOfLandlord = 2;
+    repeated int32 arrCardsOfExtra = 3;
+    repeated UserDoubleItem arrUsersDoubleItem = 4;
+    required int32 nRemainTime = 5;
+}
+
+message NormalScene {
+    repeated UserHandCard arrUsersHandCard = 1;
+    required int32 nSitIdOfLandlord = 2;
+    repeated int32 arrCardsOfExtra = 3;
+    required int32 nSitIdOfTurn = 4;
+    required int32 nOpType = 5;
+    required int32 nRemainTime = 6;
+    repeated int32 arrCardsOfPre = 7;
+    repeated int32 arrCardsOfPrePre = 8;
+}
+
+message DdzScence {
+    required int32 nStage = 1;
+    repeated DdzUser arrUsers = 2;
+    required int32 nRoomId = 3;
+    required int32 nBaseScore = 4;
+    required int32 nMultipleOfOpenBegin = 5;
+    optional DealScene tDealScene = 6;
+    optional LandlordScene tLandlordScene = 7;
+    optional DoubleScene tDoubleScene = 8;
+    optional NormalScene tNormalScene = 9;
+    optional MultiInfo tMultiInfo = 10;
+}
+
+message DdzLogonReq {
+    required int32 nUserId = 1;
+    optional int32 nRoomId = 2;
+}
+
+message DdzLogonResp {
+    required int32 nRlt = 1;
+    optional DdzScence tScence = 2;
+    optional string strErr = 3;
+}
+
+message DdzBeginReq {
+    required int32 nType = 1;
+}
+
+message DdzBeginResp {
+    required int32 nRlt = 1;
+    optional DdzScence tScence = 2;
+}
+
+message DdzDealNotify {
+    required DealScene tDealScene = 1;
+}
+
+message DdzCardsOpenReq {
+    optional int32 nNoUse = 1;
+}
+
+message DdzCardsOpenNotify {
+    required int32 nSitId = 1;
+    repeated int32 arrCards = 2;
+}
+
+message DdzLandlordOpNotify {
+    required int32 nCurrentSubStage = 1;
+    required int32 nSitIdOfTurn = 2;
+    required int32 nRemainTime = 3;
+}
+
+message DdzLandlordOpReq {
+    required int32 nOp = 2;
+}
+
+message DdzHaveLandlordOpNotify {
+    required int32 nOpOfConcrete = 1;
+    required int32 nSitId = 2;
+}
+
+message DdzLandlordBelongNotify {
+    required int32 nSitId = 1;
+    repeated int32 arrCardsOfExtra = 2;
+}
+
+message DdzCanDoubleNotify {
+    required int32 nSuperDouble = 1;
+    required int32 nRemainTime = 2;
+}
+
+message DdzDoubleReq {
+    required int32 nDoubleType = 1;
+}
+
+message DdzHaveDoubleNotify {
+    required int32 nSitId = 1;
+    required int32 nDoubleType = 2;
+}
+
+message DdzOutCardTurnNotify {
+    required int32 nSitIdOfTurn = 1;
+    required int32 nOpType = 2;
+    required int32 nRemainTime = 3;
+    required int32 nIsLandlordFirst = 4;
+}
+
+message DdzOutCardReq {
+    repeated int32 arrCards = 1;
+}
+
+message DdzHaveOutCardNotify {
+    required int32 nSitId = 1;
+    repeated int32 arrCards = 2;
+    required int32 nCardsType = 3;
+    required int32 nEndType = 4;
+}
+
+message DdzEndNotify {
+    message ProfitItem {
+        required int32 nSitId = 1;
+        required double nScore = 2;
+        repeated int32 arrCards = 3;
+        required double nRemainScore = 4;
+    }
+    
+    repeated ProfitItem arrItems = 1;
+}
+
+message MultiChangeNotify {
+    required MultiInfo tMultiInfo = 1;
+}
+
+message DdzBackToLobbyReq {
+    optional int32 nNoUse = 1;
+}

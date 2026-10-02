@@ -1,0 +1,665 @@
+syntax = "proto2";
+
+package YuXiaXie_pb;
+
+// 主协议定义
+message YuXiaXie_Proto {
+    required int32 Main_CMD = 1 [default = 222];
+    required int32 YXXSLogOnReq_CMD = 2 [default = 2];
+    required int32 YXXSLogOnResp_CMD = 3 [default = 3];
+    required int32 YXXSGoInBetStageNotify_CMD = 4 [default = 4];
+    required int32 YXXSBetReq_CMD = 5 [default = 5];
+    required int32 YXXSBetResp_CMD = 6 [default = 6];
+    required int32 YXXSBetNotify_CMD = 7 [default = 7];
+    required int32 YXXSGoInResultStageNotify_CMD = 8 [default = 8];
+    required int32 YXXSGoInFreeStageNotify_CMD = 9 [default = 9];
+    required int32 YXXSGetApplicantsReq_CMD = 10 [default = 10];
+    required int32 YXXSGetApplicantsResp_CMD = 11 [default = 11];
+    required int32 YXXSApplyForBankerReq_CMD = 12 [default = 12];
+    required int32 YXXSApplyForBankerResp_CMD = 13 [default = 13];
+    required int32 YXXSApplyCancelReq_CMD = 14 [default = 14];
+    required int32 YXXSApplyCancelResp_CMD = 15 [default = 15];
+    required int32 YXXSApplyResignReq_CMD = 16 [default = 16];
+    required int32 YXXSApplyResignResp_CMD = 17 [default = 17];
+    required int32 YXXSBackToLobbyReq_CMD = 18 [default = 18];
+    required int32 YXXSBackToLobbyRsp_CMD = 19 [default = 19];
+    required int32 YXXSGmReq_CMD = 20 [default = 20];
+    required int32 YXXSKickOutNotify_CMD = 22 [default = 22];
+    required int32 YXXSBetDetail_CMD = 23 [default = 23];
+    required int32 YXXSCloseTableNotify_CMD = 24 [default = 24];
+    required int32 YXXSGoldChangeNotify_CMD = 25 [default = 25];
+    required int32 YXXSWithCastq_CMD = 26 [default = 26];
+    required int32 YXXSWithCastp_CMD = 27 [default = 27];
+    required int32 YXXSRecommendQ_CMD = 28 [default = 28];
+    required int32 YXXSRecommendP_CMD = 29 [default = 29];
+    required int32 YXXSModRank_CMD = 30 [default = 30];
+    required int32 YXXSTrendMapReq_CMD = 31 [default = 31];
+    required int32 YXXSTrendMapRsp_CMD = 32 [default = 32];
+    required int32 YXXSRecordReq_CMD = 34 [default = 34];
+    required int32 YXXSRecordRsp_CMD = 35 [default = 35];
+    required int32 YXXSBatchBetReq_CMD = 36 [default = 36];
+    required int32 YXXSBatchBetRsp_CMD = 37 [default = 37];
+    required int32 YXXSComfirmRecommendP_CMD = 38 [default = 38];
+    required int32 YXXSTableInfoReq_CMD = 39 [default = 39];
+    required int32 YXXSTableInfoNotify_CMD = 40 [default = 40];
+    required int32 YXXSSwitchGameReq_CMD = 41 [default = 41];
+    required int32 YXXSSwitchGameRep_CMD = 42 [default = 42];
+    required int32 YXXSStreetNameplateNotify_CMD = 43 [default = 43];
+    required int32 YXXSUserWinLoseRep_CMD = 44 [default = 44];
+    required int32 YXXSBlockChainCardReq_CMD = 45 [default = 45];
+    required int32 YXXSBlockChainCardRep_CMD = 46 [default = 46];
+    required int32 YXXUserCntChangeNotify_CMD = 47 [default = 47];
+    required int32 YXXSTableStatusNotify_CMD = 48 [default = 48];
+    required int32 YXXSLiveInfoNotify_CMD = 49 [default = 49];
+    required int32 YXXSLiveDemoPetternRsq_CMD = 50 [default = 50];
+    required int32 YXXSLiveDemoPetternRsp_CMD = 51 [default = 51];
+    required int32 YXXSRecommendListReq_CMD = 55 [default = 55];
+    required int32 YXXSRecommendListRsp_CMD = 56 [default = 56];
+    required int32 YXXSConcernListReq_CMD = 57 [default = 57];
+    required int32 YXXSConcernListRsp_CMD = 58 [default = 58];
+    required int32 YXXSLookUserBetReq_CMD = 59 [default = 59];
+    required int32 YXXSLookUserBetRsp_CMD = 60 [default = 60];
+    required int32 YXXSUserLeaveNotify_CMD = 61 [default = 61];
+    required int32 YXXSUserWinLoseNotify_CMD = 62 [default = 62];
+    required int32 YXXSUserConcernReq_CMD = 63 [default = 63];
+    required int32 YXXSUserConcernRsp_CMD = 64 [default = 64];
+    required int32 YXXSConcernUserBetNotify_CMD = 65 [default = 65];
+    required int32 YXXSFollowLockChangeNotify_CMD = 66 [default = 66];
+    required int32 YXXSBroadcastGameNotify_CMD = 67 [default = 67];
+}
+
+// 登录请求
+message YXXSLogOnReq {
+    required int32 nUserId = 1 [default = -99];
+    required int32 nRoomId = 2 [default = -99];
+    optional string sTableId = 3;
+}
+
+// 登录响应
+message YXXSLogOnResp {
+    required int32 nRlt = 1;
+    optional YXXSScence tScence = 2;
+    optional string strErr = 3;
+}
+
+// 切换游戏请求
+message YXXSSwitchGameReq {
+    required int32 nUserId = 1;
+    required int32 nSwitchType = 2;
+    required string sTableId = 3;
+}
+
+// 切换游戏响应
+message YXXSSwitchGameRep {
+    required int32 nRlt = 1;
+    required int32 nSwitchType = 2;
+    required string sTableId = 3;
+}
+
+// 桌子信息
+message tTableInfo {
+    required string sTableId = 1;
+    optional string sTableName = 2;
+    required int32 nRoomId = 3;
+    optional string sPaiJuId = 4;
+    required int32 nStage = 5;
+    required int32 nSeconds = 6;
+    optional TrendMap arrTrendMap = 7;
+    optional bool isBet = 8;
+    optional int32 nCurrentRealUserCnt = 10;
+    optional int32 nTableType = 11;
+    optional string sLiveID = 12;
+    optional string sPlatformID = 13;
+    optional int32 nTableStatus = 14;
+    optional int32 nGroupId = 15;
+    optional int32 nStageTime = 16;
+}
+
+// 桌子信息请求
+message YXXSTableInfoReq {
+    repeated int32 arrTableType = 1;
+}
+
+// 桌子信息通知
+message YXXSTableInfoNotify {
+    repeated tTableInfo arrTableInfo = 1;
+}
+
+// 街名牌通知
+message YXXSStreetNameplateNotify {
+    required int32 nType = 1;
+    required string sTableId = 2;
+    required int32 nCurrentRealUserCnt = 3;
+    optional string sTableName = 4;
+    optional int32 nSeconds = 5;
+    repeated int32 arrDice = 6;
+    optional bool isBet = 7;
+    optional int32 nTableType = 8;
+    optional string sLiveID = 9;
+    optional string sPlatformID = 10;
+    repeated DiceRecordStatis arrDiceRecordStatis = 11;
+    optional int32 nTableStatus = 12;
+    optional int32 nGroupId = 13;
+    optional int32 nStageTime = 14;
+}
+
+// 用户信息
+message YXXSUser {
+    required int32 nUserId = 1;
+    required string sFaceId = 2;
+    required string sName = 3;
+    required double nGold = 4;
+    required int32 nSex = 5;
+    optional int32 nBankerConsecutive = 6 [default = -99];
+    optional double nBankerWinLose = 7 [default = -99];
+    optional double nBanKerDrawWater = 8 [default = -99];
+    optional double nBetSum = 9;
+}
+
+// 骰子记录统计
+message DiceRecordStatis {
+    required int32 nDice = 1;
+    required int32 nCount = 2;
+}
+
+// 趋势图
+message TrendMap {
+    message tDice {
+        repeated int32 nDice = 1;
+    }
+    
+    repeated tDice arrRecordTrend = 1;
+    repeated tDice arrRecommendTrend = 2;
+    repeated DiceRecordStatis arrDiceRecordStatis = 3;
+    optional int32 nInning = 4;
+    repeated bool arrRecommendCentre = 5;
+}
+
+// 趋势图请求
+message YXXSTrendMapReq {
+    optional int32 nNoUse = 1;
+}
+
+// 趋势图响应
+message YXXSTrendMapRsp {
+    optional TrendMap arrTrendMap = 1;
+}
+
+// 排名财富
+message RankTreasure {
+    required double nSelfProfit = 1;
+    required double nSelfGold = 2;
+    required int32 nSitId = 3;
+}
+
+// 自身金币
+message YXXSSelfGold {
+    repeated RankTreasure tAllBetSelf = 1;
+}
+
+// 开关配置
+message SwitchConfig {
+    optional bool bShangZhuangOpen = 1;
+    optional bool bWithCastOpen = 2;
+    optional bool bRecommendOpen = 3;
+}
+
+// 下注限制
+message BetLimit {
+    optional int32 nType = 1;
+    optional double nMin = 2;
+    optional double nMax = 3;
+    optional int32 nVipRate = 4;
+}
+
+// 场景信息
+message YXXSScence {
+    required int32 nRoomId = 1;
+    repeated double arrChipsForBet = 2;
+    required double nBankerRequirement = 3;
+    required int32 nConsecutiveMax = 4;
+    required YXXSUser tBanker = 5;
+    required YXXSUser tMyself = 6;
+    required int32 nStage = 7;
+    required int32 nSeconds = 8;
+    required int32 nButtonStatus = 9;
+    optional TrendMap arrTrendMap = 10;
+    optional YXXSBetDetail tBetDetail = 11;
+    repeated int32 arrDice = 12;
+    optional double nSelfProfit = 13;
+    optional double nSelfGold = 25;
+    optional double nBankerProfit = 14;
+    optional double nBankerGold = 26;
+    optional int32 nWithCastSum = 15;
+    optional int32 nCount = 16;
+    optional double nMoney = 17;
+    optional int32 nLiveUserID = 18;
+    optional int32 nCurrentRealUserCnt = 23;
+    repeated int32 arrRecommend = 24;
+    optional YXXSSelfGold arrRankGold = 27;
+    optional int32 nIsRepeatBet = 28;
+    repeated YXXSAreaWinLose tWinResult = 29;
+    optional SwitchConfig tSwitchConfig = 30;
+    optional YXXSBetDetail tScenceWinResult = 31;
+    repeated BetLimit arrBetLimit = 32;
+    optional double nLiveGold = 33;
+    optional string sTableName = 34;
+    optional string sPaiJuId = 35;
+    required string sTableId = 36;
+    optional RecommendSet tRecommendSet = 37;
+    repeated int32 arrSysRecommend = 38;
+    optional bool isRecommendStatus = 39;
+    optional int32 nTableType = 40;
+    repeated int32 arrOpenKey = 41;
+    required int32 nTableStatus = 42;
+    optional int32 nGroupId = 43;
+    optional int32 nRound = 44;
+    optional string sExten = 45;
+    optional string sFollowConfig = 46;
+    optional int32 nStageTime = 47;
+}
+
+// 进入下注阶段通知
+message YXXSGoInBetStageNotify {
+    required int32 nSeconds = 1;
+    repeated int32 arrRecommend = 2;
+    optional bool isRecommendStatus = 3;
+}
+
+// 批量下注请求
+message YXXSBatchBetReq {
+    repeated YXXSBetReq arrBatchBet = 1;
+}
+
+// 下注请求
+message YXXSBetReq {
+    required double nBetChip = 1;
+    required int32 nBetArea = 2;
+}
+
+// 下注响应
+message YXXSBetResp {
+    required int32 nRlt = 1;
+    optional string strErr = 2;
+    optional YXXSBetDetail tBetDetail = 3;
+    optional int32 nBetLimitType = 4;
+    optional double nUserGold = 5;
+}
+
+// 区域下注项
+message YXXSAreaChipBetItem {
+    required int32 nAreaId = 1;
+    required double nSumBet = 2;
+    required int32 nBetPeople = 3;
+    optional double nAnchorBet = 4;
+    optional int32 nSitId = 5;
+}
+
+// 下注详情
+message YXXSBetDetail {
+    repeated YXXSAreaChipBetItem arrAllBetDetail = 1;
+    repeated YXXSAreaChipBetItem arrSelfBetDetail = 2;
+}
+
+// 下注通知
+message YXXSBetNotify {
+    repeated YXXSAreaChipBetItem arrSelfBet = 1;
+    repeated YXXSAreaChipBetItem arrOtherBet = 2;
+}
+
+// 区域输赢
+message YXXSAreaWinLose {
+    required int32 nAreaId = 1;
+    required double nWinLose = 2;
+    required double nDrawWater = 3;
+}
+
+// 进入结果阶段通知
+message YXXSGoInResultStageNotify {
+    required int32 nSeconds = 1;
+    repeated int32 arrDice = 2;
+    optional double nSelfProfit = 3;
+    optional double nBankerProfit = 4;
+    optional double nSelfGold = 5;
+    optional double nBankerGold = 6;
+    optional YXXSSelfGold arrRankGold = 7;
+    repeated YXXSAreaWinLose tWinResult = 8;
+    repeated YXXSAreaWinLose tSettleResult = 9;
+    optional string sExten = 10;
+}
+
+// 进入空闲阶段通知
+message YXXSGoInFreeStageNotify {
+    required int32 nSeconds = 1;
+    optional YXXSUser tBanker = 2;
+    optional int32 nTipId = 3;
+    optional int32 nButtonStatus = 4;
+    optional double nSelfGold = 5;
+    optional int32 nWithCastSum = 6;
+    optional SwitchConfig tSwitchConfig = 7;
+    repeated BetLimit arrBetLimit = 8;
+    optional int32 nLiveUserID = 9;
+    optional double nLiveGold = 10;
+    optional string sTableName = 11;
+    optional string sPaiJuId = 12;
+    optional RecommendSet tRecommendSet = 13;
+    repeated int32 arrOpenKey = 14;
+    optional int32 nTableStatus = 15;
+    optional int32 nRound = 16;
+    optional string sExten = 17;
+}
+
+// 用户输赢响应
+message YXXSUserWinLoseRep {
+    required string sTableId = 1;
+    required double nSelfProfit = 2;
+    required double nSelfGold = 3;
+}
+
+// 获取申请人响应
+message YXXSGetApplicantsResp {
+    repeated YXXSUser arrApplicants = 1;
+}
+
+// 申请庄家响应
+message YXXSApplyForBankerResp {
+    required int32 nRlt = 1;
+    optional string strErr = 2;
+}
+
+// 取消申请响应
+message YXXSApplyCancelResp {
+    required int32 nRlt = 1;
+    optional string strErr = 2;
+}
+
+// 申请辞职请求
+message YXXSApplyResignReq {
+    optional int32 nNoUse = 1;
+}
+
+// 申请辞职响应
+message YXXSApplyResignResp {
+    required int32 nRlt = 1;
+    optional string strErr = 2;
+}
+
+// 返回大厅请求
+message YXXSBackToLobbyReq {
+    optional int32 nNoUse = 1;
+}
+
+// 返回大厅响应
+message YXXSBackToLobbyRsp {
+    required int32 nRlt = 1;
+    optional string strErr = 2;
+}
+
+// GM请求
+message YXXSGmReq {
+    required string strCmd = 1;
+}
+
+// 踢出通知
+message YXXSKickOutNotify {
+    optional int32 nNoUse = 1;
+    optional int32 nReason = 2;
+}
+
+// 关闭桌子通知
+message YXXSCloseTableNotify {
+    optional int32 nNoUse = 1;
+}
+
+// 金币变化通知
+message YXXSGoldChangeNotify {
+    required double nChangeGold = 1;
+}
+
+// 带投请求
+message YXXSWithCastq {
+    required int32 nOperateType = 1;
+    required double nMoney = 2;
+    required int32 nCount = 3;
+    required int32 nType = 4;
+    required bool isLeaveWithCast = 5;
+    required int32 nFollowUserId = 6;
+}
+
+// 带投响应
+message YXXSWithCastp {
+    required int32 nRlt = 1;
+    optional string strErr = 2;
+    required int32 nOperateType = 3;
+    required int32 nCount = 4;
+    required double nMoney = 5;
+    required int32 nType = 6;
+    required bool isLeaveWithCast = 7;
+    required int32 nFollowUserId = 8;
+}
+
+// 修改排名
+message YXXSModRank {
+    required YXXSUser tRankUser4 = 1;
+}
+
+// 记录请求
+message YXXSRecordReq {
+    required int32 nIdOfStart = 1;
+    required int32 nCnt = 2;
+}
+
+// 记录响应项
+message YXXSRecordRsp_Item {
+    required string sPaiJuId = 1;
+    required double nBet = 2;
+    required double nProfit = 3;
+    required string sTime = 4;
+    required int32 nId = 5;
+}
+
+// 记录响应
+message YXXSRecordRsp {
+    repeated YXXSRecordRsp_Item arrRecords = 1;
+}
+
+// 确认推荐
+message YXXSComfirmRecommendP {
+    required int32 nType = 1;
+    repeated int32 arrRecommend = 2;
+}
+
+// 推荐设置
+message RecommendSet {
+    optional bool bRecommendsWith = 1;
+    optional bool bSysRecommendsWith = 2;
+    optional bool bAutoRecommendsWith = 3;
+}
+
+// 推荐请求
+message YXXSRecommendQ {
+    required int32 nType = 1;
+    optional RecommendSet tRecommendSet = 2;
+    repeated int32 arrRecommend = 3;
+}
+
+// 推荐响应
+message YXXSRecommendP {
+    required int32 nRlt = 1;
+    optional string strErr = 2;
+    required int32 nType = 3;
+    optional RecommendSet tRecommendSet = 4;
+}
+
+// 区块链卡请求
+message YXXSBlockChainCardReq {
+    required int32 nType = 1;
+    required int32 nCardKey = 2;
+}
+
+// 区块链卡验证
+message YXXSBlockChainCardRep_Verification {
+    required string sTableId = 1;
+    required int32 nKey = 2;
+    required int32 nVal = 3;
+    required string sPlainText = 4;
+    required string sCardPass = 5;
+}
+
+// 区块链卡项
+message YXXSBlockChainCardRep_TBlockChainCard {
+    required int32 nKey = 1;
+    required int32 nVal = 2;
+}
+
+// 区块链卡响应
+message YXXSBlockChainCardRep {
+    required int32 nType = 1;
+    required int32 nRlt = 2;
+    repeated YXXSBlockChainCardRep_TBlockChainCard arrBlockChainCard = 3;
+    optional YXXSBlockChainCardRep_Verification tVerification = 4;
+}
+
+// 用户数量变化通知项
+message YXXUserCntChangeNotify_Item {
+    required string sTableId = 1;
+    required int32 nCurrentRealUserCnt = 2;
+}
+
+// 用户数量变化通知
+message YXXUserCntChangeNotify {
+    repeated YXXUserCntChangeNotify_Item arrItem = 1;
+}
+
+// 桌子状态通知
+message YXXSTableStatusNotify {
+    required string sTableId = 1;
+    required int32 nTableType = 2;
+    required int32 nTableStatus = 3;
+}
+
+// 直播信息通知
+message YXXSLiveInfoNotify {
+    required string sTableId = 1;
+    required int32 nLiveUserID = 2;
+    required double nLiveGold = 3;
+}
+
+// 直播演示模式请求
+message YXXSLiveDemoPetternRsq {
+    required int32 nLiveGoldPettern = 1;
+}
+
+// 直播演示模式响应
+message YXXSLiveDemoPetternRsp {
+    required int32 nType = 1;
+    required int32 nLiveGoldPettern = 2;
+    required double nLiveGold = 3;
+    required int32 nRlt = 4;
+    required int32 nToday = 5;
+    required int32 nTotal = 6;
+}
+
+// 推荐列表用户
+message YXXSListUser {
+    required int32 nUserId = 1;
+    required string sFaceId = 2;
+    required string sName = 3;
+    required double nTotalBetSum = 4;
+    required double nWinLoseSum = 5;
+    required bool bIsMic = 6;
+    required bool bIsConcern = 7;
+    required bool bIsLock = 8;
+    required bool bIsFollow = 9;
+    required string sShopAcc = 10;
+    repeated int32 arrWL = 11;
+}
+
+// 推荐列表请求
+message YXXSRecommendListReq {
+    repeated string arrMicShopAcc = 1;
+}
+
+// 推荐列表响应
+message YXXSRecommendListRsp {
+    repeated YXXSListUser arrUserList = 1;
+}
+
+// 关注列表请求
+message YXXSConcernListReq {
+    repeated string arrMicShopAcc = 1;
+}
+
+// 关注列表响应
+message YXXSConcernListRsp {
+    repeated YXXSListUser arrUserList = 1;
+}
+
+// 用户下注信息
+message YXXSUserBetInfo {
+    required int32 nAreaId = 1;
+    required double nSumBet = 2;
+}
+
+// 查看用户下注请求
+message YXXSLookUserBetReq {
+    required int32 nLookUserId = 1;
+}
+
+// 查看用户下注响应
+message YXXSLookUserBetRsp {
+    required int32 nRlt = 1;
+    required int32 nLookUserId = 2;
+    repeated YXXSUserBetInfo arrBetInfo = 3;
+    optional string sShopAcc = 4;
+}
+
+// 用户离开通知
+message YXXSUserLeaveNotify {
+    repeated int32 arrUserId = 1;
+}
+
+// 用户输赢信息
+message YXXSUserWinLoseInfo {
+    required int32 nUserId = 1;
+    required double nTotalBetSum = 2;
+    required double nWinLoseSum = 3;
+    required int32 nWL = 4;
+}
+
+// 用户输赢通知
+message YXXSUserWinLoseNotify {
+    repeated YXXSUserWinLoseInfo arrWinLoseInfo = 1;
+}
+
+// 用户关注请求
+message YXXSUserConcernReq {
+    required int32 nConcernUserId = 1;
+    required int32 nIsConcern = 2;
+}
+
+// 用户关注响应
+message YXXSUserConcernRsp {
+    required int32 nRlt = 1;
+    required int32 nConcernUserId = 2;
+    required int32 nIsConcern = 3;
+    optional string sErrStr = 4;
+}
+
+// 关注用户下注通知
+message YXXSConcernUserBetNotify {
+    required int32 nUserId = 1;
+    repeated YXXSUserBetInfo arrBetInfo = 2;
+}
+
+// 关注锁定变化通知
+message YXXSFollowLockChangeNotify {
+    required int32 nUserId = 1;
+    required int32 nIsLock = 2;
+}
+
+// 广播游戏通知
+message YXXSBroadcastGameNotify {
+    required string sMsgs = 1;
+    required string sInfo = 2;
+}

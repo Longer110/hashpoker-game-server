@@ -1,0 +1,148 @@
+syntax = "proto2";
+
+package Texas_pb;
+
+message Texas_Proto {
+    required int32 Main_CMD = 1 [default = 223];
+    required int32 DZSLogOnReq_CMD = 2 [default = 2];
+    required int32 DZSLogOnResp_CMD = 3 [default = 3];
+    required int32 DZSGoInBetStageNotify_CMD = 4 [default = 4];
+    required int32 DZSBetReq_CMD = 5 [default = 5];
+    required int32 DZSBetResp_CMD = 6 [default = 6];
+    required int32 DZSUserActionNotify_CMD = 7 [default = 7];
+    required int32 DZSGoInResultStageNotify_CMD = 8 [default = 8];
+    required int32 DZSGoInFreeStageNotify_CMD = 9 [default = 9];
+    required int32 DZSBackToLobbyReq_CMD = 10 [default = 10];
+    required int32 DZSBackToLobbyRsp_CMD = 11 [default = 11];
+    required int32 DZSUserGoldRep_CMD = 12 [default = 12];
+    required int32 DZSGmReq_CMD = 13 [default = 13];
+    required int32 DZSKickOutNotify_CMD = 14 [default = 14];
+    required int32 DZSGoldChangeNotify_CMD = 15 [default = 15];
+    required int32 DZSBuyChipReq_CMD = 16 [default = 16];
+    required int32 DZSBuyChipRep_CMD = 17 [default = 17];
+}
+
+message DZSLogOnReq {
+    required int32 nUserId = 1 [default = -99];
+    required int32 nRoomId = 2 [default = -99];
+    optional string sTableId = 3;
+}
+
+message DZSLogOnResp {
+    required int32 nRlt = 1 [default = -99];
+    optional DZSScence tScence = 2;
+    optional string strErr = 3 [default = ""];
+}
+
+message DZSUser {
+    required int32 nUserId = 1;
+    required string sFaceId = 2;
+    required string sName = 3;
+    required double nGold = 4;
+    required int32 nSex = 5;
+    required int32 nStatus = 6;
+    required int32 nAction = 7;
+}
+
+message ZhuangBlindSitId {
+    required int32 nZhuangSitId = 1;
+    required int32 nBigBlindSitId = 2;
+    required int32 nLittleBlindSitId = 3;
+}
+
+message CardInfo {
+    repeated int32 arrCard = 1;
+}
+
+message DZSScence {
+    required int32 nRoomId = 1;
+    optional ZhuangBlindSitId tZhuangBlindSitId = 2;
+    required int32 nBigBlind = 3;
+    required int32 nLittleBlind = 4;
+    repeated DZSUser arrUser = 5;
+    required int32 nStage = 7;
+    required int32 nSeconds = 8;
+    required int32 nButtonStatus = 9;
+}
+
+message DZSGoInBetStageNotify {
+    required int32 nSeconds = 1;
+    required int32 nCurvtBetSitId = 2;
+    repeated int32 arrBetType = 3;
+}
+
+message DZSBetReq {
+    required int32 nBetType = 1;
+    optional int32 nBetCount = 2;
+}
+
+message DZSBetResp {
+    required int32 nRlt = 1;
+    optional string strErr = 2;
+}
+
+message DZSUserActionNotify {
+    required int32 nSitId = 1;
+    required int32 nActionType = 2;
+    optional int32 nBetCount = 3;
+}
+
+message BetInfo {
+    optional int32 nSumPond = 4;
+    repeated int32 arrPond = 5;
+}
+
+message DZSGoInResultStageNotify {
+    required int32 nSeconds = 1;
+    repeated int32 arrDice = 2;
+    required double nSelfProfit = 3;
+    required double nBankerProfit = 4;
+    required double nSelfGold = 5;
+    required double nBankerGold = 6;
+}
+
+message DZSGoInFreeStageNotify {
+    required int32 nSeconds = 1;
+    required DZSUser tBanker = 2;
+    required int32 nTipId = 3;
+    optional int32 nButtonStatus = 4;
+    optional double nSelfGold = 5;
+    optional int32 nWithCastSum = 6;
+}
+
+message DZSBackToLobbyReq {
+    optional int32 nNoUse = 1;
+}
+
+message DZSBackToLobbyRsp {
+    required int32 nRlt = 1;
+    optional string strErr = 2;
+}
+
+message DZSGmReq {
+    required string strCmd = 1;
+}
+
+message DZSKickOutNotify {
+    optional int32 nNoUse = 1;
+    optional int32 nReason = 2;
+}
+
+message DZSGoldChangeNotify {
+    required double nChangeGold = 1;
+}
+
+message DZSBuyChipReq {
+    required int32 nUserId = 1;
+    required int32 nBuyGold = 2;
+}
+
+message DZSBuyChipRep {
+    required int32 nRlt = 1;
+    optional string strErr = 2;
+}
+
+message DZSUserGoldRep {
+    required int32 nUserId = 1 [default = -99];
+    required int32 nError = 2 [default = -99];
+}

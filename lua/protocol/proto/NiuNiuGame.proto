@@ -1,0 +1,295 @@
+syntax = "proto2";
+
+package NiuNiuGame_pb;
+
+message NiuNiuGame_Proto {
+    required int32 Main = 1 [default = 201];
+    required int32 BaiRenMain = 40 [default = 204];
+    required int32 SUB_REQ_LOGIN = 2 [default = 1];
+    required int32 SUB_REP_LOGIN = 3 [default = 2];
+    required int32 SUB_REP_TABLE_INFO = 4 [default = 3];
+    required int32 SUB_REP_MATH = 5 [default = 5];
+    required int32 SUB_REQ_QIANGZHUAGN = 26 [default = 26];
+    required int32 SUB_REP_QIANGZHUAGN = 27 [default = 27];
+    required int32 SUB_REP_DIZHUANG = 6 [default = 7];
+    required int32 SUB_REQ_XIAZHU = 7 [default = 8];
+    required int32 SUB_REP_XIAZHU = 8 [default = 9];
+    required int32 SUB_REP_SHOUPAI = 25 [default = 10];
+    required int32 SUB_REP_FAPAI = 9 [default = 25];
+    required int32 SUB_REQ_TANPAI_READY = 10 [default = 11];
+    required int32 SUB_REP_TANPAI_READY = 11 [default = 12];
+    required int32 SUB_REP_TANPAI = 12 [default = 13];
+    required int32 SUB_REP_JIESUAN = 13 [default = 14];
+    required int32 SUB_REP_RESETGAME = 14 [default = 15];
+    required int32 SUB_REQ_ACTION = 15 [default = 16];
+    required int32 SUB_REP_ACTION = 16 [default = 17];
+    required int32 SUB_REP_ENTER = 17 [default = 4];
+    required int32 SUB_REP_WaitGame = 18 [default = 18];
+    required int32 SUB_REQ_CHANGE_TABLE = 19 [default = 19];
+    required int32 SUB_REP_CHANGE_TABLE = 20 [default = 20];
+    required int32 SUB_REQ_LOGOUT_GAME = 21 [default = 21];
+    required int32 SUB_REP_LOGOUT_GAME = 22 [default = 22];
+    required int32 SUB_REP_LEAVE_TABLE = 23 [default = 23];
+    required int32 SUB_REP_NOT_MONEY = 24 [default = 24];
+    required int32 SUP_REQ_SHANG_ZHUANG_LIST = 28 [default = 28];
+    required int32 SUP_REP_SHANG_ZHUANG_LIST = 29 [default = 29];
+    required int32 SUP_REQ_SHANG_ZHUANG = 30 [default = 30];
+    required int32 SUP_REP_SHANG_ZHUANG = 31 [default = 31];
+    required int32 SUP_STOP_XIA_ZHU = 32 [default = 32];
+    required int32 SUP_CURRENT_SETP = 33 [default = 33];
+    required int32 SUP_ZOU_SHI_TU = 34 [default = 34];
+    required int32 SUP_MATCHING = 47 [default = 47];
+    required int32 SUP_REQ_CANCEL_MATCHING = 49 [default = 49];
+    required int32 SUP_REP_CANCEL_MATCHING = 50 [default = 50];
+}
+
+message LoginGame_Q {
+    required int32 GameType = 1 [default = -99];
+    required int32 Level = 2 [default = -99];
+    required int32 UserID = 3 [default = -99];
+    required int32 Type = 4 [default = 0];
+}
+
+message LoginGame_P {
+    required int32 nResult = 1 [default = -99];
+    optional int32 GameType = 2;
+    optional int32 GameLevel = 3;
+}
+
+message CurrentStep_P {
+    required int32 Step = 1;
+    required int32 GameType = 2;
+    required int32 GameLevel = 3;
+    required int32 Times = 4;
+    optional int32 CanGold = 5;
+}
+
+message GameTable_P {
+    required string TableNumber = 1 [default = ""];
+    required int32 TabelStep = 2 [default = -99];
+    required int32 TabelZhuangJiaSit = 3 [default = -99];
+    required int32 GameType = 4 [default = -99];
+    required int32 GameLevel = 5 [default = -99];
+    required int32 TabelDiFen = 6 [default = -99];
+    repeated string TableRule = 7;
+    repeated UserData UserArr = 8;
+    repeated int32 TableSit = 9;
+    repeated int32 QiangZhuang = 10;
+    repeated QiangZhuang_Q QiangZhuangArr = 11;
+    repeated int32 XiaZhu = 12;
+    repeated XiaZhu_Q XiaZhuArr = 13;
+    repeated XiaZhuTable OtherXiaZhuArr = 32;
+    repeated XiaZhuTable MyXiaZhuArr = 33;
+    repeated int32 TanPaiReady = 14;
+    repeated TanPai_P TanPai = 15;
+    optional JieSuan_P JieSuan = 16;
+    repeated ShouPai_P UserShouPai = 17;
+    optional int32 Round = 18;
+    repeated ZouShiTu ZouShiTuArr = 19;
+    optional int32 NeedGold = 20;
+    optional int32 CanGold = 30;
+    optional int32 AlreadyGold = 31;
+    optional int32 ShangZhuangStatus = 34;
+    optional int32 Times = 35;
+}
+
+message ZouShiTu {
+    repeated int32 PaiJuArr = 1;
+}
+
+message UserData {
+    required int32 UserID = 1 [default = -99];
+    required string Name = 2 [default = ""];
+    required int32 Sex = 3 [default = -99];
+    required string FaceID = 4 [default = ""];
+    required int32 SitID = 5 [default = -99];
+    required int32 Status = 6 [default = -99];
+    required double Gold = 7 [default = -99];
+    required bool Online = 8 [default = false];
+}
+
+message XiaZhuTable {
+    repeated int32 key = 1;
+}
+
+message Enter_P {
+    required UserData tUserData = 1;
+}
+
+message WaitGame_p {
+    required int32 nResult = 1 [default = -1];
+    optional int32 WaitTime = 2 [default = 5];
+}
+
+message Match_P {
+    required string TableNumber = 1 [default = ""];
+    required int32 Result = 2 [default = -99];
+}
+
+message QiangZhuang_Q {
+    required int32 UserID = 1 [default = -99];
+    required int32 Times = 2 [default = -99];
+}
+
+message QiangZhuang_P {
+    required int32 UserID = 1 [default = -99];
+    required int32 Times = 2 [default = -99];
+}
+
+message DingZhuang_P {
+    required int32 UserID = 3 [default = -99];
+    required int32 SitID = 1 [default = -99];
+    required int32 ByWay = 2 [default = -99];
+    required int32 IsChange = 4 [default = 0];
+    optional int32 Round = 5;
+}
+
+message XiaZhu_Q {
+    required int32 Times = 1 [default = -99];
+    required int32 UserID = 2 [default = -99];
+    optional int32 Index = 3 [default = 0];
+}
+
+message XiaZhu_P {
+    required int32 UserID = 1 [default = -99];
+    required int32 Times = 2 [default = -99];
+    optional int32 Index = 3 [default = 0];
+    optional int32 IndexGold = 4;
+    optional int32 TotalGold = 5;
+    optional int32 Result = 6;
+    optional int32 IndexLimitGold = 9;
+    optional int32 IndexLimitGoldMin = 10;
+    optional int32 IndexLimitGoldMax = 11;
+    repeated XiaZhuTable OtherXiaZhuArr = 7;
+    repeated XiaZhuTable MyXiaZhuArr = 8;
+}
+
+message ShouPai_P {
+    required int32 UserID = 1 [default = -99];
+    repeated int32 ShouPai = 2;
+}
+
+message FaiPai_P {
+    required int32 UserID = 1 [default = -99];
+    required int32 Pai = 2;
+}
+
+message TanPaiReady_Q {
+    required int32 Ready = 1 [default = -99];
+    required int32 UserID = 2 [default = -99];
+}
+
+message TanPaiReady_P {
+    required int32 UserID = 1 [default = -99];
+    required int32 Ready = 2 [default = -99];
+}
+
+message TanPai_P {
+    required int32 UserID = 1 [default = -99];
+    required int32 NiuWhat = 2 [default = -99];
+    repeated int32 ShouPai = 3;
+    required int32 Times = 4;
+}
+
+message JieSuan_P {
+    message UserWinData {
+        message WinObject {
+            required int32 UserID = 1 [default = -99];
+            required double Gold = 2 [default = -99];
+            optional int32 Index = 3;
+        }
+        required int32 UserID = 1 [default = -99];
+        required double TotalWin = 2 [default = -99];
+        repeated WinObject WinArr = 4;
+    }
+    repeated UserWinData UserWinArr = 5;
+}
+
+message ZouShiTu_P {
+    repeated int32 PaiJuArr = 1;
+}
+
+message ResetGame_P {
+    required string TableNumber = 1 [default = ""];
+    required int32 time = 2 [default = -99];
+}
+
+message UserAction_Q {
+    required int32 Action = 1 [default = -99];
+    required int32 UserID = 2 [default = -99];
+    optional int32 SitID = 3;
+}
+
+message UserAction_P {
+    required int32 UserID = 1 [default = -99];
+    required int32 Action = 2 [default = -99];
+    optional int32 SitID = 3;
+}
+
+message UserChangeTable_Q {
+    required int32 UserID = 1 [default = -99];
+}
+
+message UserChangeTable_P {
+    required int32 UserID = 1 [default = -99];
+    required int32 Result = 2 [default = -99];
+}
+
+message UserLogOut_Q {
+    required int32 UserID = 1 [default = -99];
+}
+
+message UserLogOut_P {
+    required int32 UserID = 1 [default = -99];
+    required int32 Result = 2 [default = -99];
+}
+
+message UserLeaveTable_P {
+    required int32 UserID = 1 [default = -99];
+    required int32 Status = 2 [default = 0];
+}
+
+message UserNotNoney_P {
+    required int32 UserID = 1;
+    required int32 Result = 2;
+}
+
+message UserShangZhuangList_Q {
+    required int32 UserID = 1;
+}
+
+message UserShangZhuangList_P {
+    message UserZhuang {
+        required int32 UserID = 1;
+        required string Name = 3;
+        required int32 Sex = 4;
+        required string FaceID = 5;
+        required int32 nGold = 2;
+    }
+    required int32 NeedGold = 1;
+    repeated UserZhuang UserZhuangList = 2;
+}
+
+message UserShangZhuang_Q {
+    required int32 UserID = 1;
+    required int32 Type = 2;
+}
+
+message UserShangZhuang_P {
+    required int32 UserID = 1;
+    required int32 Type = 2;
+    required int32 Result = 3;
+}
+
+message UserMatching_P {
+    optional int32 UserID = 1;
+}
+
+message UserCancelMatching_Q {
+    required int32 UserID = 1;
+}
+
+message UserCancelMatching_P {
+    required int32 UserID = 1;
+    required int32 Result = 2;
+}

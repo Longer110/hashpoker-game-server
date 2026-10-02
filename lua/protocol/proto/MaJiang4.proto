@@ -1,0 +1,254 @@
+syntax = "proto2";
+
+package MaJiang4_pb;
+
+message Notice_ReSetSit_P {
+    message ReSetSitNotice {
+        optional int32 nSitId = 1 [default = -99];
+    }
+    optional int32 nUserIdLen = 1 [default = 0];
+    repeated ReSetSitNotice tArrRetSit = 2;
+}
+
+message MaPai_Increase_P {
+    optional int32 nSitId = 1 [default = -99];
+    optional int32 nMaPaiCnt = 2 [default = -99];
+    optional int32 nMaPai = 3 [default = -99];
+}
+
+message Drawpai_To_Desk_P {
+    optional int32 nSitId = 1 [default = -99];
+    optional int32 nCardId = 2 [default = -99];
+}
+
+message Mapat_Count_P {
+    message arrItems {
+        optional int32 nSitId = 1 [default = -99];
+        optional int32 nHuaPaiCnt = 2 [default = -99];
+    }
+    optional int32 nHuaPai = 1 [default = -99];
+    optional int32 nItemLen = 2 [default = 0];
+    repeated arrItems tArrMapai = 3;
+}
+
+message Drawpai_To_Hua_Area_P {
+    optional int32 nSitId = 1 [default = -99];
+    optional int32 nCardId = 2 [default = -99];
+}
+
+message GameInscore_P {
+    message arrScore {
+        optional int32 nUserID = 1 [default = -99];
+        optional double nGold = 2 [default = -99];
+    }
+    repeated arrScore tArrIndex = 2;
+}
+
+message IngoldRoomFinish_P {
+    optional int32 nCount = 1 [default = -99];
+}
+
+message Gold_TableInfo_P {
+    optional int32 nTableId = 1 [default = -99];
+    optional int32 nTime = 2 [default = -99];
+}
+
+message RequsTbRoket_Q {
+    optional int32 nUserId = 1 [default = -99];
+    optional int32 iBrokeVal = 2 [default = -99];
+}
+
+message RequestbRoket_P {
+    optional int32 nGold = 1 [default = -99];
+}
+
+message GoldRstatus_P {
+    optional int32 nUserId = 1 [default = -99];
+    optional int32 nTableId = 2 [default = -99];
+    optional int32 nStatus = 3 [default = -99];
+}
+
+message ChangeTable_Q {
+    optional int32 nUserId = 1 [default = -99];
+}
+
+message ChangeTable_P {
+    optional int32 nNoTable = 1 [default = -99];
+}
+
+message RepIpei_Q {
+    optional int32 nUserId = 1 [default = -99];
+}
+
+message TableContinue_Q {
+    optional int32 nUserId = 1 [default = -99];
+    optional int32 nGameId = 2 [default = -99];
+    optional int32 nLevel = 3 [default = -99];
+}
+
+message TableContinue_P {
+    optional int32 nZero = 1 [default = -99];
+    optional int32 GameId = 2 [default = -99];
+    optional int32 Level = 3 [default = -99];
+}
+
+message CancelReCharge_Q {
+    optional int32 nUserId = 1 [default = -99];
+}
+
+message CancelReCharge_P {
+    optional int32 nUserId = 1 [default = -99];
+}
+
+message ExChange_Stage_P {
+    optional int32 nDuration = 1 [default = -99];
+    optional int32 bExchangeCnt = 2 [default = -99];
+}
+
+message Card_Choose_Q {
+    optional int32 nUserId = 1 [default = -99];
+    repeated int32 tArrExchange = 2;
+}
+
+message Card_Choose_P {
+    optional int32 nSitId = 1 [default = -99];
+    repeated int32 tArrCards = 2;
+}
+
+message Exchange_Stage_End_P {
+    optional int32 nWay = 1 [default = -99];
+    repeated int32 tArrCards = 2;
+}
+
+message Lack_StaGe_P {
+    optional int32 nDuration = 1 [default = -99];
+}
+
+message LaCk_Choose_Q {
+    optional int32 nUserId = 1 [default = -99];
+    optional int32 nChoice = 2 [default = -99];
+}
+
+message Lack_Choose_P {
+    optional int32 nChoice = 1 [default = -99];
+}
+
+message Lack_Stage_End_P {
+    repeated int32 tArrchoices = 1;
+}
+
+message Score_Change_P {
+    repeated double tArrScoreChange = 1;
+    optional int32 nReason = 2 [default = -99];
+}
+
+message XueLiu_End_P {
+    message UsersScoreInfoItem {
+        optional double nScore = 1 [default = -99];
+        optional int32 nIsBroke = 2 [default = -99];
+        optional double nCurrentScore = 3 [default = -99];
+    }
+    message UsersDetailItem {
+        optional int32 nSpell = 1 [default = -99];
+        optional int32 nFanXing = 2 [default = -99];
+        optional int32 nGen = 3 [default = -99];
+        optional int32 nTimes = 4 [default = -99];
+        optional double nScore = 5 [default = -99];
+        optional int32 nTargets = 6 [default = -99];
+    }
+    repeated UsersScoreInfoItem tArrUsersScoreInfo = 1;
+    repeated UsersDetailItem tArrUsersDetailInfo = 2;
+}
+
+message Goin_RecHarge_p {
+    message PosItem {
+        optional int32 nPos = 1 [default = -99];
+    }
+    optional int32 nPosLen = 1 [default = 0];
+    repeated PosItem tArrPos = 2;
+    optional int32 nLimitSeconds = 3 [default = -99];
+}
+
+message Back_Game_Q {
+    optional int32 nUserId = 1 [default = -99];
+}
+
+message Leave_RechaRge {
+    optional int32 nSitId = 1 [default = -99];
+    optional int32 nGold = 2 [default = -99];
+    optional int32 nIsBroke = 3 [default = -99];
+}
+
+message Gold_Detail_P {
+    message UsersDetailItem {
+        optional int32 nSpell = 1 [default = -99];
+        optional int32 nFanXing = 2 [default = -99];
+        optional int32 nGen = 3 [default = -99];
+        optional int32 nTimes = 4 [default = -99];
+        optional double nScore = 5 [default = -99];
+        optional int32 nTargets = 6 [default = -99];
+    }
+    repeated UsersDetailItem tArrUsersScoreInfo = 2;
+}
+
+message XueLiu_End_Before_P {
+    message Item {
+        optional int32 nReason = 1 [default = 0];
+        repeated double arrScores = 2;
+    }
+    repeated Item arrItems = 1;
+}
+
+message Score_Capping_P {
+    message ArrUserItem {
+        optional int32 nUserID = 1 [default = 0];
+    }
+    repeated ArrUserItem tArrUserId = 1;
+}
+
+message UpDatenewGold_Q {
+    optional int32 nUserId = 1 [default = -99];
+}
+
+message MatChrankList_P {
+    message MatChRankUserInfo {
+        optional int32 nUserId = 1 [default = -99];
+        optional string sName = 2 [default = ""];
+        optional int32 dScore = 3 [default = -99];
+        optional int32 nSex = 4 [default = -99];
+    }
+    optional int32 nMatchUserLen = 1 [default = 0];
+    repeated MatChRankUserInfo tArrMatchUserInfo = 2;
+}
+
+message MatchUSerRankIng {
+    optional int32 nMeUserId = 1 [default = -99];
+    optional int32 idx = 2 [default = -99];
+}
+
+message MatcheRRcode {
+    optional int32 nErrCode = 1 [default = -99];
+}
+
+message AdVchange_P {
+    optional int32 nCurAdv = 1 [default = -99];
+}
+
+message EnteRuserCnt_P {
+    optional int32 cFlag = 1 [default = -99];
+    optional int32 nUserCnt = 2 [default = -99];
+}
+
+message InGameTableCnt_P {
+    optional int32 nInGameTable = 1 [default = -99];
+}
+
+message MatchToTalleft_P {
+    optional int32 nLeftUser = 1 [default = -99];
+}
+
+message VotecRule_Q {
+    optional int32 nUserId = 1 [default = -99];
+    optional int32 cChoose = 2 [default = -99];
+    optional string sRule = 3 [default = ""];
+}

@@ -1,0 +1,40 @@
+syntax = "proto2";
+
+package MagicFace_pb;
+
+message MagicFaceMsg {
+    required int32 MagicFace = 1 [default = -1];
+    required int32 NeedGold = 2 [default = -1];
+}
+
+message REQ_User_Msg {
+    required int32 UserID = 1 [default = 0];
+}
+
+message REP_User_Msg {
+    required int32 UserID = 1 [default = -1];
+    required int32 Sex = 2 [default = -1];
+    required string Name = 3 [default = ""];
+    required double Gold = 4 [default = 0];
+    required int32 Sid = 5 [default = 0];
+    repeated MagicFaceMsg tMagicFaceArr = 6;
+}
+
+message UserMagicFace {
+    required int32 Sid = 1 [default = -1];
+    required int32 MagicFace = 2 [default = -1];
+}
+
+message REQ_User_Face {
+    required UserMagicFace tMagicFace = 1;
+}
+
+message REP_User_Face {
+    required int32 Result = 1 [default = 0];
+}
+
+message REP_User_Face_All {
+    required int32 Sid = 1 [default = 0];
+    required int32 SidTarget = 2 [default = 0];
+    required int32 MagicFace = 3 [default = 0];
+}

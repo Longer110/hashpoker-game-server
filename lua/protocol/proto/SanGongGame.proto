@@ -1,0 +1,240 @@
+syntax = "proto2";
+
+package SanGongGame_pb;
+
+message SanGongProto {
+    required int32 SANGONGGAME = 1 [default = 213];
+    required int32 SUB_REQ_LOGIN = 2 [default = 1];
+    required int32 SUB_REP_LOGIN = 3 [default = 2];
+    required int32 SUB_REP_TABLE_INFO = 4 [default = 3];
+    required int32 SUB_REP_MATH = 5 [default = 5];
+    required int32 SUB_REQ_GAME_GM = 6 [default = 33];
+    required int32 SUB_REQ_XIAZHU = 7 [default = 8];
+    required int32 SUB_REP_XIAZHU = 8 [default = 9];
+    required int32 SUB_REP_FAPAI = 9 [default = 10];
+    required int32 SUB_REQ_USER_OPENPAI = 10 [default = 11];
+    required int32 SUB_REP_TANPAI = 12 [default = 13];
+    required int32 SUB_REP_JIESUAN = 13 [default = 14];
+    required int32 SUB_REP_RESETGAME = 14 [default = 15];
+    required int32 SUB_REQ_ACTION = 15 [default = 16];
+    required int32 SUB_REP_ACTION = 16 [default = 17];
+    required int32 SUB_REP_USERENTER = 17 [default = 30];
+    required int32 SUB_REQ_WITH_TABLE = 18 [default = 31];
+    required int32 SUB_REP_WITH_TABLE = 19 [default = 32];
+    required int32 SUB_REQ_QIANGZHUANG = 20 [default = 20];
+    required int32 SUB_REP_QIANGZHUANG = 21 [default = 21];
+    required int32 SUB_REP_DIZHUANG = 22 [default = 22];
+    required int32 SUB_REP_WATISTART = 25 [default = 25];
+    required int32 SUB_REP_USERPUSH = 26 [default = 26];
+    required int32 SUB_REP_USERGOLD = 27 [default = 27];
+    required int32 SUB_USER_TIMEOUT = 28 [default = 28];
+    required int32 SUB_REQ_USER_INFO = 29 [default = 40];
+    required int32 SUB_REP_USER_INFO = 30 [default = 41];
+    required int32 SUB_REQ_MAGIC_FACE = 31 [default = 42];
+    required int32 SUB_REP_MAGIC_FACE = 32 [default = 43];
+    required int32 SUB_REP_MAGIC_FACE_ALL = 33 [default = 44];
+    required int32 SUB_MatchingReq = 35 [default = 45];
+    required int32 SUB_MatchingRep = 36 [default = 46];
+    required int32 SUB_CancelMatchingReq = 37 [default = 47];
+}
+
+message LoginSanGong_Q {
+    required int32 nUserId = 1 [default = -1];
+    required int32 SType = 2 [default = -1];
+    required int32 Session = 3 [default = -1];
+}
+
+message LoginSangongGame_P {
+    optional int32 nResult = 1 [default = -99];
+    optional int32 GameLevel = 2 [default = -99];
+}
+
+message SangongUserEnter_P {
+    required int32 Count = 1 [default = -99];
+    required int32 UserID = 2 [default = -99];
+    required string Name = 3 [default = ""];
+    required int32 Sex = 4 [default = -99];
+    required string FaceID = 5 [default = ""];
+    required int32 SitID = 6 [default = -99];
+    required int32 Status = 7 [default = -99];
+    required double Gold = 8 [default = -99];
+    optional int32 nTableId = 9 [default = 1];
+}
+
+message SangongGameTable_P {
+    message TableUserData {
+        required int32 UserID = 1 [default = -99];
+        required string Name = 2 [default = ""];
+        required int32 Sex = 4 [default = -99];
+        required string FaceID = 5 [default = ""];
+        required int32 SitID = 6 [default = -99];
+        required int32 Status = 7 [default = -99];
+        required double Gold = 8 [default = -99];
+    }
+
+    message FaPai {
+        optional int32 UserID = 1 [default = -99];
+        optional string PaiId = 2 [default = ""];
+    }
+
+    message XiaZhu {
+        optional int32 Sit = 1 [default = -99];
+        optional int32 nMuitiple = 2 [default = -99];
+        optional int32 nXiaZhuType = 3 [default = -99];
+    }
+
+    message TanPai {
+        optional int32 UserID = 1 [default = -99];
+        optional int32 nDot = 2 [default = -99];
+        optional string PaiId = 3 [default = ""];
+    }
+
+    message JieSuan {
+        optional int32 UserID = 1 [default = -99];
+        optional double nCount = 2 [default = -99];
+        optional double nGold = 3 [default = -99];
+    }
+
+    optional int32 nTableId = 1 [default = 1];
+    optional int32 TabelStep = 2 [default = -99];
+    optional int32 TabelZhuangJiaSit = 3 [default = -99];
+    optional int32 GameType = 4 [default = -99];
+    optional int32 GameLevel = 5 [default = -99];
+    optional int32 TabelDiFen = 6 [default = -99];
+    repeated string TableRule = 7;
+    repeated TableUserData UserArr = 8;
+    repeated int32 TableSit = 9;
+    repeated XiaZhu arrXiaZhu = 11;
+    repeated TanPai arrTanPai = 12;
+    repeated JieSuan arrJieSuan = 13;
+    repeated FaPai arrFaPai = 14;
+    repeated int32 arrQiangZhuangSitId = 15;
+    repeated int32 arrKaiPaiSitId = 16;
+}
+
+message SangongMatch_P {
+    required string nTableId = 1 [default = ""];
+    required int32 Result = 2 [default = -99];
+}
+
+message SangongWaitGame_p {
+    required int32 nResult = 1 [default = -1];
+    optional int32 WaitTime = 2 [default = 5];
+}
+
+message SangongQiangZhuang_Q {
+    required int32 nTableId = 1 [default = -1];
+    required int32 nUserId = 2 [default = -1];
+    required int32 IsQiang = 3 [default = -1];
+}
+
+message SangongQiangZhuang_P {
+    required int32 SitID = 1 [default = -1];
+    required int32 IsQiang = 2 [default = -1];
+}
+
+message SangongDingZhuang_P {
+    required int32 SitID = 1 [default = -99];
+    required int32 ByWay = 2 [default = -99];
+}
+
+message SangongXiaZhu_Q {
+    required int32 nUserId = 1 [default = -99];
+    required int32 nMuitiple = 2 [default = -99];
+}
+
+message SangongXiaZhu_P {
+    required int32 Sit = 1 [default = -99];
+    required int32 nMuitiple = 2 [default = -99];
+    required int32 nXiaZhuType = 3 [default = -99];
+}
+
+message SangongFaiPai_P {
+    optional int32 UserID = 1 [default = -99];
+}
+
+message SangongOpenPai_Q {
+    required int32 UserID = 1 [default = -99];
+}
+
+message SangongTanPai_P {
+    message Pai {
+        optional int32 UserID = 1 [default = -99];
+        optional int32 nDot = 2 [default = -99];
+        optional string PaiId = 3 [default = ""];
+    }
+
+    optional int32 nTanPaiType = 1 [default = -99];
+    repeated Pai arrShouPai = 2;
+}
+
+message SangongJieSuan_P {
+    message UserWinData {
+        optional int32 UserID = 1 [default = -99];
+        optional double nCount = 2 [default = -99];
+        optional double nGold = 3 [default = -99];
+    }
+
+    optional int32 ZhuangUserID = 1 [default = -99];
+    optional double nZhuangCount = 2 [default = -99];
+    optional double nZhuangGold = 3 [default = -99];
+    repeated UserWinData UserWinArr = 4;
+}
+
+message SangongResetGame_P {
+    required int32 nTableId = 1 [default = -99];
+    required int32 time = 2 [default = -99];
+}
+
+message SangongUserAction_Q {
+    required int32 UserID = 1 [default = -99];
+    required int32 Action = 2 [default = -99];
+}
+
+message SangongUserAction_P {
+    required int32 UserID = 1 [default = -99];
+    required int32 Action = 2 [default = -99];
+}
+
+message SangongWithTable_Q {
+    required int32 UserID = 1 [default = -99];
+}
+
+message SangongWithTable_P {
+    required int32 UserID = 1 [default = -99];
+    required int32 Result = 2 [default = -99];
+}
+
+message SangongReGame_GM_Q {
+    required string sGmString = 1 [default = ""];
+}
+
+message SangongPushUserGold_P {
+    message UserTreasure {
+        required int32 UserID = 1 [default = -99];
+        required double nGold = 2 [default = -99];
+    }
+
+    repeated UserTreasure arrTreasure = 1;
+}
+
+message SangongUserGold_P {
+    required int32 UserID = 1 [default = -99];
+}
+
+message SangongUserTimeOut_P {
+    required int32 UserID = 1 [default = -99];
+}
+
+message SGMatchingReq {
+    optional int32 nNoUse = 1 [default = 0];
+}
+
+message SGMatchingRsp {
+    required int32 nRlt = 1;
+    optional string strErr = 2;
+}
+
+message SGCancelMatchingReq {
+    optional int32 nNoUse = 1 [default = 0];
+}
